@@ -15,7 +15,7 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
 
   if (mode === 'ai') {
     return (
-      <div className="fixed bottom-24 right-6 w-96 max-h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-gray-200">
+      <div className="fixed bottom-24 right-6 w-full max-w-md h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-gray-200">
         {/* Header */}
         <div className="flex justify-between items-center bg-green-500 text-white p-4 rounded-t-lg">
           <h2 className="font-semibold">🤖 Chat với AI</h2>
@@ -51,7 +51,7 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
 
   if (mode === 'admin') {
     return (
-      <div className="fixed bottom-24 right-6 w-96 max-h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-gray-200">
+      <div className="fixed bottom-24 right-6 w-full max-w-md h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-gray-200">
         {/* Header */}
         <div className="flex justify-between items-center bg-blue-500 text-white p-4 rounded-t-lg">
           <h2 className="font-semibold">👨‍💼 Chat với Admin</h2>
@@ -95,7 +95,7 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
       />
 
       {/* Modal */}
-      <div className="fixed bottom-24 right-6 w-80 bg-white rounded-lg shadow-2xl z-50 overflow-hidden">
+      <div className="fixed bottom-24 right-6 w-full max-w-sm bg-white rounded-lg shadow-2xl z-50 overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4">
           <div className="flex justify-between items-center">

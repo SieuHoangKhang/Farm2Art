@@ -1,8 +1,18 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { firebaseRtdb } from '@/lib/firebase/client';
-import { ref, push, onValue, query, orderByChild, limitToLast, Unsubscribe } from 'firebase/database';
+import { firebaseDb } from '@/lib/firebase/client';
+import { 
+  collection, 
+  query, 
+  where, 
+  orderBy, 
+  onSnapshot, 
+  addDoc, 
+  Timestamp,
+  CollectionReference,
+  DocumentData
+} from 'firebase/firestore';
 import { useAuthUser } from '@/lib/auth/useAuthUser';
 
 interface AdminMessage {
@@ -21,7 +31,7 @@ export default function AdminChat() {
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const unsubscribeRef = useRef<Unsubscribe | null>(null);
+  const unsubscribeRef = useRef<(() => void) | null>(null);
 
   // Scroll to bottom
   const scrollToBottom = () => {
@@ -37,24 +47,17 @@ export default function AdminChat() {
     if (!user?.uid) return;
 
     try {
-      const conversationRef = ref(firebaseRtdb, `admin_chats/${user.uid}`);
-      const messagesQuery = query(
-        conversationRef,
-        orderByChild('timestamp'),
-        limitToLast(50)
-      );
+      const messagesRef = collection(firebaseDb, 'admin_chats', user.uid, 'messages');
+      const q = query(messagesRef, orderBy('timestamp', 'asc'));
 
-      unsubscribeRef.current = onValue(
-        messagesQuery,
+      unsubscribeRef.current = onSnapshot(
+        q,
         (snapshot) => {
-          const data = snapshot.val();
-          if (data) {
-            const messageList = Object.entries(data).map(([key, value]: [string, any]) => ({
-              id: key,
-              ...value,
-            }));
-            setMessages(messageList);
-          }
+          const messageList = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+          } as AdminMessage));
+          setMessages(messageList);
         },
         (error) => {
           console.error('Error loading messages:', error);
@@ -79,12 +82,12 @@ export default function AdminChat() {
     setError('');
 
     try {
-      const conversationRef = ref(firebaseRtdb, `admin_chats/${user.uid}`);
-      await push(conversationRef, {
+      const messagesRef = collection(firebaseDb, 'admin_chats', user.uid, 'messages');
+      await addDoc(messagesRef, {
         userId: user.uid,
         userName: user.displayName || 'Guest',
         message: input,
-        timestamp: Date.now(),
+        timestamp: Timestamp.now(),
         isAdmin: false,
       });
 
@@ -129,7 +132,7 @@ export default function AdminChat() {
   }
 
   return (
-    <div className="flex flex-col h-[600px] bg-white">
+    <div className="flex flex-col h-full bg-white">
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-blue-50 to-white">
         {messages.length === 0 && (
@@ -156,7 +159,7 @@ export default function AdminChat() {
               {msg.isAdmin && (
                 <p className="text-xs font-semibold text-blue-600 mb-1">👨‍💼 Admin</p>
               )}
-              <p className="text-sm break-words">{msg.message}</p>
+              <p className="text-sm break-words whitespace-pre-wrap">{msg.message}</p>
               <span
                 className={`text-xs mt-1 block ${
                   msg.isAdmin ? 'text-gray-500' : 'text-blue-100'

@@ -82,7 +82,7 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="flex flex-col h-[600px] bg-white rounded-lg shadow-lg border border-gray-200">
+    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200">
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-green-50 to-white">
         {messages.map((msg) => (
@@ -91,13 +91,13 @@ export default function ChatBot() {
             className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-xs lg:max-w-md xl:max-w-lg px-4 py-3 rounded-lg ${
+              className={`max-w-xs px-4 py-3 rounded-lg ${
                 msg.sender === 'user'
                   ? 'bg-green-500 text-white rounded-br-none'
                   : 'bg-gray-200 text-gray-800 rounded-bl-none'
               }`}
             >
-              <p className="text-sm md:text-base whitespace-pre-wrap break-words">{msg.text}</p>
+              <p className="text-sm break-words whitespace-pre-wrap">{msg.text}</p>
               <span
                 className={`text-xs mt-1 block ${
                   msg.sender === 'user' ? 'text-green-100' : 'text-gray-500'
