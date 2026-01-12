@@ -15,7 +15,7 @@ interface AdminMessage {
 }
 
 export default function AdminChat() {
-  const { user, isLoading } = useAuthUser();
+  const { user, loading } = useAuthUser();
   const [messages, setMessages] = useState<AdminMessage[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -104,7 +104,7 @@ export default function AdminChat() {
     }
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="h-[600px] flex items-center justify-center bg-white">
         <div className="flex flex-col items-center gap-3">
