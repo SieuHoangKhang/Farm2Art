@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+
+      // Self can create their own profile with role=user only.
+      // Admin can create profiles (including admin role) via trusted tooling.
+      allow create: if signedIn()
+        && request.resource.data.uid == uid
+        && request.resource.data.createdAt is int
+        && (
+          (request.auth.uid == uid && request.resource.data.role == 'user')
+          || (isAdmin() && (request.resource.data.role in ['user', 'admin']))
+        );
+
+      // Self can update profile fields but cannot change role/createdAt.
+      // Admin can update including role.
+      allow update: if signedIn()
+        && request.resource.data.uid == uid
+        && (
+          // Normal case: createdAt already exists and must not change.
+          (resource.data.createdAt is int && request.resource.data.createdAt == resource.data.createdAt)
+          // Backfill case: doc exists but createdAt was missing; allow setting it once.
+          || (!(resource.data.createdAt is int) && request.resource.data.createdAt is int)
+        )
+        && (
+          (request.auth.uid == uid && request.resource.data.role == resource.data.role)
+          || (isAdmin() && (request.resource.data.role in ['user', 'admin']))
+        );
+
+      allow delete: if isAdmin();
+    }
+
+    match /listings/{listingId} {
+      // Viewer (not logged-in) can browse listings.
+      allow read: if true;
+
+      // Logged-in users can create their own listings.
+      allow create: if signedIn()
+        && request.resource.data.ownerId == request.auth.uid
+        && request.resource.data.createdAt is int;
+
+      // Owner can update/delete; admin can moderate.
+      allow update, delete: if signedIn()
+        && (resource.data.ownerId == request.auth.uid || isAdmin());
+    }
+
+    // Default: deny everything else.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
