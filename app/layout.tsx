@@ -3,6 +3,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteFooter } from "@/components/ui/SiteFooter";
 import { Container } from "@/components/ui/Container";
+import FloatingChatButton from "@/components/chatbot/FloatingChatButton";
 
 export const metadata: Metadata = {
   title: "Farm2Art",
@@ -24,6 +25,7 @@ export default function RootLayout({
           </main>
           <SiteFooter />
         </div>
+        <FloatingChatButton />
       </body>
     </html>
   );
