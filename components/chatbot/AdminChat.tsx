@@ -76,14 +76,20 @@ export default function AdminChat() {
   }, [user?.uid]);
 
   const handleSendMessage = async () => {
-    if (!input.trim() || !user?.uid) return;
+    if (!input.trim() || !user?.uid) {
+      setError('Vui lòng đăng nhập và nhập tin nhắn');
+      return;
+    }
 
     setIsSending(true);
     setError('');
 
     try {
+      console.log('Sending message for user:', user.uid);
       const messagesRef = collection(firebaseDb, 'admin_chats', user.uid, 'messages');
-      await addDoc(messagesRef, {
+      console.log('Messages ref path:', messagesRef.path);
+      
+      const docRef = await addDoc(messagesRef, {
         userId: user.uid,
         userName: user.displayName || 'Guest',
         message: input,
@@ -91,10 +97,12 @@ export default function AdminChat() {
         isAdmin: false,
       });
 
+      console.log('Message sent successfully:', docRef.id);
       setInput('');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Send message error:', err);
-      setError('Không thể gửi tin nhắn. Vui lòng thử lại.');
+      const errorMsg = err?.message || 'Không thể gửi tin nhắn';
+      setError(`Lỗi: ${errorMsg}`);
     } finally {
       setIsSending(false);
     }
@@ -187,8 +195,8 @@ export default function AdminChat() {
         )}
 
         {error && (
-          <div className="bg-red-100 text-red-700 px-4 py-3 rounded-lg text-sm">
-            {error}
+          <div className="bg-red-100 text-red-700 px-4 py-3 rounded-lg text-sm border border-red-300">
+            ❌ {error}
           </div>
         )}
 
