@@ -7,7 +7,7 @@ import { useAuthUser } from '@/lib/auth/useAuthUser';
 
 export default function FloatingChatButton() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, role, loading } = useAuthUser();
+  const { role, loading } = useAuthUser();
 
   // Don't show if loading
   if (loading) return null;

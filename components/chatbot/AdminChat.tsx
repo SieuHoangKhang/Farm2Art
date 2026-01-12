@@ -19,7 +19,6 @@ export default function AdminChat() {
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const unsubscribeRef = useRef<(() => void) | null>(null);
 
   // Scroll to bottom
   const scrollToBottom = () => {
