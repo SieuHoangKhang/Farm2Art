@@ -1,4 +1,4 @@
-npimport { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Simple in-memory storage for demo (replace with database in production)
 const adminChats: Record<string, any[]> = {};
