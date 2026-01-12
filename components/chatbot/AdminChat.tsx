@@ -1,18 +1,6 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { firebaseDb } from '@/lib/firebase/client';
-import { 
-  collection, 
-  query, 
-  where, 
-  orderBy, 
-  onSnapshot, 
-  addDoc, 
-  Timestamp,
-  CollectionReference,
-  DocumentData
-} from 'firebase/firestore';
 import { useAuthUser } from '@/lib/auth/useAuthUser';
 
 interface AdminMessage {
@@ -45,34 +33,7 @@ export default function AdminChat() {
   // Load messages from Firebase
   useEffect(() => {
     if (!user?.uid) return;
-
-    try {
-      const messagesRef = collection(firebaseDb, 'admin_chats', user.uid, 'messages');
-      const q = query(messagesRef, orderBy('timestamp', 'asc'));
-
-      unsubscribeRef.current = onSnapshot(
-        q,
-        (snapshot) => {
-          const messageList = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-          } as AdminMessage));
-          setMessages(messageList);
-        },
-        (error) => {
-          console.error('Error loading messages:', error);
-          setError('Không thể tải tin nhắn');
-        }
-      );
-
-      return () => {
-        if (unsubscribeRef.current) {
-          unsubscribeRef.current();
-        }
-      };
-    } catch (err) {
-      console.error('Chat setup error:', err);
-    }
+    // Messages will be loaded from API
   }, [user?.uid]);
 
   const handleSendMessage = async () => {
@@ -86,18 +47,48 @@ export default function AdminChat() {
 
     try {
       console.log('Sending message for user:', user.uid);
-      const messagesRef = collection(firebaseDb, 'admin_chats', user.uid, 'messages');
-      console.log('Messages ref path:', messagesRef.path);
       
-      const docRef = await addDoc(messagesRef, {
+      // Add user message to UI
+      const userMsg: AdminMessage = {
+        id: Date.now().toString(),
         userId: user.uid,
         userName: user.displayName || 'Guest',
         message: input,
-        timestamp: Timestamp.now(),
+        timestamp: Date.now(),
         isAdmin: false,
+      };
+      setMessages(prev => [...prev, userMsg]);
+
+      // Send to API
+      const response = await fetch('/api/admin-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user.uid,
+          userName: user.displayName || 'Guest',
+          message: input,
+        }),
       });
 
-      console.log('Message sent successfully:', docRef.id);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
+      }
+
+      const data = await response.json();
+      console.log('Message sent successfully:', data.messageId);
+
+      // Simulate admin response
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const adminMsg: AdminMessage = {
+        id: (Date.now() + 1).toString(),
+        userId: user.uid,
+        userName: 'Admin',
+        message: '📌 Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong giờ hành chính (8:00 - 20:00). Vui lòng chờ!',
+        timestamp: Date.now(),
+        isAdmin: true,
+      };
+      setMessages(prev => [...prev, adminMsg]);
       setInput('');
     } catch (err: any) {
       console.error('Send message error:', err);
