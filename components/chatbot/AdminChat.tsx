@@ -18,7 +18,7 @@ export default function AdminChat() {
   const { user, loading } = useAuthUser();
   const [messages, setMessages] = useState<AdminMessage[]>([]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const unsubscribeRef = useRef<Unsubscribe | null>(null);
@@ -75,7 +75,7 @@ export default function AdminChat() {
   const handleSendMessage = async () => {
     if (!input.trim() || !user?.uid) return;
 
-    setLoading(true);
+    setIsSending(true);
     setError('');
 
     try {
@@ -93,7 +93,7 @@ export default function AdminChat() {
       console.error('Send message error:', err);
       setError('Không thể gửi tin nhắn. Vui lòng thử lại.');
     } finally {
-      setLoading(false);
+      setIsSending(false);
     }
   };
 
@@ -171,7 +171,7 @@ export default function AdminChat() {
           </div>
         ))}
 
-        {loading && (
+        {isSending && (
           <div className="flex justify-end">
             <div className="bg-blue-500 text-white px-4 py-3 rounded-lg rounded-br-none">
               <div className="flex space-x-2">
@@ -207,11 +207,11 @@ export default function AdminChat() {
             placeholder="Nhập tin nhắn..."
             className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-sm"
             rows={2}
-            disabled={loading}
+            disabled={isSending}
           />
           <button
             onClick={handleSendMessage}
-            disabled={loading || !input.trim()}
+            disabled={isSending || !input.trim()}
             className="px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 transition-colors font-medium text-sm"
           >
             Gửi
