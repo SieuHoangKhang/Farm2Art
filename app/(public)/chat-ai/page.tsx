@@ -1,6 +1,6 @@
 import ChatBot from '@/components/chatbot/ChatBot';
-import PageHeader from '@/components/ui/PageHeader';
-import Container from '@/components/ui/Container';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { Container } from '@/components/ui/Container';
 
 export default function ChatAIPage() {
   return (

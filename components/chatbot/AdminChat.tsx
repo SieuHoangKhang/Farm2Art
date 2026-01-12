@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { database } from '@/lib/firebase/client';
-import { ref, push, onValue, query, orderByChild, limitToLast, DatabaseReference, Unsubscribe } from 'firebase/database';
+import { firebaseRtdb } from '@/lib/firebase/client';
+import { ref, push, onValue, query, orderByChild, limitToLast, Unsubscribe } from 'firebase/database';
 import { useAuthUser } from '@/lib/auth/useAuthUser';
 
 interface AdminMessage {
@@ -37,7 +37,7 @@ export default function AdminChat() {
     if (!user?.uid) return;
 
     try {
-      const conversationRef = ref(database, `admin_chats/${user.uid}`);
+      const conversationRef = ref(firebaseRtdb, `admin_chats/${user.uid}`);
       const messagesQuery = query(
         conversationRef,
         orderByChild('timestamp'),
@@ -79,7 +79,7 @@ export default function AdminChat() {
     setError('');
 
     try {
-      const conversationRef = ref(database, `admin_chats/${user.uid}`);
+      const conversationRef = ref(firebaseRtdb, `admin_chats/${user.uid}`);
       await push(conversationRef, {
         userId: user.uid,
         userName: user.displayName || 'Guest',
