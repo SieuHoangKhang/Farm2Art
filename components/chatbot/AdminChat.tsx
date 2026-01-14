@@ -13,7 +13,7 @@ interface AdminMessage {
 }
 
 export default function AdminChat() {
-  const { user } = useAuthUser();
+  const { user, loading } = useAuthUser();
   const [messages, setMessages] = useState<AdminMessage[]>([]);
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
