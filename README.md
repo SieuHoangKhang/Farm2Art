@@ -35,8 +35,8 @@ Dự án được ấp ủ và thực hiện bởi nhóm sinh viên lớp Kỹ t
 
 | **Thành viên** | **MSSV** | **Nhiệm vụ** |
 | :--- | :---: | :--- |
-| 👦 **Trần Siêu Hoàng Khang** | `221429` | Xây dựng hệ thống & Vận hành |
-| 👧 **Nguyễn Thị Huỳnh Như** | `222358` | Thiết kế giao diện & Nội dung |
+| 👦 **Trần Siêu Hoàng Khang** | `221429` | Fullstack Dev |
+
 
 ---
 
