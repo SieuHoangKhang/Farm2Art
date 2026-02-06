@@ -31,7 +31,7 @@ Chúng mình tin rằng **không có gì là rác thải**.
 
 ## 🎓 Nhóm thực hiện
 
-Dự án được ấp ủ và thực hiện bởi nhóm sinh viên lớp Kỹ thuật Phần mềm - ĐH Nam Cần Thơ:
+Dự án được ấp ủ và thực hiện bởi nhóm sinh viên lớp DH22TIN06 - ĐH Nam Cần Thơ:
 
 | **Thành viên** | **MSSV** | **Nhiệm vụ** |
 | :--- | :---: | :--- |
