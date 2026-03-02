@@ -1,423 +1,261 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   collection,
-  doc,
   getCountFromServer,
   getDocs,
   limit,
   orderBy,
   query,
-  updateDoc,
   where,
 } from "firebase/firestore";
 
-import { Card, CardBody } from "@/components/ui/Card";
-import { LinkButton } from "@/components/ui/Button";
-import { PageHeader } from "@/components/ui/PageHeader";
 import { firebaseDb } from "@/lib/firebase/client";
-import type { AppUser, UserRole } from "@/types/user";
+import type { AppUser } from "@/types/user";
 import type { Listing } from "@/types/listing";
-import { formatVnd } from "@/lib/utils/format";
+import type { Order } from "@/types/order";
 
 type Stats = {
-  totalListings: number;
-  pendingListings: number;
-  hiddenListings: number;
   totalUsers: number;
-  totalAdmins: number;
+  totalListings: number;
+  totalOrders: number;
+  totalRevenue: number;
+  pendingVerifications: number;
+  activeListings: number;
 };
 
-function formatTime(ms: number) {
-  try {
-    return new Intl.DateTimeFormat("vi-VN", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(ms));
-  } catch {
-    return new Date(ms).toLocaleString();
-  }
-}
-
-function RoleBadge({ role }: { role: UserRole }) {
-  const style =
-    role === "admin"
-      ? "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200"
-      : "bg-amber-50 text-stone-900 ring-1 ring-amber-200";
-
-  return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${style}`}>
-      {role === "admin" ? "Admin" : "User"}
-    </span>
-  );
-}
-
-function ListingStatusBadge({ status }: { status: Listing["status"] }) {
-  const { label, cls } =
-    status === "active"
-      ? { label: "Đang hiển thị", cls: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200" }
-      : status === "hidden"
-        ? { label: "Đã ẩn", cls: "bg-amber-50 text-stone-900 ring-1 ring-amber-200" }
-        : { label: "Nháp", cls: "bg-stone-50 text-stone-700 ring-1 ring-stone-200" };
-
-  return <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${cls}`}>{label}</span>;
-}
-
-export default function AdminPage() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default function AdminOverviewPage() {
   const [stats, setStats] = useState<Stats | null>(null);
-  const [users, setUsers] = useState<AppUser[]>([]);
-  const [listings, setListings] = useState<Listing[]>([]);
-  const [savingUser, setSavingUser] = useState<string | null>(null);
-  const [savingListing, setSavingListing] = useState<string | null>(null);
-
-  const userRoleDraft = useMemo(() => {
-    const map = new Map<string, UserRole>();
-    for (const u of users) map.set(u.uid, u.role);
-    return map;
-  }, [users]);
+  const [recentUsers, setRecentUsers] = useState<AppUser[]>([]);
+  const [recentListings, setRecentListings] = useState<Listing[]>([]);
+  const [recentOrders, setRecentOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let alive = true;
-    async function load() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const usersCol = collection(firebaseDb, "users");
-        const listingsCol = collection(firebaseDb, "listings");
-
-        const [
-          totalListingsSnap,
-          pendingListingsSnap,
-          hiddenListingsSnap,
-          totalUsersSnap,
-          totalAdminsSnap,
-        ] = await Promise.all([
-          getCountFromServer(query(listingsCol)),
-          getCountFromServer(query(listingsCol, where("status", "==", "draft"))),
-          getCountFromServer(query(listingsCol, where("status", "==", "hidden"))),
-          getCountFromServer(query(usersCol)),
-          getCountFromServer(query(usersCol, where("role", "==", "admin"))),
-        ]);
-
-        const usersSnap = await getDocs(query(usersCol, orderBy("createdAt", "desc"), limit(10)));
-        const listingsSnap = await getDocs(query(listingsCol, orderBy("createdAt", "desc"), limit(10)));
-
-        if (!alive) return;
-
-        setStats({
-          totalListings: totalListingsSnap.data().count,
-          pendingListings: pendingListingsSnap.data().count,
-          hiddenListings: hiddenListingsSnap.data().count,
-          totalUsers: totalUsersSnap.data().count,
-          totalAdmins: totalAdminsSnap.data().count,
-        });
-
-        setUsers(
-          usersSnap.docs
-            .map((d) => d.data() as AppUser)
-            .filter((u) => u && typeof u.uid === "string" && (u.role === "admin" || u.role === "user"))
-        );
-
-        setListings(
-          listingsSnap.docs
-            .map((d) => ({ id: d.id, ...(d.data() as Omit<Listing, "id">) }) as Listing)
-            .filter((l) => l && typeof l.id === "string" && typeof l.title === "string")
-        );
-      } catch (e) {
-        console.error(e);
-        setError(
-          e instanceof Error
-            ? e.message
-            : "Không thể tải dữ liệu Admin. Hãy kiểm tra quyền Firestore (Rules) và role=admin của tài khoản."
-        );
-      } finally {
-        if (alive) setLoading(false);
-      }
-    }
-
-    load();
-    return () => {
-      alive = false;
-    };
+    loadDashboard();
   }, []);
+
+  async function loadDashboard() {
+    try {
+      const [
+        usersSnap, listingsSnap, ordersSnap,
+        activeListingsSnap, pendingVerSnap,
+        recentUsersSnap, recentListingsSnap, recentOrdersSnap,
+      ] = await Promise.all([
+        getCountFromServer(collection(firebaseDb, "users")),
+        getCountFromServer(collection(firebaseDb, "listings")),
+        getCountFromServer(collection(firebaseDb, "orders")),
+        getCountFromServer(query(collection(firebaseDb, "listings"), where("status", "==", "active"))),
+        getCountFromServer(query(collection(firebaseDb, "seller_verifications"), where("status", "==", "pending"))),
+        getDocs(query(collection(firebaseDb, "users"), orderBy("createdAt", "desc"), limit(5))),
+        getDocs(query(collection(firebaseDb, "listings"), orderBy("createdAt", "desc"), limit(5))),
+        getDocs(query(collection(firebaseDb, "orders"), orderBy("createdAt", "desc"), limit(5))),
+      ]);
+
+      let totalRevenue = 0;
+      const allOrders = await getDocs(collection(firebaseDb, "orders"));
+      allOrders.forEach((d) => {
+        const o = d.data();
+        if (o.status !== "cancelled") totalRevenue += o.totalAmount || 0;
+      });
+
+      setStats({
+        totalUsers: usersSnap.data().count,
+        totalListings: listingsSnap.data().count,
+        totalOrders: ordersSnap.data().count,
+        totalRevenue,
+        activeListings: activeListingsSnap.data().count,
+        pendingVerifications: pendingVerSnap.data().count,
+      });
+
+      setRecentUsers(recentUsersSnap.docs.map((d) => ({ uid: d.id, ...d.data() } as AppUser)));
+      setRecentListings(recentListingsSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Listing)));
+      setRecentOrders(recentOrdersSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Order)));
+    } catch (err) {
+      console.error("Dashboard load error:", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const fmt = (n: number) => new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
+  const fmtDate = (ts: number) => new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
+  const fmtTime = (ts: number) => new Date(ts).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+
+  const statusColors: Record<string, string> = {
+    pending: "bg-amber-50 text-amber-700 border-amber-200",
+    confirmed: "bg-blue-50 text-blue-700 border-blue-200",
+    shipping: "bg-indigo-50 text-indigo-700 border-indigo-200",
+    delivered: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    completed: "bg-green-50 text-green-700 border-green-200",
+    cancelled: "bg-red-50 text-red-700 border-red-200",
+  };
+  const statusLabels: Record<string, string> = {
+    pending: "Chờ xử lý", confirmed: "Đã xác nhận", shipping: "Đang giao",
+    delivered: "Đã giao", completed: "Hoàn thành", cancelled: "Đã hủy",
+  };
+
+  if (loading) {
+    return (
+      <div className="animate-pulse space-y-6">
+        <div className="h-8 bg-stone-200 rounded-lg w-48" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map((i) => <div key={i} className="h-28 bg-white rounded-2xl border border-stone-200" />)}
+        </div>
+      </div>
+    );
+  }
+
+  const kpis = [
+    { label: "Tổng người dùng", value: stats?.totalUsers ?? 0, bgLight: "bg-blue-50", textColor: "text-blue-600", link: "/admin/users",
+      icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
+    { label: "Tin đăng", value: `${stats?.activeListings ?? 0} / ${stats?.totalListings ?? 0}`, subLabel: "active / tổng", bgLight: "bg-emerald-50", textColor: "text-emerald-600", link: "/admin/listings",
+      icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg> },
+    { label: "Đơn hàng", value: stats?.totalOrders ?? 0, bgLight: "bg-amber-50", textColor: "text-amber-600", link: "/admin/orders",
+      icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg> },
+    { label: "Doanh thu", value: fmt(stats?.totalRevenue ?? 0), bgLight: "bg-purple-50", textColor: "text-purple-600", link: "/admin/orders",
+      icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
+  ];
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <PageHeader title="Bảng điều khiển Admin" subtitle="Quản trị hệ thống Farm2Art: người dùng, tin đăng, kiểm duyệt." />
-        <div className="flex flex-wrap gap-2">
-          <LinkButton href="/" variant="secondary">
-            Xem website
-          </LinkButton>
-          <LinkButton href="/admin/moderation" variant="primary">
-            Duyệt tin
-          </LinkButton>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold text-stone-800 tracking-tight">Tổng quan</h1>
+          <p className="text-sm text-stone-500 mt-0.5">Dữ liệu realtime từ Firestore</p>
+        </div>
+        {(stats?.pendingVerifications ?? 0) > 0 && (
+          <Link href="/admin/seller-verification" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 text-sm font-medium hover:bg-amber-100 transition-colors">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-white text-xs font-bold">{stats?.pendingVerifications}</span>
+            Yêu cầu xác minh chờ duyệt
+          </Link>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        {kpis.map((kpi) => (
+          <Link key={kpi.label} href={kpi.link} className="group">
+            <div className="bg-white rounded-2xl border border-stone-200/80 p-5 hover:shadow-lg hover:border-stone-300/80 transition-all duration-300">
+              <div className="flex items-start justify-between">
+                <div className={`p-2.5 rounded-xl ${kpi.bgLight}`}><span className={kpi.textColor}>{kpi.icon}</span></div>
+                <svg className="w-4 h-4 text-stone-300 group-hover:text-stone-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+              </div>
+              <div className="mt-3">
+                <p className="text-2xl font-bold text-stone-800">{kpi.value}</p>
+                <p className="text-xs text-stone-500 mt-0.5">{kpi.subLabel || kpi.label}</p>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {/* Recent Orders */}
+        <div className="bg-white rounded-2xl border border-stone-200/80 overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100">
+            <h3 className="font-semibold text-stone-800">Đơn hàng gần đây</h3>
+            <Link href="/admin/orders" className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">Xem tất cả →</Link>
+          </div>
+          {recentOrders.length === 0 ? (
+            <div className="py-12 text-center text-stone-400 text-sm">Chưa có đơn hàng</div>
+          ) : (
+            <div className="divide-y divide-stone-50">
+              {recentOrders.map((order) => (
+                <div key={order.id} className="px-5 py-3.5 hover:bg-stone-50/50 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-stone-700 truncate">#{order.id.slice(0, 8)}</p>
+                      <p className="text-xs text-stone-400 mt-0.5">{fmtTime(order.createdAt)}</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm font-semibold text-stone-700">{fmt(order.totalAmount)}</span>
+                      <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium border ${statusColors[order.status] || "bg-stone-50 text-stone-600 border-stone-200"}`}>
+                        {statusLabels[order.status] || order.status}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Recent Users */}
+        <div className="bg-white rounded-2xl border border-stone-200/80 overflow-hidden">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100">
+            <h3 className="font-semibold text-stone-800">Người dùng mới</h3>
+            <Link href="/admin/users" className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">Xem tất cả →</Link>
+          </div>
+          {recentUsers.length === 0 ? (
+            <div className="py-12 text-center text-stone-400 text-sm">Chưa có người dùng</div>
+          ) : (
+            <div className="divide-y divide-stone-50">
+              {recentUsers.map((u) => (
+                <div key={u.uid} className="px-5 py-3.5 flex items-center gap-3 hover:bg-stone-50/50 transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-500 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                    {(u.displayName || u.email || "?")[0].toUpperCase()}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-stone-700 truncate">{u.displayName || "Chưa có tên"}</p>
+                    <p className="text-xs text-stone-400 truncate">{u.email}</p>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                    u.role === "admin" ? "bg-purple-50 text-purple-700 border-purple-200" :
+                    u.role === "seller" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
+                    "bg-stone-50 text-stone-600 border-stone-200"
+                  }`}>
+                    {u.role === "admin" ? "Admin" : u.role === "seller" ? "Seller" : "User"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Recent Listings */}
+        <div className="bg-white rounded-2xl border border-stone-200/80 overflow-hidden xl:col-span-2">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100">
+            <h3 className="font-semibold text-stone-800">Tin đăng gần đây</h3>
+            <Link href="/admin/listings" className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">Xem tất cả →</Link>
+          </div>
+          {recentListings.length === 0 ? (
+            <div className="py-12 text-center text-stone-400 text-sm">Chưa có tin đăng</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-stone-50/80">
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Tiêu đề</th>
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Loại</th>
+                    <th className="text-right px-5 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Giá</th>
+                    <th className="text-center px-5 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Trạng thái</th>
+                    <th className="text-right px-5 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Ngày tạo</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-50">
+                  {recentListings.map((l) => (
+                    <tr key={l.id} className="hover:bg-stone-50/50 transition-colors">
+                      <td className="px-5 py-3.5 font-medium text-stone-700 truncate max-w-[200px]">{l.title}</td>
+                      <td className="px-5 py-3.5">
+                        <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium ${l.type === "art" ? "bg-violet-50 text-violet-700" : "bg-amber-50 text-amber-700"}`}>
+                          {l.type === "art" ? "Nghệ thuật" : "Phụ phẩm"}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3.5 text-right font-medium text-stone-700">{fmt(l.price)}</td>
+                      <td className="px-5 py-3.5 text-center">
+                        <span className={`inline-block w-2 h-2 rounded-full ${l.status === "active" ? "bg-emerald-500" : l.status === "hidden" ? "bg-red-400" : "bg-stone-300"}`} />
+                      </td>
+                      <td className="px-5 py-3.5 text-right text-stone-500">{fmtDate(l.createdAt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
-
-      {error ? (
-        <Card>
-          <CardBody>
-            <p className="text-sm text-red-700">{error}</p>
-          </CardBody>
-        </Card>
-      ) : null}
-
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-        <Card>
-          <CardBody>
-            <p className="text-xs font-medium text-stone-600">Tin đăng</p>
-            <p className="mt-1 text-2xl font-semibold text-stone-900">{stats ? stats.totalListings : "—"}</p>
-            <p className="mt-1 text-xs text-stone-600">Tổng số trên hệ thống</p>
-          </CardBody>
-        </Card>
-
-        <Card>
-          <CardBody>
-            <p className="text-xs font-medium text-stone-600">Chờ duyệt</p>
-            <p className="mt-1 text-2xl font-semibold text-stone-900">{stats ? stats.pendingListings : "—"}</p>
-            <p className="mt-1 text-xs text-stone-600">Status = draft</p>
-          </CardBody>
-        </Card>
-
-        <Card>
-          <CardBody>
-            <p className="text-xs font-medium text-stone-600">Đã ẩn</p>
-            <p className="mt-1 text-2xl font-semibold text-stone-900">{stats ? stats.hiddenListings : "—"}</p>
-            <p className="mt-1 text-xs text-stone-600">Status = hidden</p>
-          </CardBody>
-        </Card>
-
-        <Card>
-          <CardBody>
-            <p className="text-xs font-medium text-stone-600">Người dùng</p>
-            <p className="mt-1 text-2xl font-semibold text-stone-900">{stats ? stats.totalUsers : "—"}</p>
-            <p className="mt-1 text-xs text-stone-600">Hồ sơ trong Firestore</p>
-          </CardBody>
-        </Card>
-
-        <Card>
-          <CardBody>
-            <p className="text-xs font-medium text-stone-600">Admin</p>
-            <p className="mt-1 text-2xl font-semibold text-stone-900">{stats ? stats.totalAdmins : "—"}</p>
-            <p className="mt-1 text-xs text-stone-600">Role = admin</p>
-          </CardBody>
-        </Card>
-      </div>
-
-      <Card>
-        <CardBody>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="text-base font-semibold text-stone-900">Quản lý người dùng</h2>
-              <p className="mt-1 text-sm text-stone-600">Xem danh sách mới nhất và phân quyền admin/user.</p>
-            </div>
-            <p className="text-xs text-stone-600">Hiển thị 10 người dùng gần nhất</p>
-          </div>
-
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full min-w-[720px] border-separate border-spacing-0">
-              <thead>
-                <tr className="text-left text-xs font-medium text-stone-600">
-                  <th className="border-b border-stone-200 pb-2">Người dùng</th>
-                  <th className="border-b border-stone-200 pb-2">UID</th>
-                  <th className="border-b border-stone-200 pb-2">Vai trò</th>
-                  <th className="border-b border-stone-200 pb-2">Tạo lúc</th>
-                  <th className="border-b border-stone-200 pb-2 text-right">Thao tác</th>
-                </tr>
-              </thead>
-              <tbody className="text-sm">
-                {users.length === 0 && !loading ? (
-                  <tr>
-                    <td colSpan={5} className="py-4 text-sm text-stone-600">
-                      Chưa có dữ liệu người dùng hoặc bạn chưa có quyền đọc collection users.
-                    </td>
-                  </tr>
-                ) : null}
-
-                {users.map((u) => {
-                  const current = userRoleDraft.get(u.uid) ?? u.role;
-                  return (
-                    <tr key={u.uid} className="align-middle">
-                      <td className="border-b border-stone-100 py-3">
-                        <div className="font-medium text-stone-900">{u.displayName ?? "(Chưa đặt tên)"}</div>
-                        {u.phone ? <div className="text-xs text-stone-600">{u.phone}</div> : null}
-                      </td>
-                      <td className="border-b border-stone-100 py-3">
-                        <span className="font-mono text-xs text-stone-700">{u.uid}</span>
-                      </td>
-                      <td className="border-b border-stone-100 py-3">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <RoleBadge role={u.role} />
-                          <select
-                            className="h-9 rounded-md border border-stone-200 bg-white px-3 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                            value={current}
-                            onChange={(e) => {
-                              const v = e.target.value === "admin" ? "admin" : "user";
-                              setUsers((prev) => prev.map((x) => (x.uid === u.uid ? { ...x, role: v } : x)));
-                            }}
-                          >
-                            <option value="user">user</option>
-                            <option value="admin">admin</option>
-                          </select>
-                        </div>
-                      </td>
-                      <td className="border-b border-stone-100 py-3 text-sm text-stone-700">
-                        {typeof u.createdAt === "number" ? formatTime(u.createdAt) : "—"}
-                      </td>
-                      <td className="border-b border-stone-100 py-3 text-right">
-                        <button
-                          type="button"
-                          disabled={savingUser === u.uid}
-                          className="inline-flex h-9 items-center justify-center rounded-md border border-amber-200 bg-amber-50 px-3 text-sm font-medium text-stone-900 transition hover:bg-amber-100 disabled:opacity-50"
-                          onClick={async () => {
-                            try {
-                              setSavingUser(u.uid);
-                              const ref = doc(firebaseDb, "users", u.uid);
-
-                              const roleToSave: UserRole = u.role === "admin" ? "admin" : "user";
-                              const payload: Partial<AppUser> & { uid: string } = {
-                                uid: u.uid,
-                                role: roleToSave,
-                              };
-
-                              if (typeof u.createdAt !== "number") {
-                                payload.createdAt = Date.now();
-                              }
-
-                              await updateDoc(ref, payload);
-                            } catch (e) {
-                              console.error(e);
-                              setError(e instanceof Error ? e.message : "Không thể cập nhật quyền người dùng.");
-                            } finally {
-                              setSavingUser(null);
-                            }
-                          }}
-                        >
-                          {savingUser === u.uid ? "Đang lưu..." : "Lưu"}
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </CardBody>
-      </Card>
-
-      <Card>
-        <CardBody>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="text-base font-semibold text-stone-900">Quản lý tin đăng</h2>
-              <p className="mt-1 text-sm text-stone-600">Xem nhanh tin mới nhất và ẩn/hiện tin vi phạm.</p>
-            </div>
-            <Link href="/admin/moderation" className="text-sm font-medium text-stone-900 hover:underline">
-              Mở trang kiểm duyệt →
-            </Link>
-          </div>
-
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full min-w-[820px] border-separate border-spacing-0">
-              <thead>
-                <tr className="text-left text-xs font-medium text-stone-600">
-                  <th className="border-b border-stone-200 pb-2">Tin</th>
-                  <th className="border-b border-stone-200 pb-2">Chủ tin</th>
-                  <th className="border-b border-stone-200 pb-2">Giá</th>
-                  <th className="border-b border-stone-200 pb-2">Trạng thái</th>
-                  <th className="border-b border-stone-200 pb-2">Tạo lúc</th>
-                  <th className="border-b border-stone-200 pb-2 text-right">Thao tác</th>
-                </tr>
-              </thead>
-              <tbody className="text-sm">
-                {listings.length === 0 && !loading ? (
-                  <tr>
-                    <td colSpan={6} className="py-4 text-sm text-stone-600">
-                      Chưa có dữ liệu tin đăng.
-                    </td>
-                  </tr>
-                ) : null}
-
-                {listings.map((l) => {
-                  const canToggle = l.status === "active" || l.status === "hidden";
-                  const nextStatus: Listing["status"] = l.status === "hidden" ? "active" : "hidden";
-
-                  return (
-                    <tr key={l.id} className="align-middle">
-                      <td className="border-b border-stone-100 py-3">
-                        <div className="font-medium text-stone-900">{l.title}</div>
-                        <div className="text-xs text-stone-600">{l.type === "byproduct" ? "Phế phẩm" : "Farm2Art"}</div>
-                      </td>
-                      <td className="border-b border-stone-100 py-3">
-                        <span className="font-mono text-xs text-stone-700">{l.ownerId}</span>
-                      </td>
-                      <td className="border-b border-stone-100 py-3 text-sm text-stone-700">{formatVnd(l.price)}</td>
-                      <td className="border-b border-stone-100 py-3">
-                        <ListingStatusBadge status={l.status} />
-                      </td>
-                      <td className="border-b border-stone-100 py-3 text-sm text-stone-700">
-                        {typeof l.createdAt === "number" ? formatTime(l.createdAt) : "—"}
-                      </td>
-                      <td className="border-b border-stone-100 py-3 text-right">
-                        <button
-                          type="button"
-                          disabled={!canToggle || savingListing === l.id}
-                          className="inline-flex h-9 items-center justify-center rounded-md border border-amber-200 bg-amber-50 px-3 text-sm font-medium text-stone-900 transition hover:bg-amber-100 disabled:opacity-50"
-                          onClick={async () => {
-                            try {
-                              setSavingListing(l.id);
-                              const ref = doc(firebaseDb, "listings", l.id);
-                              await updateDoc(ref, { status: nextStatus } as Partial<Listing>);
-                              setListings((prev) => prev.map((x) => (x.id === l.id ? { ...x, status: nextStatus } : x)));
-                            } catch (e) {
-                              console.error(e);
-                              setError(e instanceof Error ? e.message : "Không thể cập nhật trạng thái tin đăng.");
-                            } finally {
-                              setSavingListing(null);
-                            }
-                          }}
-                        >
-                          {savingListing === l.id ? "Đang lưu..." : nextStatus === "hidden" ? "Ẩn tin" : "Hiện tin"}
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </CardBody>
-      </Card>
-
-      <Card>
-        <CardBody>
-          <h2 className="text-base font-semibold text-stone-900">Các module khác</h2>
-          <p className="mt-1 text-sm text-stone-600">
-            Nếu bạn muốn “đầy đủ mọi chức năng” (đơn hàng, thanh toán, quản lý tin tức, cấu hình hệ thống), mình sẽ làm tiếp
-            theo đúng schema Firestore của bạn.
-          </p>
-          <div className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-xl border border-stone-200 bg-white p-4">
-              <p className="text-sm font-medium text-stone-900">Quản lý đơn hàng</p>
-              <p className="mt-1 text-sm text-stone-600">Cần xác nhận collection/fields (orders).</p>
-            </div>
-            <div className="rounded-xl border border-stone-200 bg-white p-4">
-              <p className="text-sm font-medium text-stone-900">Thanh toán</p>
-              <p className="mt-1 text-sm text-stone-600">Kết nối VNPay + đối soát IPN (nếu bật).</p>
-            </div>
-            <div className="rounded-xl border border-stone-200 bg-white p-4">
-              <p className="text-sm font-medium text-stone-900">Quản lý nội dung</p>
-              <p className="mt-1 text-sm text-stone-600">Tin tức hiện đang mock; muốn admin CRUD cần lưu Firestore.</p>
-            </div>
-          </div>
-        </CardBody>
-      </Card>
     </div>
   );
 }

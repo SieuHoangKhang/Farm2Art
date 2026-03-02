@@ -1,264 +1,207 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardBody } from '@/components/ui/Card';
-import { PageHeader } from '@/components/ui/PageHeader';
-import { Button } from '@/components/ui/Button';
-import type { SellerVerification } from '@/types/seller';
+import { useEffect, useState } from "react";
+import { firebaseDb } from "@/lib/firebase/client";
+import {
+  collection, getDocs, doc, updateDoc, query, orderBy, getDoc,
+} from "firebase/firestore";
+import type { SellerVerification, VerificationStatus } from "@/types/seller";
 
-export default function SellerVerificationPage() {
-  const [verifications, setVerifications] = useState<SellerVerification[]>([]);
+const STATUS_MAP: Record<VerificationStatus, { label: string; color: string }> = {
+  pending:  { label: "Chờ duyệt",      color: "bg-amber-50 text-amber-700 border-amber-200" },
+  approved: { label: "Đã phê duyệt",   color: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  rejected: { label: "Bị từ chối",      color: "bg-red-50 text-red-700 border-red-200" },
+  none:     { label: "Chưa gửi",        color: "bg-stone-50 text-stone-500 border-stone-200" },
+};
+
+export default function AdminSellerVerificationPage() {
+  const [items, setItems] = useState<SellerVerification[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
+  const [saving, setSaving] = useState<string | null>(null);
+  const [filter, setFilter] = useState<"all" | VerificationStatus>("all");
+  const [toast, setToast] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadVerifications();
-  }, []);
+  useEffect(() => { load(); }, []);
 
-  const loadVerifications = async () => {
+  async function load() {
     try {
-      // Mock data
-      const mockVerifications: SellerVerification[] = [
-        {
-          sellerId: 'seller_001',
-          status: 'pending',
-          businessName: 'Farm Tây Ninh',
-          businessRegistration: 'https://...',
-          ownerName: 'Nguyễn Văn A',
-          ownerID: 'https://...',
-          bankAccount: '123456789',
-          bankName: 'Vietcombank',
-          businessAddress: '123 Đường Tây Ninh',
-          phone: '0123456789',
-          email: 'farm_taynin@example.com',
-          documentSubmittedAt: Date.now() - 1000 * 60 * 60 * 24,
-        },
-        {
-          sellerId: 'seller_002',
-          status: 'approved',
-          businessName: 'Recycled Art Studio',
-          businessRegistration: 'https://...',
-          ownerName: 'Trần Thị B',
-          ownerID: 'https://...',
-          bankAccount: '987654321',
-          bankName: 'ACB',
-          businessAddress: '456 Đường B, TP.HCM',
-          phone: '0987654321',
-          email: 'recycled_art@example.com',
-          documentSubmittedAt: Date.now() - 1000 * 60 * 60 * 24 * 10,
-          approvedAt: Date.now() - 1000 * 60 * 60 * 24 * 5,
-          verificationBadge: true,
-        },
-      ];
-      setVerifications(mockVerifications);
-    } catch (error) {
-      console.error('Failed to load verifications:', error);
+      const snap = await getDocs(query(collection(firebaseDb, "sellerVerifications"), orderBy("documentSubmittedAt", "desc")));
+      setItems(snap.docs.map((d) => ({ sellerId: d.id, ...d.data() } as SellerVerification)));
+    } catch (err) {
+      console.error("Load verification error:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  const handleApprove = async (sellerId: string) => {
+  async function approve(sellerId: string) {
     try {
-      const response = await fetch(`/api/seller-verification/${sellerId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'approved' }),
-      });
-
-      if (response.ok) {
-        setVerifications(
-          verifications.map(v =>
-            v.sellerId === sellerId
-              ? { ...v, status: 'approved', approvedAt: Date.now(), verificationBadge: true }
-              : v
-          )
-        );
+      setSaving(sellerId);
+      const data = { status: "approved" as VerificationStatus, approvedAt: Date.now(), verificationBadge: true };
+      await updateDoc(doc(firebaseDb, "sellerVerifications", sellerId), data);
+      // Also update the user doc if it exists
+      const userRef = doc(firebaseDb, "users", sellerId);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        await updateDoc(userRef, { sellerVerified: true, role: "seller" });
       }
-    } catch (error) {
-      console.error('Approval failed:', error);
+      setItems((prev) => prev.map((v) => v.sellerId === sellerId ? { ...v, ...data } : v));
+      showToast("Đã phê duyệt seller");
+    } catch (err) {
+      console.error(err);
+      showToast("Lỗi phê duyệt");
+    } finally {
+      setSaving(null);
     }
-  };
+  }
 
-  const handleReject = async (sellerId: string) => {
+  async function reject(sellerId: string) {
+    const reason = prompt("Lý do từ chối:");
+    if (reason === null) return; // cancelled
     try {
-      const reason = prompt('Lý do từ chối (optional):');
-      const response = await fetch(`/api/seller-verification/${sellerId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          status: 'rejected',
-          rejectionReason: reason || 'Từ chối không kèm lý do',
-        }),
-      });
-
-      if (response.ok) {
-        setVerifications(
-          verifications.map(v =>
-            v.sellerId === sellerId
-              ? {
-                  ...v,
-                  status: 'rejected',
-                  rejectionReason: reason || 'Từ chối',
-                }
-              : v
-          )
-        );
-      }
-    } catch (error) {
-      console.error('Rejection failed:', error);
+      setSaving(sellerId);
+      const data = { status: "rejected" as VerificationStatus, rejectionReason: reason || "Không đạt yêu cầu" };
+      await updateDoc(doc(firebaseDb, "sellerVerifications", sellerId), data);
+      setItems((prev) => prev.map((v) => v.sellerId === sellerId ? { ...v, ...data } : v));
+      showToast("Đã từ chối yêu cầu");
+    } catch (err) {
+      console.error(err);
+      showToast("Lỗi từ chối");
+    } finally {
+      setSaving(null);
     }
-  };
+  }
 
-  const filtered = verifications.filter(v =>
-    filter === 'all' ? true : v.status === filter
-  );
+  function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
+  const fmtDate = (ts?: number) => ts ? new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }) : "—";
 
-  const getStatusColor = (status: SellerVerification['status']) => {
-    switch (status) {
-      case 'approved':
-        return 'bg-green-100 text-green-800';
-      case 'rejected':
-        return 'bg-red-100 text-red-800';
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
-      default:
-        return 'bg-sage-100 text-stone-700';
-    }
-  };
+  const filtered = items.filter((v) => filter === "all" || v.status === filter);
+  const counts: Record<string, number> = { all: items.length };
+  items.forEach((v) => { counts[v.status] = (counts[v.status] || 0) + 1; });
 
-  const getStatusLabel = (status: SellerVerification['status']) => {
-    switch (status) {
-      case 'approved':
-        return '✓ Đã phê duyệt';
-      case 'rejected':
-        return '✗ Bị từ chối';
-      case 'pending':
-        return '⏳ Chờ duyệt';
-      default:
-        return '?';
-    }
-  };
+  if (loading) {
+    return (
+      <div className="animate-pulse space-y-4">
+        <div className="h-8 bg-stone-200 rounded-lg w-56" />
+        {[1, 2, 3].map(i => <div key={i} className="h-20 bg-white rounded-xl border border-stone-200" />)}
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-sage-50">
-      <PageHeader
-        title="Xác minh người bán"
-        subtitle="Quản lý yêu cầu xác minh tài khoản người bán"
-      />
+    <div className="space-y-6">
+      {toast && (
+        <div className="fixed top-4 right-4 z-50 bg-stone-800 text-white px-4 py-2.5 rounded-xl text-sm shadow-lg">{toast}</div>
+      )}
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Filter Tabs */}
-        <div className="flex gap-2 mb-8">
-          {['all', 'pending', 'approved', 'rejected'].map(f => (
-            <button
-              key={f}
-              onClick={() => setFilter(f as any)}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
-                filter === f
-                  ? 'bg-emerald-500 text-white'
-                  : 'bg-white text-stone-600 hover:bg-sage-100 border border-sage-300'
-              }`}
-            >
-              {f === 'all' && 'Tất cả'}
-              {f === 'pending' && `Chờ duyệt (${verifications.filter(v => v.status === 'pending').length})`}
-              {f === 'approved' && `Đã phê duyệt (${verifications.filter(v => v.status === 'approved').length})`}
-              {f === 'rejected' && `Bị từ chối (${verifications.filter(v => v.status === 'rejected').length})`}
-            </button>
-          ))}
+      <div>
+        <h1 className="text-2xl font-bold text-stone-800 tracking-tight">Xác minh Seller</h1>
+        <p className="text-sm text-stone-500 mt-0.5">{items.length} yêu cầu — {counts["pending"] || 0} đang chờ duyệt</p>
+      </div>
+
+      {/* Pending alert */}
+      {(counts["pending"] || 0) > 0 && (
+        <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 flex items-center gap-3">
+          <svg className="w-5 h-5 text-amber-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p className="text-sm text-amber-800">Có <span className="font-bold">{counts["pending"]}</span> yêu cầu xác minh đang chờ phê duyệt</p>
         </div>
+      )}
 
-        {/* Verifications List */}
-        {loading ? (
-          <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
-          </div>
-        ) : filtered.length > 0 ? (
-          <div className="space-y-4">
-            {filtered.map(verification => (
-              <Card key={verification.sellerId}>
-                <CardBody>
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    {/* Info */}
-                    <div>
-                      <p className="text-sm text-stone-500 mb-1">Cửa hàng</p>
-                      <p className="font-semibold text-stone-800">
-                        {verification.businessName}
-                      </p>
-                      <p className="text-sm text-stone-500">{verification.ownerName}</p>
-                    </div>
+      {/* Filter tabs */}
+      <div className="flex gap-1.5 bg-white rounded-xl border border-stone-200 p-1 w-fit">
+        {(["all", "pending", "approved", "rejected"] as const).map((s) => (
+          <button key={s} onClick={() => setFilter(s)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filter === s ? "bg-emerald-500 text-white shadow-sm" : "text-stone-600 hover:bg-stone-50"}`}>
+            {s === "all" ? "Tất cả" : STATUS_MAP[s].label}
+            <span className="ml-1 opacity-70">({counts[s] || 0})</span>
+          </button>
+        ))}
+      </div>
 
-                    {/* Contact */}
-                    <div>
-                      <p className="text-sm text-stone-500 mb-1">Liên hệ</p>
-                      <p className="font-mono text-sm text-stone-800">{verification.phone}</p>
-                      <p className="text-sm text-stone-500 truncate">
-                        {verification.email}
-                      </p>
-                    </div>
-
-                    {/* Status */}
-                    <div>
-                      <p className="text-sm text-stone-500 mb-2">Trạng thái</p>
-                      <span
-                        className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
-                          verification.status
-                        )}`}
-                      >
-                        {getStatusLabel(verification.status)}
-                      </span>
-                      {verification.documentSubmittedAt && (
-                        <p className="text-xs text-stone-500 mt-2">
-                          Nộp: {new Date(verification.documentSubmittedAt).toLocaleDateString('vi-VN')}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex gap-2 justify-end">
-                      {verification.status === 'pending' && (
-                        <>
-                          <Button
-                            onClick={() => handleApprove(verification.sellerId)}
-                            className="bg-green-500 hover:bg-green-600 text-white text-sm"
-                          >
-                            ✓ Phê duyệt
-                          </Button>
-                          <Button
-                            onClick={() => handleReject(verification.sellerId)}
-                            className="bg-red-500 hover:bg-red-600 text-white text-sm"
-                          >
-                            ✗ Từ chối
-                          </Button>
-                        </>
-                      )}
-                      {verification.status !== 'pending' && (
-                        <a
-                          href={`#verify-${verification.sellerId}`}
-                          className="text-emerald-600 hover:text-emerald-700 text-sm font-medium"
-                        >
-                          Xem chi tiết
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  {verification.rejectionReason && (
-                    <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded">
-                      <p className="text-sm text-red-700">
-                        <strong>Lý do từ chối:</strong> {verification.rejectionReason}
-                      </p>
-                    </div>
+      {/* Verification cards */}
+      <div className="space-y-3">
+        {filtered.length === 0 ? (
+          <div className="bg-white rounded-2xl border border-stone-200/80 py-12 text-center text-stone-400 text-sm">Không có yêu cầu xác minh</div>
+        ) : filtered.map((v) => (
+          <div key={v.sellerId} className="bg-white rounded-2xl border border-stone-200/80 overflow-hidden">
+            {/* Header row */}
+            <button onClick={() => setExpandedId(expandedId === v.sellerId ? null : v.sellerId)} className="w-full px-5 py-4 flex flex-col md:flex-row md:items-center gap-2 md:gap-4 text-left hover:bg-stone-50/50 transition-colors">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold text-stone-700">{v.businessName || "Chưa có tên"}</p>
+                  {v.verificationBadge && (
+                    <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-1.5 py-0.5">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                      Verified
+                    </span>
                   )}
-                </CardBody>
-              </Card>
-            ))}
+                </div>
+                <p className="text-xs text-stone-400 mt-0.5">{v.ownerName} — {v.phone || "N/A"}</p>
+              </div>
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <span className={`px-2.5 py-1 rounded-full text-[11px] font-medium border ${STATUS_MAP[v.status].color}`}>
+                  {STATUS_MAP[v.status].label}
+                </span>
+                <span className="text-xs text-stone-400">{fmtDate(v.documentSubmittedAt)}</span>
+                <svg className={`w-4 h-4 text-stone-400 transition-transform ${expandedId === v.sellerId ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </button>
+
+            {/* Expanded content */}
+            {expandedId === v.sellerId && (
+              <div className="border-t border-stone-100 px-5 py-4 space-y-4 bg-stone-50/30">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs">
+                  <div><p className="text-stone-400">Seller ID</p><p className="text-stone-700 font-mono mt-0.5 break-all">{v.sellerId}</p></div>
+                  <div><p className="text-stone-400">Tên doanh nghiệp</p><p className="text-stone-700 font-medium mt-0.5">{v.businessName || "—"}</p></div>
+                  <div><p className="text-stone-400">Chủ sở hữu</p><p className="text-stone-700 font-medium mt-0.5">{v.ownerName || "—"}</p></div>
+                  <div><p className="text-stone-400">Điện thoại</p><p className="text-stone-700 mt-0.5">{v.phone || "—"}</p></div>
+                  <div><p className="text-stone-400">Email</p><p className="text-stone-700 mt-0.5 break-all">{v.email || "—"}</p></div>
+                  <div><p className="text-stone-400">Địa chỉ</p><p className="text-stone-700 mt-0.5">{v.businessAddress || "—"}</p></div>
+                  <div><p className="text-stone-400">Ngân hàng</p><p className="text-stone-700 mt-0.5">{v.bankName || "—"} — {v.bankAccount || "—"}</p></div>
+                  <div><p className="text-stone-400">ĐKKD</p><p className="text-stone-700 mt-0.5 truncate">{v.businessRegistration ? <a href={v.businessRegistration} target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">Xem tài liệu</a> : "—"}</p></div>
+                  <div><p className="text-stone-400">CMND/CCCD</p><p className="text-stone-700 mt-0.5 truncate">{v.ownerID ? <a href={v.ownerID} target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline">Xem tài liệu</a> : "—"}</p></div>
+                </div>
+
+                {v.rejectionReason && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg px-3 py-2 text-xs text-red-700">
+                    <span className="font-semibold">Lý do từ chối:</span> {v.rejectionReason}
+                  </div>
+                )}
+
+                {v.approvedAt && (
+                  <p className="text-xs text-emerald-600">Phê duyệt ngày: {fmtDate(v.approvedAt)}</p>
+                )}
+
+                {/* Actions */}
+                {v.status === "pending" && (
+                  <div className="flex gap-2 pt-1">
+                    <button onClick={() => approve(v.sellerId)} disabled={saving === v.sellerId}
+                      className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500 text-white hover:bg-emerald-600 disabled:opacity-50 transition-colors shadow-sm">
+                      Phê duyệt
+                    </button>
+                    <button onClick={() => reject(v.sellerId)} disabled={saving === v.sellerId}
+                      className="px-4 py-2 rounded-xl text-xs font-semibold border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 disabled:opacity-50 transition-colors">
+                      Từ chối
+                    </button>
+                  </div>
+                )}
+                {v.status === "rejected" && (
+                  <div className="flex gap-2 pt-1">
+                    <button onClick={() => approve(v.sellerId)} disabled={saving === v.sellerId}
+                      className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500 text-white hover:bg-emerald-600 disabled:opacity-50 transition-colors shadow-sm">
+                      Phê duyệt lại
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-stone-500">Không có yêu cầu xác minh cho bộ lọc này</p>
-          </div>
-        )}
+        ))}
       </div>
     </div>
   );
