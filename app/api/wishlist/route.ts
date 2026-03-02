@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Wishlist, WishlistItem } from '@/types/wishlist';
-
-// In-memory storage
-const wishlistStore: Record<string, Wishlist> = {};
+import {
+  getDocument,
+  saveDocument,
+  findDocuments,
+  updateDocument,
+  deleteDocument,
+} from '@/lib/firebase/firestore-utils';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -15,14 +19,26 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const wishlist = wishlistStore[userId] || {
-    userId,
-    items: [],
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-  };
+  try {
+    const wishlist = await getDocument('wishlists', userId);
 
-  return NextResponse.json(wishlist);
+    if (!wishlist) {
+      return NextResponse.json({
+        userId,
+        items: [],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+    }
+
+    return NextResponse.json(wishlist);
+  } catch (error) {
+    console.error('Wishlist fetch error:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch wishlist' },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -36,28 +52,33 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Initialize wishlist if not exists
-    if (!wishlistStore[userId]) {
-      wishlistStore[userId] = {
+    let wishlist = await getDocument('wishlists', userId);
+
+    if (!wishlist) {
+      wishlist = {
         userId,
         items: [],
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      };
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      } as any;
     }
 
-    const wishlist = wishlistStore[userId];
-    const itemIndex = wishlist.items.findIndex(i => i.productId === productId);
+    const itemIndex = ((wishlist as any).items || []).findIndex(
+      (i: any) => i.productId === productId
+    );
 
     if (itemIndex === -1) {
       // Add new item
-      wishlist.items.push({
+      if (!(wishlist as any).items) (wishlist as any).items = [];
+      (wishlist as any).items.push({
         productId,
-        addedAt: Date.now(),
+        addedAt: new Date().toISOString(),
         priceWhenAdded: price,
         notifyOnDiscount: false,
       });
-      wishlist.updatedAt = Date.now();
+      (wishlist as any).updatedAt = new Date().toISOString();
+
+      await saveDocument('wishlists', userId, wishlist);
     }
 
     return NextResponse.json(wishlist, { status: 201 });
@@ -83,7 +104,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const wishlist = wishlistStore[userId];
+    let wishlist = await getDocument('wishlists', userId);
     if (!wishlist) {
       return NextResponse.json(
         { error: 'Wishlist not found' },
@@ -91,8 +112,12 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    wishlist.items = wishlist.items.filter(i => i.productId !== productId);
-    wishlist.updatedAt = Date.now();
+    (wishlist as any).items = ((wishlist as any).items || []).filter(
+      (i: any) => i.productId !== productId
+    );
+    (wishlist as any).updatedAt = new Date().toISOString();
+
+    await saveDocument('wishlists', userId, wishlist);
 
     return NextResponse.json(wishlist);
   } catch (error) {

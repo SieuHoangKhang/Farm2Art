@@ -38,9 +38,9 @@ export default function WishlistCard({ item, onRemove }: { item: WishlistItem; o
   const priceChangePercent = (priceChange / item.priceWhenAdded) * 100;
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden bg-white hover:shadow-md transition">
+    <div className="border border-sage-200 rounded-lg overflow-hidden bg-white hover:shadow-md transition">
       <Link href={`/listing/${item.productId}`}>
-        <div className="relative aspect-[4/3] w-full bg-gray-100">
+        <div className="relative aspect-[4/3] w-full bg-sage-100">
           {item.listing.images && item.listing.images.length > 0 ? (
             <Image
               src={typeof item.listing.images[0] === 'string' ? item.listing.images[0] : ''}
@@ -49,7 +49,7 @@ export default function WishlistCard({ item, onRemove }: { item: WishlistItem; o
               className="object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400">
+            <div className="w-full h-full flex items-center justify-center bg-stone-200 text-stone-300">
               Không có ảnh
             </div>
           )}
@@ -58,7 +58,7 @@ export default function WishlistCard({ item, onRemove }: { item: WishlistItem; o
 
       <div className="p-4">
         <Link href={`/listing/${item.productId}`}>
-          <h3 className="font-semibold text-gray-900 line-clamp-2 hover:text-blue-600">
+          <h3 className="font-semibold text-stone-800 line-clamp-2 hover:text-emerald-600">
             {item.listing.title}
           </h3>
         </Link>
@@ -85,12 +85,12 @@ export default function WishlistCard({ item, onRemove }: { item: WishlistItem; o
           </button>
         </div>
 
-        <p className="text-sm text-gray-600 mt-2">
+        <p className="text-sm text-stone-500 mt-2">
           Thêm vào: {new Date(item.addedAt).toLocaleDateString('vi-VN')}
         </p>
 
         <Link href={`/listing/${item.productId}`}>
-          <button className="w-full mt-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition text-sm font-medium">
+          <button className="w-full mt-3 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition text-sm font-medium">
             Xem chi tiết
           </button>
         </Link>

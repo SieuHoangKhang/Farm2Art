@@ -1,0 +1,62 @@
+{
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "never"
+  },
+  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.diagnosticsMode": "off",
+  "python.linting.enabled": false,
+  "python.analysis.indexing": false,
+  "python.analysis.extraPaths": [],
+  "pylance.enablePylanceDashboard": false,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/.firebase/**": true,
+    "**/dist/**": true,
+    "**/.next/**": true,
+    "**/build/**": true,
+    "**/.vercel/**": true,
+    "**/.venv/**": true,
+    "**/__pycache__/**": true,
+    "**/venv/**": true
+  },
+  "editor.wordWrap": "off",
+  "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": false,
+  "editor.renderWhitespace": "none",
+  "editor.renderControlCharacters": false,
+  "editor.linkedEditing": false,
+  "editor.lightbulb.enabled": "off",
+  "editor.codeLens": false,
+  "editor.bracketPairColorization.enabled": false,
+  "editor.semanticHighlighting.enabled": false,
+  "search.smartCase": true,
+  "search.useIgnoreFiles": true,
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/CVS": true,
+    "**/.next": true,
+    "**/node_modules": true,
+    "**/.vercel": true
+  },
+  "workbench.statusBar.visible": true,
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false,
+  "update.mode": "none",
+  "typescript.tsserver.maxTsServerMemory": 2048,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "editor.guides.indentation": false
+}

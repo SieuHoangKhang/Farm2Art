@@ -86,7 +86,7 @@ export default function SellerDashboard() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
       </div>
     );
   }
@@ -94,7 +94,7 @@ export default function SellerDashboard() {
   if (!metrics) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-600">Không thể tải dữ liệu</p>
+        <p className="text-stone-500">Không thể tải dữ liệu</p>
       </div>
     );
   }
@@ -102,19 +102,19 @@ export default function SellerDashboard() {
   const maxRevenue = Math.max(...metrics.monthlyRevenue.map(m => m.revenue));
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-semibold text-gray-900">📊 Bảng điều khiển bán hàng</h1>
-            <p className="text-gray-600 mt-1">Xem tổng quan hoạt động kinh doanh của bạn</p>
+            <h1 className="text-3xl font-semibold text-amber-900">📊 Bảng điều khiển bán hàng</h1>
+            <p className="text-stone-500 mt-1">Xem tổng quan hoạt động kinh doanh của bạn</p>
           </div>
 
           <select
             value={timeRange}
             onChange={e => setTimeRange(e.target.value as typeof timeRange)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="7d">7 ngày</option>
             <option value="30d">30 ngày</option>
@@ -126,36 +126,36 @@ export default function SellerDashboard() {
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Revenue */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="text-gray-600 text-sm font-medium">Tổng doanh thu</div>
-            <div className="text-3xl font-bold text-gray-900 mt-2">
+          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+            <div className="text-stone-500 text-sm font-medium">Tổng doanh thu</div>
+            <div className="text-3xl font-bold text-stone-800 mt-2">
               {(metrics.totalRevenue / 1000000).toFixed(1)}M đ
             </div>
             <div className="text-green-600 text-sm mt-2">↑ 12% so với tháng trước</div>
           </div>
 
           {/* Orders */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="text-gray-600 text-sm font-medium">Tổng đơn hàng</div>
-            <div className="text-3xl font-bold text-gray-900 mt-2">
+          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+            <div className="text-stone-500 text-sm font-medium">Tổng đơn hàng</div>
+            <div className="text-3xl font-bold text-stone-800 mt-2">
               {metrics.totalOrders.toLocaleString('vi-VN')}
             </div>
-            <div className="text-blue-600 text-sm mt-2">↑ 8% so với tháng trước</div>
+            <div className="text-emerald-600 text-sm mt-2">↑ 8% so với tháng trước</div>
           </div>
 
           {/* Products */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="text-gray-600 text-sm font-medium">Sản phẩm hiện có</div>
-            <div className="text-3xl font-bold text-gray-900 mt-2">
+          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+            <div className="text-stone-500 text-sm font-medium">Sản phẩm hiện có</div>
+            <div className="text-3xl font-bold text-stone-800 mt-2">
               {metrics.totalProducts}
             </div>
-            <div className="text-gray-600 text-sm mt-2">+3 sản phẩm mới</div>
+            <div className="text-stone-500 text-sm mt-2">+3 sản phẩm mới</div>
           </div>
 
           {/* Avg Order */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="text-gray-600 text-sm font-medium">Giá trị đơn TB</div>
-            <div className="text-3xl font-bold text-gray-900 mt-2">
+          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+            <div className="text-stone-500 text-sm font-medium">Giá trị đơn TB</div>
+            <div className="text-3xl font-bold text-stone-800 mt-2">
               {(metrics.averageOrderValue / 1000).toFixed(0)}K đ
             </div>
             <div className="text-green-600 text-sm mt-2">↑ 5% so với tháng trước</div>
@@ -165,43 +165,43 @@ export default function SellerDashboard() {
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Revenue Chart */}
-          <div className="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Doanh thu hàng tháng</h3>
+          <div className="lg:col-span-2 bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-amber-900 mb-4">Doanh thu hàng tháng</h3>
             <div className="flex items-end gap-2 h-64">
               {metrics.monthlyRevenue.map((data, idx) => (
                 <div key={idx} className="flex-1 flex flex-col items-center">
                   <div
-                    className="w-full bg-blue-500 rounded-t-lg transition hover:bg-blue-600 cursor-pointer"
+                    className="w-full bg-emerald-500 rounded-t-lg transition hover:bg-emerald-600 cursor-pointer"
                     style={{ height: `${(data.revenue / maxRevenue) * 100}%` }}
                     title={`${data.month}: ${(data.revenue / 1000000).toFixed(1)}M`}
                   ></div>
-                  <span className="text-xs text-gray-600 mt-2">{data.month}</span>
+                  <span className="text-xs text-stone-500 mt-2">{data.month}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Customer Metrics */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Khách hàng</h3>
+          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-amber-900 mb-4">Khách hàng</h3>
             <div className="space-y-4">
               <div>
-                <div className="text-gray-600 text-sm">Tổng khách hàng</div>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-stone-500 text-sm">Tổng khách hàng</div>
+                <div className="text-2xl font-bold text-stone-800">
                   {metrics.customerMetrics.totalCustomers.toLocaleString('vi-VN')}
                 </div>
               </div>
               <div>
-                <div className="text-gray-600 text-sm">Khách hàng tái lập</div>
+                <div className="text-stone-500 text-sm">Khách hàng tái lập</div>
                 <div className="text-2xl font-bold text-green-600">
                   {metrics.customerMetrics.repeatCustomers}
-                  <span className="text-sm text-gray-600 ml-1">
+                  <span className="text-sm text-stone-500 ml-1">
                     ({((metrics.customerMetrics.repeatCustomers / metrics.customerMetrics.totalCustomers) * 100).toFixed(1)}%)
                   </span>
                 </div>
               </div>
               <div>
-                <div className="text-gray-600 text-sm">Đánh giá trung bình</div>
+                <div className="text-stone-500 text-sm">Đánh giá trung bình</div>
                 <div className="text-2xl font-bold text-yellow-500">
                   {metrics.customerMetrics.averageRating}⭐
                 </div>
@@ -211,12 +211,12 @@ export default function SellerDashboard() {
         </div>
 
         {/* Top Products */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Top sản phẩm</h3>
+        <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+          <h3 className="text-lg font-semibold text-amber-900 mb-4">Top sản phẩm</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b text-left text-sm text-gray-600">
+                <tr className="border-b text-left text-sm text-stone-500">
                   <th className="pb-3 px-4">Sản phẩm</th>
                   <th className="pb-3 px-4">Số lượng bán</th>
                   <th className="pb-3 px-4">Doanh thu</th>
@@ -225,18 +225,18 @@ export default function SellerDashboard() {
               </thead>
               <tbody>
                 {metrics.topProducts.map((product, idx) => (
-                  <tr key={product.id} className="border-b hover:bg-gray-50">
+                  <tr key={product.id} className="border-b hover:bg-sage-50">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <span className="font-semibold text-gray-900 text-lg">#{idx + 1}</span>
-                        <span className="text-gray-900">{product.name}</span>
+                        <span className="font-semibold text-stone-800 text-lg">#{idx + 1}</span>
+                        <span className="text-stone-700">{product.name}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-gray-700">{product.sales}</td>
+                    <td className="py-3 px-4 text-stone-600">{product.sales}</td>
                     <td className="py-3 px-4 font-semibold text-green-600">
                       {(product.revenue / 1000000).toFixed(1)}M đ
                     </td>
-                    <td className="py-3 px-4 text-gray-700">
+                    <td className="py-3 px-4 text-stone-600">
                       {((product.revenue / metrics.totalRevenue) * 100).toFixed(1)}%
                     </td>
                   </tr>

@@ -97,7 +97,12 @@ export default function GiftCardsPage() {
 
     try {
       // Mock redeem
-      alert(`Đã kích hoạt thẻ quà tặng! Cộng 500.000 VNĐ vào tài khoản của bạn`);
+      const matchedCard = giftCards.find(c => c.code === redeemCode.trim());
+      if (matchedCard) {
+        alert(`Đã kích hoạt thẻ quà tặng! Cộng ${matchedCard.balance.toLocaleString('vi-VN')} VNĐ vào tài khoản của bạn`);
+      } else {
+        alert(`Đã kích hoạt thẻ quà tặng thành công!`);
+      }
       setRedeemCode('');
     } catch (error) {
       console.error('Redeem failed:', error);
@@ -107,21 +112,21 @@ export default function GiftCardsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <PageHeader title="Thẻ quà tặng" subtitle="Mua và sử dụng thẻ quà tặng" />
 
       <Container>
         <div className="py-8">
           {/* Tabs */}
-          <div className="flex gap-2 mb-8 border-b border-gray-200">
+          <div className="flex gap-2 mb-8 border-b border-sage-200">
             {['my-cards', 'purchase', 'redeem'].map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab as any)}
                 className={`px-4 py-3 font-medium border-b-2 transition ${
                   activeTab === tab
-                    ? 'text-blue-600 border-blue-600'
-                    : 'text-gray-600 border-transparent hover:text-gray-900'
+                    ? 'text-emerald-600 border-emerald-600'
+                    : 'text-stone-500 border-transparent hover:text-stone-800'
                 }`}
               >
                 {tab === 'my-cards' && '🎁 Thẻ của tôi'}
@@ -167,7 +172,7 @@ export default function GiftCardsPage() {
               <CardBody>
                 <div className="max-w-md space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-3">
+                    <label className="block text-sm font-medium text-stone-800 mb-3">
                       Chọn giá trị thẻ
                     </label>
                     <div className="grid grid-cols-2 gap-3">
@@ -177,8 +182,8 @@ export default function GiftCardsPage() {
                           onClick={() => setSelectedAmount(amount)}
                           className={`p-4 rounded-lg font-semibold transition border-2 ${
                             selectedAmount === amount
-                              ? 'border-blue-500 bg-blue-50 text-blue-600'
-                              : 'border-gray-200 hover:border-gray-300'
+                              ? 'border-emerald-500 bg-emerald-50 text-emerald-600'
+                              : 'border-sage-200 hover:border-sage-300'
                           }`}
                         >
                           {amount.toLocaleString('vi-VN')} VNĐ
@@ -188,7 +193,7 @@ export default function GiftCardsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-2">
+                    <label className="block text-sm font-medium text-stone-800 mb-2">
                       Email nhận thẻ
                     </label>
                     <input
@@ -196,14 +201,14 @@ export default function GiftCardsPage() {
                       value={recipientEmail}
                       onChange={(e) => setRecipientEmail(e.target.value)}
                       placeholder="example@gmail.com"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
 
                   <button
                     onClick={handlePurchase}
                     disabled={!selectedAmount || !recipientEmail || loading}
-                    className="w-full px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 font-medium transition"
+                    className="w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium transition"
                   >
                     {loading ? 'Đang xử lý...' : 'Mua thẻ quà tặng'}
                   </button>
@@ -217,7 +222,7 @@ export default function GiftCardsPage() {
             <Card>
               <CardBody>
                 <div className="max-w-md space-y-4">
-                  <label className="block text-sm font-medium text-gray-900 mb-2">
+                  <label className="block text-sm font-medium text-stone-800 mb-2">
                     Nhập mã thẻ để kích hoạt
                   </label>
                   <input
@@ -225,12 +230,12 @@ export default function GiftCardsPage() {
                     value={redeemCode}
                     onChange={(e) => setRedeemCode(e.target.value.toUpperCase())}
                     placeholder="GIFT-XXXX-XXXX-XXXX"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+                    className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
                   />
                   <button
                     onClick={handleRedeem}
                     disabled={!redeemCode || loading}
-                    className="w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-gray-400 font-medium transition"
+                    className="w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium transition"
                   >
                     {loading ? 'Đang kích hoạt...' : 'Kích hoạt thẻ'}
                   </button>

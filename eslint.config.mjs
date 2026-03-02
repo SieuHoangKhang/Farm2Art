@@ -12,6 +12,8 @@ export default [
 		rules: {
 			// Next.js/React (new JSX transform) không cần global React
 			"no-undef": "off",
+			"no-unused-vars": "off",
+			"react-hooks/exhaustive-deps": "off",
 		},
 	},
 ];

@@ -115,29 +115,29 @@ export default function NewsComments({ articleId }: CommentsProps) {
 
   const renderComment = (comment: Comment, level = 0) => (
     <div key={comment.id} className={`${level > 0 ? 'ml-8' : ''} mb-4`}>
-      <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+      <div className="bg-sage-50 rounded-lg p-4 border border-sage-200">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center text-blue-700 font-bold">
+          <div className="w-10 h-10 rounded-full bg-emerald-200 flex items-center justify-center text-emerald-700 font-bold">
             {comment.author[0]}
           </div>
           <div className="flex-1">
             <div className="flex justify-between items-start mb-1">
-              <p className="font-semibold text-gray-900">{comment.author}</p>
-              <p className="text-xs text-gray-600">
+              <p className="font-semibold text-stone-800">{comment.author}</p>
+              <p className="text-xs text-stone-500">
                 {new Date(comment.timestamp).toLocaleTimeString('vi-VN')}
               </p>
             </div>
-            <p className="text-gray-700 text-sm mb-3">{comment.content}</p>
+            <p className="text-stone-600 text-sm mb-3">{comment.content}</p>
             <div className="flex gap-4 text-xs">
-              <button className="text-gray-600 hover:text-blue-600">
-                👍 Thích ({comment.likes})
+              <button className="text-stone-500 hover:text-emerald-600">
+                Thích ({comment.likes})
               </button>
               {level === 0 && (
                 <button
                   onClick={() => setReplyingTo(comment.id)}
-                  className="text-gray-600 hover:text-blue-600"
+                  className="text-stone-500 hover:text-emerald-600"
                 >
-                  💬 Trả lời
+                  Trả lời
                 </button>
               )}
             </div>
@@ -152,19 +152,19 @@ export default function NewsComments({ articleId }: CommentsProps) {
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
             placeholder="Nhập câu trả lời..."
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className="w-full px-3 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
             rows={2}
           />
           <div className="flex gap-2">
             <button
               onClick={() => handleAddReply(comment.id)}
-              className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+              className="px-3 py-1 bg-emerald-500 text-white rounded text-sm hover:bg-emerald-600"
             >
               Gửi
             </button>
             <button
               onClick={() => setReplyingTo(null)}
-              className="px-3 py-1 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400"
+              className="px-3 py-1 bg-stone-300 text-stone-600 rounded text-sm hover:bg-stone-400"
             >
               Hủy
             </button>
@@ -182,32 +182,32 @@ export default function NewsComments({ articleId }: CommentsProps) {
   );
 
   return (
-    <section className="mt-12 pt-8 border-t border-gray-200">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">💬 Bình luận</h2>
+    <section className="mt-12 pt-8 border-t border-sage-200">
+      <h2 className="text-2xl font-bold text-stone-800 mb-6">Bình luận</h2>
 
       {/* Add Comment Form */}
       {user ? (
-        <div className="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <div className="mb-8 p-4 bg-sage-50 rounded-lg border border-sage-200">
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Chia sẻ ý kiến của bạn..."
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
             rows={3}
           />
           <div className="mt-3 flex justify-end">
             <button
               onClick={handleAddComment}
               disabled={!newComment.trim()}
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 font-medium"
+              className="px-6 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium"
             >
               Gửi bình luận
             </button>
           </div>
         </div>
       ) : (
-        <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
-          <p className="text-blue-900">
+        <div className="mb-8 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-center">
+          <p className="text-stone-800">
             Vui lòng <a href="/login" className="font-semibold hover:underline">đăng nhập</a> để bình luận
           </p>
         </div>
@@ -216,14 +216,14 @@ export default function NewsComments({ articleId }: CommentsProps) {
       {/* Comments List */}
       {loading ? (
         <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
         </div>
       ) : comments.length > 0 ? (
         <div className="space-y-4">
           {comments.map(comment => renderComment(comment))}
         </div>
       ) : (
-        <div className="text-center py-8 text-gray-600">
+        <div className="text-center py-8 text-stone-500">
           Chưa có bình luận nào. Hãy là người bình luận đầu tiên!
         </div>
       )}

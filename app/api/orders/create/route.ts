@@ -7,9 +7,9 @@ import type { Order } from "@/types/order";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { listingId, sellerId, quantity } = body;
+    const { listingId, sellerId, quantity, buyerId } = body;
 
-    if (!listingId || !sellerId || !quantity) {
+    if (!listingId || !sellerId || !quantity || !buyerId) {
       return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
     }
 
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       listingId,
       sellerId,
       sellerName: listing.title,
-      buyerId: "", // Will be set by client (from auth context)
+      buyerId,
       status: "pending" as const,
       totalAmount: listing.price * quantity,
       items: [

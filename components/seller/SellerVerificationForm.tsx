@@ -22,7 +22,7 @@ export default function SellerVerificationForm() {
   if (!user) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-600">Vui lòng đăng nhập để xác thực người bán</p>
+        <p className="text-stone-500">Vui lòng đăng nhập để xác thực người bán</p>
       </div>
     );
   }
@@ -82,10 +82,10 @@ export default function SellerVerificationForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Business Info */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Thông tin kinh doanh</h3>
+          <h3 className="text-lg font-semibold text-stone-800 mb-4">Thông tin kinh doanh</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Tên doanh nghiệp
               </label>
               <input
@@ -94,12 +94,12 @@ export default function SellerVerificationForm() {
                 value={formData.businessName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Giấy đăng ký kinh doanh (URL)
               </label>
               <input
@@ -108,12 +108,12 @@ export default function SellerVerificationForm() {
                 value={formData.businessRegistration}
                 onChange={handleChange}
                 placeholder="https://..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Địa chỉ kinh doanh
               </label>
               <input
@@ -122,7 +122,7 @@ export default function SellerVerificationForm() {
                 value={formData.businessAddress}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
@@ -130,10 +130,10 @@ export default function SellerVerificationForm() {
 
         {/* Owner Info */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Thông tin chủ doanh nghiệp</h3>
+          <h3 className="text-lg font-semibold text-stone-800 mb-4">Thông tin chủ doanh nghiệp</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Họ tên
               </label>
               <input
@@ -142,12 +142,12 @@ export default function SellerVerificationForm() {
                 value={formData.ownerName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Ảnh CCCD/Hộ chiếu (URL)
               </label>
               <input
@@ -156,12 +156,12 @@ export default function SellerVerificationForm() {
                 value={formData.ownerID}
                 onChange={handleChange}
                 placeholder="https://..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Điện thoại
               </label>
               <input
@@ -170,12 +170,12 @@ export default function SellerVerificationForm() {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Email
               </label>
               <input
@@ -184,7 +184,7 @@ export default function SellerVerificationForm() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
@@ -192,17 +192,17 @@ export default function SellerVerificationForm() {
 
         {/* Bank Info */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Thông tin tài khoản ngân hàng</h3>
+          <h3 className="text-lg font-semibold text-stone-800 mb-4">Thông tin tài khoản ngân hàng</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Ngân hàng
               </label>
               <select
                 name="bankName"
                 value={formData.bankName}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option>Vietcombank</option>
                 <option>Techcombank</option>
@@ -213,7 +213,7 @@ export default function SellerVerificationForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">
+              <label className="block text-sm font-medium text-stone-800 mb-1">
                 Số tài khoản
               </label>
               <input
@@ -222,15 +222,15 @@ export default function SellerVerificationForm() {
                 value={formData.bankAccount}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </div>
           </div>
         </div>
 
         {/* Disclaimer */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-sm text-blue-900">
+        <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+          <p className="text-sm text-stone-800">
             📋 Xác thực sẽ mất 3-5 ngày làm việc. Vui lòng cung cấp thông tin chính xác để tránh từ chối.
           </p>
         </div>
@@ -239,7 +239,7 @@ export default function SellerVerificationForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition disabled:opacity-50"
+          className="w-full px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition disabled:opacity-50"
         >
           {loading ? 'Đang gửi...' : 'Gửi yêu cầu xác thực'}
         </button>

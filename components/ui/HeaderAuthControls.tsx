@@ -33,7 +33,7 @@ export function HeaderAuthControls() {
         href={user ? "/account" : "/login"}
         aria-label={user ? "Tài khoản" : "Đăng nhập"}
         title={user ? "Tài khoản" : "Đăng nhập"}
-        className="inline-flex items-center justify-center rounded-md px-3 py-2 text-stone-700 hover:bg-amber-50 hover:text-stone-900"
+        className="inline-flex items-center justify-center rounded-xl px-3 py-2 text-stone-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all duration-200"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -50,6 +50,15 @@ export function HeaderAuthControls() {
         </svg>
         <span className="sr-only">{user ? "Tài khoản" : "Đăng nhập"}</span>
       </Link>
+
+      {!user && (
+        <Link
+          href="/register"
+          className="hidden md:inline-flex items-center rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:from-emerald-700 hover:to-emerald-600 shadow-sm hover:shadow-md transition-all duration-200"
+        >
+          Đăng ký
+        </Link>
+      )}
     </div>
   );
 }

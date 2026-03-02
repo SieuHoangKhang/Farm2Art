@@ -104,7 +104,7 @@ export default function CreateListingPage() {
         <Card>
           <CardBody>
             <p className="text-stone-600">Vui lòng đăng nhập để đăng bán sản phẩm.</p>
-            <LinkButton href="/auth/login" className="mt-4">
+            <LinkButton href="/login" className="mt-4">
               Đăng nhập
             </LinkButton>
           </CardBody>

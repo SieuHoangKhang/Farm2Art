@@ -57,7 +57,7 @@ export default function OrdersPage() {
         <Card>
           <CardBody>
             <p className="text-stone-600">Vui lòng đăng nhập để xem đơn hàng.</p>
-            <LinkButton href="/auth/login" className="mt-4">
+            <LinkButton href="/login" className="mt-4">
               Đăng nhập
             </LinkButton>
           </CardBody>
@@ -77,11 +77,10 @@ export default function OrdersPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`rounded-lg px-4 py-2 text-sm font-medium transition-all ${
-                filter === f
+              className={`rounded-lg px-4 py-2 text-sm font-medium transition-all ${filter === f
                   ? "bg-emerald-600 text-white"
                   : "border border-stone-200 bg-white text-stone-700 hover:border-stone-300"
-              }`}
+                }`}
             >
               {f === "all" ? "Tất cả" : f === "pending" ? "Chờ xử lý" : f === "completed" ? "Hoàn thành" : "Hủy"}
             </button>
@@ -118,13 +117,12 @@ export default function OrdersPage() {
                     </div>
                     <div className="text-right">
                       <span
-                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${
-                          order.status === "pending"
+                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${order.status === "pending"
                             ? "bg-yellow-100 text-yellow-800"
                             : order.status === "completed"
                               ? "bg-green-100 text-green-800"
                               : "bg-red-100 text-red-800"
-                        }`}
+                          }`}
                       >
                         {order.status === "pending"
                           ? "Chờ xử lý"

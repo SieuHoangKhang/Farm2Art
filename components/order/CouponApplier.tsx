@@ -75,7 +75,7 @@ export default function CouponApplier({
   };
 
   return (
-    <div className="bg-gray-50 rounded-lg p-6">
+    <div className="bg-sage-50 rounded-lg p-6">
       <h3 className="text-lg font-semibold mb-4">🎟️ Mã giảm giá</h3>
 
       {appliedCoupon && (
@@ -105,13 +105,13 @@ export default function CouponApplier({
             value={code}
             onChange={e => setCode(e.target.value.toUpperCase())}
             placeholder="Nhập mã coupon"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
             disabled={!!appliedCoupon}
           />
           <button
             onClick={handleValidate}
             disabled={loading || !!appliedCoupon}
-            className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition disabled:opacity-50"
+            className="px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition disabled:opacity-50"
           >
             {loading ? 'Đang kiểm tra...' : 'Áp dụng'}
           </button>
@@ -131,7 +131,7 @@ export default function CouponApplier({
 
         <button
           onClick={handleFetchAvailable}
-          className="w-full text-center text-sm text-blue-500 hover:text-blue-700 py-2"
+          className="w-full text-center text-sm text-emerald-500 hover:text-emerald-700 py-2"
         >
           {showAvailable ? '▼ Ẩn coupon có sẵn' : '▶ Xem coupon có sẵn'}
         </button>
@@ -142,13 +142,13 @@ export default function CouponApplier({
           {availableCoupons.map(coupon => (
             <div
               key={coupon.id}
-              className="bg-white border border-gray-300 rounded-lg p-3 cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition"
+              className="bg-white border border-sage-300 rounded-lg p-3 cursor-pointer hover:border-emerald-500 hover:bg-emerald-50 transition"
               onClick={() => handleQuickApply(coupon)}
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="font-semibold text-gray-900">{coupon.code}</p>
-                  <p className="text-sm text-gray-600">{coupon.description}</p>
+                  <p className="font-semibold text-stone-800">{coupon.code}</p>
+                  <p className="text-sm text-stone-500">{coupon.description}</p>
                 </div>
                 <span className="text-sm font-bold text-orange-500">
                   {coupon.type === 'percentage' ? `${coupon.value}%` : `${coupon.value.toLocaleString('vi-VN')}đ`}

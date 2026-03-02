@@ -73,7 +73,7 @@ export default function OrderTracking({
       {/* Timeline */}
       <div className="relative">
         {/* Vertical Line */}
-        <div className="absolute left-8 top-0 bottom-0 w-1 bg-gray-300"></div>
+        <div className="absolute left-8 top-0 bottom-0 w-1 bg-stone-300"></div>
 
         {/* Steps */}
         <div className="space-y-8">
@@ -90,21 +90,21 @@ export default function OrderTracking({
                     isCompleted
                       ? 'bg-emerald-500 text-white'
                       : isActive
-                      ? 'bg-blue-500 text-white ring-4 ring-blue-200'
-                      : 'bg-gray-300 text-gray-600'
+                      ? 'bg-emerald-500 text-white ring-4 ring-emerald-200'
+                      : 'bg-stone-300 text-stone-500'
                   }`}
                 >
                   {step.icon}
                 </div>
 
                 {/* Content */}
-                <div className={`py-2 ${isActive ? 'bg-blue-50 p-4 rounded-lg' : ''}`}>
-                  <h4 className={`font-semibold ${isActive ? 'text-blue-600' : 'text-gray-900'}`}>
+                <div className={`py-2 ${isActive ? 'bg-emerald-50 p-4 rounded-lg' : ''}`}>
+                  <h4 className={`font-semibold ${isActive ? 'text-emerald-600' : 'text-stone-800'}`}>
                     {step.label}
                   </h4>
-                  <p className="text-sm text-gray-600 mt-1">{step.description}</p>
+                  <p className="text-sm text-stone-500 mt-1">{step.description}</p>
                   {step.timestamp && (
-                    <p className="text-xs text-gray-500 mt-2">
+                    <p className="text-xs text-stone-400 mt-2">
                       {new Date(step.timestamp).toLocaleString('vi-VN')}
                     </p>
                   )}
@@ -127,9 +127,9 @@ export default function OrderTracking({
       )}
 
       {/* Tracking Info */}
-      <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-        <p className="text-sm font-medium text-gray-900 mb-2">Mã đơn hàng: <code>{orderId}</code></p>
-        <p className="text-xs text-gray-600">
+      <div className="mt-8 p-4 bg-sage-50 rounded-lg">
+        <p className="text-sm font-medium text-stone-800 mb-2">Mã đơn hàng: <code>{orderId}</code></p>
+        <p className="text-xs text-stone-500">
           Cập nhật lần cuối: {new Date().toLocaleTimeString('vi-VN')}
         </p>
       </div>

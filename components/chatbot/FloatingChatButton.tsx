@@ -18,7 +18,7 @@ export default function FloatingChatButton() {
       <>
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-purple-500 hover:bg-purple-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 z-40"
+          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-2xl shadow-lg shadow-emerald-200/50 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-xl z-40"
           aria-label="Admin Dashboard"
           title="Quản lý tin nhắn"
         >
@@ -48,7 +48,7 @@ export default function FloatingChatButton() {
       {/* Floating Chat Bubble Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 z-40"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-2xl shadow-lg shadow-emerald-200/50 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-xl z-40"
         aria-label="Open chat"
       >
         <svg

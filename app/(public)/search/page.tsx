@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { collection, getDocs, query, where, QueryConstraint } from "firebase/firestore";
 import { Card, CardBody } from "@/components/ui/Card";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -9,22 +10,20 @@ import { SearchFilters } from "@/components/listing/SearchFilters";
 import { firebaseDb } from "@/lib/firebase/client";
 import type { Listing, ListingType } from "@/types/listing";
 
-export default function SearchPage({
-  // eslint-disable-next-line no-unused-vars
-  searchParams,
-}: {
-  searchParams?: Promise<{ q?: string; type?: string; minPrice?: string; maxPrice?: string; location?: string }>;
-}) {
+function SearchContent() {
+  const urlParams = useSearchParams();
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Filter states
-  const [queryText, setQueryText] = useState("");
-  const [typeFilter, setTypeFilter] = useState<ListingType | undefined>(undefined);
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
-  const [location, setLocation] = useState("");
+  // Filter states — initialized from URL params
+  const [queryText, setQueryText] = useState(urlParams.get("q") || "");
+  const [typeFilter, setTypeFilter] = useState<ListingType | undefined>(
+    (urlParams.get("type") as ListingType) || undefined
+  );
+  const [minPrice, setMinPrice] = useState(Number(urlParams.get("minPrice")) || 0);
+  const [maxPrice, setMaxPrice] = useState(Number(urlParams.get("maxPrice")) || 0);
+  const [location, setLocation] = useState(urlParams.get("location") || "");
 
   // Load listings on filter change
   useEffect(() => {
@@ -133,5 +132,13 @@ export default function SearchPage({
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-12 text-stone-500">Đang tải...</div>}>
+      <SearchContent />
+    </Suspense>
   );
 }

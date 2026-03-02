@@ -94,7 +94,7 @@ function StatIcon({ type }: { type: "listing" | "active" | "account" }) {
       </svg>
     );
   return (
-    <svg className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg className="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   );
@@ -207,11 +207,11 @@ export default function AccountPage() {
 
       try {
         const listingsRef = collection(firebaseDb, "listings");
-        const ownerQuery = query(listingsRef, where("ownerId", "==", user!.uid));
+        const ownerQuery = query(listingsRef, where("sellerId", "==", user!.uid));
 
         // IMPORTANT: Avoid composite index requirements by not mixing where+orderBy.
         // We fetch a small batch and sort client-side.
-        const recentQuery = query(listingsRef, where("ownerId", "==", user!.uid), limit(25));
+        const recentQuery = query(listingsRef, where("sellerId", "==", user!.uid), limit(25));
 
         const [countAll, recentSnap] = await Promise.all([
           getCountFromServer(ownerQuery),
@@ -451,7 +451,7 @@ export default function AccountPage() {
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-5 transition-all hover:border-blue-200 hover:shadow-md">
+            <div className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-5 transition-all hover:border-emerald-200 hover:shadow-md">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Tài khoản</p>
@@ -460,7 +460,7 @@ export default function AccountPage() {
                   </p>
                   <p className="mt-2 text-xs text-stone-600">{accountMeta.providerText}</p>
                 </div>
-                <div className="rounded-lg bg-blue-100 p-2.5">
+                <div className="rounded-lg bg-emerald-100 p-2.5">
                   <StatIcon type="account" />
                 </div>
               </div>
@@ -480,122 +480,37 @@ export default function AccountPage() {
                   <p className="text-sm font-semibold text-stone-900">Giới thiệu</p>
                   <p className="mt-1 text-sm text-stone-600">Thông tin cơ bản để người khác nhận diện bạn.</p>
                 </div>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  onClick={() => {
-                    if (!editingProfile) resetEditFields();
-                    setEditingProfile((v) => !v);
-                  }}
-                  disabled={!user}
-                >
-                  {editingProfile ? "✕" : "✎"}
-                </Button>
+                <LinkButton href="/profile" variant="secondary">
+                  👤 Chỉnh sửa hồ sơ
+                </LinkButton>
               </div>
 
-              {!editingProfile ? (
-                <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Tên hiển thị</p>
-                    <p className="mt-2 text-base font-semibold text-stone-900">{nameForUi}</p>
-                  </div>
-                  <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Số điện thoại</p>
-                    <p className="mt-2 text-base font-semibold text-stone-900">{phone.trim() ? phone : "—"}</p>
-                  </div>
-                  <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Địa chỉ</p>
-                    <p className="mt-2 text-base font-semibold text-stone-900">{address.trim() ? address : "—"}</p>
-                  </div>
-                  <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Thành phố</p>
-                    <p className="mt-2 text-base font-semibold text-stone-900">{city.trim() ? city : "—"}</p>
-                  </div>
-                  <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Quận/Huyện</p>
-                    <p className="mt-2 text-base font-semibold text-stone-900">{district.trim() ? district : "—"}</p>
-                  </div>
-                  <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">UID</p>
-                    <p className="mt-2 break-all font-mono text-xs text-stone-900">{user?.uid ?? ""}</p>
-                  </div>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Tên hiển thị</p>
+                  <p className="mt-2 text-base font-semibold text-stone-900">{nameForUi}</p>
                 </div>
-              ) : (
-                <div className="mt-4 space-y-3">
-                  <TextField
-                    label="Tên hiển thị"
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                    placeholder="Ví dụ: Nguyễn Văn A"
-                    disabled={saveBusy || !user}
-                  />
-                  <TextField
-                    label="Số điện thoại"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="Ví dụ: 0901xxxxxx"
-                    disabled={saveBusy || !user}
-                  />
-                  <TextField
-                    label="Địa chỉ"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Ví dụ: 123 Đường Nguyễn Huệ"
-                    disabled={saveBusy || !user}
-                  />
-                  <TextField
-                    label="Thành phố"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    placeholder="Ví dụ: Hồ Chí Minh"
-                    disabled={saveBusy || !user}
-                  />
-                  <TextField
-                    label="Quận/Huyện"
-                    value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
-                    placeholder="Ví dụ: Quận 1"
-                    disabled={saveBusy || !user}
-                  />
-                  <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Avatar</p>
-                    <p className="mt-2 text-xs text-stone-600">Chọn ảnh để đổi avatar</p>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="mt-3 block w-full text-xs"
-                      onChange={(e) => {
-                        const file = e.currentTarget.files?.[0];
-                        if (file) void handleAvatarUpload(file);
-                      }}
-                      disabled={uploadingAvatar}
-                    />
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-1">
-                    <Button type="button" onClick={() => void saveProfile()} disabled={saveBusy || !user}>
-                      {saveBusy ? "Đang lưu..." : "Lưu"}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() => {
-                        resetEditFields();
-                        setEditingProfile(false);
-                      }}
-                      disabled={saveBusy}
-                    >
-                      Hủy
-                    </Button>
-                  </div>
-
-                  {saveMessage ? (
-                    <p className={"text-xs " + (saveMessage.includes("Đã lưu") ? "text-emerald-700" : "text-red-700")}>
-                      {saveMessage}
-                    </p>
-                  ) : null}
+                <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Số điện thoại</p>
+                  <p className="mt-2 text-base font-semibold text-stone-900">{phone.trim() ? phone : "—"}</p>
                 </div>
-              )}
+                <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Địa chỉ</p>
+                  <p className="mt-2 text-base font-semibold text-stone-900">{address.trim() ? address : "—"}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Thành phố</p>
+                  <p className="mt-2 text-base font-semibold text-stone-900">{city.trim() ? city : "—"}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Quận/Huyện</p>
+                  <p className="mt-2 text-base font-semibold text-stone-900">{district.trim() ? district : "—"}</p>
+                </div>
+                <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">UID</p>
+                  <p className="mt-2 break-all font-mono text-xs text-stone-900">{user?.uid ?? ""}</p>
+                </div>
+              </div>
 
               {profileLoading ? <p className="mt-3 text-xs text-stone-500">Đang tải hồ sơ…</p> : null}
             </CardBody>
@@ -637,7 +552,7 @@ export default function AccountPage() {
                 <LinkButton href="/my-listings" variant="ghost" className="justify-start h-11 text-sm font-medium">
                   <span>📋</span> Quản lý tin đăng
                 </LinkButton>
-                <LinkButton href="/chat" variant="ghost" className="justify-start h-11 text-sm font-medium">
+                <LinkButton href="/conversations" variant="ghost" className="justify-start h-11 text-sm font-medium">
                   <span>💬</span> Tin nhắn
                 </LinkButton>
                 <LinkButton href="/orders" variant="ghost" className="justify-start h-11 text-sm font-medium">

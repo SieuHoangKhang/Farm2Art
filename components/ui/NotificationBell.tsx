@@ -108,7 +108,7 @@ export default function NotificationBell() {
       {/* Bell Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 hover:bg-gray-100 rounded-lg transition"
+        className="relative p-2 hover:bg-sage-100 rounded-lg transition"
         aria-label="Notifications"
       >
         <span className="text-2xl">🔔</span>
@@ -124,11 +124,11 @@ export default function NotificationBell() {
         <div className="absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-xl z-50 max-h-96 flex flex-col">
           {/* Header */}
           <div className="border-b p-4 flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-gray-900">Thông báo</h3>
+            <h3 className="text-lg font-semibold text-stone-800">Thông báo</h3>
             {unreadCount > 0 && (
               <button
                 onClick={handleMarkAllAsRead}
-                className="text-sm text-blue-600 hover:text-blue-700"
+                className="text-sm text-emerald-600 hover:text-emerald-700"
               >
                 Đánh dấu tất cả đã đọc
               </button>
@@ -141,8 +141,8 @@ export default function NotificationBell() {
               notifications.map(notification => (
                 <div
                   key={notification.id}
-                  className={`border-b p-4 hover:bg-gray-50 transition cursor-pointer ${
-                    !notification.read ? 'bg-blue-50' : ''
+                  className={`border-b p-4 hover:bg-sage-50 transition cursor-pointer ${
+                    !notification.read ? 'bg-emerald-50' : ''
                   }`}
                   onClick={() => handleMarkAsRead(notification.id)}
                 >
@@ -152,12 +152,12 @@ export default function NotificationBell() {
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <h4 className={`font-semibold text-gray-900 ${!notification.read ? 'text-blue-600' : ''}`}>
+                      <h4 className={`font-semibold text-stone-800 ${!notification.read ? 'text-emerald-600' : ''}`}>
                         {notification.title}
                         {!notification.read && <span className="ml-2">●</span>}
                       </h4>
-                      <p className="text-sm text-gray-600 mt-1">{notification.message}</p>
-                      <p className="text-xs text-gray-500 mt-2">
+                      <p className="text-sm text-stone-500 mt-1">{notification.message}</p>
+                      <p className="text-xs text-stone-400 mt-2">
                         {new Date(notification.timestamp).toLocaleString('vi-VN')}
                       </p>
 
@@ -165,7 +165,7 @@ export default function NotificationBell() {
                       {notification.action && (
                         <a
                           href={notification.action.href}
-                          className="text-sm text-blue-600 hover:text-blue-700 font-medium mt-2 inline-block"
+                          className="text-sm text-emerald-600 hover:text-emerald-700 font-medium mt-2 inline-block"
                           onClick={e => e.stopPropagation()}
                         >
                           {notification.action.label} →
@@ -179,7 +179,7 @@ export default function NotificationBell() {
                         e.stopPropagation();
                         handleDeleteNotification(notification.id);
                       }}
-                      className="text-gray-400 hover:text-red-600 transition text-lg"
+                      className="text-stone-300 hover:text-red-600 transition text-lg"
                     >
                       ✕
                     </button>
@@ -187,7 +187,7 @@ export default function NotificationBell() {
                 </div>
               ))
             ) : (
-              <div className="p-8 text-center text-gray-600">
+              <div className="p-8 text-center text-stone-500">
                 Chưa có thông báo nào
               </div>
             )}
@@ -196,7 +196,7 @@ export default function NotificationBell() {
           {/* Footer */}
           {notifications.length > 0 && (
             <div className="border-t p-3 text-center">
-              <a href="/notifications" className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+              <a href="/notifications" className="text-sm text-emerald-600 hover:text-emerald-700 font-medium">
                 Xem tất cả thông báo →
               </a>
             </div>

@@ -135,9 +135,9 @@ export default function WalletPage() {
       case 'payment':
         return 'text-red-600';
       case 'refund':
-        return 'text-blue-600';
+        return 'text-emerald-600';
       default:
-        return 'text-gray-600';
+        return 'text-stone-500';
     }
   };
 
@@ -157,20 +157,19 @@ export default function WalletPage() {
   };
 
   return (
-    <RequireAuth>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen">
         <PageHeader title="Ví của tôi" subtitle="Quản lý số dư và giao dịch" />
 
         <Container>
           <div className="py-8">
             {loading ? (
               <div className="flex justify-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
               </div>
             ) : wallet ? (
               <>
                 {/* Balance Card */}
-                <Card className="mb-8 bg-gradient-to-r from-blue-600 to-blue-800">
+                <Card className="mb-8 bg-gradient-to-r from-emerald-600 to-emerald-800">
                   <CardBody>
                     <div className="text-white">
                       <p className="text-sm opacity-90 mb-2">Số dư ví</p>
@@ -196,15 +195,15 @@ export default function WalletPage() {
                 </Card>
 
                 {/* Tabs */}
-                <div className="flex gap-2 mb-6 border-b border-gray-200">
+                <div className="flex gap-2 mb-6 border-b border-sage-200">
                   {['overview', 'transactions', 'withdraw'].map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab as any)}
                       className={`px-4 py-3 font-medium border-b-2 transition ${
                         activeTab === tab
-                          ? 'text-blue-600 border-blue-600'
-                          : 'text-gray-600 border-transparent hover:text-gray-900'
+                          ? 'text-emerald-600 border-emerald-600'
+                          : 'text-stone-500 border-transparent hover:text-stone-800'
                       }`}
                     >
                       {tab === 'overview' && '📊 Tổng quan'}
@@ -219,7 +218,7 @@ export default function WalletPage() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <Card>
                       <CardBody>
-                        <p className="text-sm text-gray-600">Số dư hiện tại</p>
+                        <p className="text-sm text-stone-500">Số dư hiện tại</p>
                         <p className="text-3xl font-bold text-emerald-600 mt-2">
                           {wallet.balance.toLocaleString('vi-VN')} VNĐ
                         </p>
@@ -227,15 +226,15 @@ export default function WalletPage() {
                     </Card>
                     <Card>
                       <CardBody>
-                        <p className="text-sm text-gray-600">Tổng nạp</p>
-                        <p className="text-3xl font-bold text-blue-600 mt-2">
+                        <p className="text-sm text-stone-500">Tổng nạp</p>
+                        <p className="text-3xl font-bold text-emerald-600 mt-2">
                           {wallet.totalDeposited.toLocaleString('vi-VN')} VNĐ
                         </p>
                       </CardBody>
                     </Card>
                     <Card>
                       <CardBody>
-                        <p className="text-sm text-gray-600">Tổng rút</p>
+                        <p className="text-sm text-stone-500">Tổng rút</p>
                         <p className="text-3xl font-bold text-orange-600 mt-2">
                           {wallet.totalWithdrawn.toLocaleString('vi-VN')} VNĐ
                         </p>
@@ -253,8 +252,8 @@ export default function WalletPage() {
                             <div className="flex gap-3 flex-1">
                               <span className="text-2xl">{getTransactionIcon(txn.type)}</span>
                               <div>
-                                <p className="font-medium text-gray-900">{txn.description}</p>
-                                <p className="text-xs text-gray-600 mt-1">
+                                <p className="font-medium text-stone-800">{txn.description}</p>
+                                <p className="text-xs text-stone-500 mt-1">
                                   {new Date(txn.timestamp).toLocaleString('vi-VN')}
                                 </p>
                                 <span className={`inline-block text-xs mt-2 px-2 py-1 rounded ${
@@ -284,7 +283,7 @@ export default function WalletPage() {
                     <CardBody>
                       <div className="max-w-md space-y-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-900 mb-2">
+                          <label className="block text-sm font-medium text-stone-800 mb-2">
                             Số tiền rút (VNĐ)
                           </label>
                           <input
@@ -292,15 +291,15 @@ export default function WalletPage() {
                             value={withdrawAmount}
                             onChange={(e) => setWithdrawAmount(e.target.value)}
                             placeholder="Nhập số tiền"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                           />
-                          <p className="text-xs text-gray-600 mt-1">
+                          <p className="text-xs text-stone-500 mt-1">
                             Số dư khả dụng: {wallet.balance.toLocaleString('vi-VN')} VNĐ
                           </p>
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-900 mb-2">
+                          <label className="block text-sm font-medium text-stone-800 mb-2">
                             Ngân hàng
                           </label>
                           <input
@@ -308,12 +307,12 @@ export default function WalletPage() {
                             value={bankInfo.bankName}
                             onChange={(e) => setBankInfo({ ...bankInfo, bankName: e.target.value })}
                             placeholder="VCB, ACB, Momo..."
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-900 mb-2">
+                          <label className="block text-sm font-medium text-stone-800 mb-2">
                             Số tài khoản
                           </label>
                           <input
@@ -321,12 +320,12 @@ export default function WalletPage() {
                             value={bankInfo.accountNumber}
                             onChange={(e) => setBankInfo({ ...bankInfo, accountNumber: e.target.value })}
                             placeholder="Số tài khoản"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-900 mb-2">
+                          <label className="block text-sm font-medium text-stone-800 mb-2">
                             Tên chủ tài khoản
                           </label>
                           <input
@@ -334,18 +333,18 @@ export default function WalletPage() {
                             value={bankInfo.accountHolder}
                             onChange={(e) => setBankInfo({ ...bankInfo, accountHolder: e.target.value })}
                             placeholder="Tên chủ tài khoản"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                           />
                         </div>
 
                         <button
                           onClick={handleWithdraw}
-                          className="w-full px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-medium transition"
+                          className="w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 font-medium transition"
                         >
                           Yêu cầu rút tiền
                         </button>
 
-                        <p className="text-xs text-gray-600">
+                        <p className="text-xs text-stone-500">
                           * Rút tiền sẽ được xử lý trong 1-3 ngày làm việc
                         </p>
                       </div>
@@ -359,6 +358,5 @@ export default function WalletPage() {
           </div>
         </Container>
       </div>
-    </RequireAuth>
   );
 }

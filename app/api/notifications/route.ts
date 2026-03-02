@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Notification } from '@/types/notification';
-
-// In-memory notification storage
-const notificationsStore: Record<string, Notification[]> = {};
+import {
+  addDocument,
+  findDocuments,
+  updateDocument,
+  getDocument,
+  queryCollection,
+} from '@/lib/firebase/firestore-utils';
+import { orderBy } from 'firebase/firestore';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -15,12 +20,24 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const userNotifications = notificationsStore[userId] || [];
+  try {
+    const userNotifications = await findDocuments(
+      'notifications',
+      'userId',
+      userId
+    );
 
-  return NextResponse.json({
-    notifications: userNotifications,
-    unreadCount: userNotifications.filter(n => !n.read).length,
-  });
+    return NextResponse.json({
+      notifications: userNotifications.reverse(),
+      unreadCount: userNotifications.filter((n: any) => !n.read).length,
+    });
+  } catch (error) {
+    console.error('Failed to fetch notifications:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch notifications' },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -34,23 +51,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Initialize user notifications if not exists
-    if (!notificationsStore[userId]) {
-      notificationsStore[userId] = [];
-    }
-
-    const notification: Notification = {
-      id: `notif_${Date.now()}`,
+    const notification = await addDocument('notifications', {
+      userId,
       type,
       title,
       message,
       icon: icon || '📢',
       read: false,
-      timestamp: Date.now(),
       action,
-    };
-
-    notificationsStore[userId].unshift(notification);
+    });
 
     return NextResponse.json(notification, { status: 201 });
   } catch (error) {
@@ -77,44 +86,32 @@ export async function PUT(request: NextRequest) {
     }
 
     if (action === 'markAsRead') {
-      const userNotifications = notificationsStore[userId];
-      if (!userNotifications) {
-        return NextResponse.json(
-          { error: 'Notifications not found' },
-          { status: 404 }
-        );
-      }
-
       if (notificationId) {
         // Mark single notification as read
-        const notification = userNotifications.find(n => n.id === notificationId);
-        if (notification) {
-          notification.read = true;
-        }
+        await updateDocument('notifications', notificationId, { read: true });
       } else {
-        // Mark all as read
-        userNotifications.forEach(n => (n.read = true));
+        // Mark all as read for user
+        const userNotifications = await findDocuments(
+          'notifications',
+          'userId',
+          userId
+        );
+        for (const notif of userNotifications) {
+          await updateDocument('notifications', notif.id, { read: true });
+        }
       }
 
+      const remaining = await findDocuments('notifications', 'userId', userId);
       return NextResponse.json({
         success: true,
-        unreadCount: userNotifications.filter(n => !n.read).length,
+        unreadCount: remaining.filter((n: any) => !n.read).length,
       });
     }
 
     if (action === 'delete') {
-      const userNotifications = notificationsStore[userId];
-      if (!userNotifications) {
-        return NextResponse.json(
-          { error: 'Notifications not found' },
-          { status: 404 }
-        );
-      }
-
       if (notificationId) {
-        notificationsStore[userId] = userNotifications.filter(n => n.id !== notificationId);
+        await updateDocument('notifications', notificationId, { deleted: true });
       }
-
       return NextResponse.json({ success: true });
     }
 

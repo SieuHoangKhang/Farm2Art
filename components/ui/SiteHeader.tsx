@@ -1,53 +1,51 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import { LinkButton } from "@/components/ui/Button";
 import { HeaderAuthControls } from "@/components/ui/HeaderAuthControls";
-import { LogoImage } from "@/components/ui/LogoImage";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-white/20 bg-white/70 backdrop-blur-xl shadow-sm">
       <Container>
-        <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-semibold text-stone-900">
-            <span className="relative h-9 w-9 overflow-hidden rounded-md ring-1 ring-stone-200">
-              <LogoImage className="object-cover" />
+        <div className="h-16 flex items-center justify-between gap-6">
+          {/* Logo */}
+          <Link href="/" className="group flex items-center gap-2.5 font-bold text-emerald-700 hover:text-emerald-800 transition-colors flex-shrink-0">
+            <div className="h-10 w-10 relative rounded-xl overflow-hidden ring-2 ring-emerald-100 group-hover:ring-emerald-200 transition-all group-hover:shadow-glow">
+              <Image
+                src="/images/logo.png"
+                alt="Farm2Art Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="text-lg font-extrabold hidden sm:inline bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">
+              Farm2Art
             </span>
-            <span className="tracking-tight">Farm2Art</span>
           </Link>
 
-          <nav className="flex items-center gap-2">
-            <Link
-              href="/search"
-              className="hidden rounded-md px-3 py-2 text-sm text-stone-700 hover:bg-amber-50 hover:text-stone-900 md:inline-flex"
-            >
-              Khám phá
-            </Link>
-            <Link
-              href="/news"
-              className="hidden rounded-md px-3 py-2 text-sm text-stone-700 hover:bg-amber-50 hover:text-stone-900 md:inline-flex"
-            >
-              Tin tức
-            </Link>
-            <Link
-              href="/about"
-              className="hidden rounded-md px-3 py-2 text-sm text-stone-700 hover:bg-amber-50 hover:text-stone-900 md:inline-flex"
-            >
-              Về chúng tôi
-            </Link>
-            <Link
-              href="/about#lien-he"
-              className="hidden rounded-md px-3 py-2 text-sm text-stone-700 hover:bg-amber-50 hover:text-stone-900 md:inline-flex"
-            >
-              Liên hệ
-            </Link>
+          {/* Navigation */}
+          <nav className="flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-0.5">
+              {[
+                { href: "/search", label: "Sản phẩm" },
+                { href: "/news", label: "Tin tức" },
+                { href: "/about", label: "Về chúng tôi" },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="relative px-3.5 py-2 text-sm font-medium text-stone-600 hover:text-emerald-700 rounded-lg hover:bg-emerald-50/70 transition-all duration-200"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="w-px h-6 bg-sage-200 mx-2 hidden md:block" />
+
+            {/* Auth Controls */}
             <HeaderAuthControls />
-            <LinkButton href="/register" variant="primary" className="hidden sm:inline-flex">
-              Bắt đầu đăng bán
-            </LinkButton>
-            <LinkButton href="/register" variant="primary" className="sm:hidden">
-              Đăng ký
-            </LinkButton>
           </nav>
         </div>
       </Container>

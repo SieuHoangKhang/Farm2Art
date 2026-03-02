@@ -1,0 +1,48 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Circle -->
+  <circle cx="100" cy="100" r="95" fill="#FEFCE8" stroke="#4A563A" stroke-width="3"/>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#78716C" stroke-width="2"/>
+  
+  <!-- Left Wheat/Grain -->
+  <g transform="translate(50, 100)">
+    <!-- Stem -->
+    <line x1="0" y1="0" x2="0" y2="40" stroke="#6B7D50" stroke-width="2"/>
+    <!-- Heads -->
+    <circle cx="-8" cy="-5" r="4" fill="#F59E0B"/>
+    <circle cx="-5" cy="-15" r="4" fill="#FBBF24"/>
+    <circle cx="5" cy="-15" r="4" fill="#FBBF24"/>
+    <circle cx="8" cy="-5" r="4" fill="#F59E0B"/>
+    <circle cx="0" cy="-20" r="3" fill="#92400E"/>
+  </g>
+  
+  <!-- Right Leaves/Plant -->
+  <g transform="translate(120, 80)">
+    <!-- Stem -->
+    <line x1="0" y1="0" x2="5" y2="30" stroke="#6B7D50" stroke-width="2"/>
+    <!-- Leaves -->
+    <ellipse cx="-10" cy="5" rx="6" ry="12" fill="#059669" transform="rotate(-30 -10 5)"/>
+    <ellipse cx="-8" cy="18" rx="5" ry="10" fill="#10B981" transform="rotate(-20 -8 18)"/>
+    <ellipse cx="5" cy="15" rx="5" ry="10" fill="#059669" transform="rotate(30 5 15)"/>
+  </g>
+  
+  <!-- Center Yarn Ball -->
+  <g transform="translate(100, 100)">
+    <!-- Circle -->
+    <circle cx="0" cy="0" r="15" fill="#FF9500" opacity="0.8"/>
+    <circle cx="0" cy="0" r="12" fill="#FBBF24" opacity="0.6"/>
+    <!-- Spiral lines for yarn effect -->
+    <circle cx="0" cy="0" r="8" fill="none" stroke="#92400E" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="5" fill="none" stroke="#92400E" stroke-width="1"/>
+  </g>
+  
+  <!-- Crochet Hook -->
+  <g transform="translate(130, 85)">
+    <line x1="0" y1="0" x2="-8" y2="35" stroke="#92400E" stroke-width="2"/>
+    <!-- Hook curve -->
+    <path d="M -8 35 Q 0 38 5 32" stroke="#92400E" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="100" y="165" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="#92400E" text-anchor="middle">FARM2ART</text>
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="10" fill="#6B7D50" text-anchor="middle">HANDCRAFTED FROM NATURE</text>
+</svg>

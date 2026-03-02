@@ -65,7 +65,7 @@ export default function ChatPage() {
 
     setBusy(true);
     setError(null);
-    try {
+    try { 
       const senderId = user?.uid ?? "guest";
       const senderName = user?.displayName ?? user?.phoneNumber ?? user?.email ?? "Guest";
 

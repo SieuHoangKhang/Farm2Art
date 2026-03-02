@@ -15,7 +15,7 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
 
   if (mode === 'ai') {
     return (
-      <div className="fixed bottom-24 right-6 w-full max-w-md h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-gray-200">
+      <div className="fixed bottom-24 right-6 w-full max-w-md h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-sage-200">
         {/* Header */}
         <div className="flex justify-between items-center bg-green-500 text-white p-4 rounded-t-lg">
           <h2 className="font-semibold">🤖 Chat với AI</h2>
@@ -51,14 +51,14 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
 
   if (mode === 'admin') {
     return (
-      <div className="fixed bottom-24 right-6 w-full max-w-md h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-gray-200">
+      <div className="fixed bottom-24 right-6 w-full max-w-md h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-sage-200">
         {/* Header */}
-        <div className="flex justify-between items-center bg-blue-500 text-white p-4 rounded-t-lg">
+        <div className="flex justify-between items-center bg-emerald-500 text-white p-4 rounded-t-lg">
           <h2 className="font-semibold">👨‍💼 Chat với Admin</h2>
           <div className="flex gap-2">
             <button
               onClick={() => setMode(null)}
-              className="hover:bg-blue-600 p-1 rounded transition-colors"
+              className="hover:bg-emerald-600 p-1 rounded transition-colors"
               aria-label="Back"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
             </button>
             <button
               onClick={onClose}
-              className="hover:bg-blue-600 p-1 rounded transition-colors"
+              className="hover:bg-emerald-600 p-1 rounded transition-colors"
               aria-label="Close"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
       {/* Modal */}
       <div className="fixed bottom-24 right-6 w-full max-w-sm bg-white rounded-lg shadow-2xl z-50 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4">
+        <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4">
           <div className="flex justify-between items-center">
             <h2 className="font-semibold text-lg">Chọn hình thức chat</h2>
             <button
@@ -117,19 +117,19 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
           {/* AI Chat Option */}
           <button
             onClick={() => setMode('ai')}
-            className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all text-left group"
+            className="w-full p-4 border-2 border-sage-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all text-left group"
           >
             <div className="flex items-start gap-3">
               <div className="text-3xl mt-1">🤖</div>
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-800 group-hover:text-green-600">
+                <h3 className="font-semibold text-stone-700 group-hover:text-green-600">
                   Chat với AI
                 </h3>
-                <p className="text-sm text-gray-600 group-hover:text-green-600">
+                <p className="text-sm text-stone-500 group-hover:text-green-600">
                   Hỏi đáp tức thì về sản phẩm, dịch vụ, thanh toán...
                 </p>
               </div>
-              <svg className="w-5 h-5 text-gray-400 group-hover:text-green-500 mt-1">
+              <svg className="w-5 h-5 text-stone-300 group-hover:text-green-500 mt-1">
                 <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L12.17 11H4v2h8.17l-3.59 3.59z" />
               </svg>
             </div>
@@ -138,19 +138,19 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
           {/* Admin Chat Option */}
           <button
             onClick={() => setMode('admin')}
-            className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
+            className="w-full p-4 border-2 border-sage-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-all text-left group"
           >
             <div className="flex items-start gap-3">
               <div className="text-3xl mt-1">👨‍💼</div>
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-800 group-hover:text-blue-600">
+                <h3 className="font-semibold text-stone-700 group-hover:text-emerald-600">
                   Chat với Admin
                 </h3>
-                <p className="text-sm text-gray-600 group-hover:text-blue-600">
+                <p className="text-sm text-stone-500 group-hover:text-emerald-600">
                   Liên hệ trực tiếp với đội hỗ trợ để giải quyết vấn đề
                 </p>
               </div>
-              <svg className="w-5 h-5 text-gray-400 group-hover:text-blue-500 mt-1">
+              <svg className="w-5 h-5 text-stone-300 group-hover:text-emerald-500 mt-1">
                 <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L12.17 11H4v2h8.17l-3.59 3.59z" />
               </svg>
             </div>
@@ -158,9 +158,9 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
         </div>
 
         {/* Footer Note */}
-        <div className="bg-gray-50 px-4 py-3 border-t border-gray-200">
-          <p className="text-xs text-gray-600 text-center">
-            💡 Chọn tùy chọn phù hợp với nhu cầu của bạn
+        <div className="bg-sage-50 px-4 py-3 border-t border-sage-200">
+          <p className="text-xs text-stone-500 text-center">
+            Chọn tùy chọn phù hợp với nhu cầu của bạn
           </p>
         </div>
       </div>

@@ -75,7 +75,7 @@ export default function WishlistButton({
       className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
         inWishlist
           ? 'bg-red-100 text-red-600 hover:bg-red-200'
-          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          : 'bg-stone-200 text-stone-600 hover:bg-stone-300'
       } disabled:opacity-50`}
     >
       <span className="text-lg">{inWishlist ? '❤️' : '🤍'}</span>

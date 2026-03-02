@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
 
-// Configure email transporter (mock - in production use SendGrid, AWS SES, etc)
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASSWORD,
-  },
-});
+// Mock email transporter (in production use SendGrid, AWS SES, etc)
+// const transporter = nodemailer.createTransport({...})
 
 interface EmailData {
   to: string;

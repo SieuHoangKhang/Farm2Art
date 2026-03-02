@@ -82,7 +82,7 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
       />
 
       {/* Admin Dashboard Modal */}
-      <div className="fixed bottom-24 right-6 w-full max-w-2xl h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-gray-200 overflow-hidden">
+      <div className="fixed bottom-24 right-6 w-full max-w-2xl h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-sage-200 overflow-hidden">
         {/* Header */}
         <div className="flex justify-between items-center bg-purple-500 text-white p-4 rounded-t-lg">
           <h2 className="font-semibold text-lg">⚙️ Quản lý tin nhắn</h2>
@@ -100,17 +100,17 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
         {/* Content Area */}
         <div className="flex flex-1 overflow-hidden">
           {/* Conversations List */}
-          <div className="w-1/3 border-r border-gray-200 overflow-y-auto bg-gray-50">
+          <div className="w-1/3 border-r border-sage-200 overflow-y-auto bg-sage-50">
             {loading ? (
               <div className="flex items-center justify-center h-full">
-                <div className="text-center text-gray-500">
+                <div className="text-center text-stone-400">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500 mx-auto mb-2"></div>
                   <p>Đang tải...</p>
                 </div>
               </div>
             ) : Object.keys(conversations).length === 0 ? (
               <div className="flex items-center justify-center h-full p-4">
-                <div className="text-center text-gray-500">
+                <div className="text-center text-stone-400">
                   <p className="text-sm mb-2">📭 Chưa có tin nhắn</p>
                   <p className="text-xs">Customers sẽ xuất hiện ở đây</p>
                 </div>
@@ -129,14 +129,14 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                       className={`w-full text-left p-3 rounded-lg transition-colors ${
                         isSelected
                           ? 'bg-purple-100 border-l-4 border-purple-500'
-                          : 'hover:bg-gray-100'
+                          : 'hover:bg-sage-100'
                       }`}
                     >
-                      <p className="font-semibold text-sm text-gray-900">{customerName}</p>
-                      <p className="text-xs text-gray-500 truncate mt-1">
+                      <p className="font-semibold text-sm text-stone-800">{customerName}</p>
+                      <p className="text-xs text-stone-400 truncate mt-1">
                         {lastMessage?.message || 'No messages'}
                       </p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-stone-300 mt-1">
                         {messages.length} tin nhắn
                       </p>
                     </button>
@@ -151,7 +151,7 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
             {selectedUserId ? (
               <>
                 {/* Messages */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-sage-50">
                   {conversations[selectedUserId]?.map((msg) => (
                     <div
                       key={msg.id}
@@ -160,8 +160,8 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                       <div
                         className={`max-w-xs px-4 py-3 rounded-lg ${
                           msg.isAdmin
-                            ? 'bg-purple-100 text-gray-800 rounded-bl-none'
-                            : 'bg-blue-500 text-white rounded-br-none'
+                            ? 'bg-purple-100 text-stone-700 rounded-bl-none'
+                            : 'bg-emerald-500 text-white rounded-br-none'
                         }`}
                       >
                         {msg.isAdmin && (
@@ -170,7 +170,7 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                         <p className="text-sm break-words whitespace-pre-wrap">{msg.message}</p>
                         <p
                           className={`text-xs mt-2 ${
-                            msg.isAdmin ? 'text-gray-500' : 'text-blue-100'
+                            msg.isAdmin ? 'text-stone-400' : 'text-emerald-100'
                           }`}
                         >
                           {new Date(msg.timestamp).toLocaleTimeString('vi-VN', {
@@ -184,7 +184,7 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                 </div>
 
                 {/* Reply Input */}
-                <div className="border-t border-gray-200 p-4 bg-white">
+                <div className="border-t border-sage-200 p-4 bg-white">
                   <div className="flex gap-2">
                     <textarea
                       value={replyMessage}
@@ -196,13 +196,13 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                         }
                       }}
                       placeholder="Trả lời tin nhắn..."
-                      className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none text-sm"
+                      className="flex-1 p-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none text-sm"
                       rows={2}
                     />
                     <button
                       onClick={handleSendReply}
                       disabled={!replyMessage.trim()}
-                      className="px-3 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-300 transition-colors font-medium text-sm"
+                      className="px-3 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-stone-300 transition-colors font-medium text-sm"
                     >
                       Gửi
                     </button>
@@ -210,7 +210,7 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
                 </div>
               </>
             ) : (
-              <div className="flex items-center justify-center h-full text-gray-500">
+              <div className="flex items-center justify-center h-full text-stone-400">
                 <p>👈 Chọn customer để xem tin nhắn</p>
               </div>
             )}

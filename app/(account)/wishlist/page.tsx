@@ -60,18 +60,18 @@ export default function WishlistPage() {
   if (authLoading || loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-semibold mb-4">Vui lòng đăng nhập</h1>
-          <p className="text-gray-600 mb-6">Để xem danh sách yêu thích của bạn</p>
-          <Link href="/login" className="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600">
+          <p className="text-stone-500 mb-6">Để xem danh sách yêu thích của bạn</p>
+          <Link href="/login" className="px-6 py-3 bg-emerald-500 text-white rounded-lg font-medium hover:bg-emerald-600">
             Đăng nhập
           </Link>
         </div>
@@ -80,39 +80,39 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen py-8">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-3xl font-semibold mb-8">❤️ Danh sách yêu thích</h1>
 
         {!wishlist || wishlist.items.length === 0 ? (
-          <div className="bg-white rounded-lg p-12 text-center">
-            <p className="text-gray-600 mb-6">Chưa có sản phẩm yêu thích nào</p>
-            <Link href="/search" className="px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600">
+          <div className="bg-white rounded-xl border border-sage-200 p-12 text-center">
+            <p className="text-stone-500 mb-6">Chưa có sản phẩm yêu thích nào</p>
+            <Link href="/search" className="px-6 py-3 bg-emerald-500 text-white rounded-lg font-medium hover:bg-emerald-600">
               Khám phá sản phẩm
             </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {wishlist.items.map(item => (
-              <div key={item.productId} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
+              <div key={item.productId} className="bg-white rounded-xl border border-sage-200 overflow-hidden shadow-sm hover:shadow-md transition">
                 {/* Product Image Placeholder */}
-                <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400">Hình ảnh sản phẩm</span>
+                <div className="w-full h-48 bg-sage-100 flex items-center justify-center">
+                  <span className="text-stone-400">Hình ảnh sản phẩm</span>
                 </div>
 
                 <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 mb-2">Sản phẩm {item.productId}</h3>
+                  <h3 className="font-semibold text-stone-800 mb-2">Sản phẩm {item.productId}</h3>
                   
                   <div className="mb-4">
                     <span className="text-2xl font-bold text-orange-500">
-                      {(item.priceWhenAdded * 1000).toLocaleString('vi-VN')} đ
+                      {item.priceWhenAdded.toLocaleString('vi-VN')} đ
                     </span>
                   </div>
 
                   <div className="space-y-2">
                     <Link
                       href={`/listing/${item.productId}`}
-                      className="block w-full text-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                      className="block w-full text-center px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition"
                     >
                       Xem chi tiết
                     </Link>
@@ -124,7 +124,7 @@ export default function WishlistPage() {
                     </button>
                   </div>
 
-                  <div className="mt-3 pt-3 border-t text-sm text-gray-500">
+                  <div className="mt-3 pt-3 border-t border-sage-100 text-sm text-stone-400">
                     Thêm vào {new Date(item.addedAt).toLocaleDateString('vi-VN')}
                   </div>
                 </div>

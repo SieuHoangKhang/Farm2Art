@@ -83,7 +83,7 @@ export default function NotificationDrawer() {
       {/* Bell Icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-gray-700 hover:text-blue-600 transition"
+        className="relative p-2 text-stone-600 hover:text-emerald-600 transition"
         title="Thông báo"
       >
         <span className="text-2xl">🔔</span>
@@ -106,12 +106,12 @@ export default function NotificationDrawer() {
           {/* Drawer Panel */}
           <div className="fixed top-16 right-4 w-80 max-h-96 bg-white rounded-lg shadow-xl z-50 flex flex-col">
             {/* Header */}
-            <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-              <h3 className="font-semibold text-gray-900">Thông báo</h3>
+            <div className="p-4 border-b border-sage-200 flex justify-between items-center">
+              <h3 className="font-semibold text-stone-800">Thông báo</h3>
               {unreadCount > 0 && (
                 <button
                   onClick={markAllAsRead}
-                  className="text-xs text-blue-600 hover:text-blue-700 font-medium"
+                  className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
                 >
                   Đánh dấu tất cả
                 </button>
@@ -124,21 +124,20 @@ export default function NotificationDrawer() {
                 notifications.map(notif => (
                   <div
                     key={notif.id}
-                    className={`p-4 border-b border-gray-100 hover:bg-gray-50 transition cursor-pointer ${
-                      !notif.read ? 'bg-blue-50' : ''
-                    }`}
+                    className={`p-4 border-b border-sage-100 hover:bg-sage-50 transition cursor-pointer ${!notif.read ? 'bg-emerald-50' : ''
+                      }`}
                     onClick={() => !notif.read && markAsRead(notif.id)}
                   >
                     <div className="flex gap-3">
                       <span className="text-2xl">{notif.icon}</span>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900 text-sm line-clamp-1">
+                        <p className="font-medium text-stone-800 text-sm line-clamp-1">
                           {notif.title}
                         </p>
-                        <p className="text-gray-600 text-xs line-clamp-2 mt-1">
+                        <p className="text-stone-500 text-xs line-clamp-2 mt-1">
                           {notif.message}
                         </p>
-                        <p className="text-gray-400 text-xs mt-2">
+                        <p className="text-stone-300 text-xs mt-2">
                           {new Date(notif.timestamp).toLocaleTimeString('vi-VN')}
                         </p>
                       </div>
@@ -147,7 +146,7 @@ export default function NotificationDrawer() {
                           e.stopPropagation();
                           deleteNotification(notif.id);
                         }}
-                        className="text-gray-400 hover:text-red-500 text-lg"
+                        className="text-stone-300 hover:text-red-500 text-lg"
                       >
                         ×
                       </button>
@@ -155,7 +154,7 @@ export default function NotificationDrawer() {
                     {notif.action && (
                       <a
                         href={notif.action.href}
-                        className="block mt-2 text-xs text-blue-600 hover:text-blue-700 font-medium"
+                        className="block mt-2 text-xs text-emerald-600 hover:text-emerald-700 font-medium"
                       >
                         {notif.action.label} →
                       </a>
@@ -163,23 +162,13 @@ export default function NotificationDrawer() {
                   </div>
                 ))
               ) : (
-                <div className="p-6 text-center text-gray-500">
+                <div className="p-6 text-center text-stone-400">
                   <p>Không có thông báo mới</p>
                 </div>
               )}
             </div>
 
-            {/* Footer */}
-            {notifications.length > 0 && (
-              <div className="p-3 border-t border-gray-200 bg-gray-50">
-                <a
-                  href="/account/notifications"
-                  className="text-center block text-sm text-blue-600 hover:text-blue-700 font-medium"
-                >
-                  Xem tất cả thông báo →
-                </a>
-              </div>
-            )}
+
           </div>
         </>
       )}

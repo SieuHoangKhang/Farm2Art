@@ -49,14 +49,14 @@ export default function OrderTracking({
         orderId,
         status: currentStatus,
         items: [
-          { id: '1', name: 'Rau cải xanh organic', quantity: 2, price: 45000 },
-          { id: '2', name: 'Dâu tây tươi', quantity: 1, price: 89000 },
+          { id: '1', name: 'Rơm lúa mì chất lượng cao', quantity: 5, price: 450000 },
+          { id: '2', name: 'Túi xách thủ công từ rơm', quantity: 1, price: 350000 },
         ],
         shippingAddress: '123 Nguyễn Huệ, Quận 1, TP.HCM',
-        shippingCost: 25000,
-        subtotal: 179000,
-        discount: 20000,
-        total: 184000,
+        shippingCost: 30000,
+        subtotal: 2600000,
+        discount: 50000,
+        total: 2580000,
         events: [
           {
             time: Date.now() - 24 * 60 * 60 * 1000,
@@ -98,20 +98,20 @@ export default function OrderTracking({
       <div className="border-b pb-4">
         <div className="flex justify-between items-start mb-4">
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900">Đơn hàng {orderId}</h2>
-            <p className="text-gray-600 text-sm">
+            <h2 className="text-2xl font-semibold text-stone-800">Đơn hàng {orderId}</h2>
+            <p className="text-stone-500 text-sm">
               Dự kiến giao trong {Math.max(0, daysUntilDelivery)} ngày
             </p>
           </div>
           <div className="text-right">
             {trackingNumber && (
               <div>
-                <p className="text-sm text-gray-600">Mã vận đơn</p>
-                <p className="font-semibold text-gray-900">{trackingNumber}</p>
+                <p className="text-sm text-stone-500">Mã vận đơn</p>
+                <p className="font-semibold text-stone-800">{trackingNumber}</p>
               </div>
             )}
             {carrier && (
-              <div className="text-sm text-gray-600 mt-2">{carrier}</div>
+              <div className="text-sm text-stone-500 mt-2">{carrier}</div>
             )}
           </div>
         </div>
@@ -119,11 +119,11 @@ export default function OrderTracking({
 
       {/* Timeline */}
       <div className="py-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Trạng thái đơn hàng</h3>
+        <h3 className="text-lg font-semibold text-stone-800 mb-6">Trạng thái đơn hàng</h3>
 
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute top-0 left-8 h-full w-1 bg-gray-200"></div>
+          <div className="absolute top-0 left-8 h-full w-1 bg-stone-200"></div>
 
           {/* Timeline Steps */}
           <div className="space-y-4 relative z-10">
@@ -142,7 +142,7 @@ export default function OrderTracking({
                       className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold flex-shrink-0 relative z-20 transition ${
                         isCompleted
                           ? 'bg-green-100 text-green-600 border-4 border-green-500'
-                          : 'bg-gray-100 text-gray-400 border-4 border-gray-200'
+                          : 'bg-sage-100 text-stone-300 border-4 border-sage-200'
                       }`}
                     >
                       {isCurrent ? (
@@ -154,29 +154,29 @@ export default function OrderTracking({
 
                     {/* Timeline Content */}
                     <div className="ml-4 pt-2 flex-1">
-                      <h4 className={`font-semibold text-lg ${isCompleted ? 'text-gray-900' : 'text-gray-500'}`}>
+                      <h4 className={`font-semibold text-lg ${isCompleted ? 'text-stone-800' : 'text-stone-400'}`}>
                         {step.label}
                       </h4>
                       {step.timestamp && (
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-stone-500">
                           {new Date(step.timestamp).toLocaleString('vi-VN')}
                         </p>
                       )}
                       {isCurrent && (
-                        <p className="text-sm text-blue-600 font-medium mt-1">Hiện tại</p>
+                        <p className="text-sm text-emerald-600 font-medium mt-1">Hiện tại</p>
                       )}
                     </div>
                   </div>
 
                   {/* Expanded Details */}
                   {expandedStep === step.status && orderData?.events && (
-                    <div className="ml-16 mt-3 bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-2">
+                    <div className="ml-16 mt-3 bg-emerald-50 border border-emerald-200 rounded-lg p-4 space-y-2">
                       {orderData.events
                         .filter((event: any) => event.status === step.status)
                         .map((event: any, eventIdx: number) => (
                           <div key={eventIdx}>
-                            <p className="text-sm font-medium text-gray-900">{event.description}</p>
-                            <p className="text-xs text-gray-600">
+                            <p className="text-sm font-medium text-stone-800">{event.description}</p>
+                            <p className="text-xs text-stone-500">
                               📍 {event.location} • {new Date(event.time).toLocaleString('vi-VN')}
                             </p>
                           </div>
@@ -195,23 +195,23 @@ export default function OrderTracking({
         <>
           {/* Shipping Address */}
           <div className="border-t pt-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Địa chỉ giao hàng</h3>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-gray-900 font-medium">📍 {orderData.shippingAddress}</p>
+            <h3 className="text-lg font-semibold text-stone-800 mb-4">Địa chỉ giao hàng</h3>
+            <div className="bg-sage-50 rounded-lg p-4">
+              <p className="text-stone-800 font-medium">📍 {orderData.shippingAddress}</p>
             </div>
           </div>
 
           {/* Order Items */}
           <div className="border-t pt-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Sản phẩm</h3>
+            <h3 className="text-lg font-semibold text-stone-800 mb-4">Sản phẩm</h3>
             <div className="space-y-3">
               {orderData.items.map((item: any) => (
                 <div key={item.id} className="flex justify-between items-center py-3 border-b last:border-b-0">
                   <div>
-                    <p className="text-gray-900 font-medium">{item.name}</p>
-                    <p className="text-sm text-gray-600">Số lượng: {item.quantity}</p>
+                    <p className="text-stone-800 font-medium">{item.name}</p>
+                    <p className="text-sm text-stone-500">Số lượng: {item.quantity}</p>
                   </div>
-                  <p className="text-gray-900 font-semibold">
+                  <p className="text-stone-800 font-semibold">
                     {(item.price * item.quantity).toLocaleString('vi-VN')}đ
                   </p>
                 </div>
@@ -222,11 +222,11 @@ export default function OrderTracking({
           {/* Order Summary */}
           <div className="border-t pt-6">
             <div className="space-y-2 text-right">
-              <div className="flex justify-between text-gray-600">
+              <div className="flex justify-between text-stone-500">
                 <span>Tạm tính</span>
                 <span>{orderData.subtotal.toLocaleString('vi-VN')}đ</span>
               </div>
-              <div className="flex justify-between text-gray-600">
+              <div className="flex justify-between text-stone-500">
                 <span>Phí vận chuyển</span>
                 <span>{orderData.shippingCost.toLocaleString('vi-VN')}đ</span>
               </div>
@@ -236,7 +236,7 @@ export default function OrderTracking({
                   <span>-{orderData.discount.toLocaleString('vi-VN')}đ</span>
                 </div>
               )}
-              <div className="flex justify-between text-lg font-bold text-gray-900 pt-2 border-t">
+              <div className="flex justify-between text-lg font-bold text-stone-800 pt-2 border-t">
                 <span>Tổng cộng</span>
                 <span>{orderData.total.toLocaleString('vi-VN')}đ</span>
               </div>

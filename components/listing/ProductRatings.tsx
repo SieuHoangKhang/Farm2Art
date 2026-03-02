@@ -34,7 +34,7 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
   if (loading) {
     return (
       <div className="flex justify-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
       </div>
     );
   }
@@ -73,7 +73,7 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
               {rating.averageRating.toFixed(1)}
             </div>
             <div className="mb-2">{renderStars(Math.round(rating.averageRating))}</div>
-            <p className="text-gray-600 text-sm">{rating.totalReviews} đánh giá</p>
+            <p className="text-stone-500 text-sm">{rating.totalReviews} đánh giá</p>
           </div>
 
           {/* Rating Distribution */}
@@ -81,7 +81,7 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
             {[5, 4, 3, 2, 1].map(stars => (
               <div key={stars} className="flex items-center gap-2 mb-2">
                 <span className="text-sm w-12">{stars} ⭐</span>
-                <div className="flex-1 bg-gray-200 rounded-full h-2">
+                <div className="flex-1 bg-stone-200 rounded-full h-2">
                   <div
                     className="bg-orange-400 h-2 rounded-full"
                     style={{
@@ -91,7 +91,7 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
                     }}
                   ></div>
                 </div>
-                <span className="text-sm text-gray-600 w-12 text-right">
+                <span className="text-sm text-stone-500 w-12 text-right">
                   {rating.ratingDistribution[stars as keyof typeof rating.ratingDistribution]}
                 </span>
               </div>
@@ -106,8 +106,8 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
           onClick={() => setFilter('all')}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
             filter === 'all'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              ? 'bg-emerald-500 text-white'
+              : 'bg-stone-200 text-stone-600 hover:bg-stone-300'
           }`}
         >
           Tất cả ({reviews.length})
@@ -118,8 +118,8 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
             onClick={() => setFilter(stars)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
               filter === stars
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'bg-emerald-500 text-white'
+                : 'bg-stone-200 text-stone-600 hover:bg-stone-300'
             }`}
           >
             {stars} ⭐ ({rating?.ratingDistribution[stars as keyof typeof rating.ratingDistribution] || 0})
@@ -132,7 +132,7 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
         <select
           value={sortBy}
           onChange={e => setSortBy(e.target.value as 'newest' | 'helpful')}
-          className="px-4 py-2 border border-gray-300 rounded-lg text-sm"
+          className="px-4 py-2 border border-sage-300 rounded-lg text-sm"
         >
           <option value="newest">Mới nhất</option>
           <option value="helpful">Hữu ích nhất</option>
@@ -147,7 +147,7 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-gray-900">{review.userName}</span>
+                    <span className="font-semibold text-stone-800">{review.userName}</span>
                     {review.verified && (
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
                         ✓ Đã mua
@@ -156,13 +156,13 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
                   </div>
                   <div>{renderStars(review.rating)}</div>
                 </div>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-stone-400">
                   {new Date(review.createdAt).toLocaleDateString('vi-VN')}
                 </span>
               </div>
 
-              <h3 className="font-semibold text-gray-900 mb-1">{review.title}</h3>
-              <p className="text-gray-700 mb-3">{review.comment}</p>
+              <h3 className="font-semibold text-stone-800 mb-1">{review.title}</h3>
+              <p className="text-stone-600 mb-3">{review.comment}</p>
 
               {/* Review Images */}
               {review.images && review.images.length > 0 && (
@@ -180,17 +180,17 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
 
               {/* Helpful Count */}
               <div className="flex gap-4 text-sm">
-                <button className="text-gray-600 hover:text-blue-500">
+                <button className="text-stone-500 hover:text-emerald-500">
                   👍 Hữu ích ({review.helpfulCount})
                 </button>
-                <button className="text-gray-600 hover:text-blue-500">
+                <button className="text-stone-500 hover:text-emerald-500">
                   👎 Không hữu ích ({review.unhelpfulCount})
                 </button>
               </div>
             </div>
           ))
         ) : (
-          <div className="text-center py-8 text-gray-600">
+          <div className="text-center py-8 text-stone-500">
             Chưa có đánh giá cho bộ lọc này
           </div>
         )}

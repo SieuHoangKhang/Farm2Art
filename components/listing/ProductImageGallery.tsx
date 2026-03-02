@@ -46,7 +46,7 @@ export default function ProductImageGallery({ images, productName }: ProductImag
       {/* Main Gallery */}
       <div className="space-y-4">
         {/* Main Image */}
-        <div className="relative bg-gray-100 rounded-lg overflow-hidden">
+        <div className="relative bg-sage-100 rounded-lg overflow-hidden">
           {/* Zoom Container */}
           <div
             className="w-full aspect-square flex items-center justify-center cursor-zoom-in overflow-hidden"
@@ -70,18 +70,18 @@ export default function ProductImageGallery({ images, productName }: ProductImag
               <button
                 onClick={() => handleZoom(-0.2)}
                 disabled={zoomLevel <= 1}
-                className="p-2 hover:bg-gray-100 rounded disabled:opacity-50"
+                className="p-2 hover:bg-sage-100 rounded disabled:opacity-50"
                 title="Zoom out"
               >
                 🔍−
               </button>
-              <div className="px-2 py-2 text-sm text-gray-600 min-w-[50px] text-center">
+              <div className="px-2 py-2 text-sm text-stone-500 min-w-[50px] text-center">
                 {(zoomLevel * 100).toFixed(0)}%
               </div>
               <button
                 onClick={() => handleZoom(0.2)}
                 disabled={zoomLevel >= 3}
-                className="p-2 hover:bg-gray-100 rounded disabled:opacity-50"
+                className="p-2 hover:bg-sage-100 rounded disabled:opacity-50"
                 title="Zoom in"
               >
                 🔍+
@@ -122,8 +122,8 @@ export default function ProductImageGallery({ images, productName }: ProductImag
                 onClick={() => handleThumbnailClick(idx)}
                 className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition ${
                   idx === selectedIndex
-                    ? 'border-blue-500 ring-2 ring-blue-300'
-                    : 'border-gray-200 hover:border-gray-400'
+                    ? 'border-emerald-500 ring-2 ring-emerald-300'
+                    : 'border-sage-200 hover:border-stone-400'
                 }`}
               >
                 <img

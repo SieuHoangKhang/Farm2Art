@@ -123,7 +123,7 @@ export default function SellerVerificationPage() {
       case 'pending':
         return 'bg-yellow-100 text-yellow-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-sage-100 text-stone-700';
     }
   };
 
@@ -141,7 +141,7 @@ export default function SellerVerificationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-sage-50">
       <PageHeader
         title="Xác minh người bán"
         subtitle="Quản lý yêu cầu xác minh tài khoản người bán"
@@ -156,8 +156,8 @@ export default function SellerVerificationPage() {
               onClick={() => setFilter(f as any)}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 filter === f
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                  ? 'bg-emerald-500 text-white'
+                  : 'bg-white text-stone-600 hover:bg-sage-100 border border-sage-300'
               }`}
             >
               {f === 'all' && 'Tất cả'}
@@ -171,7 +171,7 @@ export default function SellerVerificationPage() {
         {/* Verifications List */}
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
           </div>
         ) : filtered.length > 0 ? (
           <div className="space-y-4">
@@ -181,25 +181,25 @@ export default function SellerVerificationPage() {
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     {/* Info */}
                     <div>
-                      <p className="text-sm text-gray-600 mb-1">Cửa hàng</p>
-                      <p className="font-semibold text-gray-900">
+                      <p className="text-sm text-stone-500 mb-1">Cửa hàng</p>
+                      <p className="font-semibold text-stone-800">
                         {verification.businessName}
                       </p>
-                      <p className="text-sm text-gray-600">{verification.ownerName}</p>
+                      <p className="text-sm text-stone-500">{verification.ownerName}</p>
                     </div>
 
                     {/* Contact */}
                     <div>
-                      <p className="text-sm text-gray-600 mb-1">Liên hệ</p>
-                      <p className="font-mono text-sm text-gray-900">{verification.phone}</p>
-                      <p className="text-sm text-gray-600 truncate">
+                      <p className="text-sm text-stone-500 mb-1">Liên hệ</p>
+                      <p className="font-mono text-sm text-stone-800">{verification.phone}</p>
+                      <p className="text-sm text-stone-500 truncate">
                         {verification.email}
                       </p>
                     </div>
 
                     {/* Status */}
                     <div>
-                      <p className="text-sm text-gray-600 mb-2">Trạng thái</p>
+                      <p className="text-sm text-stone-500 mb-2">Trạng thái</p>
                       <span
                         className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
                           verification.status
@@ -208,7 +208,7 @@ export default function SellerVerificationPage() {
                         {getStatusLabel(verification.status)}
                       </span>
                       {verification.documentSubmittedAt && (
-                        <p className="text-xs text-gray-600 mt-2">
+                        <p className="text-xs text-stone-500 mt-2">
                           Nộp: {new Date(verification.documentSubmittedAt).toLocaleDateString('vi-VN')}
                         </p>
                       )}
@@ -235,7 +235,7 @@ export default function SellerVerificationPage() {
                       {verification.status !== 'pending' && (
                         <a
                           href={`#verify-${verification.sellerId}`}
-                          className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                          className="text-emerald-600 hover:text-emerald-700 text-sm font-medium"
                         >
                           Xem chi tiết
                         </a>
@@ -256,7 +256,7 @@ export default function SellerVerificationPage() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-600">Không có yêu cầu xác minh cho bộ lọc này</p>
+            <p className="text-stone-500">Không có yêu cầu xác minh cho bộ lọc này</p>
           </div>
         )}
       </div>

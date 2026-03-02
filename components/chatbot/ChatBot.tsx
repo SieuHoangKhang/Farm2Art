@@ -82,7 +82,7 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200">
+    <div className="flex flex-col h-[600px] bg-white rounded-lg shadow-lg border border-sage-200">
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-green-50 to-white">
         {messages.map((msg) => (
@@ -94,13 +94,13 @@ export default function ChatBot() {
               className={`max-w-xs px-4 py-3 rounded-lg ${
                 msg.sender === 'user'
                   ? 'bg-green-500 text-white rounded-br-none'
-                  : 'bg-gray-200 text-gray-800 rounded-bl-none'
+                  : 'bg-stone-200 text-stone-700 rounded-bl-none'
               }`}
             >
               <p className="text-sm break-words whitespace-pre-wrap">{msg.text}</p>
               <span
                 className={`text-xs mt-1 block ${
-                  msg.sender === 'user' ? 'text-green-100' : 'text-gray-500'
+                  msg.sender === 'user' ? 'text-green-100' : 'text-stone-400'
                 }`}
               >
                 {msg.timestamp.toLocaleTimeString('vi-VN', {
@@ -113,11 +113,11 @@ export default function ChatBot() {
         ))}
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-gray-200 text-gray-800 px-4 py-3 rounded-lg rounded-bl-none">
+            <div className="bg-stone-200 text-stone-700 px-4 py-3 rounded-lg rounded-bl-none">
               <div className="flex space-x-2">
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-100"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-200"></div>
+                <div className="w-2 h-2 bg-sage-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-sage-500 rounded-full animate-bounce delay-100"></div>
+                <div className="w-2 h-2 bg-sage-500 rounded-full animate-bounce delay-200"></div>
               </div>
             </div>
           </div>
@@ -131,21 +131,21 @@ export default function ChatBot() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-gray-200 p-4 bg-white rounded-b-lg">
+      <div className="border-t border-sage-200 p-4 bg-white rounded-b-lg">
         <div className="flex gap-2">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Nhập câu hỏi của bạn..."
-            className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
+            className="flex-1 p-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
             rows={2}
             disabled={loading}
           />
           <button
             onClick={handleSendMessage}
             disabled={loading || !input.trim()}
-            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-300 transition-colors font-medium"
+            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-stone-300 transition-colors font-medium"
           >
             Gửi
           </button>

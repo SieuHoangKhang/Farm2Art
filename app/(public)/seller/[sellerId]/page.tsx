@@ -80,17 +80,17 @@ export default function SellerProfilePage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
       </div>
     );
   }
 
   if (!seller) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-sage-50 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600 text-lg mb-4">Không tìm thấy người bán</p>
-          <Link href="/search" className="text-blue-600 hover:text-blue-700 font-medium">
+          <p className="text-stone-500 text-lg mb-4">Không tìm thấy người bán</p>
+          <Link href="/search" className="text-emerald-600 hover:text-emerald-700 font-medium">
             Quay lại tìm kiếm
           </Link>
         </div>
@@ -111,7 +111,7 @@ export default function SellerProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-sage-50">
       <PageHeader title={seller.displayName} subtitle="Trang hồ sơ người bán" />
 
       <Container>
@@ -130,24 +130,24 @@ export default function SellerProfilePage() {
                     className="rounded-full object-cover mb-4"
                   />
                 ) : (
-                  <div className="w-32 h-32 rounded-full bg-blue-100 flex items-center justify-center text-4xl mb-4">
+                  <div className="w-32 h-32 rounded-full bg-emerald-100 flex items-center justify-center text-4xl mb-4">
                     👤
                   </div>
                 )}
-                <h1 className="text-2xl font-bold text-gray-900 text-center">
+                <h1 className="text-2xl font-bold text-stone-800 text-center">
                   {seller.displayName}
                 </h1>
-                <p className="text-gray-600 text-sm mt-1">{seller.email}</p>
+                <p className="text-stone-500 text-sm mt-1">{seller.email}</p>
               </div>
 
               {/* Ratings */}
-              <div className="border-l border-r border-gray-200 px-8 flex flex-col justify-center">
-                <p className="text-gray-600 text-sm mb-2">Đánh giá</p>
+              <div className="border-l border-r border-sage-200 px-8 flex flex-col justify-center">
+                <p className="text-stone-500 text-sm mb-2">Đánh giá</p>
                 <div className="text-5xl font-bold text-orange-500 mb-2">
                   {seller.ratings.averageRating.toFixed(1)}
                 </div>
                 <div className="mb-3">{renderStars(seller.ratings.averageRating)}</div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-stone-500">
                   {seller.ratings.totalReviews} đánh giá
                 </p>
               </div>
@@ -155,19 +155,19 @@ export default function SellerProfilePage() {
               {/* Stats */}
               <div className="flex flex-col justify-center space-y-3">
                 <div>
-                  <p className="text-sm text-gray-600">Sản phẩm đang bán</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-stone-500">Sản phẩm đang bán</p>
+                  <p className="text-2xl font-bold text-stone-800">
                     {seller.stats.totalListings}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Tổng giao dịch</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-stone-500">Tổng giao dịch</p>
+                  <p className="text-2xl font-bold text-stone-800">
                     {seller.stats.totalSales}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Thời gian phản hồi</p>
+                  <p className="text-sm text-stone-500">Thời gian phản hồi</p>
                   <p className="text-lg font-semibold text-emerald-600">
                     {seller.stats.responseTime}
                   </p>
@@ -177,18 +177,18 @@ export default function SellerProfilePage() {
 
             {/* Bio */}
             {seller.bio && (
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <p className="text-gray-700">{seller.bio}</p>
+              <div className="mt-8 pt-8 border-t border-sage-200">
+                <p className="text-stone-600">{seller.bio}</p>
               </div>
             )}
 
             {/* Contact Button */}
             <div className="mt-8 flex gap-3">
-              <button className="flex-1 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-medium transition">
-                💬 Liên hệ người bán
+              <button className="flex-1 px-6 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 font-medium transition">
+                Liên hệ người bán
               </button>
-              <button className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-blue-500 hover:text-blue-500 font-medium transition">
-                ❤️ Theo dõi
+              <button className="px-6 py-3 border-2 border-sage-300 text-stone-600 rounded-lg hover:border-emerald-500 hover:text-emerald-500 font-medium transition">
+                Theo dõi
               </button>
             </div>
           </div>
@@ -202,12 +202,12 @@ export default function SellerProfilePage() {
                   onClick={() => setActiveTab(tab as typeof activeTab)}
                   className={`flex-1 py-4 px-6 font-medium text-center border-b-2 transition ${
                     activeTab === tab
-                      ? 'text-blue-600 border-blue-600'
-                      : 'text-gray-600 border-transparent hover:text-gray-900'
+                      ? 'text-emerald-600 border-emerald-600'
+                      : 'text-stone-500 border-transparent hover:text-stone-800'
                   }`}
                 >
-                  {tab === 'listings' && `📦 Sản phẩm (${seller.stats.totalListings})`}
-                  {tab === 'about' && '📋 Thông tin'}
+                  {tab === 'listings' && `Sản phẩm (${seller.stats.totalListings})`}
+                  {tab === 'about' && 'Thông tin'}
                 </button>
               ))}
             </div>
@@ -217,7 +217,7 @@ export default function SellerProfilePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {/* Show sample listings */}
                   {[1, 2, 3, 4, 5, 6].map(i => (
-                    <div key={i} className="border border-gray-200 rounded-lg p-4 text-center text-gray-500">
+                    <div key={i} className="border border-sage-200 rounded-lg p-4 text-center text-stone-400">
                       <p>Sản phẩm mẫu {i}</p>
                     </div>
                   ))}
@@ -227,20 +227,20 @@ export default function SellerProfilePage() {
               {activeTab === 'about' && (
                 <div className="space-y-6 max-w-2xl">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Thông tin người bán</h3>
-                    <p className="text-gray-700">{seller.bio}</p>
+                    <h3 className="font-semibold text-stone-800 mb-2">Thông tin người bán</h3>
+                    <p className="text-stone-600">{seller.bio}</p>
                   </div>
 
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Ngày gia nhập</h3>
-                    <p className="text-gray-700">
+                    <h3 className="font-semibold text-stone-800 mb-2">Ngày gia nhập</h3>
+                    <p className="text-stone-600">
                       {new Date(seller.stats.joinedDate).toLocaleDateString('vi-VN')}
                     </p>
                   </div>
 
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Chính sách</h3>
-                    <ul className="space-y-2 text-gray-700 text-sm">
+                    <h3 className="font-semibold text-stone-800 mb-2">Chính sách</h3>
+                    <ul className="space-y-2 text-stone-600 text-sm">
                       <li>✓ Hỗ trợ tư vấn miễn phí</li>
                       <li>✓ Đóng gói chuyên nghiệp</li>
                       <li>✓ Giao hàng an toàn</li>

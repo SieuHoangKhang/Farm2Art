@@ -3,6 +3,7 @@ export type NewsItem = {
   title: string;
   date: string; // YYYY-MM-DD
   excerpt: string;
+  image: string; // image URL
   content: Array<{
     heading: string;
     body: string;
@@ -14,6 +15,7 @@ export const NEWS: NewsItem[] = [
     slug: "khoi-dong-farm2art",
     title: "Farm2Art khởi động nền tảng giao dịch xanh",
     date: "2026-01-09",
+    image: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=80",
     excerpt:
       "Farm2Art hướng tới việc kết nối phế phẩm nông nghiệp với nhu cầu tái chế và nghệ thuật, tối ưu chi phí và giảm lãng phí.",
     content: [
@@ -38,6 +40,7 @@ export const NEWS: NewsItem[] = [
     slug: "tieu-chuan-anh-dang-tin",
     title: "Gợi ý chụp ảnh sản phẩm khi đăng tin",
     date: "2026-01-08",
+    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80",
     excerpt:
       "Ảnh rõ, đủ góc, có ánh sáng tự nhiên giúp người mua ra quyết định nhanh hơn. Dưới đây là vài checklist đơn giản.",
     content: [
@@ -62,6 +65,7 @@ export const NEWS: NewsItem[] = [
     slug: "an-toan-giao-dich",
     title: "Khuyến nghị an toàn khi giao dịch",
     date: "2026-01-07",
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
     excerpt:
       "Trao đổi thông tin minh bạch, xác nhận số lượng và địa điểm giao nhận trước khi thanh toán để tránh hiểu lầm.",
     content: [

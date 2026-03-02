@@ -48,9 +48,17 @@ function LoginContent() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md">
-      <Card>
-        <CardHeader title="Đăng nhập" subtitle="Chào mừng bạn quay lại Farm2Art" />
+    <div className="mx-auto w-full max-w-md animate-fadeInUp">
+      {/* Top decoration */}
+      <div className="text-center mb-8">
+        <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-200/50 mb-4">
+          <svg className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+        </div>
+        <h1 className="text-2xl font-extrabold text-stone-800">Chào mừng trở lại</h1>
+        <p className="mt-1 text-sm text-stone-500">Đăng nhập vào Farm2Art</p>
+      </div>
+
+      <Card className="!shadow-lg !border-sage-200/60">
         <CardBody>
           <div className="space-y-4">
             <TextField
@@ -107,10 +115,10 @@ function LoginContent() {
               </>
             ) : null}
 
-            <div className="my-2 flex items-center gap-3">
-              <div className="h-px flex-1 bg-stone-200" />
-              <span className="text-xs font-medium text-stone-500">HOẶC</span>
-              <div className="h-px flex-1 bg-stone-200" />
+            <div className="my-4 flex items-center gap-3">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-sage-200 to-transparent" />
+              <span className="text-xs font-bold uppercase tracking-wider text-stone-400">HOẶC</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-sage-200 to-transparent" />
             </div>
 
             <GoogleSignInButton
@@ -121,18 +129,18 @@ function LoginContent() {
             />
           </div>
 
-          <div className="mt-4 text-center">
+          <div className="mt-5 text-center">
             <Link
               href={isEmail ? `/forgot-password?email=${encodeURIComponent(trimmedIdentifier)}` : "/forgot-password"}
-              className="text-sm text-stone-600 hover:text-stone-900 hover:underline"
+              className="text-sm text-emerald-600 hover:text-emerald-700 hover:underline font-medium"
             >
               Quên mật khẩu?
             </Link>
           </div>
 
-          <p className="mt-4 text-center text-sm text-stone-600">
+          <p className="mt-4 text-center text-sm text-stone-500">
             Chưa có tài khoản?{" "}
-            <Link href="/register" className="font-medium text-stone-900 hover:underline">
+            <Link href="/register" className="font-semibold text-emerald-600 hover:text-emerald-700 hover:underline">
               Đăng ký
             </Link>
           </p>

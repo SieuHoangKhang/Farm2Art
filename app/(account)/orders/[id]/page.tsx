@@ -84,7 +84,7 @@ export default function OrderDetailPage() {
         <Card>
           <CardBody>
             <p className="text-stone-600">Vui lòng đăng nhập.</p>
-            <LinkButton href="/auth/login" className="mt-4">
+            <LinkButton href="/login" className="mt-4">
               Đăng nhập
             </LinkButton>
           </CardBody>
@@ -135,13 +135,12 @@ export default function OrderDetailPage() {
                   </p>
                 </div>
                 <span
-                  className={`rounded-full px-3 py-1 text-sm font-semibold ${
-                    order.status === "pending"
+                  className={`rounded-full px-3 py-1 text-sm font-semibold ${order.status === "pending"
                       ? "bg-yellow-100 text-yellow-800"
                       : order.status === "completed"
                         ? "bg-green-100 text-green-800"
                         : "bg-red-100 text-red-800"
-                  }`}
+                    }`}
                 >
                   {order.status === "pending"
                     ? "Chờ xử lý"

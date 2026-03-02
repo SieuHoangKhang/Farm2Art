@@ -21,8 +21,8 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
 
   if (!user) {
     return (
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-        <p className="text-blue-900">Vui lòng <a href="/login" className="font-semibold hover:underline">đăng nhập</a> để viết đánh giá</p>
+      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 text-center">
+        <p className="text-stone-800">Vui lòng <a href="/login" className="font-semibold hover:underline">đăng nhập</a> để viết đánh giá</p>
       </div>
     );
   }
@@ -82,13 +82,13 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
   };
 
   return (
-    <div className="bg-gray-50 rounded-lg p-6 mb-8">
+    <div className="bg-sage-50 rounded-lg p-6 mb-8">
       <h3 className="text-lg font-semibold mb-6">Viết đánh giá của bạn</h3>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Rating */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
+          <label className="block text-sm font-medium text-stone-800 mb-2">
             Đánh giá
           </label>
           <div className="flex gap-2">
@@ -107,7 +107,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
 
         {/* Title */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
+          <label className="block text-sm font-medium text-stone-800 mb-2">
             Tiêu đề
           </label>
           <input
@@ -115,13 +115,13 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder="VD: Sản phẩm tuyệt vời!"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
 
         {/* Comment */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
+          <label className="block text-sm font-medium text-stone-800 mb-2">
             Nội dung
           </label>
           <textarea
@@ -129,19 +129,19 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             onChange={e => setComment(e.target.value)}
             placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm..."
             rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
 
         {/* Images */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
+          <label className="block text-sm font-medium text-stone-800 mb-2">
             Hình ảnh
           </label>
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm font-medium"
+            className="px-4 py-2 bg-stone-200 hover:bg-stone-300 rounded-lg text-sm font-medium"
           >
             📷 Thêm hình ảnh
           </button>
@@ -154,7 +154,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
             className="hidden"
           />
           {images.length > 0 && (
-            <div className="mt-2 text-sm text-gray-600">
+            <div className="mt-2 text-sm text-stone-500">
               {images.length} hình ảnh được chọn
             </div>
           )}
@@ -171,7 +171,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition disabled:opacity-50"
+          className="w-full px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition disabled:opacity-50"
         >
           {loading ? 'Đang gửi...' : 'Gửi đánh giá'}
         </button>

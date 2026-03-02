@@ -15,7 +15,7 @@ export default function ProductGalleryModal({ images, title }: ProductGalleryPro
 
   if (images.length === 0) {
     return (
-      <div className="w-full aspect-square bg-gray-200 rounded-lg flex items-center justify-center text-gray-400">
+      <div className="w-full aspect-square bg-stone-200 rounded-lg flex items-center justify-center text-stone-300">
         Không có ảnh
       </div>
     );
@@ -39,7 +39,7 @@ export default function ProductGalleryModal({ images, title }: ProductGalleryPro
     <>
       {/* Thumbnail Gallery */}
       <div className="space-y-3">
-        <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-gray-100 cursor-zoom-in group">
+        <div className="relative w-full aspect-square overflow-hidden rounded-lg bg-sage-100 cursor-zoom-in group">
           <Image
             src={images[currentIndex]}
             alt={`${title} - Ảnh ${currentIndex + 1}`}
@@ -63,7 +63,7 @@ export default function ProductGalleryModal({ images, title }: ProductGalleryPro
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
                 className={`relative aspect-square rounded-lg overflow-hidden border-2 transition ${
-                  idx === currentIndex ? 'border-blue-500' : 'border-gray-200 hover:border-gray-300'
+                  idx === currentIndex ? 'border-emerald-500' : 'border-sage-200 hover:border-sage-300'
                 }`}
               >
                 <Image

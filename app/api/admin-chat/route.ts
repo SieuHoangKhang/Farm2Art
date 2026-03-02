@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-// Simple in-memory storage for demo (replace with database in production)
-const adminChats: Record<string, any[]> = {};
+import {
+  addDocument,
+  queryCollection,
+  findDocuments,
+  updateDocument,
+} from '@/lib/firebase/firestore-utils';
+import { where, orderBy } from 'firebase/firestore';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,26 +18,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Initialize user conversation if not exists
-    if (!adminChats[userId]) {
-      adminChats[userId] = [];
-    }
-
-    // Save user message
-    const userMessage = {
-      id: Date.now().toString(),
+    // Save message to Firestore
+    const messageDoc = await addDocument('admin_chat_messages', {
       userId,
       userName: userName || 'Guest',
       message,
-      timestamp: Date.now(),
+      timestamp: new Date().toISOString(),
       isAdmin: false,
-    };
+      read: false,
+    });
 
-    adminChats[userId].push(userMessage);
-    console.log('Message saved:', userMessage.id);
+    console.log('Message saved to Firestore:', messageDoc.id);
 
     return NextResponse.json(
-      { success: true, messageId: userMessage.id },
+      { success: true, messageId: messageDoc.id },
       { status: 200 }
     );
   } catch (error: any) {
@@ -45,6 +43,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
+
 // Get messages for a user or all conversations
 export async function GET(request: NextRequest) {
   try {
@@ -53,11 +52,24 @@ export async function GET(request: NextRequest) {
 
     if (getAllConversations) {
       // Return all conversations for admin dashboard
-      return NextResponse.json({ conversations: adminChats }, { status: 200 });
+      const messages = await queryCollection('admin_chat_messages', [
+        orderBy('timestamp', 'desc'),
+      ]);
+      
+      // Group by userId
+      const conversations: Record<string, any[]> = {};
+      (messages as any[]).forEach((msg: any) => {
+        if (!conversations[msg.userId]) {
+          conversations[msg.userId] = [];
+        }
+        conversations[msg.userId].push(msg);
+      });
+
+      return NextResponse.json({ conversations }, { status: 200 });
     }
 
     if (userId) {
-      const messages = adminChats[userId] || [];
+      const messages = await findDocuments('admin_chat_messages', 'userId', userId);
       return NextResponse.json({ messages }, { status: 200 });
     }
 
@@ -86,22 +98,16 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Initialize if needed
-    if (!adminChats[userId]) {
-      adminChats[userId] = [];
-    }
-
-    const adminMessage = {
-      id: Date.now().toString(),
+    const adminMessage = await addDocument('admin_chat_messages', {
       userId,
       userName: 'Admin',
       message,
-      timestamp: Date.now(),
+      timestamp: new Date().toISOString(),
       isAdmin: true,
-    };
+      read: false,
+    });
 
-    adminChats[userId].push(adminMessage);
-    console.log('Admin reply saved:', adminMessage.id);
+    console.log('Admin reply saved to Firestore:', adminMessage.id);
 
     return NextResponse.json(
       { success: true, messageId: adminMessage.id },
@@ -115,4 +121,3 @@ export async function PUT(request: NextRequest) {
     );
   }
 }
-

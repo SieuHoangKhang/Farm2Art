@@ -76,7 +76,7 @@ export default function MyListingsPage() {
         <Card>
           <CardBody>
             <p className="text-stone-600">Vui lòng đăng nhập để xem bài đăng.</p>
-            <LinkButton href="/auth/login" className="mt-4">
+            <LinkButton href="/login" className="mt-4">
               Đăng nhập
             </LinkButton>
           </CardBody>
@@ -96,11 +96,10 @@ export default function MyListingsPage() {
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-all ${
-                  filter === f
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition-all ${filter === f
                     ? "bg-emerald-600 text-white"
                     : "border border-stone-200 bg-white text-stone-700 hover:border-stone-300"
-                }`}
+                  }`}
               >
                 {f === "all" ? "Tất cả" : f === "active" ? "Đang bán" : "Tạm ẩn"}
               </button>
@@ -141,11 +140,10 @@ export default function MyListingsPage() {
                     </div>
                     <div className="text-right">
                       <span
-                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${
-                          listing.status === "active"
+                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${listing.status === "active"
                             ? "bg-green-100 text-green-800"
                             : "bg-yellow-100 text-yellow-800"
-                        }`}
+                          }`}
                       >
                         {listing.status === "active" ? "Đang bán" : "Tạm ẩn"}
                       </span>

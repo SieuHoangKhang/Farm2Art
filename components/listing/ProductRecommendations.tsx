@@ -48,7 +48,7 @@ export default function ProductRecommendations({
       <div className="py-8">
         <div className="animate-pulse space-y-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-40 bg-gray-200 rounded-lg"></div>
+            <div key={i} className="h-40 bg-stone-200 rounded-lg"></div>
           ))}
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function ProductRecommendations({
             href={`/listing/${product.id}`}
             className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow"
           >
-            <div className="relative h-40 bg-gray-100 rounded-t-lg overflow-hidden">
+            <div className="relative h-40 bg-sage-100 rounded-t-lg overflow-hidden">
               {product.image ? (
                 <Image
                   src={product.image}
@@ -78,8 +78,8 @@ export default function ProductRecommendations({
                   className="object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-green-100 to-blue-100">
-                  <span className="text-gray-400">No image</span>
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-green-100 to-emerald-100">
+                  <span className="text-stone-300">No image</span>
                 </div>
               )}
               {product.isHot && (
@@ -97,34 +97,19 @@ export default function ProductRecommendations({
                   {product.price.toLocaleString()}đ
                 </span>
               </div>
-              <div className="flex items-center text-xs text-gray-600">
+              <div className="flex items-center text-xs text-stone-500">
                 <span className="text-yellow-500">★</span>
                 <span className="ml-1">
                   {product.rating} ({product.reviews})
                 </span>
               </div>
-              <p className="text-xs text-gray-500 mt-2 line-clamp-1">
+              <p className="text-xs text-stone-400 mt-2 line-clamp-1">
                 {product.seller}
               </p>
             </div>
           </Link>
         ))}
       </div>
-    </div>
-  );
-}
-                Xem chi tiết
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {tabRecommendations.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-600">Không có sản phẩm gợi ý cho mục này</p>
-        </div>
-      )}
     </div>
   );
 }

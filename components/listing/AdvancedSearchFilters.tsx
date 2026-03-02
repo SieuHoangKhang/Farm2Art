@@ -55,7 +55,7 @@ export default function AdvancedSearchFilters({
         <h3 className="text-lg font-semibold">Bộ lọc</h3>
         <button
           onClick={handleReset}
-          className="text-sm text-blue-500 hover:text-blue-700 underline"
+          className="text-sm text-emerald-500 hover:text-emerald-700 underline"
         >
           Đặt lại
         </button>
@@ -64,7 +64,7 @@ export default function AdvancedSearchFilters({
       <div className="space-y-6">
         {/* Category */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3">Danh mục</h4>
+          <h4 className="font-semibold text-stone-800 mb-3">Danh mục</h4>
           <div className="space-y-2">
             <label className="flex items-center">
               <input
@@ -75,7 +75,7 @@ export default function AdvancedSearchFilters({
                 onChange={e => setFilters({ ...filters, category: e.target.value })}
                 className="w-4 h-4"
               />
-              <span className="ml-2 text-gray-700">Tất cả</span>
+              <span className="ml-2 text-stone-600">Tất cả</span>
             </label>
             {categories.map(cat => (
               <label key={cat} className="flex items-center">
@@ -87,7 +87,7 @@ export default function AdvancedSearchFilters({
                   onChange={e => setFilters({ ...filters, category: e.target.value })}
                   className="w-4 h-4"
                 />
-                <span className="ml-2 text-gray-700">{cat}</span>
+                <span className="ml-2 text-stone-600">{cat}</span>
               </label>
             ))}
           </div>
@@ -95,7 +95,7 @@ export default function AdvancedSearchFilters({
 
         {/* Price Range */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3">Mức giá</h4>
+          <h4 className="font-semibold text-stone-800 mb-3">Mức giá</h4>
           <div className="space-y-2">
             {[
               { label: 'Dưới 50K', min: 0, max: 50000 },
@@ -114,7 +114,7 @@ export default function AdvancedSearchFilters({
                   onChange={() => handlePriceRangeChange(range.min, range.max)}
                   className="w-4 h-4"
                 />
-                <span className="ml-2 text-gray-700">{range.label}</span>
+                <span className="ml-2 text-stone-600">{range.label}</span>
               </label>
             ))}
           </div>
@@ -122,25 +122,25 @@ export default function AdvancedSearchFilters({
           {/* Custom Price Range */}
           <div className="mt-4 space-y-2">
             <div>
-              <label className="text-sm text-gray-600">Từ</label>
+              <label className="text-sm text-stone-500">Từ</label>
               <input
                 type="number"
                 value={filters.priceMin}
                 onChange={e =>
                   setFilters({ ...filters, priceMin: parseInt(e.target.value) || 0 })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="w-full px-3 py-2 border border-sage-300 rounded-lg"
               />
             </div>
             <div>
-              <label className="text-sm text-gray-600">Đến</label>
+              <label className="text-sm text-stone-500">Đến</label>
               <input
                 type="number"
                 value={filters.priceMax}
                 onChange={e =>
                   setFilters({ ...filters, priceMax: parseInt(e.target.value) || 1000000 })
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="w-full px-3 py-2 border border-sage-300 rounded-lg"
               />
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function AdvancedSearchFilters({
 
         {/* Rating */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3">Đánh giá</h4>
+          <h4 className="font-semibold text-stone-800 mb-3">Đánh giá</h4>
           <div className="space-y-2">
             {[5, 4, 3, 2, 1, 0].map(stars => (
               <label key={stars} className="flex items-center">
@@ -159,7 +159,7 @@ export default function AdvancedSearchFilters({
                   onChange={() => setFilters({ ...filters, minRating: stars })}
                   className="w-4 h-4"
                 />
-                <span className="ml-2 text-gray-700">
+                <span className="ml-2 text-stone-600">
                   {stars === 0 ? 'Tất cả' : `${stars}⭐ trở lên`}
                 </span>
               </label>
@@ -178,13 +178,13 @@ export default function AdvancedSearchFilters({
               }
               className="w-4 h-4"
             />
-            <span className="ml-2 text-gray-700 font-medium">Chỉ hàng có sẵn</span>
+            <span className="ml-2 text-stone-600 font-medium">Chỉ hàng có sẵn</span>
           </label>
         </div>
 
         {/* Sort */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3">Sắp xếp</h4>
+          <h4 className="font-semibold text-stone-800 mb-3">Sắp xếp</h4>
           <select
             value={filters.sortBy}
             onChange={e =>
@@ -193,7 +193,7 @@ export default function AdvancedSearchFilters({
                 sortBy: e.target.value as SearchFiltersState['sortBy'],
               })
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+            className="w-full px-3 py-2 border border-sage-300 rounded-lg"
           >
             <option value="newest">Mới nhất</option>
             <option value="popular">Phổ biến</option>

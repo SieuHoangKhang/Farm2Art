@@ -143,8 +143,7 @@ export default function ConversationsPage() {
   };
 
   return (
-    <RequireAuth>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen">
         <PageHeader
           title="Tin nhắn"
           subtitle="Trò chuyện với người mua/người bán"
@@ -154,14 +153,14 @@ export default function ConversationsPage() {
           <div className="py-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[600px]">
               {/* Conversations List */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-y-auto">
-                <div className="p-4 border-b border-gray-200">
-                  <h2 className="font-semibold text-gray-900">Cuộc trò chuyện</h2>
+              <div className="bg-white rounded-xl shadow-sm border border-sage-200 overflow-y-auto">
+                <div className="p-4 border-b border-sage-200">
+                  <h2 className="font-semibold text-amber-900">Cuộc trò chuyện</h2>
                 </div>
 
                 {loading ? (
                   <div className="flex justify-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
                   </div>
                 ) : conversations.length > 0 ? (
                   <div className="space-y-1 p-2">
@@ -174,12 +173,12 @@ export default function ConversationsPage() {
                         }}
                         className={`w-full text-left p-3 rounded-lg transition ${
                           selectedConversation?.id === conv.id
-                            ? 'bg-blue-50 border-l-4 border-blue-500'
-                            : 'hover:bg-gray-50'
-                        } ${conv.unreadCount > 0 ? 'bg-blue-50' : ''}`}
+                            ? 'bg-emerald-50 border-l-4 border-emerald-500'
+                            : 'hover:bg-sage-50'
+                        } ${conv.unreadCount > 0 ? 'bg-emerald-50' : ''}`}
                       >
                         <div className="flex justify-between items-start mb-1">
-                          <p className="font-medium text-gray-900 text-sm">
+                          <p className="font-medium text-stone-800 text-sm">
                             {conv.participantName}
                           </p>
                           {conv.unreadCount > 0 && (
@@ -189,37 +188,37 @@ export default function ConversationsPage() {
                           )}
                         </div>
                         {conv.productTitle && (
-                          <p className="text-xs text-gray-600 mb-1">
+                          <p className="text-xs text-stone-500 mb-1">
                             Về: {conv.productTitle}
                           </p>
                         )}
-                        <p className="text-xs text-gray-600 truncate">
+                        <p className="text-xs text-stone-500 truncate">
                           {conv.lastMessage}
                         </p>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-stone-400 mt-1">
                           {new Date(conv.lastMessageTime).toLocaleTimeString('vi-VN')}
                         </p>
                       </button>
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-8 text-gray-600">
+                  <div className="text-center py-8 text-stone-500">
                     Không có cuộc trò chuyện
                   </div>
                 )}
               </div>
 
               {/* Messages */}
-              <div className="md:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200 flex flex-col">
+              <div className="md:col-span-2 bg-white rounded-xl shadow-sm border border-sage-200 flex flex-col">
                 {selectedConversation ? (
                   <>
                     {/* Header */}
-                    <div className="p-4 border-b border-gray-200">
-                      <p className="font-semibold text-gray-900">
+                    <div className="p-4 border-b border-sage-200">
+                      <p className="font-semibold text-stone-800">
                         {selectedConversation.participantName}
                       </p>
                       {selectedConversation.productTitle && (
-                        <p className="text-sm text-gray-600 mt-1">
+                        <p className="text-sm text-stone-500 mt-1">
                           📦 {selectedConversation.productTitle}
                         </p>
                       )}
@@ -239,16 +238,16 @@ export default function ConversationsPage() {
                           <div
                             className={`max-w-xs px-4 py-2 rounded-lg ${
                               msg.senderId === user?.uid
-                                ? 'bg-blue-500 text-white'
-                                : 'bg-gray-200 text-gray-900'
+                                ? 'bg-emerald-500 text-white'
+                                : 'bg-sage-100 text-stone-800'
                             }`}
                           >
                             <p className="text-sm">{msg.text}</p>
                             <p
                               className={`text-xs mt-1 ${
                                 msg.senderId === user?.uid
-                                  ? 'text-blue-100'
-                                  : 'text-gray-600'
+                                  ? 'text-emerald-100'
+                                  : 'text-stone-500'
                               }`}
                             >
                               {new Date(msg.timestamp).toLocaleTimeString(
@@ -261,7 +260,7 @@ export default function ConversationsPage() {
                     </div>
 
                     {/* Input */}
-                    <div className="p-4 border-t border-gray-200">
+                    <div className="p-4 border-t border-sage-200">
                       <div className="flex gap-2">
                         <input
                           type="text"
@@ -271,13 +270,13 @@ export default function ConversationsPage() {
                             e.key === 'Enter' && handleSendMessage()
                           }
                           placeholder="Nhập tin nhắn..."
-                          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="flex-1 px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                           disabled={sending}
                         />
                         <button
                           onClick={handleSendMessage}
                           disabled={sending || !newMessage.trim()}
-                          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 font-medium"
+                          className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium"
                         >
                           {sending ? '...' : 'Gửi'}
                         </button>
@@ -285,7 +284,7 @@ export default function ConversationsPage() {
                     </div>
                   </>
                 ) : (
-                  <div className="flex items-center justify-center h-full text-gray-600">
+                  <div className="flex items-center justify-center h-full text-stone-500">
                     <p>Chọn cuộc trò chuyện để bắt đầu</p>
                   </div>
                 )}
@@ -294,6 +293,5 @@ export default function ConversationsPage() {
           </div>
         </Container>
       </div>
-    </RequireAuth>
   );
 }

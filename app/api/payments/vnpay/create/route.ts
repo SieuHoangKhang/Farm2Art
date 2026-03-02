@@ -37,53 +37,33 @@ export async function POST(request: Request) {
     if (!Number.isFinite(amountVnd) || amountVnd <= 0) {
       return NextResponse.json({ error: "Invalid order amount" }, { status: 400 });
     }
+
+    const tmnCode = process.env.VNPAY_TMN_CODE ?? "";
+    const hashSecret = process.env.VNPAY_HASH_SECRET ?? "";
+    const paymentGatewayUrl = process.env.VNPAY_PAYMENT_URL ?? "";
+    const returnUrl = process.env.VNPAY_RETURN_URL ?? "";
+
+    if (!tmnCode || !hashSecret || !paymentGatewayUrl || !returnUrl) {
+      return NextResponse.json({ error: "Missing VNPay env config" }, { status: 500 });
+    }
+
+    const url = createPaymentUrl(
+      { tmnCode, hashSecret, paymentUrl: paymentGatewayUrl, returnUrl },
+      {
+        txnRef: orderId,
+        amountVnd,
+        orderInfo: `Thanh toan don hang ${orderId}`,
+        ipAddr: getClientIp(request),
+        locale: "vn",
+        orderType: "other",
+      }
+    );
+
+    return NextResponse.json({ paymentUrl: url });
   } catch {
     return NextResponse.json(
       { error: "Failed to load order" },
       { status: 500 }
     );
   }
-
-  const body2 = await request.json().catch(() => null);
-  const orderId2 = body2?.orderId as string | undefined;
-
-  if (!orderId2) {
-    return NextResponse.json({ error: "Missing orderId" }, { status: 400 });
-  }
-
-  let amountVnd = 0;
-  try {
-    const orderRef = doc(firebaseDb, "orders", orderId2);
-    const orderSnap = await getDoc(orderRef);
-
-    if (orderSnap.exists()) {
-      const order = orderSnap.data() as Order;
-      amountVnd = order.totalAmount;
-    }
-  } catch {
-    // Continue with default amount
-  }
-
-  const tmnCode = process.env.VNPAY_TMN_CODE ?? "";
-  const hashSecret = process.env.VNPAY_HASH_SECRET ?? "";
-  const paymentUrl = process.env.VNPAY_PAYMENT_URL ?? "";
-  const returnUrl = process.env.VNPAY_RETURN_URL ?? "";
-
-  if (!tmnCode || !hashSecret || !paymentUrl || !returnUrl) {
-    return NextResponse.json({ error: "Missing VNPay env config" }, { status: 500 });
-  }
-
-  const url = createPaymentUrl(
-    { tmnCode, hashSecret, paymentUrl, returnUrl },
-    {
-      txnRef: orderId2,
-      amountVnd,
-      orderInfo: `Thanh toan don hang ${orderId2}`,
-      ipAddr: getClientIp(request),
-      locale: "vn",
-      orderType: "other",
-    }
-  );
-
-  return NextResponse.json({ paymentUrl: url });
 }
