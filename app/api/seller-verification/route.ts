@@ -1,92 +1,65 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SellerVerification } from '@/types/seller';
-
-// In-memory storage
-const verificationsStore: Record<string, SellerVerification> = {
-  'seller_verified_1': {
-    sellerId: 'seller_verified_1',
-    status: 'approved',
-    businessName: 'Farm2Art Organic',
-    businessRegistration: 'https://example.com/cert1.pdf',
-    ownerName: 'Nguyễn Văn A',
-    ownerID: 'https://example.com/id1.jpg',
-    bankAccount: '1234567890',
-    bankName: 'Vietcombank',
-    businessAddress: '123 Lê Lợi, Hà Nội',
-    phone: '0123456789',
-    email: 'farm2art@example.com',
-    approvedAt: Date.now() - 30 * 24 * 60 * 60 * 1000,
-    verificationBadge: true,
-  },
-};
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { firebaseDb } from '@/lib/firebase/client';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const sellerId = searchParams.get('sellerId');
 
   if (!sellerId) {
-    return NextResponse.json(
-      { error: 'Seller ID is required' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'Seller ID is required' }, { status: 400 });
   }
 
-  const verification = verificationsStore[sellerId] || {
-    sellerId,
-    status: 'none',
-  };
+  try {
+    const docRef = doc(firebaseDb, 'seller_verifications', sellerId);
+    const snap = await getDoc(docRef);
 
-  return NextResponse.json(verification);
+    if (!snap.exists()) {
+      return NextResponse.json({ sellerId, status: 'none' });
+    }
+
+    return NextResponse.json({ id: snap.id, ...snap.data() });
+  } catch (error) {
+    console.error('Seller verification GET error:', error);
+    return NextResponse.json({ error: 'Failed to fetch verification' }, { status: 500 });
+  }
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const {
-      sellerId,
-      businessName,
-      businessRegistration,
-      ownerName,
-      ownerID,
-      bankAccount,
-      bankName,
-      businessAddress,
-      phone,
-      email,
+      sellerId, businessName, businessRegistration, ownerName,
+      ownerID, bankAccount, bankName, businessAddress, phone, email,
     } = body;
 
     if (!sellerId || !businessName || !ownerName || !bankAccount) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const verification: SellerVerification = {
+    const verification = {
       sellerId,
       status: 'pending',
       businessName,
-      businessRegistration,
+      businessRegistration: businessRegistration || '',
       ownerName,
-      ownerID,
+      ownerID: ownerID || '',
       bankAccount,
-      bankName,
-      businessAddress,
-      phone,
-      email,
+      bankName: bankName || '',
+      businessAddress: businessAddress || '',
+      phone: phone || '',
+      email: email || '',
       documentSubmittedAt: Date.now(),
       verificationBadge: false,
     };
 
-    verificationsStore[sellerId] = verification;
+    const docRef = doc(firebaseDb, 'seller_verifications', sellerId);
+    await setDoc(docRef, verification);
 
     return NextResponse.json(verification, { status: 201 });
   } catch (error) {
     console.error('Verification submission error:', error);
-    return NextResponse.json(
-      { error: 'Failed to submit verification' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to submit verification' }, { status: 500 });
   }
 }
 
@@ -97,36 +70,37 @@ export async function PUT(request: NextRequest) {
     const action = searchParams.get('action');
 
     if (!sellerId) {
-      return NextResponse.json(
-        { error: 'Seller ID is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Seller ID is required' }, { status: 400 });
     }
 
-    const verification = verificationsStore[sellerId];
-    if (!verification) {
-      return NextResponse.json(
-        { error: 'Verification not found' },
-        { status: 404 }
-      );
+    const docRef = doc(firebaseDb, 'seller_verifications', sellerId);
+    const snap = await getDoc(docRef);
+
+    if (!snap.exists()) {
+      return NextResponse.json({ error: 'Verification not found' }, { status: 404 });
     }
 
     if (action === 'approve') {
-      verification.status = 'approved';
-      verification.approvedAt = Date.now();
-      verification.verificationBadge = true;
+      await updateDoc(docRef, {
+        status: 'approved',
+        approvedAt: Date.now(),
+        verificationBadge: true,
+      });
+      // Also update user role to seller
+      const userRef = doc(firebaseDb, 'users', sellerId);
+      await updateDoc(userRef, { role: 'seller', sellerVerified: true });
     } else if (action === 'reject') {
-      const { rejectionReason } = await request.json();
-      verification.status = 'rejected';
-      verification.rejectionReason = rejectionReason;
+      const body = await request.json();
+      await updateDoc(docRef, {
+        status: 'rejected',
+        rejectionReason: body.rejectionReason || 'Không đạt yêu cầu',
+      });
     }
 
-    return NextResponse.json(verification);
+    const updated = await getDoc(docRef);
+    return NextResponse.json({ id: updated.id, ...updated.data() });
   } catch (error) {
     console.error('Verification update error:', error);
-    return NextResponse.json(
-      { error: 'Failed to update verification' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update verification' }, { status: 500 });
   }
 }

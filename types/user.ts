@@ -1,4 +1,4 @@
-export type UserRole = "user" | "admin";
+export type UserRole = "user" | "seller" | "admin";
 
 export type AppUser = {
   uid: string;
@@ -10,5 +10,6 @@ export type AppUser = {
   district?: string;
   avatarUrl?: string;
   role: UserRole;
+  sellerVerified?: boolean;
   createdAt: number;
 };

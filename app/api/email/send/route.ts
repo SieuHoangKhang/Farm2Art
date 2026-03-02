@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
           <h2>Xác nhận đơn hàng #${body.data?.orderId}</h2>
           <p>Cảm ơn bạn đã đặt hàng!</p>
           <p>Tổng tiền: <strong>${body.data?.amount} VNĐ</strong></p>
-          <p><a href="${process.env.NEXT_PUBLIC_URL}/account/orders/${body.data?.orderId}">Xem chi tiết đơn hàng</a></p>
+          <p><a href="${process.env.NEXT_PUBLIC_URL}/orders/${body.data?.orderId}">Xem chi tiết đơn hàng</a></p>
         `;
         break;
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
           <h2>Cập nhật vận chuyển</h2>
           <p>Đơn hàng #${body.data?.orderId} của bạn: <strong>${body.data?.status}</strong></p>
           <p>Dự kiến giao: ${new Date(body.data?.estimatedDelivery).toLocaleDateString('vi-VN')}</p>
-          <p><a href="${process.env.NEXT_PUBLIC_URL}/account/orders/${body.data?.orderId}">Theo dõi</a></p>
+          <p><a href="${process.env.NEXT_PUBLIC_URL}/orders/${body.data?.orderId}">Theo dõi</a></p>
         `;
         break;
 

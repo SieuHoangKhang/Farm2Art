@@ -105,7 +105,7 @@ export default function MyListingsPage() {
               </button>
             ))}
           </div>
-          <LinkButton href="/account/create-listing" className="bg-emerald-600 text-white">
+          <LinkButton href="/create-listing" className="bg-emerald-600 text-white">
             + Đăng bán mới
           </LinkButton>
         </div>
@@ -118,7 +118,7 @@ export default function MyListingsPage() {
           <Card>
             <CardBody>
               <p className="text-stone-600">Bạn chưa có bài đăng nào.</p>
-              <LinkButton href="/account/create-listing" className="mt-4">
+              <LinkButton href="/create-listing" className="mt-4">
                 Bắt đầu đăng bán
               </LinkButton>
             </CardBody>

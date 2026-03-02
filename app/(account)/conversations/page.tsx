@@ -2,296 +2,125 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuthUser } from '@/lib/auth/useAuthUser';
-import { RequireAuth } from '@/components/auth/RequireAuth';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Container } from '@/components/ui/Container';
+import { collection, query, where, onSnapshot, orderBy, doc, getDoc } from 'firebase/firestore';
+import { ref, onValue, limitToLast, query as rtdbQuery } from 'firebase/database';
+import { firebaseDb, firebaseRtdb } from '@/lib/firebase/client';
+import Link from 'next/link';
 
 interface Conversation {
   id: string;
-  participantId: string;
-  participantName: string;
-  participantAvatar?: string;
-  lastMessage: string;
-  lastMessageTime: number;
-  unreadCount: number;
-  productId?: string;
+  participants: string[];
+  participantNames: Record<string, string>;
+  lastMessage?: string;
+  lastMessageTime?: number;
   productTitle?: string;
-}
-
-interface Message {
-  id: string;
-  senderId: string;
-  text: string;
-  timestamp: number;
-  read: boolean;
+  updatedAt?: number;
 }
 
 export default function ConversationsPage() {
   const { user } = useAuthUser();
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
-  const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    if (user?.uid) {
-      loadConversations();
-    }
-  }, [user]);
+    if (!user?.uid) return;
 
-  const loadConversations = async () => {
-    try {
-      // Mock data
-      const mockConversations: Conversation[] = [
-        {
-          id: 'conv_1',
-          participantId: 'seller_001',
-          participantName: 'Farm Tây Ninh',
-          lastMessage: 'Okê, tôi sẽ gửi hàng ngay hôm nay',
-          lastMessageTime: Date.now() - 1000 * 60 * 5,
-          unreadCount: 0,
-          productId: 'by-001',
-          productTitle: 'Rơm khô cuộn',
-        },
-        {
-          id: 'conv_2',
-          participantId: 'buyer_001',
-          participantName: 'Nguyễn Văn A',
-          lastMessage: 'Sản phẩm còn hàng không?',
-          lastMessageTime: Date.now() - 1000 * 60 * 30,
-          unreadCount: 2,
-          productId: 'art-001',
-          productTitle: 'Tranh tái chế',
-        },
-      ];
-      setConversations(mockConversations);
-    } catch (error) {
-      console.error('Failed to load conversations:', error);
-    } finally {
+    const convRef = collection(firebaseDb, 'conversations');
+    const q = query(
+      convRef,
+      where('participants', 'array-contains', user.uid)
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const convs: Conversation[] = snapshot.docs
+        .map((d) => ({ id: d.id, ...d.data() } as Conversation))
+        .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+      setConversations(convs);
       setLoading(false);
-    }
+    }, (err) => {
+      console.error('Load conversations error:', err);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [user?.uid]);
+
+  const getPartnerName = (conv: Conversation) => {
+    if (!user?.uid || !conv.participantNames) return 'Người dùng';
+    const partnerId = conv.participants.find((p) => p !== user.uid);
+    return partnerId ? (conv.participantNames[partnerId] || 'Người dùng') : 'Người dùng';
   };
 
-  const loadMessages = async (conversationId: string) => {
-    try {
-      // Mock messages
-      const mockMessages: Message[] = [
-        {
-          id: 'msg_1',
-          senderId: 'seller_001',
-          text: 'Xin chào, bạn cần tư vấn gì không?',
-          timestamp: Date.now() - 1000 * 60 * 10,
-          read: true,
-        },
-        {
-          id: 'msg_2',
-          senderId: user?.uid || '',
-          text: 'Bạn còn sản phẩm này không?',
-          timestamp: Date.now() - 1000 * 60 * 8,
-          read: true,
-        },
-        {
-          id: 'msg_3',
-          senderId: 'seller_001',
-          text: 'Okê, tôi sẽ gửi hàng ngay hôm nay',
-          timestamp: Date.now() - 1000 * 60 * 5,
-          read: true,
-        },
-      ];
-      setMessages(mockMessages);
-    } catch (error) {
-      console.error('Failed to load messages:', error);
-    }
-  };
-
-  const handleSendMessage = async () => {
-    if (!newMessage.trim() || !selectedConversation || !user) return;
-
-    setSending(true);
-
-    try {
-      const message: Message = {
-        id: `msg_${Date.now()}`,
-        senderId: user.uid,
-        text: newMessage,
-        timestamp: Date.now(),
-        read: false,
-      };
-
-      setMessages([...messages, message]);
-      setNewMessage('');
-
-      // Update conversation last message
-      setConversations(
-        conversations.map(c =>
-          c.id === selectedConversation.id
-            ? {
-                ...c,
-                lastMessage: newMessage,
-                lastMessageTime: Date.now(),
-              }
-            : c
-        )
-      );
-    } catch (error) {
-      console.error('Failed to send message:', error);
-    } finally {
-      setSending(false);
-    }
+  const getPartnerId = (conv: Conversation) => {
+    if (!user?.uid) return '';
+    return conv.participants.find((p) => p !== user.uid) || '';
   };
 
   return (
-      <div className="min-h-screen">
-        <PageHeader
-          title="Tin nhắn"
-          subtitle="Trò chuyện với người mua/người bán"
-        />
+    <div className="min-h-screen">
+      <PageHeader title="Tin nhắn" subtitle="Trò chuyện với người mua/người bán" />
 
-        <Container>
-          <div className="py-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[600px]">
-              {/* Conversations List */}
-              <div className="bg-white rounded-xl shadow-sm border border-sage-200 overflow-y-auto">
-                <div className="p-4 border-b border-sage-200">
-                  <h2 className="font-semibold text-amber-900">Cuộc trò chuyện</h2>
-                </div>
-
-                {loading ? (
-                  <div className="flex justify-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
-                  </div>
-                ) : conversations.length > 0 ? (
-                  <div className="space-y-1 p-2">
-                    {conversations.map(conv => (
-                      <button
-                        key={conv.id}
-                        onClick={() => {
-                          setSelectedConversation(conv);
-                          loadMessages(conv.id);
-                        }}
-                        className={`w-full text-left p-3 rounded-lg transition ${
-                          selectedConversation?.id === conv.id
-                            ? 'bg-emerald-50 border-l-4 border-emerald-500'
-                            : 'hover:bg-sage-50'
-                        } ${conv.unreadCount > 0 ? 'bg-emerald-50' : ''}`}
-                      >
+      <Container>
+        <div className="py-8">
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
+            </div>
+          ) : conversations.length === 0 ? (
+            <div className="text-center py-16">
+              <svg className="w-20 h-20 mx-auto text-stone-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <p className="text-stone-600 font-medium text-lg mb-2">Chưa có cuộc trò chuyện</p>
+              <p className="text-sm text-stone-500">
+                Vào trang sản phẩm và nhấn &quot;Chat với người bán&quot; để bắt đầu.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3 max-w-2xl mx-auto">
+              {conversations.map((conv) => {
+                const partnerId = getPartnerId(conv);
+                const partnerName = getPartnerName(conv);
+                return (
+                  <Link
+                    key={conv.id}
+                    href={`/chat?sellerId=${partnerId}${conv.productTitle ? `&product=${encodeURIComponent(conv.productTitle)}` : ''}`}
+                    className="block bg-white rounded-xl border border-stone-200 p-4 hover:border-emerald-300 hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg flex-shrink-0">
+                        {partnerName.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-start mb-1">
-                          <p className="font-medium text-stone-800 text-sm">
-                            {conv.participantName}
-                          </p>
-                          {conv.unreadCount > 0 && (
-                            <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                              {conv.unreadCount}
-                            </span>
+                          <p className="font-semibold text-stone-800">{partnerName}</p>
+                          {conv.lastMessageTime && (
+                            <p className="text-xs text-stone-400 flex-shrink-0 ml-2">
+                              {new Date(conv.lastMessageTime).toLocaleDateString('vi-VN')}
+                            </p>
                           )}
                         </div>
                         {conv.productTitle && (
-                          <p className="text-xs text-stone-500 mb-1">
-                            Về: {conv.productTitle}
+                          <p className="text-xs text-emerald-600 mb-1">
+                            Sản phẩm: {conv.productTitle}
                           </p>
                         )}
-                        <p className="text-xs text-stone-500 truncate">
-                          {conv.lastMessage}
-                        </p>
-                        <p className="text-xs text-stone-400 mt-1">
-                          {new Date(conv.lastMessageTime).toLocaleTimeString('vi-VN')}
-                        </p>
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-8 text-stone-500">
-                    Không có cuộc trò chuyện
-                  </div>
-                )}
-              </div>
-
-              {/* Messages */}
-              <div className="md:col-span-2 bg-white rounded-xl shadow-sm border border-sage-200 flex flex-col">
-                {selectedConversation ? (
-                  <>
-                    {/* Header */}
-                    <div className="p-4 border-b border-sage-200">
-                      <p className="font-semibold text-stone-800">
-                        {selectedConversation.participantName}
-                      </p>
-                      {selectedConversation.productTitle && (
-                        <p className="text-sm text-stone-500 mt-1">
-                          📦 {selectedConversation.productTitle}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                      {messages.map(msg => (
-                        <div
-                          key={msg.id}
-                          className={`flex ${
-                            msg.senderId === user?.uid
-                              ? 'justify-end'
-                              : 'justify-start'
-                          }`}
-                        >
-                          <div
-                            className={`max-w-xs px-4 py-2 rounded-lg ${
-                              msg.senderId === user?.uid
-                                ? 'bg-emerald-500 text-white'
-                                : 'bg-sage-100 text-stone-800'
-                            }`}
-                          >
-                            <p className="text-sm">{msg.text}</p>
-                            <p
-                              className={`text-xs mt-1 ${
-                                msg.senderId === user?.uid
-                                  ? 'text-emerald-100'
-                                  : 'text-stone-500'
-                              }`}
-                            >
-                              {new Date(msg.timestamp).toLocaleTimeString(
-                                'vi-VN'
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Input */}
-                    <div className="p-4 border-t border-sage-200">
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          value={newMessage}
-                          onChange={(e) => setNewMessage(e.target.value)}
-                          onKeyPress={(e) =>
-                            e.key === 'Enter' && handleSendMessage()
-                          }
-                          placeholder="Nhập tin nhắn..."
-                          className="flex-1 px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                          disabled={sending}
-                        />
-                        <button
-                          onClick={handleSendMessage}
-                          disabled={sending || !newMessage.trim()}
-                          className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium"
-                        >
-                          {sending ? '...' : 'Gửi'}
-                        </button>
+                        {conv.lastMessage && (
+                          <p className="text-sm text-stone-500 truncate">
+                            {conv.lastMessage}
+                          </p>
+                        )}
                       </div>
                     </div>
-                  </>
-                ) : (
-                  <div className="flex items-center justify-center h-full text-stone-500">
-                    <p>Chọn cuộc trò chuyện để bắt đầu</p>
-                  </div>
-                )}
-              </div>
+                  </Link>
+                );
+              })}
             </div>
-          </div>
-        </Container>
-      </div>
+          )}
+        </div>
+      </Container>
+    </div>
   );
 }

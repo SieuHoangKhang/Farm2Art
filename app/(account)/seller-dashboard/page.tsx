@@ -2,85 +2,125 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuthUser } from '@/lib/auth/useAuthUser';
+import {
+  collection, query, where, getDocs, orderBy,
+} from 'firebase/firestore';
+import { firebaseDb } from '@/lib/firebase/client';
 
 interface SalesMetrics {
   totalRevenue: number;
   totalOrders: number;
   totalProducts: number;
-  averageOrderValue: number;
-  conversionRate: number;
-  topProducts: Array<{
-    id: string;
-    name: string;
-    sales: number;
-    revenue: number;
-  }>;
-  monthlyRevenue: Array<{
-    month: string;
-    revenue: number;
-  }>;
-  customerMetrics: {
-    totalCustomers: number;
-    repeatCustomers: number;
-    averageRating: number;
-  };
+  completedOrders: number;
+  pendingOrders: number;
+  topProducts: Array<{ id: string; name: string; sales: number; revenue: number }>;
+  recentOrders: Array<{ id: string; buyerId: string; total: number; status: string; date: number }>;
 }
 
 export default function SellerDashboard() {
   const { user } = useAuthUser();
   const [metrics, setMetrics] = useState<SalesMetrics | null>(null);
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
 
   useEffect(() => {
     if (user?.uid) {
       fetchMetrics();
     }
-  }, [user, timeRange]);
+  }, [user]);
 
   const fetchMetrics = async () => {
     try {
-      // Mock data - replace with actual API call
-      const mockMetrics: SalesMetrics = {
-        totalRevenue: 45000000,
-        totalOrders: 1250,
-        totalProducts: 48,
-        averageOrderValue: 36000,
-        conversionRate: 3.2,
-        topProducts: [
-          { id: '1', name: 'Rau cải xanh organic', sales: 350, revenue: 8750000 },
-          { id: '2', name: 'Dâu tây tươi', sales: 280, revenue: 11200000 },
-          { id: '3', name: 'Bưởi vàng Nam Định', sales: 215, revenue: 6450000 },
-          { id: '4', name: 'Cam sáng', sales: 198, revenue: 5940000 },
-          { id: '5', name: 'Chanh leo organic', sales: 187, revenue: 5610000 },
-        ],
-        monthlyRevenue: [
-          { month: 'T1', revenue: 8000000 },
-          { month: 'T2', revenue: 9500000 },
-          { month: 'T3', revenue: 7200000 },
-          { month: 'T4', revenue: 10300000 },
-          { month: 'T5', revenue: 12000000 },
-          { month: 'T6', revenue: 15000000 },
-          { month: 'T7', revenue: 16000000 },
-          { month: 'T8', revenue: 14500000 },
-          { month: 'T9', revenue: 11000000 },
-          { month: 'T10', revenue: 13500000 },
-          { month: 'T11', revenue: 14200000 },
-          { month: 'T12', revenue: 16800000 },
-        ],
-        customerMetrics: {
-          totalCustomers: 2340,
-          repeatCustomers: 890,
-          averageRating: 4.7,
-        },
-      };
+      const sellerId = user!.uid;
 
-      setMetrics(mockMetrics);
+      // Fetch seller's orders
+      const ordersRef = collection(firebaseDb, 'orders');
+      const ordersQ = query(ordersRef, where('sellerId', '==', sellerId));
+      const ordersSnap = await getDocs(ordersQ);
+
+      let totalRevenue = 0;
+      let completedOrders = 0;
+      let pendingOrders = 0;
+      const productSalesMap = new Map<string, { name: string; sales: number; revenue: number }>();
+      const recentOrders: SalesMetrics['recentOrders'] = [];
+
+      ordersSnap.docs.forEach((d) => {
+        const order = d.data();
+        totalRevenue += order.totalAmount || 0;
+
+        if (order.status === 'completed' || order.status === 'delivered') completedOrders++;
+        if (order.status === 'pending') pendingOrders++;
+
+        // Track product sales
+        if (order.items) {
+          order.items.forEach((item: any) => {
+            const existing = productSalesMap.get(item.id);
+            if (existing) {
+              existing.sales += item.quantity || 1;
+              existing.revenue += (item.price || 0) * (item.quantity || 1);
+            } else {
+              productSalesMap.set(item.id, {
+                name: item.name || 'Sản phẩm',
+                sales: item.quantity || 1,
+                revenue: (item.price || 0) * (item.quantity || 1),
+              });
+            }
+          });
+        }
+
+        recentOrders.push({
+          id: d.id,
+          buyerId: order.buyerId,
+          total: order.totalAmount || 0,
+          status: order.status,
+          date: order.createdAt,
+        });
+      });
+
+      // Fetch seller's listings count
+      const listingsRef = collection(firebaseDb, 'listings');
+      const listingsQ = query(listingsRef, where('sellerId', '==', sellerId));
+      const listingsSnap = await getDocs(listingsQ);
+
+      // Sort top products by revenue
+      const topProducts = Array.from(productSalesMap.entries())
+        .map(([id, data]) => ({ id, ...data }))
+        .sort((a, b) => b.revenue - a.revenue)
+        .slice(0, 5);
+
+      // Sort recent orders by date
+      recentOrders.sort((a, b) => (b.date || 0) - (a.date || 0));
+
+      setMetrics({
+        totalRevenue,
+        totalOrders: ordersSnap.size,
+        totalProducts: listingsSnap.size,
+        completedOrders,
+        pendingOrders,
+        topProducts,
+        recentOrders: recentOrders.slice(0, 10),
+      });
     } catch (error) {
       console.error('Failed to fetch metrics:', error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const statusLabel = (s: string) => {
+    const map: Record<string, string> = {
+      pending: 'Chờ xử lý', confirmed: 'Đã xác nhận', shipping: 'Đang giao',
+      delivered: 'Đã giao', completed: 'Hoàn thành', cancelled: 'Đã huỷ',
+    };
+    return map[s] || s;
+  };
+
+  const statusColor = (s: string) => {
+    const map: Record<string, string> = {
+      pending: 'bg-yellow-100 text-yellow-800', confirmed: 'bg-blue-100 text-blue-800',
+      shipping: 'bg-indigo-100 text-indigo-800', delivered: 'bg-emerald-100 text-emerald-800',
+      completed: 'bg-green-100 text-green-800', cancelled: 'bg-red-100 text-red-800',
+    };
+    return map[s] || 'bg-stone-100 text-stone-800';
   };
 
   if (loading) {
@@ -94,155 +134,105 @@ export default function SellerDashboard() {
   if (!metrics) {
     return (
       <div className="text-center py-12">
-        <p className="text-stone-500">Không thể tải dữ liệu</p>
+        <p className="text-stone-500">Không thể tải dữ liệu. Hãy thử lại.</p>
       </div>
     );
   }
-
-  const maxRevenue = Math.max(...metrics.monthlyRevenue.map(m => m.revenue));
 
   return (
     <div className="min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-semibold text-amber-900">📊 Bảng điều khiển bán hàng</h1>
-            <p className="text-stone-500 mt-1">Xem tổng quan hoạt động kinh doanh của bạn</p>
-          </div>
-
-          <select
-            value={timeRange}
-            onChange={e => setTimeRange(e.target.value as typeof timeRange)}
-            className="px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          >
-            <option value="7d">7 ngày</option>
-            <option value="30d">30 ngày</option>
-            <option value="90d">90 ngày</option>
-            <option value="1y">1 năm</option>
-          </select>
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold text-amber-900">Bảng điều khiển bán hàng</h1>
+          <p className="text-stone-500 mt-1">Tổng quan hoạt động kinh doanh của bạn</p>
         </div>
 
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Revenue */}
-          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-6">
             <div className="text-stone-500 text-sm font-medium">Tổng doanh thu</div>
             <div className="text-3xl font-bold text-stone-800 mt-2">
-              {(metrics.totalRevenue / 1000000).toFixed(1)}M đ
+              {metrics.totalRevenue.toLocaleString('vi-VN')} VND
             </div>
-            <div className="text-green-600 text-sm mt-2">↑ 12% so với tháng trước</div>
           </div>
-
-          {/* Orders */}
-          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-6">
             <div className="text-stone-500 text-sm font-medium">Tổng đơn hàng</div>
             <div className="text-3xl font-bold text-stone-800 mt-2">
-              {metrics.totalOrders.toLocaleString('vi-VN')}
+              {metrics.totalOrders}
             </div>
-            <div className="text-emerald-600 text-sm mt-2">↑ 8% so với tháng trước</div>
+            <div className="text-xs text-stone-500 mt-2">
+              {metrics.completedOrders} hoàn thành / {metrics.pendingOrders} chờ xử lý
+            </div>
           </div>
-
-          {/* Products */}
-          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
-            <div className="text-stone-500 text-sm font-medium">Sản phẩm hiện có</div>
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-6">
+            <div className="text-stone-500 text-sm font-medium">Sản phẩm đang bán</div>
             <div className="text-3xl font-bold text-stone-800 mt-2">
               {metrics.totalProducts}
             </div>
-            <div className="text-stone-500 text-sm mt-2">+3 sản phẩm mới</div>
           </div>
-
-          {/* Avg Order */}
-          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-6">
             <div className="text-stone-500 text-sm font-medium">Giá trị đơn TB</div>
             <div className="text-3xl font-bold text-stone-800 mt-2">
-              {(metrics.averageOrderValue / 1000).toFixed(0)}K đ
-            </div>
-            <div className="text-green-600 text-sm mt-2">↑ 5% so với tháng trước</div>
-          </div>
-        </div>
-
-        {/* Charts Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Revenue Chart */}
-          <div className="lg:col-span-2 bg-white rounded-xl border border-sage-200 shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-amber-900 mb-4">Doanh thu hàng tháng</h3>
-            <div className="flex items-end gap-2 h-64">
-              {metrics.monthlyRevenue.map((data, idx) => (
-                <div key={idx} className="flex-1 flex flex-col items-center">
-                  <div
-                    className="w-full bg-emerald-500 rounded-t-lg transition hover:bg-emerald-600 cursor-pointer"
-                    style={{ height: `${(data.revenue / maxRevenue) * 100}%` }}
-                    title={`${data.month}: ${(data.revenue / 1000000).toFixed(1)}M`}
-                  ></div>
-                  <span className="text-xs text-stone-500 mt-2">{data.month}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Customer Metrics */}
-          <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
-            <h3 className="text-lg font-semibold text-amber-900 mb-4">Khách hàng</h3>
-            <div className="space-y-4">
-              <div>
-                <div className="text-stone-500 text-sm">Tổng khách hàng</div>
-                <div className="text-2xl font-bold text-stone-800">
-                  {metrics.customerMetrics.totalCustomers.toLocaleString('vi-VN')}
-                </div>
-              </div>
-              <div>
-                <div className="text-stone-500 text-sm">Khách hàng tái lập</div>
-                <div className="text-2xl font-bold text-green-600">
-                  {metrics.customerMetrics.repeatCustomers}
-                  <span className="text-sm text-stone-500 ml-1">
-                    ({((metrics.customerMetrics.repeatCustomers / metrics.customerMetrics.totalCustomers) * 100).toFixed(1)}%)
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="text-stone-500 text-sm">Đánh giá trung bình</div>
-                <div className="text-2xl font-bold text-yellow-500">
-                  {metrics.customerMetrics.averageRating}⭐
-                </div>
-              </div>
+              {metrics.totalOrders > 0
+                ? Math.round(metrics.totalRevenue / metrics.totalOrders).toLocaleString('vi-VN')
+                : 0}{' '}
+              VND
             </div>
           </div>
         </div>
 
-        {/* Top Products */}
-        <div className="bg-white rounded-xl border border-sage-200 shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-amber-900 mb-4">Top sản phẩm</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-left text-sm text-stone-500">
-                  <th className="pb-3 px-4">Sản phẩm</th>
-                  <th className="pb-3 px-4">Số lượng bán</th>
-                  <th className="pb-3 px-4">Doanh thu</th>
-                  <th className="pb-3 px-4">% Tổng</th>
-                </tr>
-              </thead>
-              <tbody>
-                {metrics.topProducts.map((product, idx) => (
-                  <tr key={product.id} className="border-b hover:bg-sage-50">
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-3">
-                        <span className="font-semibold text-stone-800 text-lg">#{idx + 1}</span>
-                        <span className="text-stone-700">{product.name}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Top Products */}
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-amber-900 mb-4">Top sản phẩm bán chạy</h3>
+            {metrics.topProducts.length === 0 ? (
+              <p className="text-stone-500 text-sm">Chưa có dữ liệu bán hàng</p>
+            ) : (
+              <div className="space-y-3">
+                {metrics.topProducts.map((p, idx) => (
+                  <div key={p.id} className="flex items-center justify-between py-2 border-b border-stone-100 last:border-0">
+                    <div className="flex items-center gap-3">
+                      <span className="font-bold text-stone-400 text-lg">#{idx + 1}</span>
+                      <div>
+                        <p className="font-medium text-stone-800 text-sm">{p.name}</p>
+                        <p className="text-xs text-stone-500">Đã bán: {p.sales}</p>
                       </div>
-                    </td>
-                    <td className="py-3 px-4 text-stone-600">{product.sales}</td>
-                    <td className="py-3 px-4 font-semibold text-green-600">
-                      {(product.revenue / 1000000).toFixed(1)}M đ
-                    </td>
-                    <td className="py-3 px-4 text-stone-600">
-                      {((product.revenue / metrics.totalRevenue) * 100).toFixed(1)}%
-                    </td>
-                  </tr>
+                    </div>
+                    <p className="font-semibold text-emerald-600 text-sm">
+                      {p.revenue.toLocaleString('vi-VN')} VND
+                    </p>
+                  </div>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            )}
+          </div>
+
+          {/* Recent Orders */}
+          <div className="bg-white rounded-xl border border-stone-200 shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-amber-900 mb-4">Đơn hàng gần đây</h3>
+            {metrics.recentOrders.length === 0 ? (
+              <p className="text-stone-500 text-sm">Chưa có đơn hàng</p>
+            ) : (
+              <div className="space-y-3">
+                {metrics.recentOrders.map((o) => (
+                  <div key={o.id} className="flex items-center justify-between py-2 border-b border-stone-100 last:border-0">
+                    <div>
+                      <p className="text-sm font-medium text-stone-800">#{o.id.slice(0, 8)}</p>
+                      <p className="text-xs text-stone-500">
+                        {o.date ? new Date(o.date).toLocaleDateString('vi-VN') : ''}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-semibold text-stone-800">{o.total.toLocaleString('vi-VN')} VND</p>
+                      <span className={`inline-block text-xs px-2 py-0.5 rounded ${statusColor(o.status)}`}>
+                        {statusLabel(o.status)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

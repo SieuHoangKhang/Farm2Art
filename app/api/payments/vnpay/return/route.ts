@@ -13,7 +13,7 @@ export async function GET(request: Request) {
 
   const verified = verifyVnpayReturn(params, hashSecret);
   if (!verified.ok) {
-    return NextResponse.redirect(new URL("/account/orders?payment=failed", request.url));
+    return NextResponse.redirect(new URL("/orders?payment=failed", request.url));
   }
 
   // Redirect about payment result
@@ -21,8 +21,8 @@ export async function GET(request: Request) {
   const orderId = verified.params.vnp_TxnRef;
 
   if (isSuccess) {
-    return NextResponse.redirect(new URL(`/account/orders/${orderId}?payment=success`, request.url));
+    return NextResponse.redirect(new URL(`/orders/${orderId}?payment=success`, request.url));
   } else {
-    return NextResponse.redirect(new URL(`/account/orders/${orderId}?payment=failed`, request.url));
+    return NextResponse.redirect(new URL(`/orders/${orderId}?payment=failed`, request.url));
   }
 }

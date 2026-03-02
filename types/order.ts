@@ -1,4 +1,4 @@
-export type OrderStatus = "pending" | "completed" | "cancelled";
+export type OrderStatus = "pending" | "confirmed" | "shipping" | "delivered" | "completed" | "cancelled";
 
 export type OrderItem = {
   id: string;
@@ -20,5 +20,13 @@ export type Order = {
   paymentStatus?: "success" | "failed";
   transactionRef?: string;
   paidAt?: number;
+  confirmedAt?: number;
+  shippedAt?: number;
+  deliveredAt?: number;
+  completedAt?: number;
+  cancelledAt?: number;
+  shippingAddress?: string;
+  trackingNumber?: string;
+  buyerNote?: string;
   createdAt: number;
 };

@@ -69,6 +69,7 @@ export default function ListingDetailPage() {
         body: JSON.stringify({
           listingId: listing.id,
           sellerId: listing.sellerId,
+          buyerId: user.uid,
           quantity: 1,
         }),
       });
@@ -79,7 +80,7 @@ export default function ListingDetailPage() {
       }
 
       const { orderId } = await response.json();
-      router.push(`/account/orders/${orderId}`);
+      router.push(`/orders/${orderId}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Lỗi khi tạo đơn hàng");
     } finally {
@@ -229,7 +230,7 @@ export default function ListingDetailPage() {
                 >
                   {buyLoading ? "Đang xử lý..." : "Mua ngay"}
                 </Button>
-                <LinkButton href={`/account/chat?sellerId=${listing.sellerId}`} variant="outline" className="block w-full text-center text-xs">
+                <LinkButton href={`/chat?sellerId=${listing.sellerId}&product=${encodeURIComponent(listing.title)}`} variant="outline" className="block w-full text-center text-xs">
                   Liên hệ người bán
                 </LinkButton>
               </div>
@@ -242,7 +243,7 @@ export default function ListingDetailPage() {
                 <LinkButton href="/login" className="block w-full text-center !py-3">
                   Đăng nhập để mua
                 </LinkButton>
-                <LinkButton href={`/account/chat?sellerId=${listing.sellerId}`} variant="secondary" className="block w-full text-center text-xs">
+                <LinkButton href={`/chat?sellerId=${listing.sellerId}&product=${encodeURIComponent(listing.title)}`} variant="secondary" className="block w-full text-center text-xs">
                   Liên hệ người bán
                 </LinkButton>
               </div>

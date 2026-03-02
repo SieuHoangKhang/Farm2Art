@@ -103,7 +103,7 @@ export default function OrderDetailPage() {
         <Card>
           <CardBody>
             <p className="text-red-700">{error || "Không tìm thấy đơn hàng"}</p>
-            <LinkButton href="/account/orders" className="mt-4">
+            <LinkButton href="/orders" className="mt-4">
               Quay lại
             </LinkButton>
           </CardBody>
@@ -238,7 +238,7 @@ export default function OrderDetailPage() {
 
           {/* Return to list */}
           <div className="text-center">
-            <LinkButton href="/account/orders" variant="secondary">
+            <LinkButton href="/orders" variant="secondary">
               Quay lại danh sách đơn hàng
             </LinkButton>
           </div>

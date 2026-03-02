@@ -4,7 +4,8 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { TextField } from "@/components/ui/TextField";
-import { firebaseAuth, firebaseRtdb } from "@/lib/firebase/client";
+import { firebaseAuth, firebaseDb, firebaseRtdb } from "@/lib/firebase/client";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   DataSnapshot,
   limitToLast,
@@ -15,6 +16,7 @@ import {
   serverTimestamp,
 } from "firebase/database";
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 type ChatMessage = {
   id: string;
@@ -38,17 +40,67 @@ function snapshotToMessages(snapshot: DataSnapshot): ChatMessage[] {
   return messages;
 }
 
+function generateRoomId(uid1: string, uid2: string): string {
+  return [uid1, uid2].sort().join("_");
+}
+
 export default function ChatPage() {
   const user = firebaseAuth.currentUser;
-  const roomId = "demo";
-  const roomPath = useMemo(() => `rooms/${roomId}/messages`, [roomId]);
+  const searchParams = useSearchParams();
+  const sellerIdParam = searchParams.get("sellerId");
+  const productTitle = searchParams.get("product") || "";
+
+  const roomId = useMemo(() => {
+    if (!user?.uid) return null;
+    if (sellerIdParam) return generateRoomId(user.uid, sellerIdParam);
+    return null;
+  }, [user?.uid, sellerIdParam]);
+
+  const roomPath = useMemo(() => (roomId ? `rooms/${roomId}/messages` : null), [roomId]);
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [partnerName, setPartnerName] = useState("");
 
+  // Load partner info & save conversation metadata
   useEffect(() => {
+    if (!sellerIdParam || !user?.uid || !roomId) return;
+
+    async function initConversation() {
+      try {
+        // Load partner's display name
+        const partnerRef = doc(firebaseDb, "users", sellerIdParam!);
+        const partnerSnap = await getDoc(partnerRef);
+        const pName = partnerSnap.exists()
+          ? partnerSnap.data()?.displayName || partnerSnap.data()?.email || "Người dùng"
+          : "Người dùng";
+        setPartnerName(pName);
+
+        // Save conversation metadata for both participants
+        const myName = user!.displayName || user!.email || "Người dùng";
+        const convRef = doc(firebaseDb, "conversations", roomId!);
+        await setDoc(
+          convRef,
+          {
+            participants: [user!.uid, sellerIdParam],
+            participantNames: { [user!.uid]: myName, [sellerIdParam!]: pName },
+            productTitle: productTitle || null,
+            updatedAt: Date.now(),
+          },
+          { merge: true }
+        );
+      } catch (e) {
+        console.error("Init conversation error:", e);
+      }
+    }
+    initConversation();
+  }, [sellerIdParam, user?.uid, roomId, productTitle]);
+
+  // Listen to messages
+  useEffect(() => {
+    if (!roomPath) return;
     setError(null);
     const messagesRef = query(ref(firebaseRtdb, roomPath), limitToLast(50));
     const unsubscribe = onValue(
@@ -61,11 +113,11 @@ export default function ChatPage() {
 
   async function sendMessage() {
     const trimmed = text.trim();
-    if (!trimmed) return;
+    if (!trimmed || !roomPath || !roomId) return;
 
     setBusy(true);
     setError(null);
-    try { 
+    try {
       const senderId = user?.uid ?? "guest";
       const senderName = user?.displayName ?? user?.phoneNumber ?? user?.email ?? "Guest";
 
@@ -76,6 +128,14 @@ export default function ChatPage() {
         createdAt: serverTimestamp(),
       });
 
+      // Update conversation lastMessage
+      const convRef = doc(firebaseDb, "conversations", roomId);
+      await setDoc(
+        convRef,
+        { lastMessage: trimmed, lastMessageTime: Date.now(), updatedAt: Date.now() },
+        { merge: true }
+      );
+
       setText("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Gửi tin nhắn thất bại");
@@ -84,45 +144,69 @@ export default function ChatPage() {
     }
   }
 
+  if (!sellerIdParam) {
+    return (
+      <div>
+        <PageHeader title="Chat" subtitle="Trao đổi trực tiếp giữa người mua và người bán." />
+        <Card>
+          <CardBody>
+            <div className="text-center py-12">
+              <svg className="w-16 h-16 mx-auto text-stone-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <p className="text-stone-600 font-medium mb-2">Chưa có cuộc trò chuyện nào</p>
+              <p className="text-sm text-stone-500">
+                Hãy vào trang sản phẩm và nhấn &quot;Chat với người bán&quot; để bắt đầu trò chuyện.
+              </p>
+            </div>
+          </CardBody>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <PageHeader title="Chat" subtitle="Trao đổi trực tiếp giữa người mua và người bán." />
+      <PageHeader
+        title={partnerName ? `Chat với ${partnerName}` : "Chat"}
+        subtitle={productTitle ? `Về sản phẩm: ${productTitle}` : "Trao đổi trực tiếp giữa người mua và người bán."}
+      />
       <Card>
         <CardBody>
           <div className="space-y-4">
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-sm font-medium text-stone-900">Phòng chat: {roomId}</p>
-              <p className="text-xs text-stone-500">
-                RTDB path: <span className="font-mono">{roomPath}</span>
-              </p>
-            </div>
-
             {error ? (
               <div className="rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-900">
                 {error}
                 <div className="mt-1 text-xs text-rose-700">
                   Nếu bị &quot;Permission denied&quot;: vào Firebase Console → Realtime Database → Rules và cho phép
-                  read/write theo auth (hoặc tạm thời mở khi demo).
+                  read/write theo auth.
                 </div>
               </div>
             ) : null}
 
-            <div className="h-72 overflow-auto rounded-lg border border-stone-200 bg-white p-3">
+            <div className="h-96 overflow-auto rounded-lg border border-stone-200 bg-white p-3">
               {messages.length === 0 ? (
-                <p className="text-sm text-stone-600">Chưa có tin nhắn. Gửi thử một tin để kiểm tra realtime.</p>
+                <div className="flex items-center justify-center h-full">
+                  <p className="text-sm text-stone-500">Chưa có tin nhắn. Hãy gửi lời chào!</p>
+                </div>
               ) : (
-                <div className="space-y-2">
-                  {messages.map((m) => (
-                    <div key={m.id} className="rounded-md bg-emerald-50 p-2">
-                      <div className="flex items-baseline justify-between gap-3">
-                        <p className="text-sm font-medium text-stone-900">{m.senderName || m.senderId}</p>
-                        <p className="text-xs text-stone-500">
-                          {m.createdAt ? new Date(m.createdAt).toLocaleString("vi-VN") : ""}
-                        </p>
+                <div className="space-y-3">
+                  {messages.map((m) => {
+                    const isMe = m.senderId === user?.uid;
+                    return (
+                      <div key={m.id} className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
+                        <div className={`max-w-xs px-4 py-2 rounded-2xl ${isMe ? "bg-emerald-500 text-white" : "bg-stone-100 text-stone-800"}`}>
+                          {!isMe && (
+                            <p className="text-xs font-medium mb-1 opacity-75">{m.senderName}</p>
+                          )}
+                          <p className="text-sm">{m.text}</p>
+                          <p className={`text-xs mt-1 ${isMe ? "text-emerald-100" : "text-stone-400"}`}>
+                            {m.createdAt ? new Date(m.createdAt).toLocaleTimeString("vi-VN") : ""}
+                          </p>
+                        </div>
                       </div>
-                      <p className="mt-1 text-sm text-stone-700">{m.text}</p>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -147,10 +231,6 @@ export default function ChatPage() {
                 {busy ? "Đang gửi..." : "Gửi"}
               </Button>
             </div>
-
-            <p className="text-xs text-stone-500">
-              Mẹo test realtime: mở 2 tab cùng phòng chat, gửi tin và xem cập nhật tức thời.
-            </p>
           </div>
         </CardBody>
       </Card>

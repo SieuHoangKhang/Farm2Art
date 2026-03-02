@@ -220,7 +220,7 @@ export default function CreateListingPage() {
                 >
                   {loading ? "Đang tạo..." : "Đăng bán"}
                 </Button>
-                <LinkButton href="/account/my-listings" variant="secondary" className="flex-1 text-center">
+                <LinkButton href="/my-listings" variant="secondary" className="flex-1 text-center">
                   Hủy
                 </LinkButton>
               </div>

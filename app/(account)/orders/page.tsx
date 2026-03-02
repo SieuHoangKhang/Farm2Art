@@ -130,7 +130,7 @@ export default function OrdersPage() {
                             ? "Hoàn thành"
                             : "Hủy"}
                       </span>
-                      <LinkButton href={`/account/orders/${order.id}`} variant="secondary" className="mt-3 block">
+                      <LinkButton href={`/orders/${order.id}`} variant="secondary" className="mt-3 block">
                         Chi tiết
                       </LinkButton>
                     </div>
