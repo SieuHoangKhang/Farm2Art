@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { collection, getDocs, query, where, orderBy, limit } from 'firebase/firestore';
-import { firebaseDb } from '@/lib/firebase/client';
+import { serverDb } from '@/lib/firebase/server';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,10 +9,10 @@ export async function GET(request: NextRequest) {
 
     // Fetch from Firestore
     const [ordersSnap, usersSnap, listingsSnap, verificationsSnap] = await Promise.all([
-      getDocs(collection(firebaseDb, 'orders')),
-      getDocs(collection(firebaseDb, 'users')),
-      getDocs(collection(firebaseDb, 'listings')),
-      getDocs(query(collection(firebaseDb, 'seller_verifications'), where('status', '==', 'approved'))),
+      getDocs(collection(serverDb, 'orders')),
+      getDocs(collection(serverDb, 'users')),
+      getDocs(collection(serverDb, 'listings')),
+      getDocs(query(collection(serverDb, 'seller_verifications'), where('status', '==', 'approved'))),
     ]);
 
     // Calculate summary

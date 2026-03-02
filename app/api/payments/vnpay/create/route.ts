@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { doc, getDoc } from "firebase/firestore";
 import { createPaymentUrl } from "@/lib/payments/vnpay/vnpay";
-import { firebaseDb } from "@/lib/firebase/client";
+import { serverDb } from "@/lib/firebase/server";
 import type { Order } from "@/types/order";
 
 export const runtime = "nodejs";
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   try {
     // Load order từ Firestore và xác thực quyền
-    const orderRef = doc(firebaseDb, "orders", orderId);
+    const orderRef = doc(serverDb, "orders", orderId);
     const orderSnap = await getDoc(orderRef);
 
     if (!orderSnap.exists()) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { doc, updateDoc } from "firebase/firestore";
-import { firebaseDb } from "@/lib/firebase/client";
+import { serverDb } from "@/lib/firebase/server";
 
 export async function POST(request: Request) {
   try {
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     }
 
     // Update order payment status in Firestore
-    const orderRef = doc(firebaseDb, "orders", orderId);
+    const orderRef = doc(serverDb, "orders", orderId);
     await updateDoc(orderRef, {
       paymentMethod: method,
       paymentStatus: "paid",

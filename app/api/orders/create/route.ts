@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore";
-import { firebaseDb } from "@/lib/firebase/client";
+import { serverDb } from "@/lib/firebase/server";
 import type { Listing } from "@/types/listing";
 import type { Order } from "@/types/order";
 
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     }
 
     // Load listing để lấy thông tin
-    const listingRef = doc(firebaseDb, "listings", listingId);
+    const listingRef = doc(serverDb, "listings", listingId);
     const listingSnap = await getDoc(listingRef);
 
     if (!listingSnap.exists()) {
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       paymentMethod: undefined,
     };
 
-    const ordersRef = collection(firebaseDb, "orders");
+    const ordersRef = collection(serverDb, "orders");
     const docRef = await addDoc(ordersRef, order);
 
     return NextResponse.json({ orderId: docRef.id, success: true });

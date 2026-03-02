@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { firebaseDb } from '@/lib/firebase/client';
+import { serverDb } from '@/lib/firebase/server';
+import { doc, getDoc, setDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const docRef = doc(firebaseDb, 'seller_verifications', sellerId);
+    const docRef = doc(serverDb, 'seller_verifications', sellerId);
     const snap = await getDoc(docRef);
 
     if (!snap.exists()) {
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       verificationBadge: false,
     };
 
-    const docRef = doc(firebaseDb, 'seller_verifications', sellerId);
+    const docRef = doc(serverDb, 'seller_verifications', sellerId);
     await setDoc(docRef, verification);
 
     return NextResponse.json(verification, { status: 201 });
@@ -73,7 +73,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Seller ID is required' }, { status: 400 });
     }
 
-    const docRef = doc(firebaseDb, 'seller_verifications', sellerId);
+    const docRef = doc(serverDb, 'seller_verifications', sellerId);
     const snap = await getDoc(docRef);
 
     if (!snap.exists()) {
@@ -87,8 +87,13 @@ export async function PUT(request: NextRequest) {
         verificationBadge: true,
       });
       // Also update user role to seller
-      const userRef = doc(firebaseDb, 'users', sellerId);
-      await updateDoc(userRef, { role: 'seller', sellerVerified: true });
+      const userRef = doc(serverDb, 'users', sellerId);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        await updateDoc(userRef, { role: 'seller', sellerVerified: true });
+      } else {
+        await setDoc(userRef, { role: 'seller', sellerVerified: true }, { merge: true });
+      }
     } else if (action === 'reject') {
       const body = await request.json();
       await updateDoc(docRef, {
