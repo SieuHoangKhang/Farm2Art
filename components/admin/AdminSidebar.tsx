@@ -72,44 +72,52 @@ export default function AdminSidebar() {
   };
 
   const sidebarContent = (
-    <>
+    <div className="relative h-full flex flex-col">
+      {/* Decorative background */}
+      <div className="absolute inset-0 pattern-dots opacity-30 pointer-events-none" />
+      <div className="absolute -top-20 -right-20 w-40 h-40 bg-emerald-400/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
+
       {/* Logo */}
-      <div className="flex items-center gap-3 px-4 py-5 border-b border-stone-200/60">
-        <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-md shadow-emerald-200/50">
+      <div className="relative flex items-center gap-3 px-4 py-5">
+        <div className="flex-shrink-0 w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 animate-pulseGlow">
           <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
           </svg>
         </div>
         {!collapsed && (
           <div className="overflow-hidden">
-            <h1 className="text-base font-bold text-stone-800 tracking-tight">Farm2Art</h1>
+            <h1 className="text-base font-extrabold text-amber-900 tracking-tight">Farm2Art</h1>
             <p className="text-[11px] text-stone-400 font-medium">Bảng điều khiển</p>
           </div>
         )}
       </div>
+      {/* Gradient divider */}
+      <div className="mx-4 h-px bg-gradient-to-r from-emerald-300/40 via-amber-300/30 to-transparent" />
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {NAV_ITEMS.map((item) => {
+      <nav className="relative flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        {NAV_ITEMS.map((item, i) => {
           const active = isActive(item.href);
           return (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setMobileOpen(false)}
-              className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+              className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                 active
-                  ? "bg-emerald-50 text-emerald-700 shadow-sm border border-emerald-100"
-                  : "text-stone-600 hover:bg-stone-50 hover:text-stone-800"
+                  ? "bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/20"
+                  : "text-stone-600 hover:bg-emerald-50/60 hover:text-emerald-700"
               } ${collapsed ? "justify-center" : ""}`}
               title={collapsed ? item.label : undefined}
+              style={{ animationDelay: `${i * 60}ms` }}
             >
-              <span className={`flex-shrink-0 ${active ? "text-emerald-600" : "text-stone-400 group-hover:text-stone-600"}`}>
+              <span className={`flex-shrink-0 transition-colors duration-200 ${active ? "text-white" : "text-stone-400 group-hover:text-emerald-600"}`}>
                 {item.icon}
               </span>
               {!collapsed && <span>{item.label}</span>}
               {active && !collapsed && (
-                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span className="ml-auto w-2 h-2 rounded-full bg-white/80 animate-pulseGlow" />
               )}
             </Link>
           );
@@ -117,10 +125,11 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Bottom */}
-      <div className="border-t border-stone-200/60 p-3">
+      <div className="relative p-3 space-y-1">
+        <div className="mx-1 h-px bg-gradient-to-r from-emerald-300/30 via-amber-300/20 to-transparent mb-2" />
         <Link
           href="/"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-stone-500 hover:bg-stone-50 hover:text-stone-700 transition-all"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-stone-500 hover:bg-cream-50 hover:text-emerald-700 transition-all duration-300"
         >
           <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -131,7 +140,7 @@ export default function AdminSidebar() {
         {/* Collapse toggle (desktop only) */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden lg:flex items-center gap-3 w-full px-3 py-2 rounded-xl text-sm text-stone-400 hover:bg-stone-50 hover:text-stone-600 transition-all mt-1"
+          className="hidden lg:flex items-center gap-3 w-full px-3 py-2 rounded-xl text-sm text-stone-400 hover:bg-cream-50 hover:text-emerald-600 transition-all duration-300"
         >
           <svg className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${collapsed ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
@@ -139,37 +148,45 @@ export default function AdminSidebar() {
           {!collapsed && <span>Thu gọn</span>}
         </button>
       </div>
-    </>
+    </div>
   );
 
   return (
     <>
       {/* Mobile Top bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-white/95 backdrop-blur-sm border-b border-stone-200 flex items-center px-4 gap-3">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 h-14 glass border-b border-sage-200/60 flex items-center px-4 gap-3">
         <button
           onClick={() => setMobileOpen(true)}
-          className="p-2 rounded-lg hover:bg-stone-100 text-stone-600"
+          className="p-2 rounded-xl hover:bg-emerald-50 text-stone-600 transition-all duration-200"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <span className="font-bold text-stone-800">Farm2Art Admin</span>
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-600 to-emerald-500 flex items-center justify-center">
+            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+            </svg>
+          </div>
+          <span className="font-extrabold text-amber-900">Farm2Art</span>
+          <span className="text-xs text-stone-400 font-medium">Admin</span>
+        </div>
       </div>
 
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+          className="lg:hidden fixed inset-0 z-40 bg-black/20 backdrop-blur-sm animate-fadeIn"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Mobile drawer */}
-      <aside className={`lg:hidden fixed top-0 left-0 bottom-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col`}>
+      <aside className={`lg:hidden fixed top-0 left-0 bottom-0 z-50 w-72 bg-white/95 backdrop-blur-xl shadow-2xl transform transition-transform duration-300 ease-out ${mobileOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col`}>
         <button
           onClick={() => setMobileOpen(false)}
-          className="absolute top-3 right-3 p-1.5 rounded-lg hover:bg-stone-100 text-stone-400"
+          className="absolute top-4 right-4 p-1.5 rounded-xl hover:bg-emerald-50 text-stone-400 hover:text-emerald-600 transition-all z-10"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -179,7 +196,7 @@ export default function AdminSidebar() {
       </aside>
 
       {/* Desktop sidebar */}
-      <aside className={`hidden lg:flex flex-col fixed top-0 left-0 bottom-0 z-30 bg-white border-r border-stone-200/60 transition-all duration-300 ${collapsed ? "w-[72px]" : "w-60"}`}>
+      <aside className={`hidden lg:flex flex-col fixed top-0 left-0 bottom-0 z-30 bg-white/90 backdrop-blur-sm border-r border-sage-200/60 transition-all duration-300 ${collapsed ? "w-[72px]" : "w-64"}`}>
         {sidebarContent}
       </aside>
     </>
