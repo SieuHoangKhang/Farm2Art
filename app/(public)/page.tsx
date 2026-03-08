@@ -22,18 +22,6 @@ interface FeaturedProduct {
   stock: string;
 }
 
-// Fallback dữ liệu khi không thể fetch từ Firebase
-const fallbackFeaturedProducts: FeaturedProduct[] = [
-  { id: "1", name: "Rơm lúa mì chất lượng cao", price: "450,000đ", type: "Phế phẩm", seller: "Trang trại Bắc Ninh", stock: "100 bao" },
-  { id: "2", name: "Trấu cà phê nguyên liệu", price: "320,000đ", type: "Phế phẩm", seller: "HTX Hà Nội", stock: "250 kg" },
-  { id: "3", name: "Vỏ cà phê tươi", price: "280,000đ", type: "Phế phẩm", seller: "Nông trại Đắk Lắk", stock: "500 kg" },
-  { id: "4", name: "Mùn cưa thơm lọc sạch", price: "150,000đ", type: "Phế phẩm", seller: "Xưởng Hà Nam", stock: "1000 kg" },
-  { id: "5", name: "Túi xách thủ công từ rơm", price: "350,000đ", type: "Thủ công", seller: "Xưởng Na Xá", stock: "50 cái" },
-  { id: "6", name: "Đệm tatami rơm tự nhiên", price: "800,000đ", type: "Thủ công", seller: "Thương lái Nội", stock: "20 cái" },
-  { id: "7", name: "Giỏ dệt trấu handmade", price: "280,000đ", type: "Thủ công", seller: "Làng nghề Tây Hồ", stock: "45 cái" },
-  { id: "8", name: "Tạp chí từ xơ cỏ tái chế", price: "150,000đ", type: "Thủ công", seller: "Studio Xanh", stock: "300 cuốn" },
-];
-
 const stats = [
   { label: "Sản phẩm", value: "500+" },
   { label: "Người bán", value: "120+" },
@@ -74,7 +62,7 @@ async function fetchTopSellingProducts(): Promise<FeaturedProduct[]> {
       .map(([id]) => id);
 
     if (topListingIds.length === 0) {
-      return fallbackFeaturedProducts;
+      return []; // Không có order nào, trả về array rỗng (không hiển thị fallback)
     }
 
     // Fetch listing details cho mỗi top product
@@ -110,16 +98,16 @@ async function fetchTopSellingProducts(): Promise<FeaturedProduct[]> {
       });
     }
 
-    return products.length > 0 ? products : fallbackFeaturedProducts;
+    return products.length > 0 ? products : []; // Chỉ return products thực tế, không fallback
   } catch (error) {
     console.error("Lỗi fetch top selling products:", error);
-    return fallbackFeaturedProducts;
+    return []; // Không return fallback data, để section ẩn đi nếu có lỗi
   }
 }
 
 export default function HomePage() {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
-  const [featuredProducts, setFeaturedProducts] = useState<FeaturedProduct[]>(fallbackFeaturedProducts);
+  const [featuredProducts, setFeaturedProducts] = useState<FeaturedProduct[]>([]); // Khởi tạo rỗng, không fallback
   const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
@@ -216,6 +204,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== Featured Products ===== */}
+      {!loadingProducts && featuredProducts.length > 0 && (
       <section className="py-16 md:py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-between items-end mb-10">
@@ -230,48 +219,61 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-            {loadingProducts ? (
-              // Skeleton loaders
-              Array(8).fill(0).map((_, i) => (
-                <div
-                  key={i}
-                  className="animate-pulse rounded-2xl overflow-hidden bg-white border border-sage-200/70"
-                >
-                  <div className="bg-stone-200 h-[110px]" />
-                  <div className="p-4 space-y-2">
-                    <div className="h-3 bg-stone-200 rounded w-3/4" />
-                    <div className="h-2 bg-stone-200 rounded w-1/2" />
-                    <div className="h-4 bg-stone-300 rounded w-2/3" />
-                  </div>
+            {featuredProducts.map((product, i) => (
+              <Link
+                key={product.id}
+                href={`/listing/${product.id}`}
+                className="group animate-fadeInUp hover-lift rounded-2xl overflow-hidden bg-white border border-sage-200/70 hover:border-emerald-300 transition-all duration-300"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="relative bg-gradient-to-br from-emerald-50/80 to-sage-50/60 p-6 text-center min-h-[110px] flex flex-col items-center justify-center">
+                  <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${product.type === "Phế phẩm" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+                    {product.type}
+                  </span>
+                  <p className="mt-1.5 text-[11px] text-stone-400">{product.stock}</p>
                 </div>
-              ))
-            ) : (
-              featuredProducts.map((product, i) => (
-                <Link
-                  key={product.id}
-                  href={`/listing/${product.id}`}
-                  className="group animate-fadeInUp hover-lift rounded-2xl overflow-hidden bg-white border border-sage-200/70 hover:border-emerald-300 transition-all duration-300"
-                  style={{ animationDelay: `${i * 80}ms` }}
-                >
-                  <div className="relative bg-gradient-to-br from-emerald-50/80 to-sage-50/60 p-6 text-center min-h-[110px] flex flex-col items-center justify-center">
-                    <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${product.type === "Phế phẩm" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
-                      {product.type}
-                    </span>
-                    <p className="mt-1.5 text-[11px] text-stone-400">{product.stock}</p>
-                  </div>
-                  <div className="p-4 space-y-1.5">
-                    <h3 className="font-semibold text-stone-800 text-sm line-clamp-2 group-hover:text-emerald-700 transition-colors leading-snug">
-                      {product.name}
-                    </h3>
-                    <p className="text-[11px] text-stone-400">{product.seller}</p>
-                    <p className="text-emerald-700 font-bold text-base">{product.price}</p>
-                  </div>
-                </Link>
-              ))
-            )}
+                <div className="p-4 space-y-1.5">
+                  <h3 className="font-semibold text-stone-800 text-sm line-clamp-2 group-hover:text-emerald-700 transition-colors leading-snug">
+                    {product.name}
+                  </h3>
+                  <p className="text-[11px] text-stone-400">{product.seller}</p>
+                  <p className="text-emerald-700 font-bold text-base">{product.price}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
+      )}
+
+      {loadingProducts && (
+      <section className="py-16 md:py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-between items-end mb-10">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-emerald-600">Nổi bật</span>
+              <h2 className="mt-1 text-3xl md:text-4xl font-extrabold text-stone-800">Sản phẩm bán chạy</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+            {Array(8).fill(0).map((_, i) => (
+              <div
+                key={i}
+                className="animate-pulse rounded-2xl overflow-hidden bg-white border border-sage-200/70"
+              >
+                <div className="bg-stone-200 h-[110px]" />
+                <div className="p-4 space-y-2">
+                  <div className="h-3 bg-stone-200 rounded w-3/4" />
+                  <div className="h-2 bg-stone-200 rounded w-1/2" />
+                  <div className="h-4 bg-stone-300 rounded w-2/3" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
 
       {/* ===== How it works ===== */}
       <section className="py-16 md:py-20 px-4 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 relative overflow-hidden">
