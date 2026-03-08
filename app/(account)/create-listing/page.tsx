@@ -153,7 +153,7 @@ export default function CreateListingPage() {
               <h2 className="mb-2 text-2xl font-bold text-emerald-600">Tạo tin thành công!</h2>
               
               <p className="mb-6 text-base text-stone-700">
-                Sản phẩm "{title}" của bạn đã được tạo thành công.
+                Sản phẩm &quot;{title}&quot; của bạn đã được tạo thành công.
               </p>
               
               <div className="mb-6 rounded-lg border-2 border-emerald-200 bg-emerald-50 p-4">
