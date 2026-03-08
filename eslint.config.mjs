@@ -14,6 +14,9 @@ export default [
 			"no-undef": "off",
 			"no-unused-vars": "off",
 			"react-hooks/exhaustive-deps": "off",
+			
+			// Image optimization - warnings not errors
+			"@next/next/no-img-element": "warn",
 		},
 	},
 ];

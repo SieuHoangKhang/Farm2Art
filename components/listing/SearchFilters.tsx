@@ -1,6 +1,5 @@
 "use client";
 
-/* eslint-disable no-unused-vars */
 import { TextField } from "@/components/ui/TextField";
 import { Button } from "@/components/ui/Button";
 import type { ListingType } from "@/types/listing";

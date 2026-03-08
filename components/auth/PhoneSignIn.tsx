@@ -18,7 +18,6 @@ export function PhoneSignIn({
 }: {
   onSuccess?: () => void | Promise<void>;
   phone?: string;
-  // eslint-disable-next-line no-unused-vars
   onPhoneChange?: (phoneValue: string) => void;
   showPhoneField?: boolean;
 }) {
