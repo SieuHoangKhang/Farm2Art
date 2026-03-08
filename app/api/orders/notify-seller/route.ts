@@ -7,9 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Order } from "@/types/order";
 import { Listing } from "@/types/listing";
 import { calculateOrderFeeBreakdown, PLATFORM_CONFIG } from "@/lib/config/platformFees";
-import { adminDb } from "@/lib/firebase/admin";
-
-const db = adminDb;
+import { getAdminDb } from "@/lib/firebase/admin";
 
 interface NotifySellerRequest {
   orderId: string;
@@ -17,6 +15,7 @@ interface NotifySellerRequest {
 }
 
 export async function POST(req: NextRequest) {
+  const db = getAdminDb();
   try {
     const body: NotifySellerRequest = await req.json();
     const { orderId } = body;

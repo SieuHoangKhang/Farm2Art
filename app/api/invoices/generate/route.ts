@@ -8,9 +8,7 @@ import { SellerInvoice, InvoiceLineItem } from "@/types/invoice";
 import { Order } from "@/types/order";
 import { Listing } from "@/types/listing";
 import { calculateOrderFeeBreakdown, PLATFORM_CONFIG } from "@/lib/config/platformFees";
-import { adminDb } from "@/lib/firebase/admin";
-
-const db = adminDb;
+import { getAdminDb } from "@/lib/firebase/admin";
 
 interface GenerateInvoiceRequest {
   orderId: string;
@@ -29,7 +27,7 @@ const generateInvoiceNumber = (sellerId: string, sequence: number): string => {
 /**
  * Lấy sequence cho invoice của seller trong tháng
  */
-const getInvoiceSequence = async (sellerId: string): Promise<number> => {
+const getInvoiceSequence = async (sellerId: string, db: FirebaseFirestore.Firestore): Promise<number> => {
   const countSnapshot = await db
     .collection("invoices")
     .where("sellerId", "==", sellerId)
@@ -101,7 +99,8 @@ const createInvoiceLineItems = (order: Order, feeBreakdown: any): InvoiceLineIte
 const sendInvoiceToSeller = async (
   sellerId: string,
   sellerName: string,
-  invoice: SellerInvoice
+  invoice: SellerInvoice,
+  db: FirebaseFirestore.Firestore
 ): Promise<{ messageId?: string; error?: string }> => {
   try {
     const message = {
@@ -149,6 +148,7 @@ const sendInvoiceToSeller = async (
 };
 
 export async function POST(req: NextRequest) {
+  const db = getAdminDb();
   try {
     const body: GenerateInvoiceRequest = await req.json();
     const { orderId, sellerId } = body;
@@ -205,7 +205,7 @@ export async function POST(req: NextRequest) {
     const sellerName = sellerDoc.data()?.name || sellerDoc.data()?.email || sellerId;
 
     // 5. Tạo invoice number
-    const sequence = await getInvoiceSequence(sellerId);
+    const sequence = await getInvoiceSequence(sellerId, db);
     const invoiceNumber = generateInvoiceNumber(sellerId, sequence);
 
     // 6. Tạo invoice record
@@ -235,7 +235,7 @@ export async function POST(req: NextRequest) {
     await db.collection("invoices").doc(invoice.id).set(invoice);
 
     // 8. Gửi invoice cho seller qua tin nhắn
-    const sendResult = await sendInvoiceToSeller(sellerId, sellerName, invoice);
+    const sendResult = await sendInvoiceToSeller(sellerId, sellerName, invoice, db);
 
     if (sendResult.error) {
       console.error("Cảnh báo: Không gửi được tin nhắn, nhưng invoice đã tạo:", sendResult.error);
@@ -275,6 +275,7 @@ export async function POST(req: NextRequest) {
  * GET /api/invoices - Lấy hóa đơn của seller
  */
 export async function GET(req: NextRequest) {
+  const db = getAdminDb();
   try {
     const searchParams = req.nextUrl.searchParams;
     const sellerId = searchParams.get("sellerId");

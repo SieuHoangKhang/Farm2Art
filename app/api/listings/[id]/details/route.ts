@@ -6,15 +6,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Listing } from "@/types/listing";
 import { calculateOrderFeeBreakdown } from "@/lib/config/platformFees";
-import { adminDb } from "@/lib/firebase/admin";
-
-const db = adminDb;
+import { getAdminDb } from "@/lib/firebase/admin";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id: listingId } = await params;
+  const db = getAdminDb();
   try {
     // 1. Lấy listing
     const listingDoc = await db.collection("listings").doc(listingId).get();
