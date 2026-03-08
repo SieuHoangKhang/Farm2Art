@@ -147,9 +147,6 @@ export default function AccountPage() {
               role,
               createdAt,
               ...data,
-              uid: user!.uid,
-              role,
-              createdAt,
             };
 
             setProfile(next);
