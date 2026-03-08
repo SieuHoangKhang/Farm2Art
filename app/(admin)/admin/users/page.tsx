@@ -29,6 +29,12 @@ export default function AdminUsersPage() {
   }
 
   async function changeRole(uid: string, newRole: UserRole) {
+    // Không cho phép cấp quyền admin từ giao diện
+    if (newRole === "admin") {
+      showToast("Bạn không thể cấp quyền admin cho tài khoản khác từ đây.");
+      return;
+    }
+
     try {
       setSaving(uid);
       await updateDoc(doc(firebaseDb, "users", uid), { role: newRole });
@@ -40,6 +46,33 @@ export default function AdminUsersPage() {
     } finally {
       setSaving(null);
     }
+  }
+
+  async function updateUserModeration(
+    uid: string,
+    payload: Partial<Pick<AppUser, "accountStatus" | "riskLevel" | "strikeCount">>
+  ) {
+    try {
+      setSaving(uid);
+      await updateDoc(doc(firebaseDb, "users", uid), payload);
+      setUsers((prev) => prev.map((u) => (u.uid === uid ? { ...u, ...payload } : u)));
+    } catch (err) {
+      console.error(err);
+      showToast("Lỗi: không thể cập nhật trạng thái kiểm duyệt");
+    } finally {
+      setSaving(null);
+    }
+  }
+
+  async function toggleAccountStatus(uid: string, currentStatus?: AppUser["accountStatus"]) {
+    const next = currentStatus === "suspended" ? "active" : "suspended";
+    await updateUserModeration(uid, { accountStatus: next });
+    showToast(next === "suspended" ? "Đã khóa tài khoản" : "Đã mở khóa tài khoản");
+  }
+
+  async function setRisk(uid: string, riskLevel: "low" | "medium" | "high") {
+    await updateUserModeration(uid, { riskLevel });
+    showToast(`Đã cập nhật mức rủi ro: ${riskLevel.toUpperCase()}`);
   }
 
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
@@ -54,7 +87,7 @@ export default function AdminUsersPage() {
     return matchSearch && matchRole;
   });
 
-  const roleCounts = { all: users.length, admin: 0, seller: 0, user: 0 };
+  const roleCounts = { all: users.length, admin: 0, user: 0 };
   users.forEach((u) => { if (u.role in roleCounts) roleCounts[u.role as keyof typeof roleCounts]++; });
 
   if (loading) {
@@ -102,7 +135,7 @@ export default function AdminUsersPage() {
           />
         </div>
         <div className="flex gap-2 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 p-1.5">
-          {(["all", "admin", "seller", "user"] as const).map((role) => (
+          {(["all", "admin", "user"] as const).map((role) => (
             <button key={role} onClick={() => setRoleFilter(role)}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
                 roleFilter === role
@@ -151,38 +184,66 @@ export default function AdminUsersPage() {
                     <span className="font-mono text-xs text-stone-500 bg-stone-50 px-2 py-1 rounded-lg">{u.uid.slice(0, 12)}...</span>
                   </td>
                   <td className="px-6 py-4 text-center">
-                    <select
-                      value={u.role}
-                      onChange={(e) => changeRole(u.uid, e.target.value as UserRole)}
-                      disabled={saving === u.uid}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold border cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50 transition-all duration-200 ${
-                        u.role === "admin" ? "bg-purple-100 text-purple-800 border-purple-200" :
-                        u.role === "seller" ? "bg-green-100 text-green-800 border-green-200" :
-                        "bg-stone-100 text-stone-600 border-stone-200"
-                      }`}
-                    >
-                      <option value="user">User</option>
-                      <option value="seller">Seller</option>
-                      <option value="admin">Admin</option>
-                    </select>
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {u.sellerVerified ? (
-                      <span className="inline-flex items-center gap-1 text-emerald-600">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                        <span className="text-xs font-semibold">Đã xác minh</span>
+                    {u.role === "admin" ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-purple-100 text-purple-800 border border-purple-200">
+                        Admin
                       </span>
                     ) : (
-                      <span className="text-xs text-stone-400">—</span>
+                      <select
+                        value={u.role}
+                        onChange={(e) => changeRole(u.uid, e.target.value as UserRole)}
+                        disabled={saving === u.uid}
+                        className="px-3 py-1.5 rounded-xl text-xs font-semibold border cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50 transition-all duration-200 bg-stone-100 text-stone-600 border-stone-200"
+                      >
+                        <option value="user">User</option>
+                      </select>
                     )}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <div className="flex flex-col items-center gap-1.5">
+                      {u.sellerVerified ? (
+                        <span className="inline-flex items-center gap-1 text-emerald-600">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                          <span className="text-xs font-semibold">Đã xác minh</span>
+                        </span>
+                      ) : (
+                        <span className="text-xs text-stone-400">Chưa xác minh</span>
+                      )}
+                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${(u.accountStatus ?? "active") === "suspended" ? "bg-red-100 text-red-700" : "bg-emerald-100 text-emerald-700"}`}>
+                        {(u.accountStatus ?? "active") === "suspended" ? "Đang khóa" : "Hoạt động"}
+                      </span>
+                    </div>
                   </td>
                   <td className="px-6 py-4 text-right text-xs text-stone-500 font-medium">
                     {typeof u.createdAt === "number" ? fmtDate(u.createdAt) : "—"}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    {saving === u.uid && (
-                      <span className="text-xs text-emerald-600 font-semibold animate-pulse">Đang lưu...</span>
-                    )}
+                    <div className="flex items-center justify-end gap-2">
+                      {u.role !== "admin" && (
+                        <>
+                          <select
+                            value={u.riskLevel ?? "low"}
+                            onChange={(e) => setRisk(u.uid, e.target.value as "low" | "medium" | "high")}
+                            disabled={saving === u.uid}
+                            className="px-2 py-1 rounded-lg text-[11px] border border-sage-200 bg-white"
+                          >
+                            <option value="low">Risk thấp</option>
+                            <option value="medium">Risk TB</option>
+                            <option value="high">Risk cao</option>
+                          </select>
+                          <button
+                            onClick={() => toggleAccountStatus(u.uid, u.accountStatus)}
+                            disabled={saving === u.uid}
+                            className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold ${(u.accountStatus ?? "active") === "suspended" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}
+                          >
+                            {(u.accountStatus ?? "active") === "suspended" ? "Mở khóa" : "Khóa"}
+                          </button>
+                        </>
+                      )}
+                      {saving === u.uid && (
+                        <span className="text-xs text-emerald-600 font-semibold animate-pulse">Đang lưu...</span>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

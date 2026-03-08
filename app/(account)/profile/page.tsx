@@ -4,12 +4,41 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuthUser } from '@/lib/auth/useAuthUser';
 import AvatarModal from '@/components/profile/AvatarModal';
+import { notify } from '@/lib/utils/notify';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { firebaseDb } from '@/lib/firebase/client';
+
+function initialsFromName(input: string) {
+  const s = (input || '').trim();
+  if (!s) return 'U';
+  const parts = s.split(/\s+/).filter(Boolean);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0] ?? ''}${parts[parts.length - 1][0] ?? ''}`.toUpperCase() || 'U';
+}
+
+function stripUndefinedDeep(value: any): any {
+  if (value === undefined) return undefined;
+  if (Array.isArray(value)) {
+    return value.map(stripUndefinedDeep).filter((v) => v !== undefined);
+  }
+  if (value && typeof value === 'object') {
+    const out: Record<string, any> = {};
+    for (const [k, v] of Object.entries(value)) {
+      if (v === undefined) continue;
+      const cleaned = stripUndefinedDeep(v);
+      if (cleaned === undefined) continue;
+      out[k] = cleaned;
+    }
+    return out;
+  }
+  return value;
+}
 
 interface SavedAddress {
   id: string;
   type: 'home' | 'work' | 'other';
   name: string;
-  phone: string;
+  phone?: string;
   address: string;
   district: string;
   city: string;
@@ -19,9 +48,9 @@ interface SavedAddress {
 
 interface SavedPaymentMethod {
   id: string;
-  type: 'card' | 'bank' | 'ewallet';
+  type: 'ewallet' | 'cod';
   name: string;
-  lastDigits: string;
+  lastDigits?: string;
   default: boolean;
 }
 
@@ -50,7 +79,7 @@ export default function EnhancedProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'info' | 'addresses' | 'payments' | 'preferences' | 'privacy'>('info');
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(true);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [displayName, setDisplayName] = useState('');
@@ -64,7 +93,6 @@ export default function EnhancedProfilePage() {
     id: '',
     type: 'home',
     name: '',
-    phone: '',
     address: '',
     district: '',
     city: '',
@@ -76,11 +104,20 @@ export default function EnhancedProfilePage() {
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [paymentForm, setPaymentForm] = useState<SavedPaymentMethod>({
     id: '',
-    type: 'card',
-    name: '',
-    lastDigits: '',
+    type: 'ewallet',
+    name: 'Ví điện tử',
     default: false,
   });
+
+  async function syncUserDoc(partial: Record<string, unknown>) {
+    if (!user?.uid) return;
+    await setDoc(doc(firebaseDb, 'users', user.uid), stripUndefinedDeep(partial), { merge: true });
+  }
+
+  function primaryAddressFromSaved(addrs: SavedAddress[]) {
+    if (!Array.isArray(addrs) || addrs.length === 0) return null;
+    return addrs.find((a) => a?.default) ?? addrs[0] ?? null;
+  }
 
   useEffect(() => {
     if (user?.uid) {
@@ -89,15 +126,26 @@ export default function EnhancedProfilePage() {
   }, [user]);
 
   const loadProfile = async () => {
+    if (!user?.uid) return;
+    
     try {
-      // Load from Firestore
-      const response = await fetch(`/api/profile?userId=${user?.uid}`);
-      const data = await response.json();
+      const ref = doc(firebaseDb, 'user_profiles', user.uid);
+      const snap = await getDoc(ref);
 
-      if (data && data.userId) {
-        setProfile(data);
-        setDisplayName(data.displayName || user?.displayName || 'User');
-        setPhone(data.phone || '');
+      if (snap.exists()) {
+        const data = snap.data() as any;
+        // Keep only supported payment methods (ewallet/cod)
+        const sanitized = {
+          ...(data ?? {}),
+          userId: data?.userId || user.uid,
+          savedPaymentMethods: Array.isArray(data?.savedPaymentMethods)
+            ? data.savedPaymentMethods.filter((m: any) => m && (m.type === 'ewallet' || m.type === 'cod'))
+            : [],
+        } as UserProfile;
+
+        setProfile(sanitized);
+        setDisplayName(sanitized.displayName || user?.displayName || 'User');
+        setPhone(sanitized.phone || '');
       } else {
         // Create default profile if doesn't exist
         const newProfile: UserProfile = {
@@ -123,9 +171,20 @@ export default function EnhancedProfilePage() {
         setProfile(newProfile);
         setDisplayName(newProfile.displayName);
         setPhone(newProfile.phone);
+
+        // Persist initial profile (best-effort)
+        await setDoc(ref, stripUndefinedDeep({ ...newProfile, updatedAt: new Date().toISOString() }), { merge: true });
+
+        // Also sync basic fields for /account page
+        await syncUserDoc({
+          displayName: newProfile.displayName,
+          phone: newProfile.phone,
+          avatarUrl: newProfile.avatar,
+        });
       }
     } catch (error) {
       console.error('Failed to load profile:', error);
+      notify.error('Không thể tải hồ sơ. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -133,7 +192,7 @@ export default function EnhancedProfilePage() {
 
   const handleAvatarUpload = async (file: File) => {
     if (!user?.uid) {
-      alert('Vui lòng đăng nhập trước');
+      notify.error('Vui lòng đăng nhập trước');
       return;
     }
     setUploadingAvatar(true);
@@ -142,27 +201,65 @@ export default function EnhancedProfilePage() {
       const formData = new FormData();
       formData.append('file', file);
 
+      console.log('Uploading avatar...');
+      
       const response = await fetch('/api/upload-avatar', {
         method: 'POST',
         body: formData,
       });
 
+      console.log('Upload response status:', response.status);
+      
       if (!response.ok) {
         const error = await response.json();
+        console.error('Upload error:', error);
         throw new Error(error.error || 'Upload thất bại');
       }
 
       const data = await response.json();
+      console.log('Upload success, URL:', data.secure_url);
 
-      if (profile && data.secure_url) {
-        const updatedProfile = { ...profile, avatar: data.secure_url };
+      if (data.secure_url) {
+        const updatedProfile = profile ? { ...profile, avatar: data.secure_url } : {
+          userId: user.uid,
+          displayName: user.displayName || 'User',
+          email: user.email || '',
+          phone: '',
+          avatar: data.secure_url,
+          savedAddresses: [],
+          savedPaymentMethods: [],
+          preferences: {
+            notifications: true,
+            promotionalEmails: true,
+            language: 'vi',
+            darkMode: false,
+          },
+          privacy: {
+            visibility: 'private',
+            showOrderHistory: false,
+          },
+        };
+        
+        // Lưu avatar vào Firestore (client SDK - has auth)
+        await setDoc(
+          doc(firebaseDb, 'user_profiles', user.uid),
+          stripUndefinedDeep({ ...updatedProfile, updatedAt: new Date().toISOString() }),
+          { merge: true }
+        );
+
+        await syncUserDoc({
+          displayName: updatedProfile.displayName,
+          phone: updatedProfile.phone,
+          avatarUrl: updatedProfile.avatar,
+        });
+        
         setProfile(updatedProfile);
         setShowAvatarModal(false);
-        alert('✅ Đã cập nhật ảnh đại diện!');
+        notify.success('Đã cập nhật ảnh đại diện!');
       }
     } catch (error) {
       console.error('Avatar upload error:', error);
-      alert(`❌ Lỗi: ${error instanceof Error ? error.message : 'Upload thất bại'}`);
+      notify.error(`Lỗi: ${error instanceof Error ? error.message : 'Upload thất bại'}`);
     } finally {
       setUploadingAvatar(false);
     }
@@ -174,7 +271,6 @@ export default function EnhancedProfilePage() {
       id: Date.now().toString(),
       type: 'home',
       name: '',
-      phone: '',
       address: '',
       district: '',
       city: '',
@@ -209,14 +305,21 @@ export default function EnhancedProfilePage() {
     
     // Save to Firestore
     if (user?.uid) {
-      await fetch('/api/profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newProfile),
+      await setDoc(
+        doc(firebaseDb, 'user_profiles', user.uid),
+        stripUndefinedDeep({ ...newProfile, updatedAt: new Date().toISOString() }),
+        { merge: true }
+      );
+
+      const primary = primaryAddressFromSaved(newProfile.savedAddresses);
+      await syncUserDoc({
+        address: primary?.address || '',
+        city: primary?.city || '',
+        district: primary?.district || '',
       });
     }
     
-    alert('✅ Đã lưu địa chỉ!');
+    notify.success('Đã lưu địa chỉ!');
   };
 
   const handleDeleteAddress = async (id: string) => {
@@ -229,23 +332,29 @@ export default function EnhancedProfilePage() {
     
     // Save to Firestore
     if (user?.uid) {
-      await fetch('/api/profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updated),
+      await setDoc(
+        doc(firebaseDb, 'user_profiles', user.uid),
+        stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }),
+        { merge: true }
+      );
+
+      const primary = primaryAddressFromSaved(updated.savedAddresses);
+      await syncUserDoc({
+        address: primary?.address || '',
+        city: primary?.city || '',
+        district: primary?.district || '',
       });
     }
     
-    alert('✅ Đã xóa địa chỉ!');
+    notify.success('Đã xóa địa chỉ!');
   };
 
   // Payment handlers
   const handleAddPayment = () => {
     setPaymentForm({
       id: Date.now().toString(),
-      type: 'card',
-      name: '',
-      lastDigits: '',
+      type: 'ewallet',
+      name: 'Ví điện tử',
       default: false,
     });
     setShowPaymentForm(true);
@@ -253,23 +362,29 @@ export default function EnhancedProfilePage() {
 
   const handleSavePayment = async () => {
     if (!profile) return;
+    const trimmedName = (paymentForm.name || '').trim();
+    const normalized: SavedPaymentMethod =
+      paymentForm.type === 'cod'
+        ? { ...paymentForm, name: 'Thanh toán khi nhận hàng (COD)', lastDigits: undefined }
+        : { ...paymentForm, name: trimmedName || 'Ví điện tử', lastDigits: undefined };
+
     const updated = {
       ...profile,
-      savedPaymentMethods: [...profile.savedPaymentMethods, paymentForm],
+      savedPaymentMethods: [...profile.savedPaymentMethods, normalized],
     };
     setProfile(updated);
     setShowPaymentForm(false);
     
     // Save to Firestore
     if (user?.uid) {
-      await fetch('/api/profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updated),
-      });
+      await setDoc(
+        doc(firebaseDb, 'user_profiles', user.uid),
+        stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }),
+        { merge: true }
+      );
     }
     
-    alert('✅ Đã thêm phương thức thanh toán!');
+    notify.success('Đã thêm phương thức thanh toán!');
   };
 
   const handleDeletePayment = async (id: string) => {
@@ -282,13 +397,13 @@ export default function EnhancedProfilePage() {
     
     // Save to Firestore
     if (user?.uid) {
-      await fetch('/api/profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updated),
-      });
+      await setDoc(
+        doc(firebaseDb, 'user_profiles', user.uid),
+        stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }),
+        { merge: true }
+      );
     }
-    alert('✅ Đã xóa phương thức thanh toán!');
+    notify.success('Đã xóa phương thức thanh toán!');
   };
 
   if (loading) {
@@ -321,12 +436,12 @@ export default function EnhancedProfilePage() {
                     className="w-16 h-16 rounded-full object-cover group-hover:opacity-75 transition-opacity"
                   />
                 ) : (
-                  <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-2xl group-hover:opacity-75 transition-opacity">
-                    👤
+                  <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-lg font-semibold text-emerald-800 group-hover:opacity-75 transition-opacity">
+                    {initialsFromName(profile.displayName || profile.email || 'User')}
                   </div>
                 )}
                 <div className="absolute inset-0 rounded-full bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-2xl">
-                  🔍
+                  Đổi
                 </div>
               </div>
               <div>
@@ -334,22 +449,12 @@ export default function EnhancedProfilePage() {
                 <p className="text-stone-500">{profile.email}</p>
               </div>
             </div>
-            {!editMode && (
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setEditMode(true)}
-                className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600"
-              >
-                ✏️ Chỉnh sửa
-              </button>
-                <Link
-                  href="/account"
-                  className="px-4 py-2 bg-stone-200 text-stone-800 rounded-lg hover:bg-stone-300 transition font-medium"
-                >
-                  ← Quay lại
-                </Link>
-              </div>
-            )}
+            <Link
+              href="/account"
+              className="px-4 py-2 bg-stone-200 text-stone-800 rounded-lg hover:bg-stone-300 transition font-medium"
+            >
+              Quay lại
+            </Link>
           </div>
         </div>
 
@@ -366,11 +471,11 @@ export default function EnhancedProfilePage() {
                     : 'text-stone-500 border-transparent hover:text-stone-800'
                 }`}
               >
-                {tab === 'info' && '👤 Thông tin'}
-                {tab === 'addresses' && '📍 Địa chỉ'}
-                {tab === 'payments' && '💳 Thanh toán'}
-                {tab === 'preferences' && '⚙️ Tùy chọn'}
-                {tab === 'privacy' && '🔒 Quyền riêng tư'}
+                {tab === 'info' && 'Thông tin'}
+                {tab === 'addresses' && 'Địa chỉ'}
+                {tab === 'payments' && 'Thanh toán'}
+                {tab === 'preferences' && 'Tùy chọn'}
+                {tab === 'privacy' && 'Quyền riêng tư'}
               </button>
             ))}
           </div>
@@ -418,17 +523,22 @@ export default function EnhancedProfilePage() {
                               phone,
                             };
                             
-                            // Save to Firestore
-                            await fetch('/api/profile', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify(updated),
+                            // Save to Firestore (client SDK - has auth)
+                            await setDoc(
+                              doc(firebaseDb, 'user_profiles', user.uid),
+                              stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }),
+                              { merge: true }
+                            );
+
+                            await syncUserDoc({
+                              displayName: updated.displayName,
+                              phone: updated.phone,
                             });
                             
                             setProfile(updated);
                           }
                           setEditMode(false);
-                          alert('✅ Đã lưu thay đổi!');
+                          notify.success('Đã lưu thay đổi!');
                         }}
                         className="flex-1 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition"
                       >
@@ -476,7 +586,7 @@ export default function EnhancedProfilePage() {
                       onClick={handleAddAddress}
                       className="w-full py-2 border-2 border-dashed border-sage-300 rounded-lg text-emerald-600 hover:border-emerald-600 transition"
                     >
-                      ➕ Thêm địa chỉ mới
+                      Thêm địa chỉ mới
                     </button>
                     {profile.savedAddresses.map(addr => (
                       <div key={addr.id} className="border border-sage-200 rounded-lg p-4">
@@ -487,20 +597,19 @@ export default function EnhancedProfilePage() {
                             </h4>
                             <p className="text-stone-500 text-sm mt-1">{addr.address}</p>
                             <p className="text-sm text-stone-500">{addr.district}, {addr.city}</p>
-                            <p className="text-xs text-stone-400 mt-1">SĐT: {addr.phone}</p>
                           </div>
                           <div className="flex gap-2 ml-4">
                             <button
                               onClick={() => handleEditAddress(addr)}
                               className="px-3 py-1 bg-emerald-100 text-emerald-600 rounded hover:bg-emerald-200 transition"
                             >
-                              ✏️ Sửa
+                              Sửa
                             </button>
                             <button
                               onClick={() => handleDeleteAddress(addr.id)}
                               className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition"
                             >
-                              🗑️ Xóa
+                              Xóa
                             </button>
                           </div>
                         </div>
@@ -517,13 +626,6 @@ export default function EnhancedProfilePage() {
                       placeholder="Tên địa chỉ (Nhà, Công ty, ...)"
                       value={addressForm.name}
                       onChange={(e) => setAddressForm({ ...addressForm, name: e.target.value })}
-                      className="w-full px-3 py-2 border border-sage-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Số điện thoại"
-                      value={addressForm.phone}
-                      onChange={(e) => setAddressForm({ ...addressForm, phone: e.target.value })}
                       className="w-full px-3 py-2 border border-sage-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     />
                     <input
@@ -577,13 +679,15 @@ export default function EnhancedProfilePage() {
                       onClick={handleAddPayment}
                       className="w-full py-2 border-2 border-dashed border-sage-300 rounded-lg text-emerald-600 hover:border-emerald-600 transition"
                     >
-                      ➕ Thêm phương thức thanh toán
+                      Thêm phương thức thanh toán
                     </button>
                     {profile.savedPaymentMethods.map(method => (
                       <div key={method.id} className="border border-sage-200 rounded-lg p-4 flex justify-between items-center">
                         <div>
                           <p className="font-semibold text-stone-800">
-                            {method.name} •••• {method.lastDigits}
+                            {method.type === 'cod'
+                              ? (method.name || 'Thanh toán khi nhận hàng (COD)')
+                              : (method.name || 'Ví điện tử')}
                             {method.default && <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded ml-2">Mặc định</span>}
                           </p>
                         </div>
@@ -591,7 +695,7 @@ export default function EnhancedProfilePage() {
                           onClick={() => handleDeletePayment(method.id)}
                           className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition"
                         >
-                          🗑️ Xóa
+                          Xóa
                         </button>
                       </div>
                     ))}
@@ -601,27 +705,32 @@ export default function EnhancedProfilePage() {
                     <h3 className="font-semibold text-stone-800">Thêm phương thức thanh toán</h3>
                     <select
                       value={paymentForm.type}
-                      onChange={(e) => setPaymentForm({ ...paymentForm, type: e.target.value as any })}
+                      onChange={(e) => {
+                        const nextType = e.target.value as SavedPaymentMethod['type'];
+                        setPaymentForm((prev) => ({
+                          ...prev,
+                          type: nextType,
+                          name:
+                            nextType === 'cod'
+                              ? 'Thanh toán khi nhận hàng (COD)'
+                              : (prev.name || 'Ví điện tử'),
+                          lastDigits: undefined,
+                        }));
+                      }}
                       className="w-full px-3 py-2 border border-sage-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     >
-                      <option value="card">Thẻ tín dụng</option>
-                      <option value="bank">Tài khoản ngân hàng</option>
                       <option value="ewallet">Ví điện tử</option>
+                      <option value="cod">Thanh toán khi nhận hàng (COD)</option>
                     </select>
-                    <input
-                      type="text"
-                      placeholder="Tên phương thức"
-                      value={paymentForm.name}
-                      onChange={(e) => setPaymentForm({ ...paymentForm, name: e.target.value })}
-                      className="w-full px-3 py-2 border border-sage-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                    />
-                    <input
-                      type="text"
-                      placeholder="4 chữ số cuối"
-                      value={paymentForm.lastDigits}
-                      onChange={(e) => setPaymentForm({ ...paymentForm, lastDigits: e.target.value })}
-                      className="w-full px-3 py-2 border border-sage-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                    />
+                    {paymentForm.type === 'ewallet' && (
+                      <input
+                        type="text"
+                        placeholder="Ví điện tử (ví dụ: VNPAY)"
+                        value={paymentForm.name}
+                        onChange={(e) => setPaymentForm({ ...paymentForm, name: e.target.value })}
+                        className="w-full px-3 py-2 border border-sage-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      />
+                    )}
                     <div className="flex gap-2">
                       <button
                         onClick={handleSavePayment}

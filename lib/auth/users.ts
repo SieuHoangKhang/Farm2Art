@@ -19,8 +19,8 @@ export async function ensureUserDoc(firebaseUser: User): Promise<AppUser> {
   if (snap.exists()) {
     const data = snap.data() as Partial<AppUser>;
     const storedRole = typeof data.role === "string" ? data.role : undefined;
-    const isStoredRoleValid = storedRole === "admin" || storedRole === "user";
-    const role: UserRole = isStoredRoleValid ? (storedRole as UserRole) : DEFAULT_ROLE;
+    const isStoredRoleValid = storedRole === "admin" || storedRole === "user" || storedRole === "seller";
+    const role: UserRole = storedRole === "admin" ? "admin" : "user";
 
     // If someone typed role incorrectly in the Firebase Console (e.g. "Admin"),
     // don't silently downgrade to user — surface a clear error so it can be fixed.
@@ -39,13 +39,22 @@ export async function ensureUserDoc(firebaseUser: User): Promise<AppUser> {
       uid: firebaseUser.uid,
       role,
       createdAt,
+      accountStatus: data.accountStatus === "suspended" ? "suspended" : "active",
+      riskLevel: data.riskLevel === "high" || data.riskLevel === "medium" ? data.riskLevel : "low",
+      strikeCount: typeof data.strikeCount === "number" ? data.strikeCount : 0,
       ...(displayName ? { displayName } : {}),
       ...(phone ? { phone } : {}),
     };
 
     // If the document exists but is missing required fields (common when created manually),
     // write them back so role checks and rules work reliably.
-    const needsBackfill = data.uid !== firebaseUser.uid || typeof data.createdAt !== "number";
+    const needsBackfill =
+      data.uid !== firebaseUser.uid ||
+      typeof data.createdAt !== "number" ||
+      (data.accountStatus !== "active" && data.accountStatus !== "suspended") ||
+      (data.riskLevel !== "low" && data.riskLevel !== "medium" && data.riskLevel !== "high") ||
+      typeof data.strikeCount !== "number" ||
+      storedRole === "seller";
 
     if (needsBackfill) {
       await setDoc(ref, merged, { merge: true });
@@ -60,6 +69,9 @@ export async function ensureUserDoc(firebaseUser: User): Promise<AppUser> {
   const userDoc: AppUser = {
     uid: firebaseUser.uid,
     role: DEFAULT_ROLE,
+    accountStatus: "active",
+    riskLevel: "low",
+    strikeCount: 0,
     createdAt: Date.now(),
     ...(userDisplayName ? { displayName: userDisplayName } : {}),
     ...(userPhone ? { phone: userPhone } : {}),

@@ -7,7 +7,6 @@ export type OrderStatus = 'pending' | 'confirmed' | 'shipped' | 'in_transit' | '
 interface OrderStatusStep {
   status: OrderStatus;
   label: string;
-  icon: string;
   timestamp?: number;
 }
 
@@ -27,11 +26,11 @@ export default function OrderTracking({
   trackingNumber,
   carrier,
   timeline = [
-    { status: 'pending', label: 'Đã đặt hàng', icon: '📋' },
-    { status: 'confirmed', label: 'Xác nhận', icon: '✓' },
-    { status: 'shipped', label: 'Gửi hàng', icon: '📦' },
-    { status: 'in_transit', label: 'Đang giao', icon: '🚚' },
-    { status: 'delivered', label: 'Đã giao', icon: '✅' },
+    { status: 'pending', label: 'Đã đặt hàng' },
+    { status: 'confirmed', label: 'Xác nhận' },
+    { status: 'shipped', label: 'Gửi hàng' },
+    { status: 'in_transit', label: 'Đang giao' },
+    { status: 'delivered', label: 'Đã giao' },
   ],
 }: OrderTrackingProps) {
   const [expandedStep, setExpandedStep] = useState<OrderStatus | null>(currentStatus);
@@ -139,17 +138,13 @@ export default function OrderTracking({
                   >
                     {/* Timeline Dot */}
                     <div
-                      className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold flex-shrink-0 relative z-20 transition ${
+                      className={`w-16 h-16 rounded-full flex items-center justify-center text-lg font-bold flex-shrink-0 relative z-20 transition ${
                         isCompleted
                           ? 'bg-green-100 text-green-600 border-4 border-green-500'
                           : 'bg-sage-100 text-stone-300 border-4 border-sage-200'
                       }`}
                     >
-                      {isCurrent ? (
-                        <span className="animate-pulse">{step.icon}</span>
-                      ) : (
-                        step.icon
-                      )}
+                      {idx + 1}
                     </div>
 
                     {/* Timeline Content */}
@@ -177,7 +172,7 @@ export default function OrderTracking({
                           <div key={eventIdx}>
                             <p className="text-sm font-medium text-stone-800">{event.description}</p>
                             <p className="text-xs text-stone-500">
-                              📍 {event.location} • {new Date(event.time).toLocaleString('vi-VN')}
+                              {event.location} • {new Date(event.time).toLocaleString('vi-VN')}
                             </p>
                           </div>
                         ))}
@@ -197,7 +192,7 @@ export default function OrderTracking({
           <div className="border-t pt-6">
             <h3 className="text-lg font-semibold text-stone-800 mb-4">Địa chỉ giao hàng</h3>
             <div className="bg-sage-50 rounded-lg p-4">
-              <p className="text-stone-800 font-medium">📍 {orderData.shippingAddress}</p>
+              <p className="text-stone-800 font-medium">{orderData.shippingAddress}</p>
             </div>
           </div>
 

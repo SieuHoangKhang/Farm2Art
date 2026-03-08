@@ -9,6 +9,7 @@ interface CustomerMessage {
   message: string;
   timestamp: number;
   isAdmin: boolean;
+  read?: boolean;
 }
 interface ConversationData {
   [userId: string]: CustomerMessage[];
@@ -23,6 +24,29 @@ export default function AdminMessagesPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  async function markConversationRead(userId: string) {
+    // Optimistically mark unread customer messages to keep UI/badge in sync immediately.
+    setConversations((prev) => {
+      const messages = prev[userId] || [];
+      return {
+        ...prev,
+        [userId]: messages.map((msg) =>
+          !msg.isAdmin && !msg.read ? { ...msg, read: true } : msg
+        ),
+      };
+    });
+
+    try {
+      await fetch("/api/admin-chat", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+    } catch (err) {
+      console.error("Mark read failed:", err);
+    }
+  }
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -157,7 +181,12 @@ export default function AdminMessagesPage() {
                   const isSelected = selectedUserId === userId;
                   const customerName = lastMsg?.userName || "Khách";
                   return (
-                    <button key={userId} onClick={() => setSelectedUserId(userId)}
+                    <button
+                      key={userId}
+                      onClick={() => {
+                        setSelectedUserId(userId);
+                        markConversationRead(userId);
+                      }}
                       className={`w-full text-left px-4 py-3.5 rounded-xl transition-all duration-200 ${isSelected ? "bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/20" : "hover:bg-emerald-50/60 group"}`}>
                       <div className="flex items-center gap-3">
                         <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${isSelected ? "bg-white/20 text-white" : "bg-emerald-100 text-emerald-700"}`}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { firebaseDb } from "@/lib/firebase/client";
 import {
   collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy,
@@ -14,7 +14,14 @@ export default function AdminListingsPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | Listing["status"]>("all");
   const [typeFilter, setTypeFilter] = useState<"all" | "byproduct" | "art">("all");
+  const [approvalFilter, setApprovalFilter] = useState<"all" | "pending_approval" | "approved" | "rejected">("pending_approval");
   const [toast, setToast] = useState<string | null>(null);
+  const [rejectReason, setRejectReason] = useState<string>("");
+  const [showRejectDialog, setShowRejectDialog] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [sellerInfo, setSellerInfo] = useState<any>(null);
+  const [sellerReviews, setSellerReviews] = useState<any[]>([]);
+  const [loadingDetails, setLoadingDetails] = useState(false);
 
   useEffect(() => { loadListings(); }, []);
 
@@ -44,6 +51,54 @@ export default function AdminListingsPage() {
     }
   }
 
+  async function approveListing(id: string) {
+    try {
+      setSaving(id);
+      const response = await fetch(`/api/admin/listings/approval`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, action: "approve" }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Lỗi duyệt");
+      setListings((prev) => prev.map((l) => l.id === id 
+        ? { ...l, approvalStatus: "approved", status: "active" } 
+        : l
+      ));
+      showToast("✅ Đơn hàng đã được duyệt!");
+    } catch (err) {
+      console.error(err);
+      showToast("❌ Lỗi duyệt tin đăng");
+    } finally {
+      setSaving(null);
+    }
+  }
+
+  async function rejectListing(id: string, reason: string) {
+    try {
+      setSaving(id);
+      const response = await fetch(`/api/admin/listings/approval`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, action: "reject", rejectionReason: reason }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Lỗi từ chối");
+      setListings((prev) => prev.map((l) => l.id === id 
+        ? { ...l, approvalStatus: "rejected", status: "inactive" } 
+        : l
+      ));
+      showToast("✅ Tin đăng đã bị từ chối");
+      setShowRejectDialog(null);
+      setRejectReason("");
+    } catch (err) {
+      console.error(err);
+      showToast("❌ Lỗi từ chối tin đăng");
+    } finally {
+      setSaving(null);
+    }
+  }
+
   async function deleteListing(id: string) {
     if (!confirm("Bạn chắc chắn muốn xóa tin đăng này?")) return;
     try {
@@ -61,6 +116,41 @@ export default function AdminListingsPage() {
 
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
 
+  async function loadSellerDetails(sellerId: string) {
+    setLoadingDetails(true);
+    try {
+      // Load seller info
+      const { doc: fDoc, getDoc } = await import("firebase/firestore");
+      const sellerRef = fDoc(firebaseDb, "users", sellerId);
+      const sellerSnap = await getDoc(sellerRef);
+      setSellerInfo(sellerSnap.exists() ? sellerSnap.data() : null);
+
+      // Load seller reviews (without orderBy to avoid needing composite index)
+      const { collection: fCollection, getDocs: fGetDocs, query: fQuery, where } = await import("firebase/firestore");
+      const reviewsSnap = await fGetDocs(fQuery(
+        fCollection(firebaseDb, "reviews"),
+        where("sellerId", "==", sellerId)
+      ));
+      const reviews = reviewsSnap.docs.map(d => ({ id: d.id, ...d.data() })) as any[];
+      // Sort by createdAt on client side
+      reviews.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      setSellerReviews(reviews);
+    } catch (err) {
+      console.error("Load seller details error:", err);
+    } finally {
+      setLoadingDetails(false);
+    }
+  }
+
+  function toggleExpanded(listingId: string, sellerId: string) {
+    if (expandedId === listingId) {
+      setExpandedId(null);
+    } else {
+      setExpandedId(listingId);
+      loadSellerDetails(sellerId);
+    }
+  }
+
   const fmt = (n: number) => new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
   const fmtDate = (ts: number) => new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
 
@@ -68,11 +158,16 @@ export default function AdminListingsPage() {
     const matchSearch = search === "" || l.title.toLowerCase().includes(search.toLowerCase()) || l.sellerId.toLowerCase().includes(search.toLowerCase());
     const matchStatus = statusFilter === "all" || l.status === statusFilter;
     const matchType = typeFilter === "all" || l.type === typeFilter;
-    return matchSearch && matchStatus && matchType;
+    const matchApproval = approvalFilter === "all" || l.approvalStatus === approvalFilter;
+    return matchSearch && matchStatus && matchType && matchApproval;
   });
 
   const statusCounts: Record<string, number> = { all: listings.length, active: 0, hidden: 0, draft: 0, inactive: 0 };
-  listings.forEach((l) => { statusCounts[l.status] = (statusCounts[l.status] || 0) + 1; });
+  const approvalCounts: Record<string, number> = { all: listings.length, pending_approval: 0, approved: 0, rejected: 0 };
+  listings.forEach((l) => { 
+    statusCounts[l.status] = (statusCounts[l.status] || 0) + 1;
+    approvalCounts[l.approvalStatus || "all"] = (approvalCounts[l.approvalStatus || "all"] || 0) + 1;
+  });
 
   if (loading) {
     return (
@@ -115,20 +210,13 @@ export default function AdminListingsPage() {
             className="w-full pl-10 pr-4 py-3 rounded-2xl border border-sage-300 bg-white/90 backdrop-blur-sm text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
           />
         </div>
+        {/* Approval Status Filter */}
         <div className="flex gap-2 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 p-1.5">
-          {(["all", "active", "hidden", "draft"] as const).map((s) => (
-            <button key={s} onClick={() => setStatusFilter(s)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${statusFilter === s ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-md shadow-emerald-500/20" : "text-stone-600 hover:bg-emerald-50/60 hover:text-emerald-700"}`}>
-              {s === "all" ? "Tất cả" : s === "active" ? "Active" : s === "hidden" ? "Ẩn" : "Nháp"}
-              <span className="ml-1.5 opacity-70">({statusCounts[s] || 0})</span>
-            </button>
-          ))}
-        </div>
-        <div className="flex gap-2 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 p-1.5">
-          {(["all", "byproduct", "art"] as const).map((t) => (
-            <button key={t} onClick={() => setTypeFilter(t)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${typeFilter === t ? "bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900 shadow-md shadow-amber-500/20" : "text-stone-600 hover:bg-amber-50/60 hover:text-amber-700"}`}>
-              {t === "all" ? "Tất cả" : t === "art" ? "Nghệ thuật" : "Phụ phẩm"}
+          {(["pending_approval", "approved", "rejected", "all"] as const).map((a) => (
+            <button key={a} onClick={() => setApprovalFilter(a)}
+              className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 ${approvalFilter === a ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md shadow-blue-500/20" : "text-stone-600 hover:bg-blue-50/60 hover:text-blue-700"}`}>
+              {a === "pending_approval" ? "⏳ Chờ duyệt" : a === "approved" ? "✅ Đã duyệt" : a === "rejected" ? "❌ Từ chối" : "Tất cả"}
+              <span className="ml-1.5 opacity-70">({approvalCounts[a] || 0})</span>
             </button>
           ))}
         </div>
@@ -154,10 +242,11 @@ export default function AdminListingsPage() {
               {filtered.length === 0 ? (
                 <tr><td colSpan={7} className="py-16 text-center text-stone-400 text-sm">Không tìm thấy tin đăng</td></tr>
               ) : filtered.map((l) => (
-                <tr key={l.id} className="hover:bg-emerald-50/30 transition-colors duration-200 group">
-                  <td className="px-6 py-4">
+                <Fragment key={l.id}>
+                  <tr className="hover:bg-emerald-50/30 transition-colors duration-200 group">
+                    <td className="px-6 py-4">
                     <p className="text-sm font-semibold text-stone-700 truncate max-w-[240px]">{l.title}</p>
-                    <p className="text-xs text-stone-400 mt-0.5 truncate max-w-[240px]">{l.description?.slice(0, 60)}</p>
+                    <p className="text-xs text-stone-400 mt-0.5 truncate max-w-[240px]">{l.description?.slice(0, 60) || "—"}</p>
                   </td>
                   <td className="px-6 py-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${l.type === "art" ? "bg-purple-100 text-purple-800" : "bg-amber-100 text-amber-800"}`}>
@@ -165,7 +254,7 @@ export default function AdminListingsPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="font-mono text-xs text-stone-500 bg-stone-50 px-2 py-1 rounded-lg">{l.sellerId.slice(0, 12)}</span>
+                    <span className="font-mono text-xs text-stone-500 bg-stone-50 px-2 py-1 rounded-lg">{l.sellerId?.slice(0, 12) || "—"}</span>
                   </td>
                   <td className="px-6 py-4 text-right">
                     <span className="text-sm font-bold text-stone-800">{fmt(l.price)}</span>
@@ -180,34 +269,204 @@ export default function AdminListingsPage() {
                       <span className={`w-1.5 h-1.5 rounded-full ${l.status === "active" ? "bg-green-500" : l.status === "hidden" ? "bg-red-400" : "bg-stone-400"}`} />
                       {l.status === "active" ? "Active" : l.status === "hidden" ? "Ẩn" : l.status === "draft" ? "Nháp" : l.status}
                     </span>
+                    {l.approvalStatus && (
+                      <div className="text-xs mt-2">
+                        {l.approvalStatus === "pending_approval" ? (
+                          <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">⏳ Chờ duyệt</span>
+                        ) : l.approvalStatus === "approved" ? (
+                          <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full">✅ Đã duyệt</span>
+                        ) : (
+                          <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full">❌ Từ chối</span>
+                        )}
+                      </div>
+                    )}
                   </td>
                   <td className="px-6 py-4 text-right text-xs text-stone-500 font-medium">
                     {typeof l.createdAt === "number" ? fmtDate(l.createdAt) : "—"}
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity duration-200">
-                      <button
-                        onClick={() => toggleStatus(l.id, l.status)}
-                        disabled={saving === l.id}
-                        className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-sage-300 bg-white text-stone-600 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 disabled:opacity-50 transition-all duration-200"
-                      >
-                        {l.status === "active" ? "Ẩn" : "Hiện"}
-                      </button>
-                      <button
-                        onClick={() => deleteListing(l.id)}
-                        disabled={saving === l.id}
-                        className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50 transition-all duration-200"
-                      >
-                        Xóa
-                      </button>
+                      {l.approvalStatus === "pending_approval" ? (
+                        <>
+                          <button
+                            onClick={() => toggleExpanded(l.id, l.sellerId)}
+                            disabled={saving === l.id}
+                            className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 disabled:opacity-50 transition-all duration-200"
+                          >
+                            {expandedId === l.id ? "▼ Ẩn" : "▶ Chi tiết"}
+                          </button>
+                          <button
+                            onClick={() => approveListing(l.id)}
+                            disabled={saving === l.id}
+                            className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-green-300 bg-green-50 text-green-700 hover:bg-green-100 disabled:opacity-50 transition-all duration-200"
+                          >
+                            ✅ Duyệt
+                          </button>
+                          <button
+                            onClick={() => setShowRejectDialog(l.id)}
+                            disabled={saving === l.id}
+                            className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 disabled:opacity-50 transition-all duration-200"
+                          >
+                            ❌ Từ chối
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => toggleStatus(l.id, l.status)}
+                            disabled={saving === l.id}
+                            className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-sage-300 bg-white text-stone-600 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 disabled:opacity-50 transition-all duration-200"
+                          >
+                            {l.status === "active" ? "Ẩn" : "Hiện"}
+                          </button>
+                          <button
+                            onClick={() => deleteListing(l.id)}
+                            disabled={saving === l.id}
+                            className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50 transition-all duration-200"
+                          >
+                            Xóa
+                          </button>
+                        </>
+                      )}
                     </div>
                   </td>
-                </tr>
+                      </tr>
+                  
+                  {/* Expand Details */}
+                  {expandedId === l.id && (
+                    <tr className="bg-blue-50/50 border-t-2 border-blue-200">
+                      <td colSpan={7} className="px-6 py-6">
+                        <div className="grid md:grid-cols-2 gap-8">
+                          {/* Seller Info */}
+                          <div className="space-y-4">
+                            <h4 className="font-bold text-stone-900 text-base">👤 Thông tin người bán</h4>
+                            {loadingDetails ? (
+                              <div className="text-sm text-stone-500">Đang tải...</div>
+                            ) : sellerInfo ? (
+                              <div className="space-y-3 bg-white p-4 rounded-lg border border-blue-200">
+                                <div>
+                                  <p className="text-xs text-stone-500 font-semibold">Tên hiển thị</p>
+                                  <p className="text-sm text-stone-800 font-medium">{sellerInfo.displayName || "—"}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-stone-500 font-semibold">Email</p>
+                                  <p className="text-sm text-stone-800 break-all">{sellerInfo.email || "—"}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-stone-500 font-semibold">Điện thoại</p>
+                                  <p className="text-sm text-stone-800 font-medium">{sellerInfo.phone || "—"}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-stone-500 font-semibold">Xác minh</p>
+                                  <p className="text-sm">
+                                    {sellerInfo.sellerVerified ? (
+                                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">✅ Đã xác minh</span>
+                                    ) : (
+                                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">❌ Chưa xác minh</span>
+                                    )}
+                                  </p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-stone-500 font-semibold">Trạng thái tài khoản</p>
+                                  <p className="text-sm">
+                                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${
+                                      sellerInfo.accountStatus === "active" ? "bg-green-100 text-green-700" :
+                                      sellerInfo.accountStatus === "suspended" ? "bg-red-100 text-red-700" :
+                                      "bg-stone-100 text-stone-700"
+                                    }`}>
+                                      {sellerInfo.accountStatus === "active" ? "✅ Hoạt động" :
+                                       sellerInfo.accountStatus === "suspended" ? "🔒 Bị khóa" :
+                                       "❓ Không xác định"
+                                      }
+                                    </span>
+                                  </p>
+                                </div>
+                                {sellerInfo.businessName && (
+                                  <div>
+                                    <p className="text-xs text-stone-500 font-semibold">Tên kinh doanh</p>
+                                    <p className="text-sm text-stone-800 font-medium">{sellerInfo.businessName}</p>
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <div className="text-sm text-stone-500">Không tìm thấy thông tin</div>
+                            )}
+                          </div>
+
+                          {/* Seller Reviews */}
+                          <div className="space-y-4">
+                            <h4 className="font-bold text-stone-900 text-base">⭐ Đánh giá ({sellerReviews.length})</h4>
+                            {loadingDetails ? (
+                              <div className="text-sm text-stone-500">Đang tải...</div>
+                            ) : sellerReviews.length > 0 ? (
+                              <div className="space-y-3 max-h-96 overflow-y-auto">
+                                {sellerReviews.slice(0, 5).map((review: any) => (
+                                  <div key={review.id} className="bg-white p-3 rounded-lg border border-blue-200 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex gap-1">
+                                        {[...Array(5)].map((_, i) => (
+                                          <span key={i} className={i < (review.rating || 0) ? "text-yellow-400 text-lg" : "text-stone-300 text-lg"}>
+                                            ★
+                                          </span>
+                                        ))}
+                                      </div>
+                                      <p className="text-xs text-stone-400">
+                                        {review.createdAt ? new Date(review.createdAt).toLocaleDateString("vi-VN") : "—"}
+                                      </p>
+                                    </div>
+                                    <p className="text-sm text-stone-800">{review.comment || "—"}</p>
+                                    <p className="text-xs text-stone-500">Từ: {review.buyerName || review.buyerId?.slice(0, 8)}...</p>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="text-sm text-stone-500">Chưa có đánh giá</div>
+                            )}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
               ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      {/* Reject Dialog */}
+      {showRejectDialog && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 space-y-4 animate-fadeIn">
+            <h3 className="text-lg font-bold text-stone-900">❌ Từ chối tin đăng</h3>
+            <textarea
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+              placeholder="Nhập lý do từ chối (tùy chọn)..."
+              className="w-full h-24 p-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+            />
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => {
+                  setShowRejectDialog(null);
+                  setRejectReason("");
+                }}
+                disabled={saving === showRejectDialog}
+                className="px-4 py-2 rounded-xl text-sm font-semibold border border-stone-300 bg-white text-stone-600 hover:bg-stone-50 disabled:opacity-50"
+              >
+                Hủy
+              </button>
+              <button
+                onClick={() => rejectListing(showRejectDialog, rejectReason)}
+                disabled={saving === showRejectDialog}
+                className="px-4 py-2 rounded-xl text-sm font-semibold bg-red-600 text-white hover:bg-red-700 disabled:opacity-50"
+              >
+                Từ chối
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

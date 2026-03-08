@@ -9,12 +9,24 @@ import { useAuthUser } from "@/lib/auth/useAuthUser";
 import { firebaseDb } from "@/lib/firebase/client";
 import type { Order } from "@/types/order";
 
+const STATUS_UI: Record<Order["status"], { label: string; className: string }> = {
+  pending: { label: "Chờ thanh toán", className: "bg-yellow-100 text-yellow-800" },
+  confirmed: { label: "Đã thanh toán", className: "bg-blue-100 text-blue-800" },
+  shipping: { label: "Đang giao", className: "bg-indigo-100 text-indigo-800" },
+  delivered: { label: "Đã giao", className: "bg-emerald-100 text-emerald-800" },
+  completed: { label: "Hoàn thành", className: "bg-green-100 text-green-800" },
+  cancelled: { label: "Đã hủy", className: "bg-red-100 text-red-800" },
+};
+
 export default function OrdersPage() {
   const { user, loading: userLoading } = useAuthUser();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<"all" | "pending" | "completed" | "cancelled">("all");
+  const [filter, setFilter] = useState<"all" | Order["status"]>("all");
+
+  const getPayableTotal = (order: Order) =>
+    order.grandTotal ?? (order.subTotal ?? order.totalAmount) + (order.platformFee ?? 0) + (order.warehouseService?.serviceFeeTotal ?? 0);
 
   useEffect(() => {
     if (userLoading || !user) return;
@@ -73,7 +85,7 @@ export default function OrdersPage() {
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         {/* Filter Tabs */}
         <div className="mb-6 flex gap-2">
-          {(["all", "pending", "completed", "cancelled"] as const).map((f) => (
+          {(["all", "pending", "confirmed", "shipping", "delivered", "completed", "cancelled"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -82,7 +94,7 @@ export default function OrdersPage() {
                   : "border border-stone-200 bg-white text-stone-700 hover:border-stone-300"
                 }`}
             >
-              {f === "all" ? "Tất cả" : f === "pending" ? "Chờ xử lý" : f === "completed" ? "Hoàn thành" : "Hủy"}
+              {f === "all" ? "Tất cả" : STATUS_UI[f].label}
             </button>
           ))}
         </div>
@@ -112,23 +124,14 @@ export default function OrdersPage() {
                         {new Date(order.createdAt).toLocaleDateString("vi-VN")}
                       </p>
                       <p className="mt-2 text-sm text-stone-700">
-                        <span className="font-medium">Tổng tiền:</span> {order.totalAmount.toLocaleString("vi-VN")} VNĐ
+                        <span className="font-medium">Tổng tiền:</span> {getPayableTotal(order).toLocaleString("vi-VN")} VNĐ
                       </p>
                     </div>
                     <div className="text-right">
                       <span
-                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${order.status === "pending"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : order.status === "completed"
-                              ? "bg-green-100 text-green-800"
-                              : "bg-red-100 text-red-800"
-                          }`}
+                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${STATUS_UI[order.status].className}`}
                       >
-                        {order.status === "pending"
-                          ? "Chờ xử lý"
-                          : order.status === "completed"
-                            ? "Hoàn thành"
-                            : "Hủy"}
+                        {STATUS_UI[order.status].label}
                       </span>
                       <LinkButton href={`/orders/${order.id}`} variant="secondary" className="mt-3 block">
                         Chi tiết

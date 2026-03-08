@@ -151,6 +151,9 @@ export default function MyListingsPage() {
                         <LinkButton href={`/listing/${listing.id}`} variant="secondary" className="text-xs">
                           Xem
                         </LinkButton>
+                        <LinkButton href={`/edit-listing/${listing.id}`} className="text-xs bg-blue-100 text-blue-700 hover:bg-blue-200">
+                          Sửa
+                        </LinkButton>
                         <Button
                           onClick={() => void handleToggleStatus(listing)}
                           className="text-xs bg-stone-200 text-stone-900 hover:bg-stone-300"

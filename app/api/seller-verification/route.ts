@@ -86,13 +86,13 @@ export async function PUT(request: NextRequest) {
         approvedAt: Date.now(),
         verificationBadge: true,
       });
-      // Also update user role to seller
+      // Keep unified account model: no seller role, only verification flag
       const userRef = doc(serverDb, 'users', sellerId);
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
-        await updateDoc(userRef, { role: 'seller', sellerVerified: true });
+        await updateDoc(userRef, { sellerVerified: true });
       } else {
-        await setDoc(userRef, { role: 'seller', sellerVerified: true }, { merge: true });
+        await setDoc(userRef, { role: 'user', sellerVerified: true }, { merge: true });
       }
     } else if (action === 'reject') {
       const body = await request.json();

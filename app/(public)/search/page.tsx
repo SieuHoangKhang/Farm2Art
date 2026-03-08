@@ -31,7 +31,10 @@ function SearchContent() {
       setLoading(true);
       setError(null);
       try {
-        const constraints: QueryConstraint[] = [where("status", "==", "active")];
+        const constraints: QueryConstraint[] = [
+          where("status", "==", "active"),
+          where("approvalStatus", "==", "approved")
+        ];
 
         if (typeFilter) {
           constraints.push(where("type", "==", typeFilter));
@@ -121,7 +124,7 @@ function SearchContent() {
             ) : (
               <div>
                 <p className="mb-4 text-sm text-stone-600">Tìm thấy {listings.length} sản phẩm</p>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {listings.map((listing) => (
                     <ListingCard key={listing.id} listing={listing} />
                   ))}

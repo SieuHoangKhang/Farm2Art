@@ -4,7 +4,8 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { TextField } from "@/components/ui/TextField";
-import { firebaseAuth, firebaseDb, firebaseRtdb } from "@/lib/firebase/client";
+import { useAuthUser } from "@/lib/auth/useAuthUser";
+import { firebaseDb, firebaseRtdb } from "@/lib/firebase/client";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   DataSnapshot,
@@ -13,7 +14,7 @@ import {
   push,
   query,
   ref,
-  serverTimestamp,
+  set,
 } from "firebase/database";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -45,7 +46,7 @@ function generateRoomId(uid1: string, uid2: string): string {
 }
 
 export default function ChatPage() {
-  const user = firebaseAuth.currentUser;
+  const { user, loading: authLoading } = useAuthUser();
   const searchParams = useSearchParams();
   const sellerIdParam = searchParams.get("sellerId");
   const productTitle = searchParams.get("product") || "";
@@ -98,18 +99,35 @@ export default function ChatPage() {
     initConversation();
   }, [sellerIdParam, user?.uid, roomId, productTitle]);
 
-  // Listen to messages
+  // Join room + listen to messages
   useEffect(() => {
-    if (!roomPath) return;
-    setError(null);
-    const messagesRef = query(ref(firebaseRtdb, roomPath), limitToLast(50));
-    const unsubscribe = onValue(
-      messagesRef,
-      (snap) => setMessages(snapshotToMessages(snap)),
-      (err) => setError(err.message)
-    );
-    return () => unsubscribe();
-  }, [roomPath]);
+    if (!roomPath || !roomId || !user?.uid) return;
+
+    let unsubscribe: (() => void) | undefined;
+
+    async function initRoomAndListen() {
+      setError(null);
+      try {
+        // Mark current user as room participant to satisfy RTDB security rules.
+        await set(ref(firebaseRtdb, `rooms/${roomId}/participants/${user.uid}`), true);
+
+        const messagesRef = query(ref(firebaseRtdb, roomPath), limitToLast(50));
+        unsubscribe = onValue(
+          messagesRef,
+          (snap) => setMessages(snapshotToMessages(snap)),
+          (err) => setError(err.message)
+        );
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Không thể tham gia phòng chat");
+      }
+    }
+
+    void initRoomAndListen();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [roomPath, roomId, user?.uid]);
 
   async function sendMessage() {
     const trimmed = text.trim();
@@ -118,30 +136,60 @@ export default function ChatPage() {
     setBusy(true);
     setError(null);
     try {
-      const senderId = user?.uid ?? "guest";
-      const senderName = user?.displayName ?? user?.phoneNumber ?? user?.email ?? "Guest";
+      if (!user?.uid) throw new Error("Vui lòng đăng nhập để gửi tin nhắn");
 
-      await push(ref(firebaseRtdb, roomPath), {
+      const senderId = user.uid;
+      const senderName = user.displayName ?? user.phoneNumber ?? user.email ?? "Người dùng";
+      const createdAt = Date.now();
+      const localId = `local-${createdAt}`;
+
+      // Optimistic render: show message immediately.
+      setMessages((prev) => [
+        ...prev,
+        { id: localId, text: trimmed, senderId, senderName, createdAt },
+      ]);
+
+      const newMsgRef = await push(ref(firebaseRtdb, roomPath), {
         text: trimmed,
         senderId,
         senderName,
-        createdAt: serverTimestamp(),
+        createdAt,
+      });
+
+      // Replace optimistic id by server key once available.
+      setMessages((prev) => {
+        const msgId = newMsgRef.key ?? `local-${createdAt}`;
+        return prev.map((m) => (m.id === localId ? { ...m, id: msgId } : m));
       });
 
       // Update conversation lastMessage
-      const convRef = doc(firebaseDb, "conversations", roomId);
-      await setDoc(
-        convRef,
-        { lastMessage: trimmed, lastMessageTime: Date.now(), updatedAt: Date.now() },
-        { merge: true }
-      );
+      try {
+        const convRef = doc(firebaseDb, "conversations", roomId);
+        await setDoc(
+          convRef,
+          { lastMessage: trimmed, lastMessageTime: createdAt, updatedAt: createdAt },
+          { merge: true }
+        );
+      } catch (metaError) {
+        console.warn("Update conversation metadata failed:", metaError);
+      }
 
       setText("");
     } catch (e) {
+      // Roll back optimistic message if send fails.
+      setMessages((prev) => prev.filter((m) => !(m.id.startsWith("local-") && m.text === trimmed)));
       setError(e instanceof Error ? e.message : "Gửi tin nhắn thất bại");
     } finally {
       setBusy(false);
     }
+  }
+
+  if (authLoading) {
+    return <div className="py-10 text-center text-stone-600">Đang kiểm tra tài khoản...</div>;
+  }
+
+  if (!user) {
+    return <div className="py-10 text-center text-stone-600">Vui lòng đăng nhập để sử dụng chat.</div>;
   }
 
   if (!sellerIdParam) {
@@ -178,7 +226,7 @@ export default function ChatPage() {
               <div className="rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-900">
                 {error}
                 <div className="mt-1 text-xs text-rose-700">
-                  Nếu bị &quot;Permission denied&quot;: vào Firebase Console → Realtime Database → Rules và cho phép
+                  Nếu bị &quot;Permission denied&quot;: vào Firebase Console  Realtime Database  Rules và cho phép
                   read/write theo auth.
                 </div>
               </div>

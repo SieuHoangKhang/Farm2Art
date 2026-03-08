@@ -1,4 +1,4 @@
-export type UserRole = "user" | "seller" | "admin";
+export type UserRole = "user" | "admin";
 
 export type AppUser = {
   uid: string;
@@ -11,5 +11,9 @@ export type AppUser = {
   avatarUrl?: string;
   role: UserRole;
   sellerVerified?: boolean;
+  accountStatus?: "active" | "suspended";
+  riskLevel?: "low" | "medium" | "high";
+  strikeCount?: number;
+  fraudNote?: string;
   createdAt: number;
 };

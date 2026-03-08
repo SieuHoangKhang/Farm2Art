@@ -102,7 +102,7 @@ export default function ProductImageGallery({ images, productName }: ProductImag
                 onClick={handleNext}
                 className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition"
               >
-                →
+                
               </button>
             </>
           )}
@@ -149,7 +149,7 @@ export default function ProductImageGallery({ images, productName }: ProductImag
               onClick={() => setShowFullscreen(false)}
               className="absolute top-4 right-4 text-white text-3xl hover:opacity-70 z-10"
             >
-              ✕
+              
             </button>
 
             {/* Main Image */}
@@ -172,7 +172,7 @@ export default function ProductImageGallery({ images, productName }: ProductImag
                   onClick={handleNext}
                   className="absolute right-4 text-white text-4xl hover:opacity-70"
                 >
-                  →
+                  
                 </button>
               </>
             )}

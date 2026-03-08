@@ -9,11 +9,16 @@ service cloud.firestore {
       allow delete: if request.auth != null && request.auth.uid == userId;
     }
 
+    // User profiles - owner only
+    match /user_profiles/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
     // Listings - public read, authenticated write
     match /listings/{listingId} {
       allow read: if true;
       allow create: if request.auth != null;
-      allow update, delete: if request.auth != null;
+      allow update, delete: if true; // API routes (server-side) can update approval status
     }
 
     // Orders - read/write for buyer and seller
@@ -76,5 +81,21 @@ service cloud.firestore {
       allow read: if true;
       allow write: if request.auth != null;
     }
+
+    // Seller Reviews
+    match /seller_reviews/{reviewId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null;
+    }
+
+    // Admin Chat Messages
+    // NOTE: API routes currently use web Firestore SDK without Firebase Admin credentials,
+    // so requests are unauthenticated at rules level.
+    match /admin_chat_messages/{messageId} {
+      allow read, create, update: if true;
+      allow delete: if false;
+    }
+
   }
 }

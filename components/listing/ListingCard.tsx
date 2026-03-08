@@ -25,7 +25,7 @@ function MediaPlaceholder({ title, imageUrl, type }: { title: string; imageUrl?:
     .join("");
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-sage-50">
+    <div className="relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-sage-50">
       {imageUrl ? (
         <Image
           src={imageUrl}
@@ -37,7 +37,7 @@ function MediaPlaceholder({ title, imageUrl, type }: { title: string; imageUrl?:
       ) : (
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-100/60 to-sage-50">
           <div className="text-center">
-            <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600/90 text-lg font-bold text-white shadow-md">
+            <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600/90 text-sm font-bold text-white shadow-md">
               {initials || "F2A"}
             </div>
           </div>
@@ -59,7 +59,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
   const qty = listing.quantity != null ? `${listing.quantity.toLocaleString("vi-VN")} ${listing.unit ?? ""}`.trim() : null;
   const firstImage = listing.images?.[0];
   const rawUrl = typeof firstImage === 'object' && firstImage !== null ? (firstImage as any).secureUrl : (firstImage as any);
-  const imageUrl = rawUrl && typeof rawUrl === 'string' && rawUrl.trim() !== '' ? rawUrl : undefined;
+  const imageUrl: string | undefined = (rawUrl && typeof rawUrl === 'string' && rawUrl.trim() !== '') ? rawUrl : undefined;
 
   return (
     <Link
@@ -68,7 +68,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
     >
       <MediaPlaceholder title={listing.title} imageUrl={imageUrl} type={listing.type} />
       
-      <div className="p-4 space-y-2.5">
+      <div className="p-3.5 space-y-2">
         {/* Title */}
         <h3 className="line-clamp-2 text-sm font-bold text-stone-800 group-hover:text-emerald-700 transition-colors leading-snug">
           {listing.title}
@@ -92,10 +92,6 @@ export function ListingCard({ listing }: { listing: Listing }) {
         <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-sage-100">
           {listing.location && (
             <span className="inline-flex items-center gap-1 text-xs text-stone-500">
-              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
               {listing.location}
             </span>
           )}

@@ -100,7 +100,7 @@ export default function ShippingIntegration({
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6">
-      <h3 className="text-lg font-semibold text-stone-800 mb-4">🚚 Lựa chọn vận chuyển</h3>
+      <h3 className="text-lg font-semibold text-stone-800 mb-4"> Lựa chọn vận chuyển</h3>
 
       <div className="text-sm text-stone-500 mb-4">
         Giao tới: <span className="font-medium text-stone-800">{toDistrict}, {toCity}</span>
@@ -122,7 +122,7 @@ export default function ShippingIntegration({
                 <h4 className="font-semibold text-stone-800">{option.carrier}</h4>
                 <p className="text-sm text-stone-500">{option.description}</p>
                 <p className="text-xs text-stone-400 mt-1">
-                  ⏱️ Khoảng {option.estimatedDays > 0 ? `${option.estimatedDays}-${option.estimatedDays + 1}` : 'hôm nay'} ngày
+                   Khoảng {option.estimatedDays > 0 ? `${option.estimatedDays}-${option.estimatedDays + 1}` : 'hôm nay'} ngày
                 </p>
               </div>
               <div className="text-right">

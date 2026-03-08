@@ -17,6 +17,14 @@ interface SalesMetrics {
   recentOrders: Array<{ id: string; buyerId: string; total: number; status: string; date: number }>;
 }
 
+function getSellerEarning(order: any) {
+  if (typeof order?.sellerPayout === 'number') return order.sellerPayout;
+
+  const subTotal = typeof order?.subTotal === 'number' ? order.subTotal : order?.totalAmount || 0;
+  const platformFee = order?.platformFee || 0;
+  return Math.max(subTotal - platformFee, 0);
+}
+
 export default function SellerDashboard() {
   const { user } = useAuthUser();
   const [metrics, setMetrics] = useState<SalesMetrics | null>(null);
@@ -45,7 +53,7 @@ export default function SellerDashboard() {
 
       ordersSnap.docs.forEach((d) => {
         const order = d.data();
-        totalRevenue += order.totalAmount || 0;
+        totalRevenue += getSellerEarning(order);
 
         if (order.status === 'completed' || order.status === 'delivered') completedOrders++;
         if (order.status === 'pending') pendingOrders++;
@@ -70,7 +78,7 @@ export default function SellerDashboard() {
         recentOrders.push({
           id: d.id,
           buyerId: order.buyerId,
-          total: order.totalAmount || 0,
+          total: getSellerEarning(order),
           status: order.status,
           date: order.createdAt,
         });

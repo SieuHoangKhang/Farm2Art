@@ -81,9 +81,9 @@ export function PhoneSignIn({
       if (code === "auth/invalid-phone-number") setError("Số điện thoại không hợp lệ.");
       else if (code === "auth/missing-phone-number") setError("Vui lòng nhập số điện thoại.");
       else if (code === "auth/operation-not-allowed")
-        setError("Bạn chưa bật đăng nhập bằng SĐT trong Firebase Auth (Authentication → Sign-in method → Phone).");
+        setError("Bạn chưa bật đăng nhập bằng SĐT trong Firebase Auth (Authentication  Sign-in method  Phone).");
       else if (code === "auth/unauthorized-domain" || code === "auth/app-not-authorized")
-        setError("Domain chưa được phép. Vào Firebase Auth → Settings → Authorized domains và thêm localhost.");
+        setError("Domain chưa được phép. Vào Firebase Auth  Settings  Authorized domains và thêm localhost.");
       else if (code === "auth/captcha-check-failed")
         setError("reCAPTCHA bị chặn/thất bại. Tắt AdBlock/Brave Shields, thử tab ẩn danh và thử lại.");
       else if (code === "auth/invalid-app-credential" || code === "auth/missing-app-credential")

@@ -1,7 +1,4 @@
-import {
-  firebaseDb,
-  firebaseAuth,
-} from "./client";
+import { serverDb } from "./server";
 import {
   collection,
   doc,
@@ -29,7 +26,7 @@ export async function saveDocument(
   data: any
 ) {
   try {
-    const docRef = doc(firebaseDb, collectionName, docId);
+    const docRef = doc(serverDb, collectionName, docId);
     await setDoc(docRef, data, { merge: true });
     return { success: true, id: docId };
   } catch (error) {
@@ -43,7 +40,7 @@ export async function saveDocument(
  */
 export async function getDocument(collectionName: string, docId: string) {
   try {
-    const docRef = doc(firebaseDb, collectionName, docId);
+    const docRef = doc(serverDb, collectionName, docId);
     const snapshot = await getDoc(docRef);
     if (snapshot.exists()) {
       return { id: snapshot.id, ...snapshot.data() };
@@ -63,7 +60,7 @@ export async function queryCollection(
   constraints: QueryConstraint[] = []
 ) {
   try {
-    const collectionRef = collection(firebaseDb, collectionName);
+    const collectionRef = collection(serverDb, collectionName);
     const q = query(collectionRef, ...constraints);
     const snapshot = await getDocs(q);
     return snapshot.docs.map((doc) => ({
@@ -85,7 +82,7 @@ export async function updateDocument(
   data: any
 ) {
   try {
-    const docRef = doc(firebaseDb, collectionName, docId);
+    const docRef = doc(serverDb, collectionName, docId);
     await updateDoc(docRef, data);
     return { success: true };
   } catch (error) {
@@ -99,7 +96,7 @@ export async function updateDocument(
  */
 export async function deleteDocument(collectionName: string, docId: string) {
   try {
-    const docRef = doc(firebaseDb, collectionName, docId);
+    const docRef = doc(serverDb, collectionName, docId);
     await deleteDoc(docRef);
     return { success: true };
   } catch (error) {
@@ -113,7 +110,7 @@ export async function deleteDocument(collectionName: string, docId: string) {
  */
 export async function addDocument(collectionName: string, data: any) {
   try {
-    const collectionRef = collection(firebaseDb, collectionName);
+    const collectionRef = collection(serverDb, collectionName);
     const timestamp = new Date().toISOString();
     const dataWithTimestamp = {
       ...data,
@@ -141,7 +138,7 @@ export async function documentExists(
   docId: string
 ): Promise<boolean> {
   try {
-    const docRef = doc(firebaseDb, collectionName, docId);
+    const docRef = doc(serverDb, collectionName, docId);
     const snapshot = await getDoc(docRef);
     return snapshot.exists();
   } catch (error) {

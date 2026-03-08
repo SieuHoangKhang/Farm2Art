@@ -31,34 +31,11 @@ export function HeaderAuthControls() {
 
       <Link
         href={user ? "/account" : "/login"}
-        aria-label={user ? "Tài khoản" : "Đăng nhập"}
-        title={user ? "Tài khoản" : "Đăng nhập"}
-        className="inline-flex items-center justify-center rounded-xl px-3 py-2 text-stone-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all duration-200"
+        className="inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm text-stone-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all duration-200"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-5 w-5"
-        >
-          <path d="M20 21a8 8 0 0 0-16 0" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-        <span className="sr-only">{user ? "Tài khoản" : "Đăng nhập"}</span>
+        {user ? "Tài khoản" : "Đăng nhập"}
       </Link>
 
-      {!user && (
-        <Link
-          href="/register"
-          className="hidden md:inline-flex items-center rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:from-emerald-700 hover:to-emerald-600 shadow-sm hover:shadow-md transition-all duration-200"
-        >
-          Đăng ký
-        </Link>
-      )}
     </div>
   );
 }

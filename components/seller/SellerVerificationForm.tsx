@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuthUser } from '@/lib/auth/useAuthUser';
+import { notify } from '@/lib/utils/notify';
 
 export default function SellerVerificationForm() {
   const { user } = useAuthUser();
@@ -51,7 +52,7 @@ export default function SellerVerificationForm() {
       setSubmitted(true);
     } catch (error) {
       console.error('Verification error:', error);
-      alert('Lỗi khi gửi yêu cầu xác thực');
+      notify.error('Lỗi khi gửi yêu cầu xác thực');
     } finally {
       setLoading(false);
     }
@@ -60,7 +61,7 @@ export default function SellerVerificationForm() {
   if (submitted) {
     return (
       <div className="bg-green-50 border border-green-200 rounded-lg p-8 text-center">
-        <div className="text-4xl mb-4">✅</div>
+        <div className="text-4xl mb-4"></div>
         <h2 className="text-2xl font-semibold text-green-900 mb-2">Yêu cầu đã được gửi</h2>
         <p className="text-green-700 mb-4">
           Chúng tôi sẽ kiểm tra tài liệu của bạn trong vòng 3-5 ngày làm việc
@@ -231,7 +232,7 @@ export default function SellerVerificationForm() {
         {/* Disclaimer */}
         <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
           <p className="text-sm text-stone-800">
-            📋 Xác thực sẽ mất 3-5 ngày làm việc. Vui lòng cung cấp thông tin chính xác để tránh từ chối.
+             Xác thực sẽ mất 3-5 ngày làm việc. Vui lòng cung cấp thông tin chính xác để tránh từ chối.
           </p>
         </div>
 

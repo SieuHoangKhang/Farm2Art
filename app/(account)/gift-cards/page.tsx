@@ -5,6 +5,7 @@ import { RequireAuth } from '@/components/auth/RequireAuth';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Container } from '@/components/ui/Container';
 import { Card, CardBody } from '@/components/ui/Card';
+import { notify } from '@/lib/utils/notify';
 
 interface GiftCard {
   id: string;
@@ -59,7 +60,7 @@ export default function GiftCardsPage() {
 
   const handlePurchase = async () => {
     if (!selectedAmount || !recipientEmail) {
-      alert('Vui lòng chọn giá trị và nhập email');
+      notify.error('Vui lòng chọn giá trị và nhập email');
       return;
     }
 
@@ -79,7 +80,8 @@ export default function GiftCardsPage() {
       setGiftCards([...giftCards, newCard]);
       setSelectedAmount(null);
       setRecipientEmail('');
-      alert(`Thẻ quà tặng đã được tạo! Mã: ${newCard.code}\nSẽ gửi email tới ${recipientEmail}`);
+      notify.success(`Thẻ quà tặng đã được tạo! Mã: ${newCard.code}`);
+      notify.info(`Sẽ gửi email tới ${recipientEmail}`);
     } catch (error) {
       console.error('Purchase failed:', error);
     } finally {
@@ -89,7 +91,7 @@ export default function GiftCardsPage() {
 
   const handleRedeem = async () => {
     if (!redeemCode) {
-      alert('Vui lòng nhập mã thẻ');
+      notify.error('Vui lòng nhập mã thẻ');
       return;
     }
 
@@ -99,9 +101,9 @@ export default function GiftCardsPage() {
       // Mock redeem
       const matchedCard = giftCards.find(c => c.code === redeemCode.trim());
       if (matchedCard) {
-        alert(`Đã kích hoạt thẻ quà tặng! Cộng ${matchedCard.balance.toLocaleString('vi-VN')} VNĐ vào tài khoản của bạn`);
+        notify.success(`Đã kích hoạt thẻ quà tặng! Cộng ${matchedCard.balance.toLocaleString('vi-VN')} VNĐ vào tài khoản của bạn`);
       } else {
-        alert(`Đã kích hoạt thẻ quà tặng thành công!`);
+        notify.success('Đã kích hoạt thẻ quà tặng thành công!');
       }
       setRedeemCode('');
     } catch (error) {
@@ -130,8 +132,8 @@ export default function GiftCardsPage() {
                 }`}
               >
                 {tab === 'my-cards' && '🎁 Thẻ của tôi'}
-                {tab === 'purchase' && '💳 Mua thẻ'}
-                {tab === 'redeem' && '🎯 Kích hoạt'}
+                {tab === 'purchase' && ' Mua thẻ'}
+                {tab === 'redeem' && ' Kích hoạt'}
               </button>
             ))}
           </div>

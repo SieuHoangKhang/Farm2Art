@@ -85,7 +85,7 @@ export default function AdminDashboard({ onClose }: { onClose: () => void }) {
       <div className="fixed bottom-24 right-6 w-full max-w-2xl h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-sage-200 overflow-hidden">
         {/* Header */}
         <div className="flex justify-between items-center bg-purple-500 text-white p-4 rounded-t-lg">
-          <h2 className="font-semibold text-lg">⚙️ Quản lý tin nhắn</h2>
+          <h2 className="font-semibold text-lg"> Quản lý tin nhắn</h2>
           <button
             onClick={onClose}
             className="hover:bg-purple-600 p-1 rounded transition-colors"

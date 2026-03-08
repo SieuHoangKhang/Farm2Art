@@ -15,6 +15,7 @@ const STATUS_MAP: Record<VerificationStatus, { label: string; color: string }> =
 };
 
 export default function AdminSellerVerificationPage() {
+  const VERIFICATION_COLLECTION = "seller_verifications";
   const [items, setItems] = useState<SellerVerification[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
@@ -26,7 +27,7 @@ export default function AdminSellerVerificationPage() {
 
   async function load() {
     try {
-      const snap = await getDocs(query(collection(firebaseDb, "sellerVerifications"), orderBy("documentSubmittedAt", "desc")));
+      const snap = await getDocs(query(collection(firebaseDb, VERIFICATION_COLLECTION), orderBy("documentSubmittedAt", "desc")));
       setItems(snap.docs.map((d) => ({ sellerId: d.id, ...d.data() } as SellerVerification)));
     } catch (err) {
       console.error("Load verification error:", err);
@@ -39,11 +40,11 @@ export default function AdminSellerVerificationPage() {
     try {
       setSaving(sellerId);
       const data = { status: "approved" as VerificationStatus, approvedAt: Date.now(), verificationBadge: true };
-      await updateDoc(doc(firebaseDb, "sellerVerifications", sellerId), data);
+      await updateDoc(doc(firebaseDb, VERIFICATION_COLLECTION, sellerId), data);
       const userRef = doc(firebaseDb, "users", sellerId);
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
-        await updateDoc(userRef, { sellerVerified: true, role: "seller" });
+        await updateDoc(userRef, { sellerVerified: true, role: "user" });
       }
       setItems((prev) => prev.map((v) => v.sellerId === sellerId ? { ...v, ...data } : v));
       showToast("Đã phê duyệt seller");
@@ -61,7 +62,7 @@ export default function AdminSellerVerificationPage() {
     try {
       setSaving(sellerId);
       const data = { status: "rejected" as VerificationStatus, rejectionReason: reason || "Không đạt yêu cầu" };
-      await updateDoc(doc(firebaseDb, "sellerVerifications", sellerId), data);
+      await updateDoc(doc(firebaseDb, VERIFICATION_COLLECTION, sellerId), data);
       setItems((prev) => prev.map((v) => v.sellerId === sellerId ? { ...v, ...data } : v));
       showToast("Đã từ chối yêu cầu");
     } catch (err) {

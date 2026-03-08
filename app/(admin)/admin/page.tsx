@@ -14,7 +14,9 @@ type Stats = {
   totalUsers: number;
   totalListings: number;
   totalOrders: number;
-  totalRevenue: number;
+  totalTransactionValue: number;
+  platformRevenue: number;
+  totalSellerPayout: number;
   pendingVerifications: number;
   activeListings: number;
 };
@@ -23,10 +25,18 @@ export default function AdminOverviewPage() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [recentUsers, setRecentUsers] = useState<AppUser[]>([]);
   const [recentListings, setRecentListings] = useState<Listing[]>([]);
+  const [pendingListings, setPendingListings] = useState<Listing[]>([]);
   const [recentOrders, setRecentOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { loadDashboard(); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) loadDashboard();
+  }, [mounted]);
 
   async function loadDashboard() {
     try {
@@ -34,6 +44,7 @@ export default function AdminOverviewPage() {
         usersSnap, listingsSnap, ordersSnap,
         activeListingsSnap, pendingVerSnap,
         recentUsersSnap, recentListingsSnap, recentOrdersSnap,
+        pendingListingsSnap,
       ] = await Promise.all([
         getCountFromServer(collection(firebaseDb, "users")),
         getCountFromServer(collection(firebaseDb, "listings")),
@@ -43,20 +54,34 @@ export default function AdminOverviewPage() {
         getDocs(query(collection(firebaseDb, "users"), orderBy("createdAt", "desc"), limit(5))),
         getDocs(query(collection(firebaseDb, "listings"), orderBy("createdAt", "desc"), limit(5))),
         getDocs(query(collection(firebaseDb, "orders"), orderBy("createdAt", "desc"), limit(5))),
+        getDocs(query(collection(firebaseDb, "listings"), where("approvalStatus", "==", "pending_approval"), orderBy("createdAt", "desc"), limit(5))),
       ]);
 
-      let totalRevenue = 0;
+      let totalTransactionValue = 0;
+      let platformRevenue = 0;
+      let totalSellerPayout = 0;
       const allOrders = await getDocs(collection(firebaseDb, "orders"));
       allOrders.forEach((d) => {
         const o = d.data();
-        if (o.status !== "cancelled") totalRevenue += o.totalAmount || 0;
+        if (o.status !== "cancelled") {
+          const orderTotal = o.grandTotal ?? ((o.subTotal ?? o.totalAmount) + (o.platformFee ?? 0) + (o.warehouseService?.serviceFeeTotal ?? 0));
+          const subTotal = (o.subTotal ?? o.totalAmount) || 0;
+          const platformFee = o.platformFee ?? Math.round(subTotal * 0.025);
+          const sellerPayout = o.sellerPayout ?? Math.max(subTotal - platformFee, 0);
+          
+          totalTransactionValue += orderTotal;
+          platformRevenue += platformFee;
+          totalSellerPayout += sellerPayout;
+        }
       });
 
       setStats({
         totalUsers: usersSnap.data().count,
         totalListings: listingsSnap.data().count,
         totalOrders: ordersSnap.data().count,
-        totalRevenue,
+        totalTransactionValue,
+        platformRevenue,
+        totalSellerPayout,
         activeListings: activeListingsSnap.data().count,
         pendingVerifications: pendingVerSnap.data().count,
       });
@@ -64,6 +89,7 @@ export default function AdminOverviewPage() {
       setRecentUsers(recentUsersSnap.docs.map((d) => ({ uid: d.id, ...d.data() } as AppUser)));
       setRecentListings(recentListingsSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Listing)));
       setRecentOrders(recentOrdersSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Order)));
+      setPendingListings(pendingListingsSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Listing)));
     } catch (err) {
       console.error("Dashboard load error:", err);
     } finally {
@@ -74,6 +100,7 @@ export default function AdminOverviewPage() {
   const fmt = (n: number) => new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
   const fmtDate = (ts: number) => new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
   const fmtTime = (ts: number) => new Date(ts).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+  const getOrderTotal = (order: Order) => order.grandTotal ?? (order.subTotal ?? order.totalAmount) + (order.platformFee ?? 0) + (order.warehouseService?.serviceFeeTotal ?? 0);
 
   const statusColors: Record<string, string> = {
     pending: "bg-yellow-100 text-yellow-800",
@@ -88,12 +115,12 @@ export default function AdminOverviewPage() {
     delivered: "Đã giao", completed: "Hoàn thành", cancelled: "Đã hủy",
   };
 
-  if (loading) {
+  if (!mounted || loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-40 rounded-2xl bg-emerald-100/50" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-          {[1, 2, 3, 4].map((i) => <div key={i} className="h-32 bg-white/80 rounded-2xl border border-sage-200" />)}
+        <div className="h-40 rounded-2xl bg-slate-200" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+          {[1, 2, 3, 4, 5, 6].map((i) => <div key={i} className="h-32 bg-white/80 rounded-2xl border border-slate-200" />)}
         </div>
       </div>
     );
@@ -116,9 +143,19 @@ export default function AdminOverviewPage() {
       icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>,
     },
     {
-      label: "Doanh thu", value: fmt(stats?.totalRevenue ?? 0), link: "/admin/orders",
+      label: "Tổng GTGD", value: fmt(stats?.totalTransactionValue ?? 0), subLabel: "Giá trị giao dịch trên sàn", link: "/admin/orders",
       gradient: "from-purple-500 to-purple-600", bgLight: "bg-purple-50", textColor: "text-purple-600", shadowColor: "shadow-purple-500/20",
+      icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></svg>,
+    },
+    {
+      label: "Doanh thu sàn", value: fmt(stats?.platformRevenue ?? 0), subLabel: "Phí nền tảng (2.5%)", link: "/admin/orders",
+      gradient: "from-green-500 to-green-600", bgLight: "bg-green-50", textColor: "text-green-600", shadowColor: "shadow-green-500/20",
       icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+    },
+    {
+      label: "Trả người bán", value: fmt(stats?.totalSellerPayout ?? 0), subLabel: "Tổng tiền người bán nhận", link: "/admin/orders",
+      gradient: "from-orange-400 to-orange-500", bgLight: "bg-orange-50", textColor: "text-orange-600", shadowColor: "shadow-orange-500/20",
+      icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
     },
   ];
 
@@ -149,7 +186,7 @@ export default function AdminOverviewPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
         {kpis.map((kpi, i) => (
           <Link key={kpi.label} href={kpi.link} className="group animate-fadeInUp" style={{ animationDelay: `${(i + 1) * 100}ms` }}>
             <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 p-5 hover:shadow-lg hover:border-emerald-200/60 transition-all duration-300 hover-lift overflow-hidden">
@@ -174,11 +211,45 @@ export default function AdminOverviewPage() {
 
       {/* Recent sections */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        {/* Recent Orders */}
+        {/* Pending Listings - NEW */}
+        <div className="animate-fadeInUp bg-white/90 backdrop-blur-sm rounded-2xl border border-blue-200/60 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden ring-1 ring-blue-100 xl:col-span-2" style={{ animationDelay: '450ms' }}>
+          <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-blue-50/80 via-white to-blue-50/40">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">!</span>
+              <h3 className="font-semibold text-blue-900">⏳ Tin đăng chờ duyệt</h3>
+              {pendingListings.length > 0 && <span className="ml-2 px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 text-xs font-bold">{pendingListings.length}</span>}
+            </div>
+            <Link href="/admin/listings?approval=pending_approval" className="text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors">Xem tất cả →</Link>
+          </div>
+          <div className="h-px bg-gradient-to-r from-blue-300/40 via-blue-300/20 to-transparent" />
+          {pendingListings.length === 0 ? (
+            <div className="py-16 text-center text-stone-400 text-sm">✅ Không có tin chờ duyệt</div>
+          ) : (
+            <div className="divide-y divide-stone-100/60">
+              {pendingListings.map((l, i) => (
+                <Link key={l.id} href={`/admin/listings?approval=pending_approval`} className="px-6 py-4 hover:bg-blue-50/50 transition-colors duration-200 flex items-center justify-between group">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-stone-700 truncate">{l.title}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${l.type === "art" ? "bg-purple-100 text-purple-700" : "bg-amber-100 text-amber-700"}`}>
+                        {l.type === "art" ? "Nghệ thuật" : "Phụ phẩm"}
+                      </span>
+                      <span className="text-xs text-stone-500">Người bán: {l.sellerId.slice(0, 8)}...</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 ml-3 flex-shrink-0">
+                    <span className="text-sm font-bold text-stone-800">{fmt(l.price)}</span>
+                    <svg className="w-4 h-4 text-stone-300 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
         <div className="animate-fadeInUp bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden" style={{ animationDelay: '500ms' }}>
           <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-emerald-50/80 via-white to-cream-50/60">
-            <h3 className="font-semibold text-amber-900">Đơn hàng gần đây</h3>
-            <Link href="/admin/orders" className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">Xem tất cả →</Link>
+            <h3 className="font-semibold text-amber-900">Lịch sử đơn hàng</h3>
+            <Link href="/admin/orders" className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">Xem tất cả </Link>
           </div>
           <div className="h-px bg-gradient-to-r from-emerald-300/40 via-amber-300/30 to-transparent" />
           {recentOrders.length === 0 ? (
@@ -193,7 +264,7 @@ export default function AdminOverviewPage() {
                       <p className="text-xs text-stone-400 mt-0.5">{fmtTime(order.createdAt)}</p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-bold text-stone-800">{fmt(order.totalAmount)}</span>
+                      <span className="text-sm font-bold text-stone-800">{fmt(getOrderTotal(order))}</span>
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[order.status] || "bg-stone-100 text-stone-600"}`}>
                         {statusLabels[order.status] || order.status}
                       </span>
@@ -209,7 +280,7 @@ export default function AdminOverviewPage() {
         <div className="animate-fadeInUp bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden" style={{ animationDelay: '600ms' }}>
           <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-emerald-50/80 via-white to-cream-50/60">
             <h3 className="font-semibold text-amber-900">Người dùng mới</h3>
-            <Link href="/admin/users" className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">Xem tất cả →</Link>
+            <Link href="/admin/users" className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">Xem tất cả </Link>
           </div>
           <div className="h-px bg-gradient-to-r from-emerald-300/40 via-amber-300/30 to-transparent" />
           {recentUsers.length === 0 ? (
@@ -226,11 +297,9 @@ export default function AdminOverviewPage() {
                     <p className="text-xs text-stone-400 truncate">{u.email}</p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    u.role === "admin" ? "bg-purple-100 text-purple-800" :
-                    u.role === "seller" ? "bg-green-100 text-green-800" :
-                    "bg-stone-100 text-stone-600"
+                    u.role === "admin" ? "bg-purple-100 text-purple-800" : "bg-stone-100 text-stone-600"
                   }`}>
-                    {u.role === "admin" ? "Admin" : u.role === "seller" ? "Seller" : "User"}
+                    {u.role === "admin" ? "Admin" : "User"}
                   </span>
                 </div>
               ))}
@@ -242,7 +311,7 @@ export default function AdminOverviewPage() {
         <div className="animate-fadeInUp bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden xl:col-span-2" style={{ animationDelay: '700ms' }}>
           <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-emerald-50/80 via-white to-cream-50/60">
             <h3 className="font-semibold text-amber-900">Tin đăng gần đây</h3>
-            <Link href="/admin/listings" className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">Xem tất cả →</Link>
+            <Link href="/admin/listings" className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">Xem tất cả </Link>
           </div>
           <div className="h-px bg-gradient-to-r from-emerald-300/40 via-amber-300/30 to-transparent" />
           {recentListings.length === 0 ? (

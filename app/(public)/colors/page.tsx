@@ -140,12 +140,12 @@ export default function ColorPalettePage() {
 
           {/* Semantic Colors */}
           <section>
-            <h2 className="mb-6 text-3xl font-bold text-amber-900">📊 Màu Trạng Thái</h2>
+            <h2 className="mb-6 text-3xl font-bold text-amber-900"> Màu Trạng Thái</h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {/* Success */}
               <Card>
                 <div className="bg-emerald-500 h-40 rounded-t-lg flex items-center justify-center">
-                  <span className="text-white text-4xl">✅</span>
+                  <span className="text-white text-4xl"></span>
                 </div>
                 <CardBody>
                   <h3 className="font-bold text-emerald-700 text-lg">Success</h3>
@@ -215,11 +215,11 @@ export default function ColorPalettePage() {
                 <CardBody>
                   <h3 className="font-bold text-amber-900 text-lg mb-4">Badges & Tags</h3>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">✅ Active</span>
+                    <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold"> Active</span>
                     <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold">⚠️ Pending</span>
                     <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold">❌ Inactive</span>
                     <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">ℹ️ Info</span>
-                    <span className="px-3 py-1 rounded-full bg-sage-100 text-sage-700 text-xs font-semibold">🌱 Featured</span>
+                    <span className="px-3 py-1 rounded-full bg-sage-100 text-sage-700 text-xs font-semibold"> Featured</span>
                   </div>
                 </CardBody>
               </Card>
@@ -242,14 +242,14 @@ export default function ColorPalettePage() {
           <section>
             <Card className="border-l-4 border-emerald-500 bg-emerald-50">
               <CardBody>
-                <h3 className="font-bold text-emerald-900 text-lg mb-3">📋 Hướng Dẫn Sử Dụng</h3>
+                <h3 className="font-bold text-emerald-900 text-lg mb-3"> Hướng Dẫn Sử Dụng</h3>
                 <ul className="space-y-2 text-sm text-stone-700">
-                  <li>✅ <strong>Primary Actions:</strong> Sử dụng Emerald Green (#10B981) cho buttons chính và CTAs</li>
-                  <li>✅ <strong>Headings:</strong> Sử dụng Earth Brown (#92400E) cho tiêu đề chính, Dark Stone (#292524) cho tiêu đề phụ</li>
-                  <li>✅ <strong>Body Text:</strong> Sử dụng Stone Gray (#78716C) cho nội dung chính</li>
-                  <li>✅ <strong>Backgrounds:</strong> Sử dụng Cream (#FEFCE8) cho main background, Stone-100 cho secondary</li>
-                  <li>✅ <strong>Accents:</strong> Sử dụng Golden Yellow (#FBBF24) cho highlights và special items</li>
-                  <li>✅ <strong>Borders:</strong> Sử dụng Sage Green (#6B7D50) cho borders và dividers</li>
+                  <li> <strong>Primary Actions:</strong> Sử dụng Emerald Green (#10B981) cho buttons chính và CTAs</li>
+                  <li> <strong>Headings:</strong> Sử dụng Earth Brown (#92400E) cho tiêu đề chính, Dark Stone (#292524) cho tiêu đề phụ</li>
+                  <li> <strong>Body Text:</strong> Sử dụng Stone Gray (#78716C) cho nội dung chính</li>
+                  <li> <strong>Backgrounds:</strong> Sử dụng Cream (#FEFCE8) cho main background, Stone-100 cho secondary</li>
+                  <li> <strong>Accents:</strong> Sử dụng Golden Yellow (#FBBF24) cho highlights và special items</li>
+                  <li> <strong>Borders:</strong> Sử dụng Sage Green (#6B7D50) cho borders và dividers</li>
                 </ul>
               </CardBody>
             </Card>

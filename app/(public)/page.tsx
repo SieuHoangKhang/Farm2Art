@@ -133,7 +133,7 @@ export default function HomePage() {
               <div className="mt-3 h-1 w-12 rounded-full bg-gradient-to-r from-emerald-500 to-amber-400" />
             </div>
             <LinkButton href="/search" variant="ghost" className="text-emerald-600 hover:text-emerald-700 !px-3">
-              Xem tất cả →
+              Xem tất cả 
             </LinkButton>
           </div>
 
@@ -253,11 +253,8 @@ export default function HomePage() {
                 Tham gia Farm2Art ngay hôm nay để kết nối với hàng trăm nông dân và nghệ nhân trên khắp Việt Nam.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
-                <LinkButton href="/register" variant="golden" className="!px-8 !py-3 text-base shadow-lg">
-                  Đăng ký miễn phí
-                </LinkButton>
-                <LinkButton href="/search" variant="ghost" className="!text-white border border-white/30 hover:!bg-white/10 !px-8 !py-3 text-base">
-                  Xem sản phẩm
+                <LinkButton href="/login" variant="ghost" className="!text-white border border-white/30 hover:!bg-white/10 !px-8 !py-3 text-base">
+                  Đăng nhập
                 </LinkButton>
               </div>
             </div>

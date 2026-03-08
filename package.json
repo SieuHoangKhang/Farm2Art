@@ -6,14 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "backfill:orders": "node scripts/backfill-order-fees.mjs",
+    "backfill:orders:dry": "node scripts/backfill-order-fees.mjs --dry-run",
+    "migrate:seller-verifications": "node scripts/migrate-seller-verifications.mjs",
+    "migrate:seller-verifications:dry": "node scripts/migrate-seller-verifications.mjs --dry-run",
+    "audit:orders": "node scripts/audit-order-fees.mjs",
+    "audit:orders:fix": "node scripts/audit-order-fees.mjs --fix",
+    "test:vnpay-amount": "node scripts/test-vnpay-amount-regression.mjs"
   },
   "dependencies": {
     "firebase": "^12.7.0",
     "firebase-admin": "^13.6.0",
     "next": "^15.1.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sonner": "^2.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

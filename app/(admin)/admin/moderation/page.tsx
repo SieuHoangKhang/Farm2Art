@@ -133,7 +133,7 @@ export default function ModerationPage() {
                       onClick={() => handleHide(listing.id)}
                       className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm font-medium"
                     >
-                      ✕ Ẩn bài
+                       Ẩn bài
                     </button>
                   </div>
                 </div>

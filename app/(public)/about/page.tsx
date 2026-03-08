@@ -88,7 +88,7 @@ export default function AboutPage() {
           <Card>
             <CardBody>
               <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-2xl">
-                🌱
+                
               </div>
               <p className="text-base font-semibold text-stone-900">Sứ mệnh</p>
               <p className="mt-2 text-sm text-stone-600 leading-relaxed">
@@ -166,13 +166,13 @@ export default function AboutPage() {
           <div className="relative">
             <h2 className="text-xl font-bold text-white">Liên hệ</h2>
             <p className="mt-4 text-sm text-emerald-100/80">
-              📧 Email: <span className="font-semibold text-white">support@farm2art.vn</span>
+               Email: <span className="font-semibold text-white">support@farm2art.vn</span>
             </p>
             <p className="mt-2 text-sm text-emerald-100/80">
-              📞 Hotline: <span className="font-semibold text-white">1900 0000</span>
+               Hotline: <span className="font-semibold text-white">1900 0000</span>
             </p>
             <p className="mt-5 text-xs text-emerald-200/50">
-              Farm2Art — Trao giá trị mới cho phụ phẩm nông nghiệp 🌱
+              Farm2Art — Trao giá trị mới cho phụ phẩm nông nghiệp 
             </p>
           </div>
         </div>

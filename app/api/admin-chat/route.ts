@@ -5,7 +5,29 @@ import {
   findDocuments,
   updateDocument,
 } from '@/lib/firebase/firestore-utils';
-import { where, orderBy } from 'firebase/firestore';
+import { orderBy } from 'firebase/firestore';
+
+async function markConversationAsRead(userId: string) {
+  const messages = await findDocuments('admin_chat_messages', 'userId', userId);
+  const unreadUserMessages = (messages as any[]).filter(
+    (msg) => !msg.isAdmin && !msg.read
+  );
+
+  if (unreadUserMessages.length === 0) {
+    return 0;
+  }
+
+  await Promise.all(
+    unreadUserMessages.map((msg) =>
+      updateDocument('admin_chat_messages', msg.id, {
+        read: true,
+        updatedAt: new Date().toISOString(),
+      })
+    )
+  );
+
+  return unreadUserMessages.length;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -65,6 +87,14 @@ export async function GET(request: NextRequest) {
         conversations[msg.userId].push(msg);
       });
 
+      // Sắp xếp lại theo thời gian mới nhất trong mỗi conversation
+      Object.keys(conversations).forEach(uid => {
+        conversations[uid].sort(
+          (a, b) =>
+            new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+        );
+      });
+
       return NextResponse.json({ conversations }, { status: 200 });
     }
 
@@ -107,16 +137,43 @@ export async function PUT(request: NextRequest) {
       read: false,
     });
 
+    const markedCount = await markConversationAsRead(userId);
+
     console.log('Admin reply saved to Firestore:', adminMessage.id);
+    console.log(`Marked ${markedCount} messages as read for user ${userId}`);
 
     return NextResponse.json(
-      { success: true, messageId: adminMessage.id },
+      { success: true, messageId: adminMessage.id, markedRead: markedCount },
       { status: 200 }
     );
   } catch (error: any) {
     console.error('Admin reply error:', error);
     return NextResponse.json(
       { error: error?.message || 'Failed to save reply' },
+      { status: 500 }
+    );
+  }
+}
+
+// Mark all user messages in a conversation as read (used when admin opens a thread)
+export async function PATCH(request: NextRequest) {
+  try {
+    const { userId } = await request.json();
+
+    if (!userId) {
+      return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
+    }
+
+    const markedCount = await markConversationAsRead(userId);
+
+    return NextResponse.json(
+      { success: true, markedRead: markedCount },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error('Mark read error:', error);
+    return NextResponse.json(
+      { error: error?.message || 'Failed to mark messages as read' },
       { status: 500 }
     );
   }

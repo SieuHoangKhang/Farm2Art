@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuthUser } from '@/lib/auth/useAuthUser';
+import { notify } from '@/lib/utils/notify';
 
 interface WishlistButtonProps {
   productId: string;
@@ -62,7 +63,7 @@ export default function WishlistButton({
       }
     } catch (error) {
       console.error('Wishlist toggle error:', error);
-      alert('Đã xảy ra lỗi, vui lòng thử lại');
+      notify.error('Đã xảy ra lỗi, vui lòng thử lại');
     } finally {
       setLoading(false);
     }

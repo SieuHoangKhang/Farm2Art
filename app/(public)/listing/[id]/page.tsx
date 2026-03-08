@@ -8,7 +8,13 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { Button, LinkButton } from "@/components/ui/Button";
 import { useAuthUser } from "@/lib/auth/useAuthUser";
 import { firebaseDb } from "@/lib/firebase/client";
-import type { Listing } from "@/types/listing";
+import type { Listing, ProcessingPreference } from "@/types/listing";
+import ProductRatings from "@/components/listing/ProductRatings";
+import ReviewForm from "@/components/listing/ReviewForm";
+
+const STORAGE_FEE_PER_DAY = 2000;
+const PROCESSING_FEE_WAREHOUSE = 15000;
+const SHIPPING_FEE_WAREHOUSE = 30000;
 
 export default function ListingDetailPage() {
   const params = useParams();
@@ -19,7 +25,9 @@ export default function ListingDetailPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [buyLoading, setBuyLoading] = useState(false);
-  const [seller, setSeller] = useState<{ name: string; id: string } | null>(null);
+  const [reviewRefreshKey, setReviewRefreshKey] = useState(0);
+  const [seller, setSeller] = useState<{ name: string; id: string; avatarUrl?: string | null } | null>(null);
+  const [isUnapproved, setIsUnapproved] = useState(false);
 
   useEffect(() => {
     async function loadListing() {
@@ -34,13 +42,38 @@ export default function ListingDetailPage() {
         }
 
         const data = { id: docSnap.id, ...docSnap.data() } as Listing;
-        setListing(data);
+        const normalizedSellerId = data.sellerId || data.ownerId || "";
+
+        // 🔐 Check approval status
+        if (data.approvalStatus !== "approved") {
+          // Chỉ seller hoặc admin mới có thể xem
+          if (user?.uid !== normalizedSellerId) {
+            setIsUnapproved(true);
+            setLoading(false);
+            return;
+          }
+        }
+
+        const normalizedListing = {
+          ...data,
+          sellerId: normalizedSellerId,
+          processingPreference: data.processingPreference || "buyer_choice",
+        } as Listing;
+        console.log(" Listing loaded:", { id: data.id, title: data.title, imagesCount: data.images?.length || 0, images: data.images });
+        setListing(normalizedListing);
 
         // Load seller info
-        const sellerRef = doc(firebaseDb, "users", data.sellerId);
-        const sellerSnap = await getDoc(sellerRef);
-        if (sellerSnap.exists()) {
-          setSeller({ name: sellerSnap.data().displayName || sellerSnap.id, id: sellerSnap.id });
+        if (normalizedSellerId) {
+          const sellerRef = doc(firebaseDb, "users", normalizedSellerId);
+          const sellerSnap = await getDoc(sellerRef);
+          if (sellerSnap.exists()) {
+            const sellerData = sellerSnap.data() as any;
+            setSeller({
+              name: sellerData.displayName || sellerSnap.id,
+              id: sellerSnap.id,
+              avatarUrl: sellerData.avatarUrl || null,
+            });
+          }
         }
       } catch (e) {
         setError(e instanceof Error ? e.message : "Lỗi khi tải sản phẩm");
@@ -50,7 +83,7 @@ export default function ListingDetailPage() {
     }
 
     void loadListing();
-  }, [listingId]);
+  }, [listingId, user]);
 
   async function handleBuyNow() {
     if (!user || !listing) return;
@@ -97,6 +130,58 @@ export default function ListingDetailPage() {
     );
   }
 
+  if (isUnapproved) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+        <Card className="w-full max-w-md shadow-2xl">
+          <CardBody className="text-center">
+            <div className="mb-4 flex justify-center">
+              <div className="rounded-full bg-blue-100 p-4">
+                <svg className="h-12 w-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+
+            <h2 className="mb-2 text-2xl font-bold text-blue-600">Bài đăng chưa được duyệt</h2>
+
+            <p className="mb-6 text-base text-stone-700">
+              Sản phẩm này đang chờ phê duyệt từ quản trị viên của Farm2Art.
+            </p>
+
+            <div className="mb-6 rounded-lg border-2 border-blue-200 bg-blue-50 p-4">
+              <p className="mb-3 flex items-start gap-2 text-sm">
+                <span className="mt-1 text-lg">⏳</span>
+                <span>
+                  <strong>Đang chờ duyệt</strong><br />
+                  Bài đăng sẽ được hiển thị công khai sau khi được phê duyệt bởi admin. Quá trình này thường mất vài giờ.
+                </span>
+              </p>
+            </div>
+
+            <div className="mb-4 flex flex-col gap-2 text-xs text-stone-600">
+              <div className="flex items-center gap-2">
+                <span className="text-blue-600">ℹ</span>
+                <span>Chỉ người bán mới có thể xem bài này lúc này</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-blue-600">ℹ</span>
+                <span>Bạn sẽ nhận thông báo khi bài được duyệt</span>
+              </div>
+            </div>
+
+            <Button
+              onClick={() => router.push("/my-listings")}
+              className="w-full bg-blue-600 text-white hover:bg-blue-700"
+            >
+              ← Quay lại bài đăng của tôi
+            </Button>
+          </CardBody>
+        </Card>
+      </div>
+    );
+  }
+
   if (!listing) {
     return (
       <div className="mx-auto max-w-lg px-4 py-16 text-center">
@@ -111,6 +196,19 @@ export default function ListingDetailPage() {
       </div>
     );
   }
+
+  const processingPreference: ProcessingPreference = listing.processingPreference || "buyer_choice";
+  const effectiveProcessingMode =
+    processingPreference === "self"
+      ? "seller_self"
+      : processingPreference === "warehouse"
+        ? "warehouse"
+        : "warehouse"; // Default to warehouse for preview
+  const storageFee = 2 * STORAGE_FEE_PER_DAY; // Using default 2 days for preview
+  const processingFee =
+    effectiveProcessingMode === "warehouse" ? PROCESSING_FEE_WAREHOUSE : 0;
+  const shippingFee = SHIPPING_FEE_WAREHOUSE;
+  const warehouseFeeTotal = storageFee + processingFee + shippingFee;
 
   return (
     <div className="animate-fadeIn">
@@ -130,7 +228,7 @@ export default function ListingDetailPage() {
           {/* Main Content */}
           <div className="md:col-span-2 space-y-5">
             {/* Images */}
-            {listing.images && listing.images.length > 0 && (
+            {listing.images && listing.images.length > 0 ? (
               <div className="overflow-hidden rounded-2xl border border-sage-200/60 bg-white shadow-sm">
                 <div className="aspect-[4/3] w-full overflow-hidden bg-stone-100">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -138,8 +236,17 @@ export default function ListingDetailPage() {
                     src={typeof listing.images[0] === "string" ? listing.images[0] : listing.images[0]?.secureUrl || ""}
                     alt={listing.title}
                     className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    onLoad={() => console.log(" Image loaded successfully")}
+                    onError={(e) => console.error("❌ Image failed to load:", e.currentTarget.src)}
                   />
                 </div>
+              </div>
+            ) : (
+              <div className="rounded-2xl border-2 border-dashed border-sage-200 bg-sage-50 p-8 text-center">
+                <svg className="mx-auto h-12 w-12 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p className="mt-2 text-sm text-stone-600">Chưa có hình ảnh cho sản phẩm này</p>
               </div>
             )}
 
@@ -205,16 +312,27 @@ export default function ListingDetailPage() {
               <Card>
                 <CardBody>
                   <div className="flex items-center gap-3">
-                    <div className="h-11 w-11 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-bold text-sm shadow-sm">
-                      {seller.name.charAt(0).toUpperCase()}
-                    </div>
+                    {seller.avatarUrl ? (
+                      <div className="h-11 w-11 overflow-hidden rounded-full ring-2 ring-emerald-100 shadow-sm bg-stone-100">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={seller.avatarUrl}
+                          alt={seller.name}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="h-11 w-11 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                        {seller.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
                     <div>
                       <p className="text-xs text-stone-400">Người bán</p>
                       <p className="font-semibold text-stone-800 text-sm">{seller.name}</p>
                     </div>
                   </div>
                   <LinkButton href={`/seller/${seller.id}`} variant="secondary" className="mt-4 block w-full text-center text-xs">
-                    Xem cửa hàng →
+                    Xem cửa hàng 
                   </LinkButton>
                 </CardBody>
               </Card>
@@ -223,6 +341,46 @@ export default function ListingDetailPage() {
             {/* Buy Button */}
             {user && user.uid !== listing.sellerId ? (
               <div className="space-y-3">
+                {/* Warehouse Service Info - READ ONLY (Seller bereits chose) */}
+                <Card>
+                  <CardBody>
+                    <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">🏭 Hình thức xử lý</p>
+                    <div className="mt-3 space-y-2">
+                      <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                        <p className="text-sm font-semibold text-emerald-900">
+                          {processingPreference === "self"
+                            ? "🚜 Người bán tự sơ chế"
+                            : processingPreference === "warehouse"
+                              ? "🏢 Farm2Art sơ chế"
+                              : "Người bán chọn cách xử lý cho từng đơn"}
+                        </p>
+                        <p className="text-xs text-emerald-700 mt-2">
+                          ✓ Người bán đã xác định. Bạn chỉ cần mua và thanh toán.
+                        </p>
+                      </div>
+
+                      {/* Auto-calculated fee breakdown (PREVIEW ONLY) */}
+                      <div className="rounded-lg bg-stone-50 p-3 text-xs text-stone-600 space-y-1 border border-stone-200">
+                        <p className="font-semibold text-stone-800 mb-2">💰 Phí dịch vụ (dự tính):</p>
+                        <p>Phí đi lấy: {(STORAGE_FEE_PER_DAY * 2).toLocaleString("vi-VN")} VNĐ</p>
+                        {effectiveProcessingMode === "warehouse" && (
+                          <>
+                            <p>Phí sơ chế: {processingFee.toLocaleString("vi-VN")} VNĐ</p>
+                            <p>Phí lưu kho (dự tính): {storageFee.toLocaleString("vi-VN")} VNĐ</p>
+                          </>
+                        )}
+                        <p>Phí vận chuyển: {shippingFee.toLocaleString("vi-VN")} VNĐ</p>
+                        <p className="font-semibold text-stone-800 border-t border-stone-300 pt-1 mt-1">
+                          Tổng phí: {warehouseFeeTotal.toLocaleString("vi-VN")} VNĐ
+                        </p>
+                        <p className="text-stone-500 italic text-xs mt-2">
+                          * Phí lưu kho sẽ tính chính xác theo ngày lấy hàng → sơ chế xong
+                        </p>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+
                 <Button
                   onClick={handleBuyNow}
                   disabled={buyLoading}
@@ -235,8 +393,13 @@ export default function ListingDetailPage() {
                 </LinkButton>
               </div>
             ) : user ? (
-              <div className="rounded-2xl border border-stone-200 bg-stone-50/80 p-4 text-center">
-                <p className="text-sm text-stone-500">Bạn không thể mua sản phẩm của chính mình</p>
+              <div className="space-y-3">
+                <LinkButton href={`/edit-listing/${listing.id}`} className="block w-full text-center !py-3 bg-blue-600 text-white hover:bg-blue-700">
+                   Sửa bài đăng
+                </LinkButton>
+                <LinkButton href="/my-listings" variant="secondary" className="block w-full text-center text-xs">
+                  Quản lý bài đăng
+                </LinkButton>
               </div>
             ) : (
               <div className="space-y-3">
@@ -249,6 +412,17 @@ export default function ListingDetailPage() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Reviews Section */}
+        <div className="mx-auto max-w-6xl px-4 pb-8 sm:px-6">
+          <ProductRatings productId={listingId} refreshKey={reviewRefreshKey} />
+          {user && user.uid !== listing.sellerId && (
+            <ReviewForm
+              productId={listingId}
+              onReviewSubmitted={() => setReviewRefreshKey((k) => k + 1)}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -86,9 +86,9 @@ export default function PaymentModal({
               <label className="text-sm font-medium text-stone-800">Chọn phương thức thanh toán:</label>
 
               {[
-                { value: 'vnpay', label: '💳 VNPay', desc: 'Thẻ ngân hàng / Ví điện tử' },
-                { value: 'card', label: '🏦 Thẻ tín dụng', desc: 'Visa / Mastercard' },
-                { value: 'momo', label: '📱 Momo', desc: 'Ví điện tử Momo' },
+                { value: 'vnpay', label: ' VNPay', desc: 'Thẻ ngân hàng / Ví điện tử' },
+                { value: 'card', label: ' Thẻ tín dụng', desc: 'Visa / Mastercard' },
+                { value: 'momo', label: ' Momo', desc: 'Ví điện tử Momo' },
                 { value: 'bank', label: '🏛️ Chuyển khoản', desc: 'Ngân hàng trực tiếp' },
               ].map(method => (
                 <label

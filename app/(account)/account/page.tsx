@@ -10,6 +10,7 @@ import {
   getCountFromServer,
   getDocs,
   limit,
+  onSnapshot,
   query,
   setDoc,
   where,
@@ -41,38 +42,6 @@ function shortUid(uid: string) {
   if (!uid) return "";
   if (uid.length <= 12) return uid;
   return `${uid.slice(0, 6)}…${uid.slice(-4)}`;
-}
-
-function formatDateTime(input: string | null | undefined) {
-  if (!input) return "";
-  const dt = new Date(input);
-  if (Number.isNaN(dt.getTime())) return "";
-  return dt.toLocaleString("vi-VN", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function providerLabel(providerId: string) {
-  switch (providerId) {
-    case "google.com":
-      return "Google";
-    case "facebook.com":
-      return "Facebook";
-    case "github.com":
-      return "GitHub";
-    case "apple.com":
-      return "Apple";
-    case "password":
-      return "Email/Mật khẩu";
-    case "phone":
-      return "Số điện thoại";
-    default:
-      return providerId;
-  }
 }
 
 function isFirestoreIndexError(e: unknown) {
@@ -133,20 +102,6 @@ export default function AccountPage() {
     );
   }, [profile?.displayName, user]);
 
-  const accountMeta = useMemo(() => {
-    const providers = (user?.providerData ?? [])
-      .map((p) => p.providerId)
-      .filter((v): v is string => Boolean(v));
-
-    const providerText = providers.length ? providers.map(providerLabel).join(", ") : "—";
-    const lastSignInText = formatDateTime(user?.metadata?.lastSignInTime);
-    return {
-      providerText,
-      lastSignInText,
-      emailVerified: Boolean(user?.emailVerified),
-    };
-  }, [user?.emailVerified, user?.metadata?.lastSignInTime, user?.providerData]);
-
   function resetEditFields() {
     setDisplayName(profile?.displayName ?? user?.displayName ?? "");
     setPhone(profile?.phone ?? user?.phoneNumber ?? "");
@@ -166,33 +121,66 @@ export default function AccountPage() {
       return;
     }
 
+    let unsub: (() => void) | null = null;
     let cancelled = false;
 
-    async function loadProfile() {
+    async function bootstrapAndSubscribe() {
       setProfileLoading(true);
       setProfileError(null);
       try {
-        const doc = await ensureUserDoc(user!);
-        if (cancelled) return;
-        setProfile(doc);
-        setDisplayName(doc.displayName ?? user!.displayName ?? "");
-        setPhone(doc.phone ?? user!.phoneNumber ?? "");
-        setAddress(doc.address ?? "");
-        setCity(doc.city ?? "");
-        setDistrict(doc.district ?? "");
-        setAvatarUrl(doc.avatarUrl ?? null);
+        // Ensure base doc exists (role/createdAt/backfill)
+        await ensureUserDoc(user!);
+
+        const ref = doc(firebaseDb, "users", user!.uid);
+        unsub = onSnapshot(
+          ref,
+          (snap) => {
+            if (cancelled) return;
+            if (!snap.exists()) return;
+
+            const data = snap.data() as Partial<AppUser>;
+            const role = data.role === "admin" || data.role === "user" ? data.role : "user";
+            const createdAt = typeof data.createdAt === "number" ? data.createdAt : Date.now();
+
+            const next: AppUser = {
+              uid: user!.uid,
+              role,
+              createdAt,
+              ...data,
+              uid: user!.uid,
+              role,
+              createdAt,
+            };
+
+            setProfile(next);
+            setDisplayName(next.displayName ?? user!.displayName ?? "");
+            setPhone(next.phone ?? user!.phoneNumber ?? "");
+            setAddress(next.address ?? "");
+            setCity(next.city ?? "");
+            setDistrict(next.district ?? "");
+            setAvatarUrl(next.avatarUrl ?? null);
+            setProfileLoading(false);
+          },
+          (err) => {
+            if (cancelled) return;
+            console.error("Profile subscribe error:", err);
+            setProfile(null);
+            setProfileError(err instanceof Error ? err.message : "Không thể tải hồ sơ người dùng");
+            setProfileLoading(false);
+          }
+        );
       } catch (e) {
         if (cancelled) return;
         setProfile(null);
         setProfileError(e instanceof Error ? e.message : "Không thể tải hồ sơ người dùng");
-      } finally {
-        if (!cancelled) setProfileLoading(false);
+        setProfileLoading(false);
       }
     }
 
-    void loadProfile();
+    void bootstrapAndSubscribe();
     return () => {
       cancelled = true;
+      if (unsub) unsub();
     };
   }, [user]);
 
@@ -261,15 +249,18 @@ export default function AccountPage() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET ?? "farm2art");
 
-      const cloudResponse = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        { method: "POST", body: formData }
-      );
+      const response = await fetch('/api/upload-avatar', {
+        method: 'POST',
+        body: formData,
+      });
 
-      if (!cloudResponse.ok) throw new Error("Cloudinary upload failed");
-      const cloudData = (await cloudResponse.json()) as { secure_url: string };
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Upload thất bại');
+      }
+
+      const cloudData = await response.json() as { secure_url: string };
       const newAvatarUrl = cloudData.secure_url;
 
       await setDoc(
@@ -386,7 +377,6 @@ export default function AccountPage() {
 
                 <p className="mt-1 text-sm text-stone-600">
                   {user?.email ? <span>{user.email}</span> : <span className="italic">Chưa có email</span>}
-                  {user?.uid ? <span className="ml-2 text-xs text-stone-500">• UID: {shortUid(user.uid)}</span> : null}
                 </p>
 
                 {profile?.createdAt ? (
@@ -422,7 +412,7 @@ export default function AccountPage() {
             </div>
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-5 transition-all hover:border-emerald-200 hover:shadow-md">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -451,20 +441,6 @@ export default function AccountPage() {
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-5 transition-all hover:border-emerald-200 hover:shadow-md">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Tài khoản</p>
-                  <p className="mt-2 text-xl font-bold text-stone-900">
-                    {accountMeta.emailVerified ? "✓ Đã xác minh" : "○ Chưa xác minh"}
-                  </p>
-                  <p className="mt-2 text-xs text-stone-600">{accountMeta.providerText}</p>
-                </div>
-                <div className="rounded-lg bg-emerald-100 p-2.5">
-                  <StatIcon type="account" />
-                </div>
-              </div>
-            </div>
           </div>
 
           {dataError ? <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">⚠ {dataError}</div> : null}
@@ -481,7 +457,7 @@ export default function AccountPage() {
                   <p className="mt-1 text-sm text-stone-600">Thông tin cơ bản để người khác nhận diện bạn.</p>
                 </div>
                 <LinkButton href="/profile" variant="secondary">
-                  👤 Chỉnh sửa hồ sơ
+                   Chỉnh sửa hồ sơ
                 </LinkButton>
               </div>
 
@@ -505,10 +481,6 @@ export default function AccountPage() {
                 <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
                   <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">Quận/Huyện</p>
                   <p className="mt-2 text-base font-semibold text-stone-900">{district.trim() ? district : "—"}</p>
-                </div>
-                <div className="rounded-xl border border-stone-200 bg-stone-50/40 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">UID</p>
-                  <p className="mt-2 break-all font-mono text-xs text-stone-900">{user?.uid ?? ""}</p>
                 </div>
               </div>
 
@@ -550,13 +522,13 @@ export default function AccountPage() {
               <p className="text-sm font-semibold text-stone-900">Liên kết nhanh</p>
               <div className="mt-4 space-y-2">
                 <LinkButton href="/my-listings" variant="ghost" className="justify-start h-11 text-sm font-medium">
-                  <span>📋</span> Quản lý tin đăng
+                  <span></span> Quản lý tin đăng
                 </LinkButton>
                 <LinkButton href="/conversations" variant="ghost" className="justify-start h-11 text-sm font-medium">
-                  <span>💬</span> Tin nhắn
+                  <span></span> Tin nhắn
                 </LinkButton>
                 <LinkButton href="/orders" variant="ghost" className="justify-start h-11 text-sm font-medium">
-                  <span>📦</span> Đơn hàng
+                  <span></span> Đơn hàng
                 </LinkButton>
               </div>
             </CardBody>

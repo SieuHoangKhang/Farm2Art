@@ -9,7 +9,7 @@ import { Button, LinkButton } from "@/components/ui/Button";
 import { TextField } from "@/components/ui/TextField";
 import { useAuthUser } from "@/lib/auth/useAuthUser";
 import { firebaseDb } from "@/lib/firebase/client";
-import type { Listing } from "@/types/listing";
+import type { Listing, ProcessingPreference } from "@/types/listing";
 
 export default function CreateListingPage() {
   const router = useRouter();
@@ -17,11 +17,13 @@ export default function CreateListingPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [location, setLocation] = useState("");
   const [type, setType] = useState<"byproduct" | "art">("byproduct");
+  const [processingPreference, setProcessingPreference] = useState<ProcessingPreference>("warehouse");
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [newListingId, setNewListingId] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,7 +32,7 @@ export default function CreateListingPage() {
       return;
     }
 
-    if (!title || !description || !price || !location) {
+    if (!title || !description || !price) {
       setError("Vui lòng điền đầy đủ thông tin");
       return;
     }
@@ -44,10 +46,11 @@ export default function CreateListingPage() {
         title,
         description,
         price: parseInt(price),
-        location,
         type,
+        processingPreference,
         images: images as string[],
-        status: "active",
+        status: "inactive",
+        approvalStatus: "pending_approval",
         createdAt: new Date().getTime(),
       };
 
@@ -62,7 +65,13 @@ export default function CreateListingPage() {
         await updateDoc(userRef, { listingCount: currentCount + 1 });
       }
 
-      router.push(`/listing/${docRef.id}`);
+      setNewListingId(docRef.id);
+      setSuccess(true);
+      
+      // Auto-redirect after 3.5 seconds
+      setTimeout(() => {
+        router.push(`/listing/${docRef.id}`);
+      }, 3500);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Lỗi khi tạo bài đăng");
     } finally {
@@ -75,22 +84,33 @@ export default function CreateListingPage() {
     if (!file) return;
 
     try {
-      // Upload to Cloudinary
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "");
 
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      console.log("📤 Uploading image:", file.name);
+      const response = await fetch("/api/upload-listing-image", {
         method: "POST",
         body: formData,
       });
 
-      if (!response.ok) throw new Error("Upload failed");
+      const data = await response.json().catch(() => null);
+      console.log("📥 Upload response:", data);
+      
+      if (!response.ok) {
+        const message =
+          (data && (data.error as string)) ||
+          (data?.details?.error?.message as string) ||
+          "Upload failed";
+        console.error("❌ Upload error:", message);
+        throw new Error(message);
+      }
 
-      const data = await response.json();
-      setImages([...images, data.secure_url]);
+      console.log(" Image URL:", data.secure_url);
+      setImages((prev) => [...prev, data.secure_url].filter(Boolean));
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Lỗi khi tải ảnh");
+      const msg = e instanceof Error ? e.message : "Lỗi khi tải ảnh";
+      console.error("💥 Error:", msg);
+      setError(msg);
     }
   }
 
@@ -116,6 +136,59 @@ export default function CreateListingPage() {
   return (
     <div>
       <PageHeader title="Đăng bán sản phẩm" subtitle="Chia sẻ sản phẩm của bạn với cộng đồng" />
+
+      {/* Success Modal */}
+      {success && newListingId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <Card className="w-full max-w-md shadow-2xl">
+            <CardBody className="text-center">
+              <div className="mb-4 flex justify-center">
+                <div className="rounded-full bg-emerald-100 p-4">
+                  <svg className="h-12 w-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+              
+              <h2 className="mb-2 text-2xl font-bold text-emerald-600">Tạo tin thành công!</h2>
+              
+              <p className="mb-6 text-base text-stone-700">
+                Sản phẩm "{title}" của bạn đã được tạo thành công.
+              </p>
+              
+              <div className="mb-6 rounded-lg border-2 border-emerald-200 bg-emerald-50 p-4">
+                <p className="mb-2 flex items-start gap-2 text-sm">
+                  <span className="mt-1 text-lg">⏳</span>
+                  <span>
+                    <strong>Chờ duyệt từ Admin</strong><br />
+                    Bài đăng của bạn đang được kiểm duyệt bởi admin. Quá trình này thường mất vài giờ.
+                  </span>
+                </p>
+              </div>
+
+              <div className="mb-4 flex flex-col gap-2 text-xs text-stone-600">
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-600">✓</span>
+                  <span>Tin được lưu và chờ phê duyệt</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-600">✓</span>
+                  <span>Bạn sẽ nhận thông báo khi được duyệt</span>
+                </div>
+              </div>
+
+              <p className="mb-6 text-sm text-stone-500">Chuyển hướng sau vài giây...</p>
+
+              <Button
+                onClick={() => router.push(`/listing/${newListingId}`)}
+                className="w-full bg-emerald-600 text-white hover:bg-emerald-700"
+              >
+                Xem bài đăng ngay
+              </Button>
+            </CardBody>
+          </Card>
+        </div>
+      )}
 
       <div className="mx-auto max-w-2xl px-4 py-6 sm:px-6">
         <Card>
@@ -152,14 +225,6 @@ export default function CreateListingPage() {
                 required
               />
 
-              <TextField
-                label="Địa điểm"
-                placeholder="Nhập địa điểm bán"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                required
-              />
-
               <div>
                 <label className="block text-sm font-semibold text-stone-900">Loại sản phẩm</label>
                 <div className="mt-2 space-y-2">
@@ -187,6 +252,32 @@ export default function CreateListingPage() {
               </div>
 
               <div>
+                <label className="block text-sm font-semibold text-stone-900">Phương án sơ chế</label>
+                <div className="mt-2 space-y-2">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      value="self"
+                      checked={processingPreference === "self"}
+                      onChange={(e) => setProcessingPreference(e.target.value as ProcessingPreference)}
+                      className="rounded-full"
+                    />
+                    <span className="ml-2 text-sm text-stone-700">Người bán tự sơ chế</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      value="warehouse"
+                      checked={processingPreference === "warehouse"}
+                      onChange={(e) => setProcessingPreference(e.target.value as ProcessingPreference)}
+                      className="rounded-full"
+                    />
+                    <span className="ml-2 text-sm text-stone-700">Sử dụng kho Farm2Art để sơ chế</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
                 <label className="block text-sm font-semibold text-stone-900">Ảnh</label>
                 <input
                   type="file"
@@ -195,16 +286,23 @@ export default function CreateListingPage() {
                   className="mt-2 block w-full text-sm text-stone-500"
                 />
                 {images.length > 0 && (
-                  <div className="mt-3 space-y-2">
+                  <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
                     {images.map((img, idx) => (
-                      <div key={idx} className="flex items-center justify-between rounded-lg border border-stone-200 p-2">
-                        <span className="text-sm text-stone-700">Ảnh {idx + 1}</span>
+                      <div key={idx} className="group relative">
+                        <div className="relative aspect-square overflow-hidden rounded-lg border border-stone-200 bg-stone-100">
+                          <img
+                            src={img}
+                            alt={`Preview ${idx + 1}`}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
                         <button
                           type="button"
                           onClick={() => setImages(images.filter((_, i) => i !== idx))}
-                          className="text-red-600 hover:text-red-700"
+                          className="absolute right-1 top-1 rounded-full bg-red-500/80 px-2 py-1 opacity-0 transition-opacity hover:bg-red-600 group-hover:opacity-100 text-white text-xs font-bold"
+                          title="Xóa ảnh"
                         >
-                          Xóa
+                          X
                         </button>
                       </div>
                     ))}

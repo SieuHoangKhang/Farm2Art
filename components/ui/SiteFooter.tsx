@@ -35,18 +35,18 @@ export function SiteFooter() {
               <p className="text-sm text-emerald-200/70 leading-relaxed max-w-xs">
                 Kết nối nông dân với nghệ nhân thủ công. Biến phế phẩm nông nghiệp thành sản phẩm giá trị.
               </p>
-              <div className="mt-5 flex gap-3">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-emerald-800/60 text-emerald-300 hover:bg-emerald-700 transition-colors cursor-pointer">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.864 9.864 0 01-3.127 1.195 4.916 4.916 0 00-8.384 4.482A13.944 13.944 0 011.671 3.149a4.916 4.916 0 001.523 6.574 4.897 4.897 0 01-2.229-.616v.061a4.919 4.919 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 14-7.496 14-13.986 0-.21 0-.423-.015-.634A9.935 9.935 0 0024 4.557z"/></svg>
-                </span>
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-emerald-800/60 text-emerald-300 hover:bg-emerald-700 transition-colors cursor-pointer">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.053 5.56-5.023c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.828.94z"/></svg>
-                </span>
-              </div>
             </div>
 
             {/* Links Columns */}
             {[
+              {
+                title: "Hỗ trợ",
+                links: [
+                  { href: "/policy", label: "Chính sách" },
+                  { href: "/about#lien-he", label: "Liên hệ" },
+                  { href: "/about", label: "FAQ" },
+                ],
+              },
               {
                 title: "Khám phá",
                 links: [
@@ -61,14 +61,6 @@ export function SiteFooter() {
                   { href: "/login", label: "Đăng nhập" },
                   { href: "/register", label: "Tạo tài khoản" },
                   { href: "/account", label: "Quản lý tài khoản" },
-                ],
-              },
-              {
-                title: "Hỗ trợ",
-                links: [
-                  { href: "/about#lien-he", label: "Liên hệ" },
-                  { href: "/about", label: "FAQ" },
-                  { href: "/about", label: "Chính sách" },
                 ],
               },
             ].map((col) => (
@@ -101,7 +93,7 @@ export function SiteFooter() {
                 © {currentYear} Farm2Art. Tất cả quyền được bảo lưu.
               </p>
               <p className="text-xs text-emerald-200/40">
-                🌱 Trao giá trị mới cho phụ phẩm nông nghiệp
+                 Trao giá trị mới cho phụ phẩm nông nghiệp
               </p>
             </div>
           </Container>

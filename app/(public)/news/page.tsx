@@ -69,7 +69,7 @@ export default function NewsPage() {
                     {item.excerpt}
                   </p>
                   <div className="mt-4 flex items-center text-emerald-700 font-semibold text-sm">
-                    Đọc thêm <span className="ml-2">→</span>
+                    Đọc thêm <span className="ml-2"></span>
                   </div>
                 </CardBody>
               </Card>
@@ -95,7 +95,7 @@ export default function NewsPage() {
             {/* Meta info */}
             <div className="flex items-center gap-4">
               <span className="inline-block rounded-full bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700">
-                📅 {new Date(selectedNews.date).toLocaleDateString("vi-VN")}
+                 {new Date(selectedNews.date).toLocaleDateString("vi-VN")}
               </span>
             </div>
 

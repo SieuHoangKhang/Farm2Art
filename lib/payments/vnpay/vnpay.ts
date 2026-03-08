@@ -15,6 +15,7 @@ export type CreateVnpayPaymentInput = {
   locale?: "vn" | "en";
   ipAddr: string;
   bankCode?: string;
+  ipnUrl?: string;
 };
 
 export type VnpayVerifyResult =
@@ -38,19 +39,23 @@ export function formatVnpayDate(date: Date) {
 }
 
 export function sortObject(obj: Record<string, string>) {
-  const sortedKeys = Object.keys(obj).sort();
+  const encodedKeys = Object.keys(obj)
+    .map((key) => encodeURIComponent(key))
+    .sort();
+
   const result: Record<string, string> = {};
-  for (const key of sortedKeys) result[key] = obj[key];
+  for (const encodedKey of encodedKeys) {
+    const value = obj[encodedKey] ?? obj[decodeURIComponent(encodedKey)] ?? "";
+    result[encodedKey] = encodeURIComponent(value).replace(/%20/g, "+");
+  }
   return result;
 }
 
 export function buildQueryString(params: Record<string, string>) {
-  const urlSearch = new URLSearchParams();
-  for (const [key, value] of Object.entries(params)) {
-    urlSearch.append(key, value);
-  }
-  // VNPay ký trên chuỗi query dạng key=value&... (URL-encoded)
-  return urlSearch.toString();
+  // params đã được encode tại sortObject, chỉ cần join lại
+  return Object.entries(params)
+    .map(([k, v]) => `${k}=${v}`)
+    .join("&");
 }
 
 export function hmacSha512(hexSecret: string, data: string) {
@@ -78,6 +83,7 @@ export function createPaymentUrl(config: VnpayConfig, input: CreateVnpayPaymentI
   };
 
   if (input.bankCode) vnpParams.vnp_BankCode = input.bankCode;
+  if (input.ipnUrl) vnpParams.vnp_IpnUrl = input.ipnUrl;
 
   const sorted = sortObject(vnpParams);
   const signData = buildQueryString(sorted);
@@ -85,6 +91,7 @@ export function createPaymentUrl(config: VnpayConfig, input: CreateVnpayPaymentI
 
   const finalParams: Record<string, string> = {
     ...sorted,
+    vnp_SecureHashType: "SHA512",
     vnp_SecureHash: secureHash,
   };
 

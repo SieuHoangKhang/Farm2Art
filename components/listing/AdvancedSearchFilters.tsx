@@ -160,7 +160,7 @@ export default function AdvancedSearchFilters({
                   className="w-4 h-4"
                 />
                 <span className="ml-2 text-stone-600">
-                  {stars === 0 ? 'Tất cả' : `${stars}⭐ trở lên`}
+                  {stars === 0 ? 'Tất cả' : `${stars} trở lên`}
                 </span>
               </label>
             ))}

@@ -5,18 +5,41 @@ import { Review, ProductRating } from '@/types/review';
 
 interface ProductRatingsProps {
   productId: string;
+  refreshKey?: number;
 }
 
-export default function ProductRatings({ productId }: ProductRatingsProps) {
+export default function ProductRatings({ productId, refreshKey = 0 }: ProductRatingsProps) {
   const [rating, setRating] = useState<ProductRating | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<number | 'all'>(0); // 0 = all, 1-5 = stars
+  const [filter, setFilter] = useState<number | 'all'>('all');
   const [sortBy, setSortBy] = useState<'newest' | 'helpful'>('newest');
 
   useEffect(() => {
     fetchRatings();
-  }, [productId]);
+  }, [productId, refreshKey]);
+
+  const voteReview = async (reviewId: string, action: 'helpful' | 'unhelpful') => {
+    try {
+      const res = await fetch(`/api/reviews?reviewId=${encodeURIComponent(reviewId)}&action=${action}`, {
+        method: 'PUT',
+      });
+      if (!res.ok) throw new Error('Vote failed');
+
+      setReviews((prev) =>
+        prev.map((r) => {
+          if (r.id !== reviewId) return r;
+          return {
+            ...r,
+            helpfulCount: action === 'helpful' ? r.helpfulCount + 1 : r.helpfulCount,
+            unhelpfulCount: action === 'unhelpful' ? r.unhelpfulCount + 1 : r.unhelpfulCount,
+          };
+        })
+      );
+    } catch (error) {
+      console.error('Failed to vote review:', error);
+    }
+  };
 
   const fetchRatings = async () => {
     try {
@@ -52,8 +75,8 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
     return (
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map(i => (
-          <span key={i} className={i <= stars ? '⭐' : '☆'}>
-            {i <= stars ? '⭐' : '☆'}
+          <span key={i} className={i <= stars ? 'text-amber-500' : 'text-stone-300'}>
+            {i <= stars ? '★' : '☆'}
           </span>
         ))}
       </div>
@@ -80,7 +103,7 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
           <div className="md:col-span-2">
             {[5, 4, 3, 2, 1].map(stars => (
               <div key={stars} className="flex items-center gap-2 mb-2">
-                <span className="text-sm w-12">{stars} ⭐</span>
+                <span className="text-sm w-12">{stars} </span>
                 <div className="flex-1 bg-stone-200 rounded-full h-2">
                   <div
                     className="bg-orange-400 h-2 rounded-full"
@@ -122,7 +145,7 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
                 : 'bg-stone-200 text-stone-600 hover:bg-stone-300'
             }`}
           >
-            {stars} ⭐ ({rating?.ratingDistribution[stars as keyof typeof rating.ratingDistribution] || 0})
+            {stars}  ({rating?.ratingDistribution[stars as keyof typeof rating.ratingDistribution] || 0})
           </button>
         ))}
       </div>
@@ -180,10 +203,16 @@ export default function ProductRatings({ productId }: ProductRatingsProps) {
 
               {/* Helpful Count */}
               <div className="flex gap-4 text-sm">
-                <button className="text-stone-500 hover:text-emerald-500">
+                <button
+                  className="text-stone-500 hover:text-emerald-500"
+                  onClick={() => voteReview(review.id, 'helpful')}
+                >
                   👍 Hữu ích ({review.helpfulCount})
                 </button>
-                <button className="text-stone-500 hover:text-emerald-500">
+                <button
+                  className="text-stone-500 hover:text-emerald-500"
+                  onClick={() => voteReview(review.id, 'unhelpful')}
+                >
                   👎 Không hữu ích ({review.unhelpfulCount})
                 </button>
               </div>

@@ -7,7 +7,6 @@ export interface OrderTrackingStep {
   label: string;
   description: string;
   timestamp?: number;
-  icon: string;
 }
 
 interface OrderTrackingProps {
@@ -28,31 +27,26 @@ export default function OrderTracking({
       status: 'pending',
       label: 'Chờ xác nhận',
       description: 'Đơn hàng đang chờ xác nhận từ người bán',
-      icon: '📋',
     },
     {
       status: 'confirmed',
       label: 'Đã xác nhận',
       description: 'Người bán đã xác nhận đơn hàng',
-      icon: '✓',
     },
     {
       status: 'shipped',
       label: 'Đã gửi hàng',
       description: 'Đơn hàng đã được gửi đi',
-      icon: '📦',
     },
     {
       status: 'in-transit',
       label: 'Đang vận chuyển',
       description: 'Đơn hàng đang trên đường đến bạn',
-      icon: '🚚',
     },
     {
       status: 'delivered',
       label: 'Đã giao',
       description: 'Đơn hàng đã được giao thành công',
-      icon: '🎉',
     },
   ];
 
@@ -86,7 +80,7 @@ export default function OrderTracking({
               <div key={step.status} className="relative pl-24">
                 {/* Circle */}
                 <div
-                  className={`absolute left-0 w-16 h-16 rounded-full flex items-center justify-center text-2xl transition-all ${
+                  className={`absolute left-0 w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg transition-all ${
                     isCompleted
                       ? 'bg-emerald-500 text-white'
                       : isActive
@@ -94,7 +88,7 @@ export default function OrderTracking({
                       : 'bg-stone-300 text-stone-500'
                   }`}
                 >
-                  {step.icon}
+                  {index + 1}
                 </div>
 
                 {/* Content */}

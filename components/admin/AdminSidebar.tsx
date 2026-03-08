@@ -2,9 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 
-const NAV_ITEMS = [
+interface NAV_ITEMS_TYPE {
+  label: string;
+  href: string;
+  icon: ReactNode;
+  badge?: boolean; // nếu true sẽ hiển thị số tin nhắn chưa đọc
+}
+
+const NAV_ITEMS: NAV_ITEMS_TYPE[] = [
   {
     label: "Tổng quan",
     href: "/admin",
@@ -42,6 +49,15 @@ const NAV_ITEMS = [
     ),
   },
   {
+    label: "Quản lí kho",
+    href: "/admin/warehouse",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 008.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      </svg>
+    ),
+  },
+  {
     label: "Xác minh Seller",
     href: "/admin/seller-verification",
     icon: (
@@ -53,6 +69,7 @@ const NAV_ITEMS = [
   {
     label: "Tin nhắn hỗ trợ",
     href: "/admin/messages",
+    badge: true,
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -65,6 +82,39 @@ export default function AdminSidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  // Fetch số tin nhắn chưa đọc
+  useEffect(() => {
+    async function fetchUnreadCount() {
+      try {
+        const res = await fetch("/api/admin-chat?all=true");
+        if (res.ok) {
+          const data = await res.json();
+          const conversations = data.conversations || {};
+          // Đếm tổng số tin nhắn từ user (không phải admin)
+          let count = 0;
+          Object.values(conversations).forEach((msgs: any) => {
+            msgs.forEach((m: any) => {
+              if (!m.isAdmin && !m.read) count++;
+            });
+          });
+          setUnreadCount(count);
+        }
+      } catch (e) {
+        console.error("Fetch unread error:", e);
+      }
+    }
+
+    fetchUnreadCount();
+    const interval = setInterval(fetchUnreadCount, 3000); // refresh nhanh hơn để badge cập nhật tức thì
+    window.addEventListener("focus", fetchUnreadCount);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("focus", fetchUnreadCount);
+    };
+  }, []);
 
   const isActive = (href: string) => {
     if (href === "/admin") return pathname === "/admin";
@@ -72,52 +122,47 @@ export default function AdminSidebar() {
   };
 
   const sidebarContent = (
-    <div className="relative h-full flex flex-col">
-      {/* Decorative background */}
-      <div className="absolute inset-0 pattern-dots opacity-30 pointer-events-none" />
-      <div className="absolute -top-20 -right-20 w-40 h-40 bg-emerald-400/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-400/5 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="h-full flex flex-col bg-gradient-to-b from-white via-white to-slate-50/50">
       {/* Logo */}
-      <div className="relative flex items-center gap-3 px-4 py-5">
-        <div className="flex-shrink-0 w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 animate-pulseGlow">
+      <div className="flex items-center gap-3 px-4 py-5 border-b border-slate-100">
+        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/25">
           <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
           </svg>
         </div>
         {!collapsed && (
           <div className="overflow-hidden">
-            <h1 className="text-base font-extrabold text-amber-900 tracking-tight">Farm2Art</h1>
-            <p className="text-[11px] text-stone-400 font-medium">Bảng điều khiển</p>
+            <h1 className="text-base font-bold text-slate-800 tracking-tight">Farm2Art</h1>
+            <p className="text-[11px] text-slate-400 font-medium">Admin Panel</p>
           </div>
         )}
       </div>
-      {/* Gradient divider */}
-      <div className="mx-4 h-px bg-gradient-to-r from-emerald-300/40 via-amber-300/30 to-transparent" />
 
       {/* Navigation */}
-      <nav className="relative flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {NAV_ITEMS.map((item, i) => {
           const active = isActive(item.href);
+          const showBadge = item.badge && unreadCount > 0;
           return (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setMobileOpen(false)}
-              className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+              className={`group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                 active
-                  ? "bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/20"
-                  : "text-stone-600 hover:bg-emerald-50/60 hover:text-emerald-700"
+                  ? "bg-emerald-600 text-white shadow-md shadow-emerald-500/20"
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-800"
               } ${collapsed ? "justify-center" : ""}`}
               title={collapsed ? item.label : undefined}
-              style={{ animationDelay: `${i * 60}ms` }}
             >
-              <span className={`flex-shrink-0 transition-colors duration-200 ${active ? "text-white" : "text-stone-400 group-hover:text-emerald-600"}`}>
+              <span className={`flex-shrink-0 transition-colors duration-200 ${active ? "text-white" : "text-slate-400 group-hover:text-emerald-600"}`}>
                 {item.icon}
               </span>
               {!collapsed && <span>{item.label}</span>}
-              {active && !collapsed && (
-                <span className="ml-auto w-2 h-2 rounded-full bg-white/80 animate-pulseGlow" />
+              {showBadge && (
+                <span className="ml-auto bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                  {unreadCount > 99 ? "99+" : unreadCount}
+                </span>
               )}
             </Link>
           );
@@ -125,11 +170,10 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Bottom */}
-      <div className="relative p-3 space-y-1">
-        <div className="mx-1 h-px bg-gradient-to-r from-emerald-300/30 via-amber-300/20 to-transparent mb-2" />
+      <div className="p-3 space-y-1 border-t border-slate-100">
         <Link
           href="/"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-stone-500 hover:bg-cream-50 hover:text-emerald-700 transition-all duration-300"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-all duration-200"
         >
           <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -137,12 +181,11 @@ export default function AdminSidebar() {
           {!collapsed && <span>Về trang chủ</span>}
         </Link>
 
-        {/* Collapse toggle (desktop only) */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden lg:flex items-center gap-3 w-full px-3 py-2 rounded-xl text-sm text-stone-400 hover:bg-cream-50 hover:text-emerald-600 transition-all duration-300"
+          className="hidden lg:flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-all duration-200"
         >
-          <svg className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${collapsed ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+          <svg className={`w-5 h-5 flex-shrink-0 transition-transform duration-200 ${collapsed ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
           </svg>
           {!collapsed && <span>Thu gọn</span>}
@@ -154,39 +197,39 @@ export default function AdminSidebar() {
   return (
     <>
       {/* Mobile Top bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 h-14 glass border-b border-sage-200/60 flex items-center px-4 gap-3">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-white border-b border-slate-200 flex items-center px-4 gap-3 shadow-sm">
         <button
           onClick={() => setMobileOpen(true)}
-          className="p-2 rounded-xl hover:bg-emerald-50 text-stone-600 transition-all duration-200"
+          className="p-2 rounded-lg hover:bg-slate-100 text-slate-600 transition-all duration-200"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-600 to-emerald-500 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-600 to-emerald-500 flex items-center justify-center shadow-md">
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
             </svg>
           </div>
-          <span className="font-extrabold text-amber-900">Farm2Art</span>
-          <span className="text-xs text-stone-400 font-medium">Admin</span>
+          <span className="font-bold text-slate-800">Farm2Art</span>
+          <span className="text-xs text-slate-400 font-medium">Admin</span>
         </div>
       </div>
 
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/20 backdrop-blur-sm animate-fadeIn"
+          className="lg:hidden fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm animate-fadeIn"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Mobile drawer */}
-      <aside className={`lg:hidden fixed top-0 left-0 bottom-0 z-50 w-72 bg-white/95 backdrop-blur-xl shadow-2xl transform transition-transform duration-300 ease-out ${mobileOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col`}>
+      <aside className={`lg:hidden fixed top-0 left-0 bottom-0 z-50 w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-out ${mobileOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col`}>
         <button
           onClick={() => setMobileOpen(false)}
-          className="absolute top-4 right-4 p-1.5 rounded-xl hover:bg-emerald-50 text-stone-400 hover:text-emerald-600 transition-all z-10"
+          className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-all z-10"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -196,7 +239,7 @@ export default function AdminSidebar() {
       </aside>
 
       {/* Desktop sidebar */}
-      <aside className={`hidden lg:flex flex-col fixed top-0 left-0 bottom-0 z-30 bg-white/90 backdrop-blur-sm border-r border-sage-200/60 transition-all duration-300 ${collapsed ? "w-[72px]" : "w-64"}`}>
+      <aside className={`hidden lg:flex flex-col fixed top-0 left-0 bottom-0 z-30 bg-white border-r border-slate-200 transition-all duration-300 ${collapsed ? "w-[72px]" : "w-64"}`}>
         {sidebarContent}
       </aside>
     </>

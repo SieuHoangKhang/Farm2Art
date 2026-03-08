@@ -88,18 +88,16 @@ export async function GET(request: NextRequest) {
 
     // Users info
     let adminCount = 0;
-    let sellerCount = 0;
     usersSnap.docs.forEach((d) => {
       const u = d.data();
       if (u.role === 'admin') adminCount++;
-      if (u.role === 'seller') sellerCount++;
     });
 
     const userMetrics = {
       totalRegistered: usersSnap.size,
       admins: adminCount,
-      sellers: sellerCount,
-      buyers: usersSnap.size - adminCount - sellerCount,
+      sellers: 0,
+      buyers: usersSnap.size - adminCount,
     };
 
     if (metric === 'users') {

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { notify } from '@/lib/utils/notify';
 
 interface AvatarModalProps {
   isOpen: boolean;
@@ -29,13 +30,13 @@ export default function AvatarModal({
       // Validate file size (max 5MB)
       const maxSize = 5 * 1024 * 1024;
       if (file.size > maxSize) {
-        alert('Ảnh quá lớn! Vui lòng chọn ảnh nhỏ hơn 5MB');
+        notify.error('Ảnh quá lớn! Vui lòng chọn ảnh nhỏ hơn 5MB');
         return;
       }
 
       // Validate file type
       if (!file.type.startsWith('image/')) {
-        alert('Vui lòng chọn file ảnh!');
+        notify.error('Vui lòng chọn file ảnh!');
         return;
       }
 
@@ -62,7 +63,7 @@ export default function AvatarModal({
               className="p-1 hover:bg-sage-100 rounded-full transition"
               title="Đóng"
             >
-              ✕
+              
             </button>
           </div>
 
@@ -76,7 +77,7 @@ export default function AvatarModal({
               />
             ) : (
               <div className="w-64 h-64 rounded-lg bg-stone-200 flex items-center justify-center text-6xl">
-                👤
+                
               </div>
             )}
 

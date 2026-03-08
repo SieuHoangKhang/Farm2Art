@@ -7,7 +7,6 @@ type PaymentMethodType = 'card' | 'bank' | 'ewallet' | 'installment';
 interface PaymentOption {
   type: PaymentMethodType;
   name: string;
-  icon: string;
   description: string;
   fee: number; // in percentage
 }
@@ -30,28 +29,24 @@ export default function MultiplePaymentMethods({
     {
       type: 'card',
       name: 'Thẻ tín dụng / Ghi nợ',
-      icon: '💳',
       description: 'Visa, Mastercard, JCB',
       fee: 0,
     },
     {
       type: 'bank',
       name: 'Chuyển khoản ngân hàng',
-      icon: '🏦',
       description: 'Chuyển trực tiếp từ tài khoản ngân hàng',
       fee: 0,
     },
     {
       type: 'ewallet',
       name: 'Ví điện tử',
-      icon: '📱',
       description: 'Momo, Zalopay, Airpay',
       fee: 0.5,
     },
     {
       type: 'installment',
       name: 'Trả góp 0%',
-      icon: '📅',
       description: 'Với các thẻ tín dụng',
       fee: 0,
     },
@@ -92,7 +87,6 @@ export default function MultiplePaymentMethods({
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{option.icon}</span>
                     <div>
                       <h4 className="font-semibold text-stone-800">{option.name}</h4>
                       <p className="text-sm text-stone-500">{option.description}</p>

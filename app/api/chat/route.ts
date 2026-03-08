@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
         responses: [
           '👋 Xin chào! Chào mừng bạn đến với Farm2Art. Tôi là trợ lý AI của bạn. Có gì tôi có thể giúp bạn?',
           '🌟 Xin chào bạn! Tôi rất vui được hỗ trợ bạn. Bạn cần tìm kiếm sản phẩm hay có câu hỏi gì không?',
-          '😊 Chào bạn! Farm2Art rất sẵn lòng phục vụ. Để tôi giúp bạn tìm những sản phẩm tuyệt vời.'
+          ' Chào bạn! Farm2Art rất sẵn lòng phục vụ. Để tôi giúp bạn tìm những sản phẩm tuyệt vời.'
         ]
       },
       search: {
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       byproduct: {
         keywords: ['phế phẩm', 'tái chế', 'từ phế phẩm', 'tái sử dụng', 'xanh'],
         responses: [
-          '♻️ Farm2Art tự hào có sản phẩm tái chế từ phế phẩm nông sản! Những sản phẩm này:\n✅ Thân thiện với môi trường\n✅ Độc đáo và sáng tạo\n✅ Giúp bảo vệ tự nhiên\n\nBạn muốn tìm hiểu thêm?'
+          ' Farm2Art tự hào có sản phẩm tái chế từ phế phẩm nông sản! Những sản phẩm này:\n Thân thiện với môi trường\n Độc đáo và sáng tạo\n Giúp bảo vệ tự nhiên\n\nBạn muốn tìm hiểu thêm?'
         ]
       },
       art: {
@@ -57,25 +57,25 @@ export async function POST(request: NextRequest) {
       payment: {
         keywords: ['thanh toán', 'trả tiền', 'payment', 'vnpay', 'thẻ', 'ví', 'chuyển khoản', 'hình thức thanh toán'],
         responses: [
-          '💳 Farm2Art hỗ trợ nhiều hình thức thanh toán:\n✓ VNPay (thẻ ATM, thẻ tín dụng)\n✓ Chuyển khoản ngân hàng\n✓ Ví điện tử\n✓ Thanh toán khi nhận hàng (COD)\n\nBạn muốn chọn hình thức nào?'
+          ' Farm2Art hỗ trợ nhiều hình thức thanh toán:\n✓ VNPay (thẻ ATM, thẻ tín dụng)\n✓ Chuyển khoản ngân hàng\n✓ Ví điện tử\n✓ Thanh toán khi nhận hàng (COD)\n\nBạn muốn chọn hình thức nào?'
         ]
       },
       shipping: {
         keywords: ['giao hàng', 'vận chuyển', 'phí ship', 'bao lâu', 'mất bao lâu', 'địa điểm', 'khu vực'],
         responses: [
-          '🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày tùy địa điểm\n📍 Phí ship: Miễn phí từ 500,000 VND\n🗺️ Phạm vi: Toàn quốc\n\nBạn ở đâu để tính phí ship chính xác?'
+          ' Vận chuyển Farm2Art:\n Thời gian: 2-5 ngày tùy địa điểm\n Phí ship: Miễn phí từ 500,000 VND\n Phạm vi: Toàn quốc\n\nBạn ở đâu để tính phí ship chính xác?'
         ]
       },
       account: {
         keywords: ['tài khoản', 'account', 'hồ sơ', 'cá nhân', 'quản lý', 'đăng nhập', 'đăng ký'],
         responses: [
-          '👤 Quản lý tài khoản Farm2Art:\n📋 Cập nhật thông tin cá nhân\n📦 Xem lịch sử đơn hàng\n💬 Chat với người bán\n⭐ Xem các sản phẩm yêu thích\n⚙️ Cài đặt bảo mật\n\nBạn cần giúp gì với tài khoản?'
+          ' Quản lý tài khoản Farm2Art:\n Cập nhật thông tin cá nhân\n Xem lịch sử đơn hàng\n Chat với người bán\n Xem các sản phẩm yêu thích\n Cài đặt bảo mật\n\nBạn cần giúp gì với tài khoản?'
         ]
       },
       seller: {
         keywords: ['người bán', 'cửa hàng', 'shop', 'seller', 'nhà cung cấp', 'người bán hàng'],
         responses: [
-          '🏪 Thông tin người bán:\n📱 Xem hồ sơ người bán\n⭐ Đánh giá người bán\n📬 Chat trực tiếp\n📍 Xem địa điểm bán\n📊 Xem đánh giá sản phẩm\n\nBạn muốn tìm người bán cụ thể không?'
+          ' Thông tin người bán:\n Xem hồ sơ người bán\n Đánh giá người bán\n Chat trực tiếp\n Xem địa điểm bán\n Xem đánh giá sản phẩm\n\nBạn muốn tìm người bán cụ thể không?'
         ]
       },
       register: {
@@ -87,19 +87,19 @@ export async function POST(request: NextRequest) {
       support: {
         keywords: ['hỗ trợ', 'help', 'support', 'liên hệ', 'báo cáo', 'sự cố', 'vấn đề', 'lỗi'],
         responses: [
-          '📞 Liên hệ hỗ trợ Farm2Art:\n💬 Chat: Sử dụng tính năng chat trên ứng dụng\n📧 Email: support@farm2art.vn\n⏰ Thời gian: 8:00 - 20:00 (Thứ 2 - Chủ nhật)\n🎯 Các vấn đề thường gặp: Thanh toán, giao hàng, sản phẩm\n\nTôi có thể giúp gì?'
+          ' Liên hệ hỗ trợ Farm2Art:\n Chat: Sử dụng tính năng chat trên ứng dụng\n Email: support@farm2art.vn\n⏰ Thời gian: 8:00 - 20:00 (Thứ 2 - Chủ nhật)\n Các vấn đề thường gặp: Thanh toán, giao hàng, sản phẩm\n\nTôi có thể giúp gì?'
         ]
       },
       green: {
         keywords: ['xanh', 'thân thiện', 'eco', 'bảo vệ', 'môi trường', 'tự nhiên', 'sạch', 'an toàn'],
         responses: [
-          '🌱 Farm2Art cam kết bảo vệ môi trường:\n♻️ Tất cả sản phẩm từ nguyên liệu tự nhiên\n🌿 Không dùng hóa chất độc hại\n📦 Bao bì thân thiện sinh học\n🌍 Hỗ trợ nông dân bền vững\n\nVới mỗi mua hàng, bạn giúp đất nước xanh hơn!'
+          ' Farm2Art cam kết bảo vệ môi trường:\n Tất cả sản phẩm từ nguyên liệu tự nhiên\n Không dùng hóa chất độc hại\n Bao bì thân thiện sinh học\n Hỗ trợ nông dân bền vững\n\nVới mỗi mua hàng, bạn giúp đất nước xanh hơn!'
         ]
       },
       problem: {
         keywords: ['vấn đề', 'lỗi', 'sai', 'không hoạt động', 'bị hỏng', 'bị lỗi', 'không được', 'thế nào'],
         responses: [
-          '🆘 Farm2Art hỗ trợ các vấn đề:\n✅ Sản phẩm bị hỏng: Đổi/Hoàn tiền 100%\n✅ Đơn hàng không đến: Tra cứu & giải quyết\n✅ Khác lỗi ứng dụng: Báo cáo để cải thiện\n✅ Yêu cầu hoàn hủy: Hỗ trợ trong 24h\n\nVấn đề cụ thể là gì?'
+          ' Farm2Art hỗ trợ các vấn đề:\n Sản phẩm bị hỏng: Đổi/Hoàn tiền 100%\n Đơn hàng không đến: Tra cứu & giải quyết\n Khác lỗi ứng dụng: Báo cáo để cải thiện\n Yêu cầu hoàn hủy: Hỗ trợ trong 24h\n\nVấn đề cụ thể là gì?'
         ]
       }
     };
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
     } else {
       // Fallback responses
       const fallbackResponses = [
-        '😊 Câu hỏi hay! Tôi chưa có thông tin cụ thể về điều này. Bạn có thể:\n📞 Liên hệ hỗ trợ: support@farm2art.vn\n💬 Chat với người bán\n❓ Hỏi về chủ đề khác',
+        ' Câu hỏi hay! Tôi chưa có thông tin cụ thể về điều này. Bạn có thể:\n Liên hệ hỗ trợ: support@farm2art.vn\n Chat với người bán\n Hỏi về chủ đề khác',
         '🤔 Tôi chưa hiểu rõ câu hỏi của bạn. Hãy thử:\n• Cách tìm kiếm sản phẩm\n• Hỏi về giá cả\n• Hỏi cách mua hàng\n• Liên hệ hỗ trợ khách hàng',
         '📌 Có điều gì khác tôi có thể giúp? Ví dụ:\n✓ Tìm kiếm sản phẩm\n✓ Thông tin thanh toán\n✓ Hỏi về vận chuyển\n✓ Cách quản lý tài khoản'
       ];

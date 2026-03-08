@@ -10,7 +10,6 @@ export interface Notification {
   message: string;
   read: boolean;
   timestamp: number;
-  icon: string;
   action?: {
     label: string;
     href: string;
@@ -47,7 +46,6 @@ export default function NotificationBell() {
           message: 'Đơn hàng của bạn đã được giao thành công',
           read: false,
           timestamp: Date.now() - 1 * 60 * 1000,
-          icon: '✅',
           action: { label: 'Xem đơn hàng', href: '/orders/123' },
         },
         {
@@ -57,7 +55,6 @@ export default function NotificationBell() {
           message: 'Giảm 20% cho tất cả sản phẩm rau xanh',
           read: true,
           timestamp: Date.now() - 2 * 60 * 60 * 1000,
-          icon: '🎉',
         },
         {
           id: '3',
@@ -66,7 +63,6 @@ export default function NotificationBell() {
           message: 'Seller vừa phản hồi câu hỏi của bạn',
           read: false,
           timestamp: Date.now() - 30 * 60 * 1000,
-          icon: '💬',
         },
         {
           id: '4',
@@ -75,7 +71,6 @@ export default function NotificationBell() {
           message: 'Vui lòng đánh giá sản phẩm bạn vừa mua',
           read: true,
           timestamp: Date.now() - 24 * 60 * 60 * 1000,
-          icon: '⭐',
         },
       ];
 
@@ -105,13 +100,13 @@ export default function NotificationBell() {
 
   return (
     <div className="relative">
-      {/* Bell Button */}
+      {/* Notification Counter */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="relative p-2 hover:bg-sage-100 rounded-lg transition"
         aria-label="Notifications"
       >
-        <span className="text-2xl">🔔</span>
+        Thông báo
         {unreadCount > 0 && (
           <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
             {unreadCount > 9 ? '9+' : unreadCount}
@@ -147,9 +142,6 @@ export default function NotificationBell() {
                   onClick={() => handleMarkAsRead(notification.id)}
                 >
                   <div className="flex gap-3">
-                    {/* Icon */}
-                    <span className="text-2xl flex-shrink-0">{notification.icon}</span>
-
                     {/* Content */}
                     <div className="flex-1 min-w-0">
                       <h4 className={`font-semibold text-stone-800 ${!notification.read ? 'text-emerald-600' : ''}`}>
@@ -168,7 +160,7 @@ export default function NotificationBell() {
                           className="text-sm text-emerald-600 hover:text-emerald-700 font-medium mt-2 inline-block"
                           onClick={e => e.stopPropagation()}
                         >
-                          {notification.action.label} →
+                          {notification.action.label} 
                         </a>
                       )}
                     </div>
@@ -179,9 +171,9 @@ export default function NotificationBell() {
                         e.stopPropagation();
                         handleDeleteNotification(notification.id);
                       }}
-                      className="text-stone-300 hover:text-red-600 transition text-lg"
+                      className="text-stone-300 hover:text-red-600 transition text-sm"
                     >
-                      ✕
+                      Xóa
                     </button>
                   </div>
                 </div>
@@ -197,7 +189,7 @@ export default function NotificationBell() {
           {notifications.length > 0 && (
             <div className="border-t p-3 text-center">
               <a href="/notifications" className="text-sm text-emerald-600 hover:text-emerald-700 font-medium">
-                Xem tất cả thông báo →
+                Xem tất cả thông báo 
               </a>
             </div>
           )}

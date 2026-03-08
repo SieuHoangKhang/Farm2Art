@@ -37,7 +37,7 @@ const emailTemplates: Record<string, EmailTemplate> = {
   },
   promotionalEmail: {
     name: 'Promotional',
-    subject: '🎉 {{promoTitle}}',
+    subject: ' {{promoTitle}}',
     htmlBody: `
       <h1>{{promoTitle}}</h1>
       <p>{{promoDescription}}</p>

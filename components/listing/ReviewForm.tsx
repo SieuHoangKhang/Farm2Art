@@ -63,7 +63,8 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit review');
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to submit review');
       }
 
       const newReview = await response.json();
@@ -99,7 +100,7 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
                 onClick={() => setRating(star)}
                 className="text-3xl transition hover:scale-110"
               >
-                {star <= rating ? '⭐' : '☆'}
+                {star <= rating ? '★' : '☆'}
               </button>
             ))}
           </div>

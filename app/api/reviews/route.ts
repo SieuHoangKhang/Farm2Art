@@ -3,9 +3,9 @@ import { Review, ProductRating } from '@/types/review';
 import {
   addDocument,
   findDocuments,
+  queryCollection,
   updateDocument,
   getDocument,
-  saveDocument,
 } from '@/lib/firebase/firestore-utils';
 import { where } from 'firebase/firestore';
 
@@ -54,25 +54,68 @@ export async function POST(request: NextRequest) {
       images,
     } = body;
 
-    if (!productId || !userId || !rating || !title || !comment) {
+    const parsedRating = Number(rating);
+
+    if (!productId || !userId || !parsedRating || !title || !comment) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
+    if (!Number.isFinite(parsedRating) || parsedRating < 1 || parsedRating > 5) {
+      return NextResponse.json(
+        { error: 'Rating must be from 1 to 5' },
+        { status: 400 }
+      );
+    }
+
+    const userDocs = await queryCollection('users', [where('uid', '==', userId)]);
+    const userDoc = (userDocs[0] ?? {}) as { accountStatus?: string };
+    if (userDoc.accountStatus === 'suspended') {
+      return NextResponse.json(
+        { error: 'Tài khoản của bạn đang bị khóa đánh giá' },
+        { status: 403 }
+      );
+    }
+
+    const existingReviews = await queryCollection('reviews', [
+      where('productId', '==', productId),
+      where('userId', '==', userId),
+    ]);
+
+    if (existingReviews.length > 0) {
+      return NextResponse.json(
+        { error: 'Bạn đã đánh giá sản phẩm này rồi' },
+        { status: 409 }
+      );
+    }
+
+    const purchaseOrders = await queryCollection('orders', [
+      where('buyerId', '==', userId),
+      where('listingId', '==', productId),
+    ]);
+
+    const verifiedPurchase = purchaseOrders.some((o: any) =>
+      ['confirmed', 'shipping', 'delivered', 'completed'].includes(o.status)
+    );
+
+    const now = Date.now();
+
     const review = await addDocument('reviews', {
       productId,
       userId,
       userName,
-      rating: Number(rating),
+      rating: parsedRating,
       title,
       comment,
       images: images || [],
       helpfulCount: 0,
       unhelpfulCount: 0,
-      verified: true,
-      approved: false,
+      verified: verifiedPurchase,
+      approved: true,
+      createdAt: now,
+      updatedAt: now,
     });
 
     return NextResponse.json(review, { status: 201 });
@@ -116,7 +159,7 @@ export async function PUT(request: NextRequest) {
       (review as any).approved = true;
     }
 
-    (review as any).updatedAt = new Date().toISOString();
+    (review as any).updatedAt = Date.now();
     await updateDocument('reviews', reviewId, review);
 
     return NextResponse.json(review);

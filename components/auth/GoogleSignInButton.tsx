@@ -35,9 +35,9 @@ export function GoogleSignInButton({
       else if (code === "auth/cancelled-popup-request") setError("Yêu cầu đăng nhập đang được xử lý.");
       else if (code === "auth/popup-blocked") setError("Trình duyệt chặn popup. Hãy cho phép popup và thử lại.");
       else if (code === "auth/operation-not-allowed")
-        setError("Bạn chưa bật đăng nhập Google trong Firebase Auth (Authentication → Sign-in method → Google).");
+        setError("Bạn chưa bật đăng nhập Google trong Firebase Auth (Authentication  Sign-in method  Google).");
       else if (code === "auth/unauthorized-domain" || code === "auth/app-not-authorized")
-        setError("Domain chưa được phép. Vào Firebase Auth → Settings → Authorized domains và thêm localhost.");
+        setError("Domain chưa được phép. Vào Firebase Auth  Settings  Authorized domains và thêm localhost.");
       else setError("Đăng nhập Google thất bại. Vui lòng thử lại.");
     } finally {
       setSubmitting(false);

@@ -111,7 +111,7 @@ export default function ProductGalleryModal({ images, title }: ProductGalleryPro
                 onClick={() => setIsOpen(false)}
                 className="absolute top-4 right-4 text-white text-4xl hover:opacity-70 bg-black/30 rounded-lg p-2"
               >
-                ✕
+                
               </button>
 
               {/* Navigation Arrows */}

@@ -18,6 +18,19 @@ const STATUS_MAP: Record<OrderStatus, { label: string; color: string }> = {
 
 const STATUS_FLOW: OrderStatus[] = ["pending", "confirmed", "shipping", "delivered", "completed"];
 
+const WAREHOUSE_STATUS_LABEL: Record<string, string> = {
+  awaiting_intake: "Chờ nhập kho",
+  in_storage: "Đang lưu kho",
+  processing: "Đang sơ chế",
+  ready_to_ship: "Sẵn sàng xuất kho",
+  shipped: "Đã xuất kho",
+};
+
+function getWarehouseStatusLabel(status?: string) {
+  if (!status) return "—";
+  return WAREHOUSE_STATUS_LABEL[status] || status;
+}
+
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
@@ -49,7 +62,7 @@ export default function AdminOrdersPage() {
       setSaving(order.id);
       await updateDoc(doc(firebaseDb, "orders", order.id), { status: next, [tsField]: Date.now() });
       setOrders((prev) => prev.map((o) => o.id === order.id ? { ...o, status: next, [tsField]: Date.now() } : o));
-      showToast(`Cập nhật → ${STATUS_MAP[next].label}`);
+      showToast(`Cập nhật  ${STATUS_MAP[next].label}`);
     } catch (err) {
       console.error(err);
       showToast("Lỗi cập nhật trạng thái");
@@ -76,6 +89,11 @@ export default function AdminOrdersPage() {
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
 
   const fmt = (n: number) => new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
+  const getPayableTotal = (order: Order) =>
+    order.grandTotal ??
+    (order.subTotal ?? order.totalAmount) +
+      (order.platformFee ?? 0) +
+      (order.warehouseService?.serviceFeeTotal ?? 0);
   const fmtDate = (ts?: number) => ts ? new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }) : "—";
   const fmtTime = (ts?: number) => ts ? new Date(ts).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—";
 
@@ -88,7 +106,9 @@ export default function AdminOrdersPage() {
   const statusCounts: Record<string, number> = { all: orders.length };
   orders.forEach((o) => { statusCounts[o.status] = (statusCounts[o.status] || 0) + 1; });
 
-  const revenue = orders.filter((o) => o.status === "completed").reduce((s, o) => s + o.totalAmount, 0);
+  const revenue = orders
+    .filter((o) => o.status === "completed")
+    .reduce((s, o) => s + getPayableTotal(o), 0);
 
   if (loading) {
     return (
@@ -176,7 +196,7 @@ export default function AdminOrdersPage() {
                 <p className="text-xs text-stone-400 mt-0.5">Buyer: {o.buyerId.slice(0, 12)} — Seller: {(o.sellerName || o.sellerId).slice(0, 20)}</p>
               </div>
               <div className="flex items-center gap-3 flex-shrink-0">
-                <span className="text-sm font-extrabold text-stone-800">{fmt(o.totalAmount)}</span>
+                <span className="text-sm font-extrabold text-stone-800">{fmt(getPayableTotal(o))}</span>
                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_MAP[o.status].color}`}>
                   {STATUS_MAP[o.status].label}
                 </span>
@@ -210,6 +230,26 @@ export default function AdminOrdersPage() {
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Mã giao dịch</p><p className="text-stone-700 font-mono mt-1">{o.transactionRef || "—"}</p></div>
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Tracking</p><p className="text-stone-700 font-mono mt-1">{o.trackingNumber || "—"}</p></div>
                 </div>
+
+                {o.warehouseService && (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                    <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Sơ chế</p><p className="text-stone-700 font-semibold mt-1">{o.warehouseService.processingMode === "warehouse" ? "Kho Farm2Art" : "Người bán tự sơ chế"}</p></div>
+                    <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Lưu kho</p><p className="text-stone-700 font-semibold mt-1">{o.warehouseService.storageDays} ngày</p></div>
+                    <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Phí dịch vụ kho</p><p className="text-stone-700 font-semibold mt-1">{fmt(o.warehouseService.serviceFeeTotal)}</p></div>
+                    <div className="bg-white/60 rounded-xl p-3 border border-sage-100">
+                      <p className="text-stone-400 font-medium">Trạng thái kho</p>
+                      <div className="flex items-center justify-between mt-1">
+                        <p className="text-stone-700 font-semibold">{getWarehouseStatusLabel(o.warehouseService.warehouseStatus)}</p>
+                        <a href={`/admin/warehouse`} className="text-xs px-2 py-1 ml-2 rounded bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-all font-semibold">
+                          Quản lí
+                        </a>
+                      </div>
+                      {o.warehouseService.warehouseStatus === "shipped" && o.status !== "shipping" && (
+                        <p className="text-blue-600 text-xs mt-2 font-semibold">💡 Sẽ tự động sang "Đang giao"</p>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 {o.shippingAddress && (
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100 text-xs"><p className="text-stone-400 font-medium">Địa chỉ giao hàng</p><p className="text-stone-700 mt-1">{o.shippingAddress}</p></div>
@@ -251,7 +291,7 @@ export default function AdminOrdersPage() {
                       className="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white hover:shadow-lg hover:shadow-emerald-500/20 disabled:opacity-50 transition-all duration-200 active:scale-[0.97]"
                     >
                       {STATUS_FLOW.indexOf(o.status) < STATUS_FLOW.length - 1
-                        ? `→ ${STATUS_MAP[STATUS_FLOW[STATUS_FLOW.indexOf(o.status) + 1]].label}`
+                        ? ` ${STATUS_MAP[STATUS_FLOW[STATUS_FLOW.indexOf(o.status) + 1]].label}`
                         : "—"}
                     </button>
                     <button

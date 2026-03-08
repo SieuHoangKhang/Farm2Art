@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { SiteHeader } from "@/components/ui/SiteHeader";
-import { SiteFooter } from "@/components/ui/SiteFooter";
-import { Container } from "@/components/ui/Container";
-import FloatingChatButton from "@/components/chatbot/FloatingChatButton";
+import { AppToaster } from "@/components/ui/AppToaster";
 
 export const metadata: Metadata = {
   title: "Farm2Art - Kết nối Phế Phẩm & Thủ Công",
@@ -24,16 +21,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
+    <html lang="vi" data-scroll-behavior="smooth">
       <body className="antialiased text-stone-800">
-        <div className="flex min-h-screen flex-col">
-          <SiteHeader />
-          <main className="flex-1 py-12 md:py-16">
-            <Container>{children}</Container>
-          </main>
-          <SiteFooter />
-        </div>
-        <FloatingChatButton />
+        {children}
+        <AppToaster />
       </body>
     </html>
   );

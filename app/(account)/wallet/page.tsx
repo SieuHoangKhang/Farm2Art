@@ -5,6 +5,7 @@ import { useAuthUser } from '@/lib/auth/useAuthUser';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Container } from '@/components/ui/Container';
 import { Card, CardBody } from '@/components/ui/Card';
+import { notify } from '@/lib/utils/notify';
 import {
   doc, getDoc, setDoc, collection, addDoc,
   query, where, orderBy, onSnapshot, updateDoc, increment,
@@ -74,13 +75,13 @@ export default function WalletPage() {
 
   const handleWithdraw = async () => {
     if (!withdrawAmount || !bankInfo.bankName || !bankInfo.accountNumber || !bankInfo.accountHolder) {
-      alert('Vui lòng điền đầy đủ thông tin');
+      notify.error('Vui lòng điền đầy đủ thông tin');
       return;
     }
 
     const amount = parseInt(withdrawAmount);
     if (!wallet || amount > wallet.balance || amount <= 0) {
-      alert('Số tiền không hợp lệ');
+      notify.error('Số tiền không hợp lệ');
       return;
     }
 
@@ -105,10 +106,10 @@ export default function WalletPage() {
 
       setWithdrawAmount('');
       setBankInfo({ bankName: '', accountNumber: '', accountHolder: '' });
-      alert('Yêu cầu rút tiền đã được gửi. Sẽ được xử lý trong 1-3 ngày');
+      notify.success('Yêu cầu rút tiền đã được gửi. Sẽ được xử lý trong 1-3 ngày');
     } catch (error) {
       console.error('Withdrawal failed:', error);
-      alert('Rút tiền thất bại. Vui lòng thử lại.');
+      notify.error('Rút tiền thất bại. Vui lòng thử lại.');
     } finally {
       setProcessing(false);
     }

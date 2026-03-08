@@ -3,6 +3,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { verifyVnpayReturn } from "@/lib/payments/vnpay/vnpay";
 import { serverDb } from "@/lib/firebase/server";
 import type { Order } from "@/types/order";
+import { PLATFORM_CONFIG } from "@/lib/config/platformFees";
 
 export const runtime = "nodejs";
 
@@ -36,9 +37,20 @@ export async function GET(request: Request) {
     }
 
     const order = orderSnap.data() as Order;
+    const warehouseFeeTotal =
+      order.warehouseService?.serviceFeeTotal ??
+      ((order.warehouseService?.storageFee ?? 0) +
+        (order.warehouseService?.processingFee ?? 0) +
+        (order.warehouseService?.shippingFee ?? 0));
+
+    const expectedAmount =
+      order.grandTotal ??
+      (order.subTotal ?? order.totalAmount) +
+        (order.platformFee ?? 0) +
+        warehouseFeeTotal;
 
     // Kiểm tra số tiền khớp
-    if (order.totalAmount !== amountVnd) {
+    if (expectedAmount !== amountVnd) {
       return NextResponse.json({ RspCode: "04", Message: "Amount mismatch" }, { status: 200 });
     }
 
@@ -52,16 +64,32 @@ export async function GET(request: Request) {
 
     // Cập nhật trạng thái thanh toán
     if (isSuccess) {
+      // ⭐ ESCROW MODEL: Tính commission & payout
+      const commissionRate = order.commissionRate || PLATFORM_CONFIG.defaultCommissionRate;
+      const commissionAmount = Math.round(expectedAmount * commissionRate);
+      const payoutAmount = expectedAmount - commissionAmount;
+
       await updateDoc(orderRef, {
-        status: "completed",
+        status: "confirmed",
         paymentMethod: "vnpay",
+        paymentStatus: "success",
         paidAt: new Date().getTime(),
+        paymentReceivedAt: new Date().getTime(), // ⭐ Track khi nhận tiền
+        confirmedAt: new Date().getTime(),
         transactionRef: verified.params.vnp_TransactionNo,
+        
+        // ⭐ ESCROW FIELDS
+        escrowStatus: "held", // Tiền nằm ở Admin
+        commissionRate,
+        commissionAmount,
+        payoutAmount,
+        payoutStatus: "pending", // Chờ order completed rồi mới thanh toán
       });
     } else {
       await updateDoc(orderRef, {
         paymentMethod: "vnpay",
         paymentStatus: "failed",
+        escrowStatus: "refunded", // Nếu fail thì refund
       });
     }
 

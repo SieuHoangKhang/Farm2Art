@@ -1,0 +1,24 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "rooms": {
+      "$roomId": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        "participants": {
+          "$uid": {
+            ".read": "auth != null",
+            ".write": "auth != null && newData.val() === true"
+          }
+        },
+        "messages": {
+          "$messageId": {
+            ".read": "auth != null",
+            ".write": "auth != null && newData.hasChildren(['text', 'senderId', 'senderName', 'createdAt']) && newData.child('senderId').val() === auth.uid && newData.child('text').isString() && newData.child('text').val().length > 0 && newData.child('text').val().length <= 2000"
+          }
+        }
+      }
+    }
+  }
+}

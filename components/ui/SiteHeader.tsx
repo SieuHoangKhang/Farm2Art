@@ -30,6 +30,7 @@ export function SiteHeader() {
               {[
                 { href: "/search", label: "Sản phẩm" },
                 { href: "/news", label: "Tin tức" },
+                { href: "/policy", label: "Chính sách" },
                 { href: "/about", label: "Về chúng tôi" },
               ].map((link) => (
                 <Link
