@@ -4,12 +4,12 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import admin from "firebase-admin";
 import { Order } from "@/types/order";
 import { Listing } from "@/types/listing";
 import { calculateOrderFeeBreakdown, PLATFORM_CONFIG } from "@/lib/config/platformFees";
+import { adminDb } from "@/lib/firebase/admin";
 
-const db = admin.firestore();
+const db = adminDb;
 
 interface NotifySellerRequest {
   orderId: string;

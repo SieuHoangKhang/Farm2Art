@@ -245,7 +245,7 @@ export default function AdminOrdersPage() {
                         </a>
                       </div>
                       {o.warehouseService.warehouseStatus === "shipped" && o.status !== "shipping" && (
-                        <p className="text-blue-600 text-xs mt-2 font-semibold">💡 Sẽ tự động sang "Đang giao"</p>
+                        <p className="text-blue-600 text-xs mt-2 font-semibold">💡 Sẽ tự động sang &quot;Đang giao&quot;</p>
                       )}
                     </div>
                   </div>

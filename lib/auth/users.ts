@@ -17,9 +17,9 @@ export async function ensureUserDoc(firebaseUser: User): Promise<AppUser> {
   })();
 
   if (snap.exists()) {
-    const data = snap.data() as Partial<AppUser>;
-    const storedRole = typeof data.role === "string" ? data.role : undefined;
-    const isStoredRoleValid = storedRole === "admin" || storedRole === "user" || storedRole === "seller";
+    const data = snap.data() as Partial<AppUser> & { role?: unknown };
+    const storedRole = typeof data.role === "string" ? data.role.trim() : undefined;
+    const isStoredRoleValid = storedRole === "admin" || storedRole === "user";
     const role: UserRole = storedRole === "admin" ? "admin" : "user";
 
     // If someone typed role incorrectly in the Firebase Console (e.g. "Admin"),
@@ -53,8 +53,7 @@ export async function ensureUserDoc(firebaseUser: User): Promise<AppUser> {
       typeof data.createdAt !== "number" ||
       (data.accountStatus !== "active" && data.accountStatus !== "suspended") ||
       (data.riskLevel !== "low" && data.riskLevel !== "medium" && data.riskLevel !== "high") ||
-      typeof data.strikeCount !== "number" ||
-      storedRole === "seller";
+      typeof data.strikeCount !== "number";
 
     if (needsBackfill) {
       await setDoc(ref, merged, { merge: true });

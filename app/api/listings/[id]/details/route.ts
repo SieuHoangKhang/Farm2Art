@@ -4,11 +4,11 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import admin from "firebase-admin";
 import { Listing } from "@/types/listing";
 import { calculateOrderFeeBreakdown } from "@/lib/config/platformFees";
+import { adminDb } from "@/lib/firebase/admin";
 
-const db = admin.firestore();
+const db = adminDb;
 
 export async function GET(
   req: NextRequest,

@@ -220,7 +220,7 @@ export default function EnhancedProfilePage() {
       console.log('Upload success, URL:', data.secure_url);
 
       if (data.secure_url) {
-        const updatedProfile = profile ? { ...profile, avatar: data.secure_url } : {
+        const updatedProfile: UserProfile = profile ? { ...profile, avatar: data.secure_url } : {
           userId: user.uid,
           displayName: user.displayName || 'User',
           email: user.email || '',
@@ -430,12 +430,14 @@ export default function EnhancedProfilePage() {
                 className="cursor-pointer group relative"
               >
                 {profile.avatar ? (
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={profile.avatar}
-                    alt={profile.displayName}
-                    className="w-16 h-16 rounded-full object-cover group-hover:opacity-75 transition-opacity"
-                  />
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={profile.avatar}
+                      alt={profile.displayName}
+                      className="w-16 h-16 rounded-full object-cover group-hover:opacity-75 transition-opacity"
+                    />
+                  </>
                 ) : (
                   <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-lg font-semibold text-emerald-800 group-hover:opacity-75 transition-opacity">
                     {initialsFromName(profile.displayName || profile.email || 'User')}
