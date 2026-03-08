@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { LinkButton } from "@/components/ui/Button";
+import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { firebaseDb } from "@/lib/firebase/client";
 
 // Carousel banner data
 const banners = [
@@ -11,16 +13,25 @@ const banners = [
   { id: 3, image: "/anhquangcao-3.png" },
 ];
 
-// Mock data
-const featuredProducts = [
-  { id: 1, name: "Rơm lúa mì chất lượng cao", price: "450,000đ", type: "Phế phẩm", seller: "Trang trại Bắc Ninh", stock: "100 bao" },
-  { id: 2, name: "Trấu cà phê nguyên liệu", price: "320,000đ", type: "Phế phẩm", seller: "HTX Hà Nội", stock: "250 kg" },
-  { id: 3, name: "Vỏ cà phê tươi", price: "280,000đ", type: "Phế phẩm", seller: "Nông trại Đắk Lắk", stock: "500 kg" },
-  { id: 4, name: "Mùn cưa thơm lọc sạch", price: "150,000đ", type: "Phế phẩm", seller: "Xưởng Hà Nam", stock: "1000 kg" },
-  { id: 5, name: "Túi xách thủ công từ rơm", price: "350,000đ", type: "Thủ công", seller: "Xưởng Na Xá", stock: "50 cái" },
-  { id: 6, name: "Đệm tatami rơm tự nhiên", price: "800,000đ", type: "Thủ công", seller: "Thương lái Nội", stock: "20 cái" },
-  { id: 7, name: "Giỏ dệt trấu handmade", price: "280,000đ", type: "Thủ công", seller: "Làng nghề Tây Hồ", stock: "45 cái" },
-  { id: 8, name: "Tạp chí từ xơ cỏ tái chế", price: "150,000đ", type: "Thủ công", seller: "Studio Xanh", stock: "300 cuốn" },
+interface FeaturedProduct {
+  id: string;
+  name: string;
+  price: string;
+  type: string;
+  seller: string;
+  stock: string;
+}
+
+// Fallback dữ liệu khi không thể fetch từ Firebase
+const fallbackFeaturedProducts: FeaturedProduct[] = [
+  { id: "1", name: "Rơm lúa mì chất lượng cao", price: "450,000đ", type: "Phế phẩm", seller: "Trang trại Bắc Ninh", stock: "100 bao" },
+  { id: "2", name: "Trấu cà phê nguyên liệu", price: "320,000đ", type: "Phế phẩm", seller: "HTX Hà Nội", stock: "250 kg" },
+  { id: "3", name: "Vỏ cà phê tươi", price: "280,000đ", type: "Phế phẩm", seller: "Nông trại Đắk Lắk", stock: "500 kg" },
+  { id: "4", name: "Mùn cưa thơm lọc sạch", price: "150,000đ", type: "Phế phẩm", seller: "Xưởng Hà Nam", stock: "1000 kg" },
+  { id: "5", name: "Túi xách thủ công từ rơm", price: "350,000đ", type: "Thủ công", seller: "Xưởng Na Xá", stock: "50 cái" },
+  { id: "6", name: "Đệm tatami rơm tự nhiên", price: "800,000đ", type: "Thủ công", seller: "Thương lái Nội", stock: "20 cái" },
+  { id: "7", name: "Giỏ dệt trấu handmade", price: "280,000đ", type: "Thủ công", seller: "Làng nghề Tây Hồ", stock: "45 cái" },
+  { id: "8", name: "Tạp chí từ xơ cỏ tái chế", price: "150,000đ", type: "Thủ công", seller: "Studio Xanh", stock: "300 cuốn" },
 ];
 
 const stats = [
@@ -36,14 +47,95 @@ const promotions = [
   { id: 3, title: "Sản phẩm thủ công mới", desc: "Túi xách, đệm tatami - Thu thập phương pháp tái chế mới", tag: "NEW", color: "from-amber-500 to-amber-600" },
 ];
 
+/**
+ * Fetch top 8 best-selling products từ orders
+ */
+async function fetchTopSellingProducts(): Promise<FeaturedProduct[]> {
+  try {
+    // Lấy tất cả orders
+    const ordersSnapshot = await getDocs(collection(firebaseDb, "orders"));
+    
+    // Group products by listingId, sum quantities
+    const productSales: Record<string, number> = {};
+    ordersSnapshot.forEach((docSnap) => {
+      const order = docSnap.data();
+      const listingId = order.listingId;
+      const totalQuantity = order.items?.reduce((sum: number, item: any) => sum + (item.quantity || 0), 0) || 0;
+      
+      if (listingId) {
+        productSales[listingId] = (productSales[listingId] || 0) + totalQuantity;
+      }
+    });
+
+    // Sort by quantity descending, lấy top 8
+    const topListingIds = Object.entries(productSales)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(([id]) => id);
+
+    if (topListingIds.length === 0) {
+      return fallbackFeaturedProducts;
+    }
+
+    // Fetch listing details cho mỗi top product
+    const products: FeaturedProduct[] = [];
+    for (const listingId of topListingIds) {
+      const listingSnapshot = await getDocs(
+        query(collection(firebaseDb, "listings"), where("id", "==", listingId), limit(1))
+      );
+      
+      if (listingSnapshot.empty) continue;
+      
+      const listing = listingSnapshot.docs[0].data();
+      
+      // Fetch seller info
+      let sellerName = listing.sellerName || "Người bán";
+      if (listing.sellerId) {
+        const sellerSnap = await getDocs(
+          query(collection(firebaseDb, "users"), where("uid", "==", listing.sellerId), limit(1))
+        );
+        if (!sellerSnap.empty) {
+          sellerName = sellerSnap.docs[0].data().displayName || sellerSnap.docs[0].data().email || sellerName;
+        }
+      }
+
+      const quantity = productSales[listingId];
+      products.push({
+        id: listingId,
+        name: listing.title || "Sản phẩm không tên",
+        price: listing.price ? `${listing.price.toLocaleString("vi-VN")}đ` : "Liên hệ",
+        type: listing.category === "handmade" ? "Thủ công" : "Phế phẩm",
+        seller: sellerName,
+        stock: `${quantity} ${listing.unit || "cái"}`,
+      });
+    }
+
+    return products.length > 0 ? products : fallbackFeaturedProducts;
+  } catch (error) {
+    console.error("Lỗi fetch top selling products:", error);
+    return fallbackFeaturedProducts;
+  }
+}
+
 export default function HomePage() {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
+  const [featuredProducts, setFeaturedProducts] = useState<FeaturedProduct[]>(fallbackFeaturedProducts);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBannerIndex((prev) => (prev + 1) % banners.length);
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Fetch top selling products on mount
+  useEffect(() => {
+    setLoadingProducts(true);
+    fetchTopSellingProducts().then((products) => {
+      setFeaturedProducts(products);
+      setLoadingProducts(false);
+    });
   }, []);
 
   const currentBanner = banners[currentBannerIndex];
@@ -138,28 +230,45 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-            {featuredProducts.map((product, i) => (
-              <Link
-                key={product.id}
-                href="/search"
-                className="group animate-fadeInUp hover-lift rounded-2xl overflow-hidden bg-white border border-sage-200/70 hover:border-emerald-300 transition-all duration-300"
-                style={{ animationDelay: `${i * 80}ms` }}
-              >
-                <div className="relative bg-gradient-to-br from-emerald-50/80 to-sage-50/60 p-6 text-center min-h-[110px] flex flex-col items-center justify-center">
-                  <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${product.type === "Phế phẩm" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
-                    {product.type}
-                  </span>
-                  <p className="mt-1.5 text-[11px] text-stone-400">{product.stock}</p>
+            {loadingProducts ? (
+              // Skeleton loaders
+              Array(8).fill(0).map((_, i) => (
+                <div
+                  key={i}
+                  className="animate-pulse rounded-2xl overflow-hidden bg-white border border-sage-200/70"
+                >
+                  <div className="bg-stone-200 h-[110px]" />
+                  <div className="p-4 space-y-2">
+                    <div className="h-3 bg-stone-200 rounded w-3/4" />
+                    <div className="h-2 bg-stone-200 rounded w-1/2" />
+                    <div className="h-4 bg-stone-300 rounded w-2/3" />
+                  </div>
                 </div>
-                <div className="p-4 space-y-1.5">
-                  <h3 className="font-semibold text-stone-800 text-sm line-clamp-2 group-hover:text-emerald-700 transition-colors leading-snug">
-                    {product.name}
-                  </h3>
-                  <p className="text-[11px] text-stone-400">{product.seller}</p>
-                  <p className="text-emerald-700 font-bold text-base">{product.price}</p>
-                </div>
-              </Link>
-            ))}
+              ))
+            ) : (
+              featuredProducts.map((product, i) => (
+                <Link
+                  key={product.id}
+                  href={`/listing/${product.id}`}
+                  className="group animate-fadeInUp hover-lift rounded-2xl overflow-hidden bg-white border border-sage-200/70 hover:border-emerald-300 transition-all duration-300"
+                  style={{ animationDelay: `${i * 80}ms` }}
+                >
+                  <div className="relative bg-gradient-to-br from-emerald-50/80 to-sage-50/60 p-6 text-center min-h-[110px] flex flex-col items-center justify-center">
+                    <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${product.type === "Phế phẩm" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+                      {product.type}
+                    </span>
+                    <p className="mt-1.5 text-[11px] text-stone-400">{product.stock}</p>
+                  </div>
+                  <div className="p-4 space-y-1.5">
+                    <h3 className="font-semibold text-stone-800 text-sm line-clamp-2 group-hover:text-emerald-700 transition-colors leading-snug">
+                      {product.name}
+                    </h3>
+                    <p className="text-[11px] text-stone-400">{product.seller}</p>
+                    <p className="text-emerald-700 font-bold text-base">{product.price}</p>
+                  </div>
+                </Link>
+              ))
+            )}
           </div>
         </div>
       </section>
