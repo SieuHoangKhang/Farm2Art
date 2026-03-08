@@ -430,6 +430,7 @@ export default function EnhancedProfilePage() {
                 className="cursor-pointer group relative"
               >
                 {profile.avatar ? (
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={profile.avatar}
                     alt={profile.displayName}

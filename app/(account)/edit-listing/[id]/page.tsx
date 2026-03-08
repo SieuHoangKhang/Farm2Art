@@ -320,6 +320,7 @@ export default function EditListingPage() {
                     {images.map((img, idx) => (
                       <div key={idx} className="group relative">
                         <div className="relative aspect-square overflow-hidden rounded-lg border border-stone-200 bg-stone-100">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={img}
                             alt={`Preview ${idx + 1}`}
