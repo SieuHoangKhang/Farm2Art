@@ -74,23 +74,11 @@ export async function POST(request: Request) {
     // Seller verification is no longer required to place orders
     // Orders can proceed even if seller hasn't completed verification
 
-    const requestedMode =
-      processingMode === "warehouse" ? "warehouse" : "seller_self";
+    const requestedMode: WarehouseProcessingMode =
+      processingMode === "seller_self" ? "seller_self" : "warehouse";
 
-    if (processingPreference === "self" && requestedMode === "warehouse") {
-      return NextResponse.json(
-        { message: "Sản phẩm này do người bán tự sơ chế" },
-        { status: 400 }
-      );
-    }
-
-    if (processingPreference === "warehouse" && requestedMode === "seller_self") {
-      return NextResponse.json(
-        { message: "Sản phẩm này yêu cầu kho Farm2Art sơ chế" },
-        { status: 400 }
-      );
-    }
-
+    // Buyer no longer selects processing form on listing page.
+    // Force mode by seller preference when it is fixed.
     const finalProcessingMode: WarehouseProcessingMode =
       processingPreference === "self"
         ? "seller_self"
