@@ -20,7 +20,6 @@ export default function EditListingPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [location, setLocation] = useState("");
   const [type, setType] = useState<"byproduct" | "art" | "fertilizer">("byproduct");
   const [processingPreference, setProcessingPreference] = useState<ProcessingPreference>("buyer_choice");
   const [images, setImages] = useState<string[]>([]);
@@ -56,7 +55,6 @@ export default function EditListingPage() {
         setTitle(data.title);
         setDescription(data.description || "");
         setPrice(data.price.toString());
-        setLocation(data.location || "");
         setType(data.type);
         setProcessingPreference(data.processingPreference || "buyer_choice");
         setImages(
@@ -83,7 +81,7 @@ export default function EditListingPage() {
       return;
     }
 
-    if (!title || !description || !price || !location) {
+    if (!title || !description || !price) {
       setError("Vui lòng điền đầy đủ thông tin");
       return;
     }
@@ -97,7 +95,6 @@ export default function EditListingPage() {
         title,
         description,
         price: parseInt(price),
-        location,
         type,
         processingPreference,
         images,
@@ -222,14 +219,6 @@ export default function EditListingPage() {
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                required
-              />
-
-              <TextField
-                label="Địa điểm"
-                placeholder="Nhập địa điểm bán"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
                 required
               />
 

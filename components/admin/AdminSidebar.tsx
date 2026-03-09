@@ -40,6 +40,15 @@ const NAV_ITEMS: NAV_ITEMS_TYPE[] = [
     ),
   },
   {
+    label: "Tin tức",
+    href: "/admin/news",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v8m-9-3h3m-3 3h3m-3 3h3m3-8h3m-3 3h3m-3 3h3" />
+      </svg>
+    ),
+  },
+  {
     label: "Đơn hàng",
     href: "/admin/orders",
     icon: (
