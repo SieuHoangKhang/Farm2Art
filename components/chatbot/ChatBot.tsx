@@ -82,7 +82,7 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="flex flex-col h-[600px] bg-white rounded-lg shadow-lg border border-sage-200">
+    <div className="flex h-full min-h-0 flex-col bg-white">
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-green-50 to-white">
         {messages.map((msg) => (
@@ -131,7 +131,7 @@ export default function ChatBot() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-sage-200 p-4 bg-white rounded-b-lg">
+      <div className="border-t border-sage-200 p-4 bg-white">
         <div className="flex gap-2">
           <textarea
             value={input}
