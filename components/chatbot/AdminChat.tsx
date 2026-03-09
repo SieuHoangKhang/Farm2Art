@@ -8,7 +8,7 @@ interface AdminMessage {
   userId: string;
   userName: string;
   message: string;
-  timestamp: number;
+  timestamp: string | number;
   isAdmin: boolean;
 }
 
@@ -19,6 +19,7 @@ export default function AdminChat() {
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Scroll to bottom
   const scrollToBottom = () => {
@@ -29,10 +30,45 @@ export default function AdminChat() {
     scrollToBottom();
   }, [messages]);
 
-  // Load messages from Firebase
+  // Poll for messages from the server
+  const fetchMessages = async () => {
+    if (!user?.uid) return;
+    try {
+      const response = await fetch(`/api/admin-chat?userId=${user.uid}`, {
+        method: 'GET',
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const msgs = (data.messages || []) as AdminMessage[];
+        // Sort by timestamp ascending
+        msgs.sort((a, b) => {
+          const timeA = typeof a.timestamp === 'string' ? new Date(a.timestamp).getTime() : a.timestamp;
+          const timeB = typeof b.timestamp === 'string' ? new Date(b.timestamp).getTime() : b.timestamp;
+          return timeA - timeB;
+        });
+        setMessages(msgs);
+      }
+    } catch (err: any) {
+      console.error('Fetch messages error:', err);
+    }
+  };
+
+  // Load initial messages and set up polling
   useEffect(() => {
     if (!user?.uid) return;
-    // Messages will be loaded from API
+
+    fetchMessages();
+
+    // Poll every 3 seconds for new messages
+    pollIntervalRef.current = setInterval(() => {
+      fetchMessages();
+    }, 3000);
+
+    return () => {
+      if (pollIntervalRef.current) {
+        clearInterval(pollIntervalRef.current);
+      }
+    };
   }, [user?.uid]);
 
   const handleSendMessage = async () => {
@@ -46,17 +82,6 @@ export default function AdminChat() {
 
     try {
       console.log('Sending message for user:', user.uid);
-      
-      // Add user message to UI
-      const userMsg: AdminMessage = {
-        id: Date.now().toString(),
-        userId: user.uid,
-        userName: user.displayName || 'Guest',
-        message: input,
-        timestamp: Date.now(),
-        isAdmin: false,
-      };
-      setMessages(prev => [...prev, userMsg]);
 
       // Send to API
       const response = await fetch('/api/admin-chat', {
@@ -77,18 +102,12 @@ export default function AdminChat() {
       const data = await response.json();
       console.log('Message sent successfully:', data.messageId);
 
-      // Simulate admin response
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      const adminMsg: AdminMessage = {
-        id: (Date.now() + 1).toString(),
-        userId: user.uid,
-        userName: 'Admin',
-        message: '📌 Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong giờ hành chính (8:00 - 20:00). Vui lòng chờ!',
-        timestamp: Date.now(),
-        isAdmin: true,
-      };
-      setMessages(prev => [...prev, adminMsg]);
       setInput('');
+
+      // Refresh messages immediately to see the sent message
+      setTimeout(() => {
+        fetchMessages();
+      }, 500);
     } catch (err: any) {
       console.error('Send message error:', err);
       const errorMsg = err?.message || 'Không thể gửi tin nhắn';

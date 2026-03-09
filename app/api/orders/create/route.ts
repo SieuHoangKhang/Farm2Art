@@ -71,9 +71,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Người bán hiện đang bị khóa tài khoản" }, { status: 403 });
     }
 
-    if (seller.sellerVerified !== true) {
-      return NextResponse.json({ message: "Người bán chưa hoàn tất xác minh" }, { status: 403 });
-    }
+    // Seller verification is no longer required to place orders
+    // Orders can proceed even if seller hasn't completed verification
 
     const requestedMode =
       processingMode === "warehouse" ? "warehouse" : "seller_self";

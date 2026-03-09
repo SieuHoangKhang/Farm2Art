@@ -341,46 +341,6 @@ export default function ListingDetailPage() {
             {/* Buy Button */}
             {user && user.uid !== listing.sellerId ? (
               <div className="space-y-3">
-                {/* Warehouse Service Info - READ ONLY (Seller bereits chose) */}
-                <Card>
-                  <CardBody>
-                    <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">🏭 Hình thức xử lý</p>
-                    <div className="mt-3 space-y-2">
-                      <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
-                        <p className="text-sm font-semibold text-emerald-900">
-                          {processingPreference === "self"
-                            ? "🚜 Người bán tự sơ chế"
-                            : processingPreference === "warehouse"
-                              ? "🏢 Farm2Art sơ chế"
-                              : "Người bán chọn cách xử lý cho từng đơn"}
-                        </p>
-                        <p className="text-xs text-emerald-700 mt-2">
-                          ✓ Người bán đã xác định. Bạn chỉ cần mua và thanh toán.
-                        </p>
-                      </div>
-
-                      {/* Auto-calculated fee breakdown (PREVIEW ONLY) */}
-                      <div className="rounded-lg bg-stone-50 p-3 text-xs text-stone-600 space-y-1 border border-stone-200">
-                        <p className="font-semibold text-stone-800 mb-2">💰 Phí dịch vụ (dự tính):</p>
-                        <p>Phí đi lấy: {(STORAGE_FEE_PER_DAY * 2).toLocaleString("vi-VN")} VNĐ</p>
-                        {effectiveProcessingMode === "warehouse" && (
-                          <>
-                            <p>Phí sơ chế: {processingFee.toLocaleString("vi-VN")} VNĐ</p>
-                            <p>Phí lưu kho (dự tính): {storageFee.toLocaleString("vi-VN")} VNĐ</p>
-                          </>
-                        )}
-                        <p>Phí vận chuyển: {shippingFee.toLocaleString("vi-VN")} VNĐ</p>
-                        <p className="font-semibold text-stone-800 border-t border-stone-300 pt-1 mt-1">
-                          Tổng phí: {warehouseFeeTotal.toLocaleString("vi-VN")} VNĐ
-                        </p>
-                        <p className="text-stone-500 italic text-xs mt-2">
-                          * Phí lưu kho sẽ tính chính xác theo ngày lấy hàng → sơ chế xong
-                        </p>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-
                 <Button
                   onClick={handleBuyNow}
                   disabled={buyLoading}
