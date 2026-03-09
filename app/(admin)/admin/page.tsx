@@ -54,7 +54,7 @@ export default function AdminOverviewPage() {
         getDocs(query(collection(firebaseDb, "users"), orderBy("createdAt", "desc"), limit(5))),
         getDocs(query(collection(firebaseDb, "listings"), orderBy("createdAt", "desc"), limit(5))),
         getDocs(query(collection(firebaseDb, "orders"), orderBy("createdAt", "desc"), limit(5))),
-        getDocs(query(collection(firebaseDb, "listings"), where("approvalStatus", "==", "pending_approval"), orderBy("createdAt", "desc"), limit(5))),
+        getDocs(query(collection(firebaseDb, "listings"), where("approvalStatus", "==", "pending_approval"), limit(5))),
       ]);
 
       let totalTransactionValue = 0;
@@ -89,7 +89,7 @@ export default function AdminOverviewPage() {
       setRecentUsers(recentUsersSnap.docs.map((d) => ({ uid: d.id, ...d.data() } as AppUser)));
       setRecentListings(recentListingsSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Listing)));
       setRecentOrders(recentOrdersSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Order)));
-      setPendingListings(pendingListingsSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Listing)));
+      setPendingListings(pendingListingsSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Listing)).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)));
     } catch (err) {
       console.error("Dashboard load error:", err);
     } finally {

@@ -59,8 +59,7 @@ export function SearchFilters({
         <div className="space-y-1.5">
           {[
             { value: undefined, label: "Tất cả" },
-            { value: "byproduct" as const, label: "Phế phẩm" },
-            { value: "art" as const, label: "Tái chế" },
+            { value: "byproduct" as const, label: "Phế phẩm" },            { value: "fertilizer" as const, label: "Phân bón" },            { value: "art" as const, label: "Tái chế" },
           ].map((opt) => (
             <label
               key={opt.value ?? "all"}

@@ -212,7 +212,7 @@ export default function ListingDetailPage() {
 
   return (
     <div className="animate-fadeIn">
-      <PageHeader title={listing.title} subtitle={listing.type === "byproduct" ? "Phế phẩm nông nghiệp" : "Sản phẩm thủ công"} />
+      <PageHeader title={listing.title} subtitle={listing.type === "byproduct" ? "Phế phẩm nông nghiệp" : listing.type === "fertilizer" ? "Phân bón" : "Sản phẩm thủ công"} />
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         {error && (
@@ -274,7 +274,7 @@ export default function ListingDetailPage() {
                 </div>
                 <div className="space-y-3">
                   {[
-                    { label: "Loại", value: listing.type === "byproduct" ? "Phế phẩm nông nghiệp" : "Sản phẩm thủ công" },
+                    { label: "Loại", value: listing.type === "byproduct" ? "Phế phẩm nông nghiệp" : listing.type === "fertilizer" ? "Phân bón" : "Sản phẩm thủ công" },
                     { label: "Địa điểm", value: listing.location },
                     { label: "Ngày đăng", value: new Date(listing.createdAt).toLocaleDateString("vi-VN") },
                   ].map((item) => (

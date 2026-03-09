@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
     
     // Get filter parameters
     const query = searchParams.get('q')?.toLowerCase() || '';
-    const type = searchParams.get('type') as 'byproduct' | 'art' | null;
+    const type = searchParams.get('type') as 'byproduct' | 'art' | 'fertilizer' | null;
     const minPrice = parseInt(searchParams.get('minPrice') || '0');
     const maxPrice = parseInt(searchParams.get('maxPrice') || '999999999');
     const location = searchParams.get('location')?.toLowerCase() || '';
@@ -126,6 +126,7 @@ export async function GET(request: NextRequest) {
       filters: {
         types: {
           byproduct: mockListings.filter(l => l.type === 'byproduct').length,
+          fertilizer: mockListings.filter(l => l.type === 'fertilizer').length,
           art: mockListings.filter(l => l.type === 'art').length,
         },
         priceRange: {

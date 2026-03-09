@@ -4,9 +4,11 @@ import type { Listing } from "@/types/listing";
 import { formatVnd } from "@/lib/utils/format";
 
 function TypeBadge({ type }: { type: Listing["type"] }) {
-  const label = type === "byproduct" ? "Phế phẩm" : "Thủ công";
+  const label = type === "byproduct" ? "Phế phẩm" : type === "fertilizer" ? "Phân bón" : "Thủ công";
   const colorClass = type === "byproduct" 
     ? "bg-emerald-100/90 text-emerald-700 border-emerald-200/60" 
+    : type === "fertilizer"
+    ? "bg-blue-100/90 text-blue-700 border-blue-200/60"
     : "bg-amber-100/90 text-amber-700 border-amber-200/60";
   
   return (

@@ -17,7 +17,7 @@ export default function CreateListingPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [type, setType] = useState<"byproduct" | "art">("byproduct");
+  const [type, setType] = useState<"byproduct" | "art" | "fertilizer">("byproduct");
   const [processingPreference, setProcessingPreference] = useState<ProcessingPreference>("warehouse");
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -233,7 +233,7 @@ export default function CreateListingPage() {
                       type="radio"
                       value="byproduct"
                       checked={type === "byproduct"}
-                      onChange={(e) => setType(e.target.value as "byproduct" | "art")}
+                      onChange={(e) => setType(e.target.value as "byproduct" | "art" | "fertilizer")}
                       className="rounded-full"
                     />
                     <span className="ml-2 text-sm text-stone-700">Sản phẩm phụ</span>
@@ -241,9 +241,19 @@ export default function CreateListingPage() {
                   <label className="flex items-center">
                     <input
                       type="radio"
+                      value="fertilizer"
+                      checked={type === "fertilizer"}
+                      onChange={(e) => setType(e.target.value as "byproduct" | "art" | "fertilizer")}
+                      className="rounded-full"
+                    />
+                    <span className="ml-2 text-sm text-stone-700">Phân bón</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
                       value="art"
                       checked={type === "art"}
-                      onChange={(e) => setType(e.target.value as "byproduct" | "art")}
+                      onChange={(e) => setType(e.target.value as "byproduct" | "art" | "fertilizer")}
                       className="rounded-full"
                     />
                     <span className="ml-2 text-sm text-stone-700">Tác phẩm nghệ thuật</span>

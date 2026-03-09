@@ -28,13 +28,14 @@ export function SiteHeader() {
           <nav className="flex items-center gap-1">
             <div className="hidden md:flex items-center gap-0.5">
               {[
+                { href: "/", label: "Trang chủ" },
                 { href: "/search", label: "Sản phẩm" },
                 { href: "/news", label: "Tin tức" },
                 { href: "/policy", label: "Chính sách" },
                 { href: "/about", label: "Về chúng tôi" },
-              ].map((link) => (
+              ].map((link, idx) => (
                 <Link
-                  key={link.href}
+                  key={idx}
                   href={link.href}
                   className="relative px-3.5 py-2 text-sm font-medium text-stone-600 hover:text-emerald-700 rounded-lg hover:bg-emerald-50/70 transition-all duration-200"
                 >

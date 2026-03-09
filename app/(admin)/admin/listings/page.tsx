@@ -13,7 +13,7 @@ export default function AdminListingsPage() {
   const [saving, setSaving] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | Listing["status"]>("all");
-  const [typeFilter, setTypeFilter] = useState<"all" | "byproduct" | "art">("all");
+  const [typeFilter, setTypeFilter] = useState<"all" | "byproduct" | "art" | "fertilizer">("all");
   const [approvalFilter, setApprovalFilter] = useState<"all" | "pending_approval" | "approved" | "rejected">("pending_approval");
   const [toast, setToast] = useState<string | null>(null);
   const [rejectReason, setRejectReason] = useState<string>("");
@@ -312,6 +312,13 @@ export default function AdminListingsPage() {
                         </>
                       ) : (
                         <>
+                          <button
+                            onClick={() => toggleExpanded(l.id, l.sellerId)}
+                            disabled={saving === l.id}
+                            className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 disabled:opacity-50 transition-all duration-200"
+                          >
+                            {expandedId === l.id ? "▼ Ẩn" : "▶ Chi tiết"}
+                          </button>
                           <button
                             onClick={() => toggleStatus(l.id, l.status)}
                             disabled={saving === l.id}

@@ -188,18 +188,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* CTA inline */}
-          <div className="animate-fadeInUp text-center" style={{ animationDelay: "350ms" }}>
-            <p className="text-stone-500 text-sm mb-4">Khám phá sản phẩm phế phẩm nông nghiệp và thủ công mỹ nghệ trên toàn quốc</p>
-            <div className="flex gap-3 justify-center">
-              <LinkButton href="/search" variant="primary" className="!px-6">
-                Khám phá sản phẩm
-              </LinkButton>
-              <LinkButton href="/about" variant="outline" className="!px-6">
-                Về Farm2Art
-              </LinkButton>
-            </div>
-          </div>
+
         </div>
       </section>
 

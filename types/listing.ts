@@ -1,4 +1,4 @@
-export type ListingType = "byproduct" | "art";
+export type ListingType = "byproduct" | "art" | "fertilizer";
 
 export type ProcessingPreference = "self" | "warehouse" | "buyer_choice";
 
