@@ -79,7 +79,7 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
 
         {/* Chat Content */}
         <div className="flex-1 overflow-hidden">
-          <AdminChat />
+          <AdminChat onClose={onClose} />
         </div>
       </div>
     );
