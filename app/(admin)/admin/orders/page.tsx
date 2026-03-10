@@ -62,6 +62,26 @@ export default function AdminOrdersPage() {
       setSaving(order.id);
       await updateDoc(doc(firebaseDb, "orders", order.id), { status: next, [tsField]: Date.now() });
       setOrders((prev) => prev.map((o) => o.id === order.id ? { ...o, status: next, [tsField]: Date.now() } : o));
+
+      // Auto-issue service invoice when order is completed
+      if (next === "completed" && !order.invoiceId) {
+        const invoiceRes = await fetch("/api/invoices/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderId: order.id, sellerId: order.sellerId }),
+        });
+        const invoiceData = await invoiceRes.json().catch(() => ({}));
+        if (invoiceRes.ok && invoiceData?.invoice?.id) {
+          setOrders((prev) =>
+            prev.map((o) =>
+              o.id === order.id ? { ...o, invoiceId: invoiceData.invoice.id } : o
+            )
+          );
+          showToast(`Cập nhật ${STATUS_MAP[next].label} + phát hành hóa đơn ${invoiceData.invoice.invoiceNumber}`);
+          return;
+        }
+      }
+
       showToast(`Cập nhật  ${STATUS_MAP[next].label}`);
     } catch (err) {
       console.error(err);

@@ -171,6 +171,31 @@ export async function POST(req: NextRequest) {
 
     const order = orderDoc.data() as Order;
 
+    // Idempotent guard: if invoice already linked, return existing invoice
+    if (order.invoiceId) {
+      const existingInvoiceDoc = await db.collection("invoices").doc(order.invoiceId).get();
+      if (existingInvoiceDoc.exists) {
+        const existing = existingInvoiceDoc.data() as SellerInvoice;
+        return NextResponse.json(
+          {
+            success: true,
+            invoice: {
+              id: existingInvoiceDoc.id,
+              invoiceNumber: existing.invoiceNumber,
+              status: existing.status,
+              grossRevenue: existing.grossRevenue,
+              totalDeductions: existing.totalDeductions,
+              netPayout: existing.netPayout,
+              generatedAt: existing.generatedAt,
+              messageSent: !!existing.sentAt,
+            },
+            reused: true,
+          },
+          { status: 200 }
+        );
+      }
+    }
+
     // Kiểm tra seller match
     if (order.sellerId !== sellerId) {
       return NextResponse.json(
@@ -229,7 +254,10 @@ export async function POST(req: NextRequest) {
       status: "generated",
       createdAt: Date.now(),
       generatedAt: Date.now(),
+      pdfUrl: "",
     };
+
+    invoice.pdfUrl = `/api/invoices/${invoice.id}/pdf`;
 
     // 7. Save invoice to Firestore
     await db.collection("invoices").doc(invoice.id).set(invoice);

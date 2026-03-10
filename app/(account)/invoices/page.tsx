@@ -16,6 +16,7 @@ export default function SellerInvoicesPage() {
   const [error, setError] = useState<string | null>(null);
   const [contractAcceptedAt, setContractAcceptedAt] = useState<number | null>(null);
   const [accepting, setAccepting] = useState(false);
+  const [savingInvoiceId, setSavingInvoiceId] = useState<string | null>(null);
 
   const totals = useMemo(() => {
     const totalGross = invoices.reduce((s, i) => s + (i.grossRevenue || 0), 0);
@@ -74,6 +75,27 @@ export default function SellerInvoicesPage() {
       setError(e instanceof Error ? e.message : "Không thể cập nhật hợp đồng");
     } finally {
       setAccepting(false);
+    }
+  }
+
+  async function updateInvoiceStatus(id: string, status: SellerInvoice["status"]) {
+    try {
+      setSavingInvoiceId(id);
+      const res = await fetch(`/api/invoices/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || "Không thể cập nhật hóa đơn");
+      }
+
+      setInvoices((prev) => prev.map((inv) => (inv.id === id ? { ...inv, status } : inv)));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Lỗi cập nhật hóa đơn");
+    } finally {
+      setSavingInvoiceId(null);
     }
   }
 
@@ -144,6 +166,7 @@ export default function SellerInvoicesPage() {
                     <th className="px-3 py-2">Thực nhận</th>
                     <th className="px-3 py-2">Trạng thái</th>
                     <th className="px-3 py-2">Ngày tạo</th>
+                    <th className="px-3 py-2">Tác vụ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -156,6 +179,30 @@ export default function SellerInvoicesPage() {
                         <span className="rounded-full bg-stone-100 px-2.5 py-1 text-xs text-stone-700">{inv.status}</span>
                       </td>
                       <td className="px-3 py-2 text-stone-500">{fmtDateTime(inv.createdAt)}</td>
+                      <td className="px-3 py-2">
+                        <div className="flex flex-wrap gap-2">
+                          <a
+                            href={`/api/invoices/${inv.id}/pdf`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="rounded bg-slate-100 px-2 py-1 text-xs text-slate-700 hover:bg-slate-200"
+                            onClick={() => {
+                              if (inv.status === "generated" || inv.status === "sent") {
+                                void updateInvoiceStatus(inv.id, "viewed");
+                              }
+                            }}
+                          >
+                            Tải/In PDF
+                          </a>
+                          <button
+                            onClick={() => updateInvoiceStatus(inv.id, "paid")}
+                            disabled={savingInvoiceId === inv.id || inv.status === "paid"}
+                            className="rounded bg-emerald-100 px-2 py-1 text-xs text-emerald-700 hover:bg-emerald-200 disabled:opacity-50"
+                          >
+                            Xác nhận đã trả phí
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
