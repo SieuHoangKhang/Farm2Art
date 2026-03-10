@@ -527,6 +527,9 @@ export default function AccountPage() {
                 <LinkButton href="/orders" variant="ghost" className="justify-start h-11 text-sm font-medium">
                   <span></span> Đơn hàng
                 </LinkButton>
+                <LinkButton href="/invoices" variant="ghost" className="justify-start h-11 text-sm font-medium">
+                  <span></span> Hợp đồng & hóa đơn
+                </LinkButton>
               </div>
             </CardBody>
           </Card>

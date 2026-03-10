@@ -71,6 +71,7 @@ export type Order = {
   payoutAmount?: number;              // Số tiền seller sẽ nhận (= grandTotal - commissionAmount)
   payoutStatus?: PayoutStatus;        // Trạng thái thanh toán (pending/scheduled/completed/failed)
   payoutAt?: number;                  // Khi nào seller được thanh toán
+  invoiceId?: string;                 // Hóa đơn dịch vụ seller (nếu đã phát hành)
   
   createdAt: number;
 };

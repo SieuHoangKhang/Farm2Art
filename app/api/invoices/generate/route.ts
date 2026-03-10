@@ -280,22 +280,26 @@ export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
     const sellerId = searchParams.get("sellerId");
     const status = searchParams.get("status");
+    const all = searchParams.get("all") === "true";
 
-    if (!sellerId) {
+    if (!sellerId && !all) {
       return NextResponse.json(
-        { error: "sellerId bắt buộc" },
+        { error: "sellerId bắt buộc (hoặc all=true cho admin)" },
         { status: 400 }
       );
     }
 
-    let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db
-      .collection("invoices")
-      .where("sellerId", "==", sellerId)
-      .orderBy("createdAt", "desc");
+    let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db.collection("invoices");
+
+    if (sellerId && !all) {
+      query = query.where("sellerId", "==", sellerId);
+    }
 
     if (status) {
       query = query.where("status", "==", status);
     }
+
+    query = query.orderBy("createdAt", "desc");
 
     const snapshot = await query.limit(50).get();
     const invoices = snapshot.docs.map((doc) => ({

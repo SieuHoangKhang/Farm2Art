@@ -37,6 +37,7 @@ export default function WarehouseManagementPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [warehouseStatusEditing, setWarehouseStatusEditing] = useState<Record<string, string>>({});
+  const [generatingInvoiceId, setGeneratingInvoiceId] = useState<string | null>(null);
 
   useEffect(() => { loadOrders(); }, []);
 
@@ -98,6 +99,42 @@ export default function WarehouseManagementPage() {
       showToast(`Lỗi: ${err instanceof Error ? err.message : "Không thể cập nhật"}`);
     } finally {
       setSaving(null);
+    }
+  }
+
+  async function generateInvoiceForOrder(order: Order) {
+    try {
+      setGeneratingInvoiceId(order.id);
+      const res = await fetch("/api/invoices/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: order.id,
+          sellerId: order.sellerId,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data?.error || "Không thể tạo hóa đơn");
+      }
+
+      setOrders((prev) =>
+        prev.map((o) =>
+          o.id === order.id
+            ? {
+                ...o,
+                invoiceId: data?.invoice?.id || o.invoiceId,
+              }
+            : o
+        )
+      );
+
+      showToast(`Đã phát hành hóa đơn ${data?.invoice?.invoiceNumber || ""}`.trim());
+    } catch (err) {
+      showToast(`Lỗi tạo hóa đơn: ${err instanceof Error ? err.message : "Không rõ"}`);
+    } finally {
+      setGeneratingInvoiceId(null);
     }
   }
 
@@ -348,6 +385,26 @@ export default function WarehouseManagementPage() {
                     <p className="text-stone-700 mt-1">{o.shippingAddress}</p>
                   </div>
                 )}
+
+                <div className="bg-white/60 rounded-xl p-3 border border-sage-100 text-xs">
+                  <p className="text-stone-400 font-medium">Hóa đơn dịch vụ seller</p>
+                  <div className="mt-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                    <p className="text-stone-700">
+                      {o.invoiceId ? `Đã phát hành: ${o.invoiceId}` : "Chưa phát hành hóa đơn"}
+                    </p>
+                    <button
+                      onClick={() => generateInvoiceForOrder(o)}
+                      disabled={generatingInvoiceId === o.id || !!o.invoiceId}
+                      className="px-4 py-2 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    >
+                      {o.invoiceId
+                        ? "Đã phát hành"
+                        : generatingInvoiceId === o.id
+                          ? "Đang tạo..."
+                          : "Phát hành hóa đơn"}
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>
