@@ -4,12 +4,10 @@ import { serverDb } from "@/lib/firebase/server";
 import type { Listing, ProcessingPreference } from "@/types/listing";
 import type { Order, WarehouseProcessingMode } from "@/types/order";
 
-const PLATFORM_FEE_RATE = 0.025;
-const DEFAULT_STORAGE_DAYS = 2;
+const DEFAULT_STORAGE_DAYS = 0;
 const MAX_STORAGE_DAYS = 30;
 const STORAGE_FEE_PER_DAY = 2000;
-const PROCESSING_FEE_WAREHOUSE = 15000;
-const SHIPPING_FEE_WAREHOUSE = 30000;
+const SHIPPING_FEE_RATE = 0.05;
 
 export async function POST(request: Request) {
   try {
@@ -38,6 +36,13 @@ export async function POST(request: Request) {
     }
 
     const listing = listingSnap.data() as Listing;
+    if (listing.status !== "active") {
+      return NextResponse.json(
+        { message: "Sản phẩm này hiện không còn mở bán" },
+        { status: 400 }
+      );
+    }
+
     const sellerId = listing.sellerId || listing.ownerId || payloadSellerId;
     const processingPreference: ProcessingPreference =
       listing.processingPreference || "buyer_choice";
@@ -77,8 +82,8 @@ export async function POST(request: Request) {
     const requestedMode: WarehouseProcessingMode =
       processingMode === "seller_self" ? "seller_self" : "warehouse";
 
-    // Buyer no longer selects processing form on listing page.
-    // Force mode by seller preference when it is fixed.
+    // Nếu seller để buyer_choice thì buyer có thể tick dịch vụ ở UI.
+    // Nếu seller chốt cứng, hệ thống dùng cấu hình đó.
     const finalProcessingMode: WarehouseProcessingMode =
       processingPreference === "self"
         ? "seller_self"
@@ -86,18 +91,25 @@ export async function POST(request: Request) {
           ? "warehouse"
           : requestedMode;
 
+    const useWarehouseShipping = finalProcessingMode === "warehouse";
+
     const finalStorageDays = Number.isFinite(parsedStorageDays)
       ? Math.max(0, Math.min(Math.floor(parsedStorageDays), MAX_STORAGE_DAYS))
       : DEFAULT_STORAGE_DAYS;
 
+    const commissionRate =
+      listing.agreement?.commissionRate ?? listing.commissionRate ?? 0.2;
+
     const subTotal = listing.price * parsedQuantity;
-    const platformFee = Math.round(subTotal * PLATFORM_FEE_RATE);
+    const platformFee = Math.round(subTotal * commissionRate);
     const storageFee = finalStorageDays * STORAGE_FEE_PER_DAY;
-    const processingFee =
-      finalProcessingMode === "warehouse" ? PROCESSING_FEE_WAREHOUSE : 0;
-    const shippingFee = SHIPPING_FEE_WAREHOUSE;
+    const processingFee = 0;
+    const shippingFee = useWarehouseShipping ? Math.round(subTotal * SHIPPING_FEE_RATE) : 0;
     const serviceFeeTotal = storageFee + processingFee + shippingFee;
-    const grandTotal = subTotal + platformFee + serviceFeeTotal;
+    // Khách chỉ trả đúng tiền sản phẩm; phí vận chuyển được khấu trừ phía seller cùng hoa hồng.
+    const grandTotal = subTotal;
+    const depositAmount = Math.round(subTotal * 0.5);
+    const remainingAmount = Math.max(subTotal - depositAmount, 0);
     const sellerPayout = Math.max(subTotal - platformFee, 0);
 
     // Create order
@@ -107,19 +119,26 @@ export async function POST(request: Request) {
       sellerName: seller.displayName || seller.name || undefined,
       buyerId,
       status: "pending" as const,
+      paymentStatus: "pending",
+      depositAmount,
+      remainingAmount,
+      remainingPaymentStatus: "pending",
       subTotal,
-      totalAmount: subTotal,
+      totalAmount: grandTotal,
       platformFee,
-      warehouseService: {
-        enabled: true,
-        processingMode: finalProcessingMode,
-        storageDays: finalStorageDays,
-        storageFee,
-        processingFee,
-        shippingFee,
-        serviceFeeTotal,
-        warehouseStatus: "awaiting_intake",
-      },
+      commissionRate,
+      warehouseService: useWarehouseShipping
+        ? {
+            enabled: true,
+            processingMode: "warehouse",
+            storageDays: finalStorageDays,
+            storageFee,
+            processingFee,
+            shippingFee,
+            serviceFeeTotal,
+            warehouseStatus: "in_stock",
+          }
+        : undefined,
       grandTotal,
       sellerPayout,
       items: [

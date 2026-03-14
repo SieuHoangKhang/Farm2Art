@@ -15,6 +15,7 @@ export function SiteHeader() {
                 src="/images/logo.png"
                 alt="Farm2Art Logo"
                 fill
+                sizes="40px"
                 className="object-contain"
                 priority
               />

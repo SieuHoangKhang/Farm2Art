@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { signOut } from "firebase/auth";
 import {
@@ -70,6 +71,8 @@ function StatIcon({ type }: { type: "listing" | "active" | "account" }) {
 }
 
 export default function AccountPage() {
+  const searchParams = useSearchParams();
+  const isWelcome = searchParams.get("welcome") === "1";
   const { user, role, loading, error: roleError } = useAuthUser();
 
   const [profile, setProfile] = useState<AppUser | null>(null);
@@ -79,6 +82,7 @@ export default function AccountPage() {
   const [listingCount, setListingCount] = useState<number | null>(null);
   const [activeListingCount, setActiveListingCount] = useState<number | null>(null);
   const [recentListings, setRecentListings] = useState<Listing[]>([]);
+  const [listingIdsWithBuyerOrders, setListingIdsWithBuyerOrders] = useState<Set<string>>(new Set());
   const [dataLoading, setDataLoading] = useState(false);
   const [dataError, setDataError] = useState<string | null>(null);
 
@@ -197,10 +201,12 @@ export default function AccountPage() {
         // IMPORTANT: Avoid composite index requirements by not mixing where+orderBy.
         // We fetch a small batch and sort client-side.
         const recentQuery = query(listingsRef, where("sellerId", "==", user!.uid), limit(25));
+        const sellerOrdersQuery = query(collection(firebaseDb, "orders"), where("sellerId", "==", user!.uid), limit(200));
 
-        const [countAll, recentSnap] = await Promise.all([
+        const [countAll, recentSnap, sellerOrdersSnap] = await Promise.all([
           getCountFromServer(ownerQuery),
           getDocs(recentQuery),
+          getDocs(sellerOrdersQuery),
         ]);
 
         if (cancelled) return;
@@ -211,6 +217,15 @@ export default function AccountPage() {
           id: d.id,
           ...(d.data() as Omit<Listing, "id">),
         }));
+
+        const soldListingIds = new Set<string>();
+        sellerOrdersSnap.docs.forEach((d) => {
+          const order = d.data() as { listingId?: string; buyerId?: string; status?: string };
+          if (!order.listingId || !order.buyerId) return;
+          if (order.status === "cancelled") return;
+          soldListingIds.add(order.listingId);
+        });
+        setListingIdsWithBuyerOrders(soldListingIds);
 
         const sorted = all
           .slice()
@@ -328,6 +343,12 @@ export default function AccountPage() {
     <div>
       <PageHeader title="Trang cá nhân" subtitle="Thông tin cá nhân, bài đăng và cài đặt." />
 
+      {isWelcome ? (
+        <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          Tài khoản đã tạo thành công. Hãy vào <Link href="/profile" className="font-semibold underline">trang cá nhân</Link> để cập nhật phương thức nhận tiền VNPAY.
+        </div>
+      ) : null}
+
       <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
         <div className="px-5 pb-6 pt-5 sm:px-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -394,7 +415,7 @@ export default function AccountPage() {
               <LinkButton href="/my-listings" variant="secondary">
                 Tin đã đăng
               </LinkButton>
-              <LinkButton href="/orders" variant="ghost">
+              <LinkButton href="/orders" variant="secondary">
                 Đơn hàng
               </LinkButton>
               <Button
@@ -504,7 +525,15 @@ export default function AccountPage() {
               ) : (
                 <div className="mt-4 grid gap-4 md:grid-cols-2">
                   {recentListings.map((l) => (
-                    <ListingCard key={l.id} listing={l} />
+                    <ListingCard
+                      key={l.id}
+                      listing={l}
+                      statusBadge={
+                        listingIdsWithBuyerOrders.has(l.id)
+                          ? "Đã ẩn"
+                          : undefined
+                      }
+                    />
                   ))}
                 </div>
               )}
@@ -521,14 +550,11 @@ export default function AccountPage() {
                 <LinkButton href="/my-listings" variant="ghost" className="justify-start h-11 text-sm font-medium">
                   <span></span> Quản lý tin đăng
                 </LinkButton>
-                <LinkButton href="/conversations" variant="ghost" className="justify-start h-11 text-sm font-medium">
-                  <span></span> Tin nhắn
-                </LinkButton>
                 <LinkButton href="/orders" variant="ghost" className="justify-start h-11 text-sm font-medium">
                   <span></span> Đơn hàng
                 </LinkButton>
                 <LinkButton href="/invoices" variant="ghost" className="justify-start h-11 text-sm font-medium">
-                  <span></span> Hợp đồng & hóa đơn
+                  <span></span> Hợp đồng & tiền admin chi trả
                 </LinkButton>
               </div>
             </CardBody>

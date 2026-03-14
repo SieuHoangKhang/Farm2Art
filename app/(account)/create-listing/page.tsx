@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { collection, addDoc, doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Card, CardBody } from "@/components/ui/Card";
@@ -11,6 +11,8 @@ import { useAuthUser } from "@/lib/auth/useAuthUser";
 import { firebaseDb } from "@/lib/firebase/client";
 import type { Listing, ProcessingPreference } from "@/types/listing";
 
+const AGREEMENT_COMMISSION_RATE = 0.2;
+
 export default function CreateListingPage() {
   const router = useRouter();
   const { user, loading: userLoading } = useAuthUser();
@@ -19,11 +21,49 @@ export default function CreateListingPage() {
   const [price, setPrice] = useState("");
   const [type, setType] = useState<"byproduct" | "art" | "fertilizer">("byproduct");
   const [processingPreference, setProcessingPreference] = useState<ProcessingPreference>("warehouse");
+  const [sellerAcceptedAgreement, setSellerAcceptedAgreement] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [newListingId, setNewListingId] = useState<string | null>(null);
+  const [vnpayWalletName, setVnpayWalletName] = useState("VNPAY");
+  const [hasConfiguredVnpay, setHasConfiguredVnpay] = useState(false);
+
+  useEffect(() => {
+    async function loadPayoutAccount() {
+      if (!user?.uid) return;
+      try {
+        const [userSnap, profileSnap] = await Promise.all([
+          getDoc(doc(firebaseDb, "users", user.uid)),
+          getDoc(doc(firebaseDb, "user_profiles", user.uid)),
+        ]);
+
+        const payout = userSnap.data()?.payoutAccount as
+          | { bankName?: string; accountNumber?: string; accountHolder?: string }
+          | undefined;
+
+        const savedMethods = profileSnap.data()?.savedPaymentMethods as
+          | Array<{ type?: string; name?: string }>
+          | undefined;
+        const vnpayMethodName = Array.isArray(savedMethods)
+          ? (savedMethods.find((m) => m?.type === "ewallet" && /vnpay/i.test(String(m?.name || "")))?.name || "")
+          : "";
+
+        if (vnpayMethodName) {
+          setVnpayWalletName(vnpayMethodName);
+          setHasConfiguredVnpay(true);
+        } else if (payout?.bankName && /vnpay/i.test(String(payout.bankName))) {
+          setVnpayWalletName("VNPAY");
+          setHasConfiguredVnpay(true);
+        }
+      } catch {
+        // Ignore prefill failure to avoid blocking listing form.
+      }
+    }
+
+    void loadPayoutAccount();
+  }, [user?.uid]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -34,6 +74,18 @@ export default function CreateListingPage() {
 
     if (!title || !description || !price) {
       setError("Vui lòng điền đầy đủ thông tin");
+      return;
+    }
+
+    const shippingFeeRate = processingPreference === "warehouse" ? 0.05 : 0;
+
+    if (!sellerAcceptedAgreement) {
+      setError("Bạn cần xác nhận đồng ý thỏa thuận phí trước khi gửi admin duyệt");
+      return;
+    }
+
+    if (!hasConfiguredVnpay) {
+      setError("Vui lòng vào trang cá nhân cập nhật phương thức thanh toán VNPAY trước khi đăng bán.");
       return;
     }
 
@@ -51,15 +103,68 @@ export default function CreateListingPage() {
         images: images as string[],
         status: "inactive",
         approvalStatus: "pending_approval",
+        commissionRate: AGREEMENT_COMMISSION_RATE,
+        serviceFeeConfig: {
+          shippingFee: shippingFeeRate,
+        },
+        agreement: {
+          commissionRate: AGREEMENT_COMMISSION_RATE,
+          processingFee: 0,
+          shippingFee: shippingFeeRate,
+          sellerAccepted: true,
+          sellerAcceptedAt: Date.now(),
+        },
         createdAt: new Date().getTime(),
-      };
+        };
 
       const listingsRef = collection(firebaseDb, "listings");
       const docRef = await addDoc(listingsRef, listing);
 
+      await setDoc(
+        doc(firebaseDb, "users", user.uid),
+        {
+          payoutAccount: {
+            bankName: "VNPAY",
+            accountNumber: `WALLET-${user.uid.slice(0, 8).toUpperCase()}`,
+            accountHolder: user.displayName || user.email || user.uid,
+            updatedAt: Date.now(),
+          },
+        },
+        { merge: true }
+      );
+
+      // Đồng bộ về hồ sơ thanh toán cá nhân để admin payout có thể nhận diện ví VNPAY.
+      const profileRef = doc(firebaseDb, "user_profiles", user.uid);
+      const profileSnap = await getDoc(profileRef);
+      const existingMethods = (profileSnap.data()?.savedPaymentMethods as
+        | Array<{ id?: string; type?: string; name?: string; default?: boolean }>
+        | undefined) || [];
+      const hasVnpay = existingMethods.some(
+        (m) => m?.type === "ewallet" && /vnpay/i.test(String(m?.name || ""))
+      );
+
+      if (!hasVnpay) {
+        await setDoc(
+          profileRef,
+          {
+            savedPaymentMethods: [
+              ...existingMethods,
+              {
+                id: `vnpay-${Date.now()}`,
+                type: "ewallet",
+                name: vnpayWalletName.trim() || "VNPAY",
+                default: existingMethods.length === 0,
+              },
+            ],
+            updatedAt: new Date().toISOString(),
+          },
+          { merge: true }
+        );
+      }
+
       // Update user's listing count
       const userRef = doc(firebaseDb, "users", user.uid);
-      const snap = await (await import("firebase/firestore")).getDoc(userRef);
+      const snap = await getDoc(userRef);
       if (snap.exists()) {
         const currentCount = snap.data().listingCount || 0;
         await updateDoc(userRef, { listingCount: currentCount + 1 });
@@ -262,18 +367,8 @@ export default function CreateListingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-stone-900">Phương án sơ chế</label>
+                <label className="block text-sm font-semibold text-stone-900">Phương án giao hàng</label>
                 <div className="mt-2 space-y-2">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      value="self"
-                      checked={processingPreference === "self"}
-                      onChange={(e) => setProcessingPreference(e.target.value as ProcessingPreference)}
-                      className="rounded-full"
-                    />
-                    <span className="ml-2 text-sm text-stone-700">Người bán tự sơ chế</span>
-                  </label>
                   <label className="flex items-center">
                     <input
                       type="radio"
@@ -282,9 +377,61 @@ export default function CreateListingPage() {
                       onChange={(e) => setProcessingPreference(e.target.value as ProcessingPreference)}
                       className="rounded-full"
                     />
-                    <span className="ml-2 text-sm text-stone-700">Sử dụng kho Farm2Art để sơ chế</span>
+                    <span className="ml-2 text-sm text-stone-700">Web giữ hàng tại kho và giao cho khách (phí vận chuyển 5% tổng đơn)</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      value="self"
+                      checked={processingPreference === "self"}
+                      onChange={(e) => setProcessingPreference(e.target.value as ProcessingPreference)}
+                      className="rounded-full"
+                    />
+                    <span className="ml-2 text-sm text-stone-700">Người bán giao trực tiếp cho khách (không phí vận chuyển)</span>
                   </label>
                 </div>
+              </div>
+
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-3">
+                <p className="text-sm font-semibold text-amber-900">Thỏa thuận gửi admin duyệt</p>
+                <p className="text-xs text-amber-800">
+                  Hoa hồng admin sau khi bán thành công: <strong>{(AGREEMENT_COMMISSION_RATE * 100).toFixed(0)}%</strong> trên tổng hóa đơn.
+                </p>
+                <p className="text-xs text-amber-800">
+                  Chính sách vận chuyển: <strong>{processingPreference === "warehouse" ? "5% tổng đơn hàng" : "0% (giao trực tiếp)"}</strong>.
+                </p>
+
+                <label className="flex items-start gap-2 rounded-lg border border-amber-300 bg-white p-3">
+                  <input
+                    type="checkbox"
+                    checked={sellerAcceptedAgreement}
+                    onChange={(e) => setSellerAcceptedAgreement(e.target.checked)}
+                    className="mt-1"
+                  />
+                  <span className="text-xs text-stone-700">
+                    Tôi đồng ý mức hoa hồng 20% và chính sách vận chuyển đã chọn, đồng thời gửi bài đăng để admin xét duyệt theo thỏa thuận ban đầu.
+                  </span>
+                </label>
+              </div>
+
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 space-y-3">
+                <p className="text-sm font-semibold text-emerald-900">Phương thức nhận tiền người bán (bắt buộc)</p>
+                <p className="text-xs text-emerald-800">
+                  Farm2Art chỉ hỗ trợ ví điện tử VNPAY cho luồng chi trả người bán.
+                </p>
+                <select
+                  value={vnpayWalletName}
+                  onChange={(e) => setVnpayWalletName(e.target.value)}
+                  className="w-full rounded-lg border border-emerald-300 px-3 py-2 text-sm"
+                  required
+                >
+                  <option value="VNPAY">VNPAY</option>
+                </select>
+                {!hasConfiguredVnpay ? (
+                  <p className="text-xs text-red-600">
+                    Bạn chưa cấu hình VNPAY trong trang cá nhân. Hãy cập nhật trước khi gửi đăng bán.
+                  </p>
+                ) : null}
               </div>
 
               <div>

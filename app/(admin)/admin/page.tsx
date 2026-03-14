@@ -17,7 +17,6 @@ type Stats = {
   totalTransactionValue: number;
   platformRevenue: number;
   totalSellerPayout: number;
-  pendingVerifications: number;
   activeListings: number;
 };
 
@@ -40,9 +39,16 @@ export default function AdminOverviewPage() {
 
   async function loadDashboard() {
     try {
+      // Dọn dữ liệu đơn cũ hơn 4 ngày để số liệu dashboard được làm sạch.
+      await fetch('/api/orders/cleanup-old', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ scope: 'all', olderThanDays: 4 }),
+      }).catch(() => null);
+
       const [
         usersSnap, listingsSnap, ordersSnap,
-        activeListingsSnap, pendingVerSnap,
+        activeListingsSnap,
         recentUsersSnap, recentListingsSnap, recentOrdersSnap,
         pendingListingsSnap,
       ] = await Promise.all([
@@ -50,7 +56,6 @@ export default function AdminOverviewPage() {
         getCountFromServer(collection(firebaseDb, "listings")),
         getCountFromServer(collection(firebaseDb, "orders")),
         getCountFromServer(query(collection(firebaseDb, "listings"), where("status", "==", "active"))),
-        getCountFromServer(query(collection(firebaseDb, "seller_verifications"), where("status", "==", "pending"))),
         getDocs(query(collection(firebaseDb, "users"), orderBy("createdAt", "desc"), limit(5))),
         getDocs(query(collection(firebaseDb, "listings"), orderBy("createdAt", "desc"), limit(5))),
         getDocs(query(collection(firebaseDb, "orders"), orderBy("createdAt", "desc"), limit(5))),
@@ -64,7 +69,7 @@ export default function AdminOverviewPage() {
       allOrders.forEach((d) => {
         const o = d.data();
         if (o.status !== "cancelled") {
-          const orderTotal = o.grandTotal ?? ((o.subTotal ?? o.totalAmount) + (o.platformFee ?? 0) + (o.warehouseService?.serviceFeeTotal ?? 0));
+          const orderTotal = o.grandTotal ?? (o.subTotal ?? o.totalAmount);
           const subTotal = (o.subTotal ?? o.totalAmount) || 0;
           const platformFee = o.platformFee ?? Math.round(subTotal * 0.025);
           const sellerPayout = o.sellerPayout ?? Math.max(subTotal - platformFee, 0);
@@ -83,7 +88,6 @@ export default function AdminOverviewPage() {
         platformRevenue,
         totalSellerPayout,
         activeListings: activeListingsSnap.data().count,
-        pendingVerifications: pendingVerSnap.data().count,
       });
 
       setRecentUsers(recentUsersSnap.docs.map((d) => ({ uid: d.id, ...d.data() } as AppUser)));
@@ -100,7 +104,7 @@ export default function AdminOverviewPage() {
   const fmt = (n: number) => new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
   const fmtDate = (ts: number) => new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
   const fmtTime = (ts: number) => new Date(ts).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
-  const getOrderTotal = (order: Order) => order.grandTotal ?? (order.subTotal ?? order.totalAmount) + (order.platformFee ?? 0) + (order.warehouseService?.serviceFeeTotal ?? 0);
+  const getOrderTotal = (order: Order) => order.grandTotal ?? (order.subTotal ?? order.totalAmount);
 
   const statusColors: Record<string, string> = {
     pending: "bg-yellow-100 text-yellow-800",
@@ -176,12 +180,6 @@ export default function AdminOverviewPage() {
             <p className="text-sm text-emerald-100/70 mt-3">Dữ liệu realtime từ Firestore</p>
           </div>
 
-          {(stats?.pendingVerifications ?? 0) > 0 && (
-            <Link href="/admin/seller-verification" className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 text-white text-sm font-semibold hover:bg-white/20 transition-all duration-300 hover-lift">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900 text-xs font-bold shadow-lg shadow-amber-500/30">{stats?.pendingVerifications}</span>
-              Xác minh chờ duyệt
-            </Link>
-          )}
         </div>
       </div>
 

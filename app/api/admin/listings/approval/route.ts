@@ -33,9 +33,18 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Listing not found' }, { status: 404 });
     }
 
+    const listing = listingSnap.data() as Listing;
+
     let updateData: any = {};
 
     if (action === 'approve') {
+      if (!listing.agreement?.sellerAccepted) {
+        return NextResponse.json(
+          { error: 'Seller chưa xác nhận thỏa thuận phí, không thể duyệt' },
+          { status: 400 }
+        );
+      }
+
       updateData = {
         approvalStatus: 'approved',
         status: 'active',

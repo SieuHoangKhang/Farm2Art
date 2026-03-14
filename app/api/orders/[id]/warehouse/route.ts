@@ -20,11 +20,12 @@ export async function PUT(
     }
 
     const validStatuses = [
+      'in_stock',
       'awaiting_intake',
       'in_storage',
-      'processing',
       'ready_to_ship',
       'shipped',
+      'completed',
     ];
 
     if (!validStatuses.includes(warehouseStatus)) {
@@ -51,15 +52,32 @@ export async function PUT(
       );
     }
 
+    if ((warehouseStatus === 'shipped' || warehouseStatus === 'completed') && order.paymentStatus !== 'success') {
+      return NextResponse.json(
+        { error: 'Order must be paid before shipping from warehouse' },
+        { status: 400 }
+      );
+    }
+
+    if (warehouseStatus === 'completed') {
+      return NextResponse.json(
+        { error: 'Warehouse cannot mark completed directly. Wait for customer confirmation.' },
+        { status: 400 }
+      );
+    }
+
     // Chuẩn bị update data
     const updateData: any = {
       'warehouseService.warehouseStatus': warehouseStatus,
       'warehouseService.updatedAt': new Date().getTime(),
     };
 
-    // Auto-sync: Khi kho shipped → đơn hàng tự động sang shipping
-    if (warehouseStatus === 'shipped' && order.status !== 'shipping' && order.status !== 'delivered' && order.status !== 'completed') {
+    // Auto-sync: Kho xuất hàng -> đơn chuyển sang đang giao
+    if (warehouseStatus === 'shipped' && order.status !== 'shipping' && order.status !== 'completed' && order.status !== 'cancelled') {
       updateData.status = 'shipping';
+      if (!order.confirmedAt) {
+        updateData.confirmedAt = new Date().getTime();
+      }
       updateData.shippedAt = new Date().getTime();
     }
 
@@ -71,6 +89,9 @@ export async function PUT(
         orderId: id, 
         warehouseStatus, 
         orderStatus: updateData.status || order.status,
+        confirmedAt: updateData.confirmedAt || order.confirmedAt,
+        shippedAt: updateData.shippedAt || order.shippedAt,
+        completedAt: order.completedAt,
         updatedAt: new Date().getTime() 
       },
       { status: 200 }

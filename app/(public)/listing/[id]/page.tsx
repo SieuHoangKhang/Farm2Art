@@ -8,13 +8,9 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { Button, LinkButton } from "@/components/ui/Button";
 import { useAuthUser } from "@/lib/auth/useAuthUser";
 import { firebaseDb } from "@/lib/firebase/client";
-import type { Listing, ProcessingPreference } from "@/types/listing";
+import type { Listing } from "@/types/listing";
 import ProductRatings from "@/components/listing/ProductRatings";
 import ReviewForm from "@/components/listing/ReviewForm";
-
-const STORAGE_FEE_PER_DAY = 2000;
-const PROCESSING_FEE_WAREHOUSE = 15000;
-const SHIPPING_FEE_WAREHOUSE = 30000;
 
 export default function ListingDetailPage() {
   const params = useParams();
@@ -44,20 +40,17 @@ export default function ListingDetailPage() {
         const data = { id: docSnap.id, ...docSnap.data() } as Listing;
         const normalizedSellerId = data.sellerId || data.ownerId || "";
 
-        // 🔐 Check approval status
-        if (data.approvalStatus !== "approved") {
-          // Chỉ seller hoặc admin mới có thể xem
-          if (user?.uid !== normalizedSellerId) {
-            setIsUnapproved(true);
-            setLoading(false);
-            return;
-          }
+        // Chỉ chặn khi bài chưa được duyệt. Bài đã bán và ẩn vẫn cho xem chi tiết.
+        if (data.approvalStatus !== "approved" && user?.uid !== normalizedSellerId) {
+          setIsUnapproved(true);
+          setLoading(false);
+          return;
         }
 
         const normalizedListing = {
           ...data,
           sellerId: normalizedSellerId,
-          processingPreference: data.processingPreference || "buyer_choice",
+          processingPreference: data.processingPreference || "warehouse",
         } as Listing;
         console.log(" Listing loaded:", { id: data.id, title: data.title, imagesCount: data.images?.length || 0, images: data.images });
         setListing(normalizedListing);
@@ -197,19 +190,6 @@ export default function ListingDetailPage() {
     );
   }
 
-  const processingPreference: ProcessingPreference = listing.processingPreference || "buyer_choice";
-  const effectiveProcessingMode =
-    processingPreference === "self"
-      ? "seller_self"
-      : processingPreference === "warehouse"
-        ? "warehouse"
-        : "warehouse"; // Default to warehouse for preview
-  const storageFee = 2 * STORAGE_FEE_PER_DAY; // Using default 2 days for preview
-  const processingFee =
-    effectiveProcessingMode === "warehouse" ? PROCESSING_FEE_WAREHOUSE : 0;
-  const shippingFee = SHIPPING_FEE_WAREHOUSE;
-  const warehouseFeeTotal = storageFee + processingFee + shippingFee;
-
   return (
     <div className="animate-fadeIn">
       <PageHeader title={listing.title} subtitle={listing.type === "byproduct" ? "Phế phẩm nông nghiệp" : listing.type === "fertilizer" ? "Phân bón" : "Sản phẩm thủ công"} />
@@ -221,6 +201,12 @@ export default function ListingDetailPage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
             {error}
+          </div>
+        )}
+
+        {listing.status === "hidden" && (
+          <div className="mb-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            Bài đăng này đã được bán và hiện đang tạm ẩn.
           </div>
         )}
 
@@ -343,20 +329,23 @@ export default function ListingDetailPage() {
               <div className="space-y-3">
                 <Button
                   onClick={handleBuyNow}
-                  disabled={buyLoading}
+                  disabled={buyLoading || listing.status !== "active"}
                   className="w-full !py-3.5 text-base animate-pulseGlow"
                 >
-                  {buyLoading ? "Đang xử lý..." : "Mua ngay"}
+                  {listing.status !== "active"
+                    ? "Sản phẩm đã bán"
+                    : buyLoading
+                      ? "Đang xử lý..."
+                      : "Mua ngay"}
                 </Button>
-                <LinkButton href={`/chat?sellerId=${listing.sellerId}&product=${encodeURIComponent(listing.title)}`} variant="outline" className="block w-full text-center text-xs">
-                  Liên hệ người bán
-                </LinkButton>
               </div>
             ) : user ? (
               <div className="space-y-3">
-                <LinkButton href={`/edit-listing/${listing.id}`} className="block w-full text-center !py-3 bg-blue-600 text-white hover:bg-blue-700">
-                   Sửa bài đăng
-                </LinkButton>
+                {listing.approvalStatus !== "approved" && (
+                  <LinkButton href={`/edit-listing/${listing.id}`} className="block w-full text-center !py-3 bg-blue-600 text-white hover:bg-blue-700">
+                     Sửa bài đăng
+                  </LinkButton>
+                )}
                 <LinkButton href="/my-listings" variant="secondary" className="block w-full text-center text-xs">
                   Quản lý bài đăng
                 </LinkButton>
@@ -365,9 +354,6 @@ export default function ListingDetailPage() {
               <div className="space-y-3">
                 <LinkButton href="/login" className="block w-full text-center !py-3">
                   Đăng nhập để mua
-                </LinkButton>
-                <LinkButton href={`/chat?sellerId=${listing.sellerId}&product=${encodeURIComponent(listing.title)}`} variant="secondary" className="block w-full text-center text-xs">
-                  Liên hệ người bán
                 </LinkButton>
               </div>
             )}

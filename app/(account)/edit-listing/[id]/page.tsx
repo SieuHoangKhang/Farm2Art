@@ -21,7 +21,7 @@ export default function EditListingPage() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [type, setType] = useState<"byproduct" | "art" | "fertilizer">("byproduct");
-  const [processingPreference, setProcessingPreference] = useState<ProcessingPreference>("buyer_choice");
+  const [processingPreference, setProcessingPreference] = useState<ProcessingPreference>("warehouse");
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -56,7 +56,7 @@ export default function EditListingPage() {
         setDescription(data.description || "");
         setPrice(data.price.toString());
         setType(data.type);
-        setProcessingPreference(data.processingPreference || "buyer_choice");
+        setProcessingPreference(data.processingPreference || "warehouse");
         setImages(
           Array.isArray(data.images)
             ? data.images.map((img) =>
@@ -83,6 +83,11 @@ export default function EditListingPage() {
 
     if (!title || !description || !price) {
       setError("Vui lòng điền đầy đủ thông tin");
+      return;
+    }
+
+    if (listing.approvalStatus === "approved") {
+      setError("Bài đăng đã được duyệt, bạn không thể chỉnh sửa nữa.");
       return;
     }
 
@@ -170,6 +175,21 @@ export default function EditListingPage() {
             <p className="text-red-600">{error}</p>
             <LinkButton href="/my-listings" className="mt-4">
               ← Quay lại
+            </LinkButton>
+          </CardBody>
+        </Card>
+      </div>
+    );
+  }
+
+  if (listing?.approvalStatus === "approved") {
+    return (
+      <div className="mx-auto max-w-4xl px-4 py-10">
+        <Card>
+          <CardBody>
+            <p className="text-stone-700">Bài đăng này đã được admin duyệt. Bạn không thể chỉnh sửa sau khi đã duyệt.</p>
+            <LinkButton href="/my-listings" className="mt-4">
+              ← Quay lại danh sách bài đăng
             </LinkButton>
           </CardBody>
         </Card>
@@ -273,17 +293,17 @@ export default function EditListingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-stone-900">Phương án sơ chế</label>
+                <label className="block text-sm font-semibold text-stone-900">Phương án vận chuyển</label>
                 <div className="mt-2 space-y-2">
                   <label className="flex items-center">
                     <input
                       type="radio"
-                      value="buyer_choice"
-                      checked={processingPreference === "buyer_choice"}
+                      value="warehouse"
+                      checked={processingPreference === "warehouse"}
                       onChange={(e) => setProcessingPreference(e.target.value as ProcessingPreference)}
                       className="rounded-full"
                     />
-                    <span className="ml-2 text-sm text-stone-700">Cho người mua chọn</span>
+                    <span className="ml-2 text-sm text-stone-700">Kho Farm2Art giao (phí 5% trừ phía seller)</span>
                   </label>
                   <label className="flex items-center">
                     <input
@@ -293,17 +313,7 @@ export default function EditListingPage() {
                       onChange={(e) => setProcessingPreference(e.target.value as ProcessingPreference)}
                       className="rounded-full"
                     />
-                    <span className="ml-2 text-sm text-stone-700">Người bán tự sơ chế</span>
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      value="warehouse"
-                      checked={processingPreference === "warehouse"}
-                      onChange={(e) => setProcessingPreference(e.target.value as ProcessingPreference)}
-                      className="rounded-full"
-                    />
-                    <span className="ml-2 text-sm text-stone-700">Kho Farm2Art sơ chế</span>
+                    <span className="ml-2 text-sm text-stone-700">Người bán giao trực tiếp (phí vận chuyển 0%)</span>
                   </label>
                 </div>
               </div>

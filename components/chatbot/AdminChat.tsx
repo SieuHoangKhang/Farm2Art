@@ -154,18 +154,6 @@ export default function AdminChat({ onClose }: AdminChatProps) {
 
   return (
     <div className="relative flex flex-col h-full bg-white">
-      {onClose && (
-        <button
-          onClick={onClose}
-          className="absolute right-3 top-3 z-10 rounded-md bg-white/90 p-1.5 text-stone-600 shadow hover:bg-white hover:text-stone-900"
-          aria-label="Close chat"
-          title="Đóng chat"
-        >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      )}
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-emerald-50 to-white">

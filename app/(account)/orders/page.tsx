@@ -10,11 +10,12 @@ import { firebaseDb } from "@/lib/firebase/client";
 import type { Order } from "@/types/order";
 
 const STATUS_UI: Record<Order["status"], { label: string; className: string }> = {
-  pending: { label: "Chờ thanh toán", className: "bg-yellow-100 text-yellow-800" },
-  confirmed: { label: "Đã thanh toán", className: "bg-blue-100 text-blue-800" },
+  pending: { label: "Chờ xác nhận", className: "bg-yellow-100 text-yellow-800" },
+  deposited: { label: "Đã cọc 50%", className: "bg-cyan-100 text-cyan-800" },
+  confirmed: { label: "Đã xác nhận", className: "bg-blue-100 text-blue-800" },
   shipping: { label: "Đang giao", className: "bg-indigo-100 text-indigo-800" },
   delivered: { label: "Đã giao", className: "bg-emerald-100 text-emerald-800" },
-  completed: { label: "Hoàn thành", className: "bg-green-100 text-green-800" },
+  completed: { label: "Giao hàng thành công", className: "bg-green-100 text-green-800" },
   cancelled: { label: "Đã hủy", className: "bg-red-100 text-red-800" },
 };
 
@@ -25,8 +26,9 @@ export default function OrdersPage() {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | Order["status"]>("all");
 
+  // Người mua chỉ trả tiền hàng (grandTotal = subTotal).
   const getPayableTotal = (order: Order) =>
-    order.grandTotal ?? (order.subTotal ?? order.totalAmount) + (order.platformFee ?? 0) + (order.warehouseService?.serviceFeeTotal ?? 0);
+    order.grandTotal ?? (order.subTotal ?? order.totalAmount);
 
   useEffect(() => {
     if (userLoading || !user) return;
@@ -85,7 +87,7 @@ export default function OrdersPage() {
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         {/* Filter Tabs */}
         <div className="mb-6 flex gap-2">
-          {(["all", "pending", "confirmed", "shipping", "delivered", "completed", "cancelled"] as const).map((f) => (
+          {(["all", "pending", "deposited", "confirmed", "shipping", "delivered", "completed", "cancelled"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -114,33 +116,82 @@ export default function OrdersPage() {
           </Card>
         ) : (
           <div className="space-y-4">
-            {orders.map((order) => (
-              <Card key={order.id}>
-                <CardBody>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-stone-900">Đơn #{order.id.slice(0, 8)}</p>
-                      <p className="mt-1 text-sm text-stone-600">
-                        {new Date(order.createdAt).toLocaleDateString("vi-VN")}
-                      </p>
-                      <p className="mt-2 text-sm text-stone-700">
-                        <span className="font-medium">Tổng tiền:</span> {getPayableTotal(order).toLocaleString("vi-VN")} VNĐ
-                      </p>
+            {orders.map((order) => {
+              return (
+                <Card key={order.id} className="transition-shadow hover:shadow-md">
+                  <CardBody>
+                    {/* Header */}
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold text-stone-900">Đơn #{order.id.slice(0, 8)}</p>
+                          <span
+                            className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_UI[order.status].className}`}
+                          >
+                            {STATUS_UI[order.status].label}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm text-stone-500">
+                          {new Date(order.createdAt).toLocaleDateString("vi-VN", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-lg font-semibold text-emerald-600">
+                          {getPayableTotal(order).toLocaleString("vi-VN")} VNĐ
+                        </p>
+                        {order.paymentStatus === "success" && (
+                          <p className="mt-1 text-xs text-emerald-600">✓ Đã thanh toán</p>
+                        )}
+                        {order.paymentStatus === "pending" && (
+                          <p className="mt-1 text-xs text-amber-600">⏳ Chờ thanh toán</p>
+                        )}
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <span
-                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${STATUS_UI[order.status].className}`}
-                      >
-                        {STATUS_UI[order.status].label}
-                      </span>
-                      <LinkButton href={`/orders/${order.id}`} variant="secondary" className="mt-3 block">
-                        Chi tiết
+
+                    {/* Order Details */}
+                    <div className="mt-4 grid gap-3 border-t border-stone-100 pt-3 sm:grid-cols-2">
+                      {/* Items */}
+                      <div>
+                        <p className="text-xs font-medium text-stone-500 uppercase">Sản phẩm</p>
+                        <div className="mt-1 space-y-1">
+                          {order.items?.slice(0, 2).map((item, idx) => (
+                            <p key={idx} className="text-sm text-stone-700">
+                              • {item.name} x{item.quantity}
+                            </p>
+                          ))}
+                          {order.items && order.items.length > 2 && (
+                            <p className="text-xs text-stone-500">+{order.items.length - 2} sản phẩm khác</p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Seller */}
+                      <div className="space-y-2">
+                        {order.sellerName && (
+                          <div>
+                            <p className="text-xs font-medium text-stone-500 uppercase">Người bán</p>
+                            <p className="text-sm text-stone-700">{order.sellerName}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Action */}
+                    <div className="mt-4 border-t border-stone-100 pt-3">
+                      <LinkButton href={`/orders/${order.id}`} variant="secondary" className="w-full sm:w-auto">
+                        Xem chi tiết
                       </LinkButton>
                     </div>
-                  </div>
-                </CardBody>
-              </Card>
-            ))}
+                  </CardBody>
+                </Card>
+              );
+            })}
           </div>
         )}
       </div>

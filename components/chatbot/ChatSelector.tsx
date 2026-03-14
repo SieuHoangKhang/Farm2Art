@@ -17,28 +17,16 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
     return (
       <div className="fixed bottom-24 right-6 w-full max-w-md h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-sage-200">
         {/* Header */}
-        <div className="flex justify-between items-center bg-green-500 text-white p-4 rounded-t-lg">
-          <h2 className="font-semibold">🤖 Chat với AI</h2>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setMode(null)}
-              className="hover:bg-green-600 p-1 rounded transition-colors"
-              aria-label="Back"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={onClose}
-              className="hover:bg-green-600 p-1 rounded transition-colors"
-              aria-label="Close"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+        <div className="relative bg-green-500 text-white p-4 rounded-t-lg pr-16">
+          <h2 className="font-semibold text-base leading-tight">🤖 Chat với AI</h2>
+          <button
+            onClick={onClose}
+            className="absolute right-3 top-2 text-xl font-bold leading-none rounded px-2 hover:bg-green-600 transition-colors"
+            aria-label="Close"
+            title="Đóng chat"
+          >
+            X
+          </button>
         </div>
 
         {/* Chat Content */}
@@ -53,28 +41,16 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
     return (
       <div className="fixed bottom-24 right-6 w-full max-w-md h-[600px] bg-white rounded-lg shadow-2xl z-50 flex flex-col border border-sage-200">
         {/* Header */}
-        <div className="flex justify-between items-center bg-emerald-500 text-white p-4 rounded-t-lg">
-          <h2 className="font-semibold">👨‍💼 Chat với Admin</h2>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setMode(null)}
-              className="hover:bg-emerald-600 p-1 rounded transition-colors"
-              aria-label="Back"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={onClose}
-              className="hover:bg-emerald-600 p-1 rounded transition-colors"
-              aria-label="Close"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+        <div className="relative bg-emerald-500 text-white p-4 rounded-t-lg pr-16">
+          <h2 className="font-semibold text-base leading-tight">👨‍💼 Chat với Admin</h2>
+          <button
+            onClick={onClose}
+            className="absolute right-3 top-2 text-xl font-bold leading-none rounded px-2 hover:bg-emerald-600 transition-colors"
+            aria-label="Close"
+            title="Đóng chat"
+          >
+            X
+          </button>
         </div>
 
         {/* Chat Content */}
@@ -97,19 +73,17 @@ export default function ChatSelector({ onClose }: ChatSelectorProps) {
       {/* Modal */}
       <div className="fixed bottom-24 right-6 w-full max-w-sm bg-white rounded-lg shadow-2xl z-50 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4">
-          <div className="flex justify-between items-center">
-            <h2 className="font-semibold text-lg">Chọn hình thức chat</h2>
-            <button
-              onClick={onClose}
-              className="hover:bg-white hover:bg-opacity-20 p-1 rounded transition-colors"
-              aria-label="Close"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+        <div className="relative bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4 pr-14">
+          <h2 className="font-semibold text-base leading-tight">Chọn hình thức chat</h2>
+          <button
+            onClick={onClose}
+            className="absolute right-3 top-3 hover:bg-white hover:bg-opacity-20 p-1 rounded transition-colors"
+            aria-label="Close"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
 
         {/* Options */}

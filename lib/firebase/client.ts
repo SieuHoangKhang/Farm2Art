@@ -1,7 +1,7 @@
 "use client";
 
 import { initializeApp, getApps, type FirebaseApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
@@ -42,3 +42,8 @@ export const firebaseAuth = getAuth(firebaseApp);
 export const firebaseDb = getFirestore(firebaseApp);
 export const firebaseStorage = getStorage(firebaseApp);
 export const firebaseRtdb = getDatabase(firebaseApp);
+
+// Đảm bảo auth persistence được thiết lập (local - lưu session trong localStorage)
+setPersistence(firebaseAuth, browserLocalPersistence).catch((err) => {
+	console.warn("Firebase auth persistence set failed (non-blocking):", err);
+});

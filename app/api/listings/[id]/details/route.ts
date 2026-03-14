@@ -42,7 +42,7 @@ export async function GET(
     const sellerDoc = await db.collection("users").doc(listing.sellerId).get();
     const seller = sellerDoc.data();
 
-    // 3. Tính fee preview dựa theo lựa chọn sẵn của seller
+    // 3. Tính fee preview theo thỏa thuận seller-admin (buyer có thể chọn dịch vụ ở bước đặt hàng)
     const actualProcessingMode =
       listing.processingPreference === "self" ? "self" : "warehouse";
 
@@ -52,7 +52,7 @@ export async function GET(
       weight: listing.serviceFeeConfig?.weight || 0,
       // Không truyền dates - sẽ dùng default 3 ngày
       processingMode: actualProcessingMode,
-      commissionRate: listing.commissionRate || 0.1,
+      commissionRate: listing.agreement?.commissionRate || listing.commissionRate || 0.2,
     });
 
     // 4. Mapping description cho processingPreference
@@ -76,7 +76,7 @@ export async function GET(
           processingPreference: listing.processingPreference,
         },
         processing: {
-          // ✅ SIMPLIFIED: Seller đã chọn sẳn, buyer không chọn
+          // Buyer sẽ chọn dịch vụ sơ chế/giao hàng tại màn đặt đơn nếu listing ở chế độ buyer_choice.
           sellerChoice: listing.processingPreference,
           description: processingDescriptions[listing.processingPreference || "warehouse"],
           label:

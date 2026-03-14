@@ -40,6 +40,13 @@ export default function SellerDashboard() {
     try {
       const sellerId = user!.uid;
 
+      // Dọn dữ liệu đơn cũ trước khi tính doanh thu để dashboard gọn hơn.
+      await fetch('/api/orders/cleanup-old', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ scope: 'seller', sellerId, olderThanDays: 4 }),
+      }).catch(() => null);
+
       // Fetch seller's orders
       const ordersRef = collection(firebaseDb, 'orders');
       const ordersQ = query(ordersRef, where('sellerId', '==', sellerId));

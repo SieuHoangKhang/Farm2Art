@@ -57,13 +57,21 @@ export type SellerInvoice = {
   generatedAt?: number;    // Khi tự động generate
   sentAt?: number;         // Khi gửi cho seller
   viewedAt?: number;       // Khi seller xem
-  paidAt?: number;         // Khi seller nhận tiền
+  paidAt?: number;         // Khi seller thanh toán xong
+  paymentMethod?: string;  // vnpay, transfer, ...
+  transactionRef?: string; // Mã giao dịch từ cổng thanh toán
   
   // Communication
   messageId?: string;      // Message ID trong hệ thống chat
   emailSentAt?: number;    // Khi gửi email
   pdfUrl?: string;         // Link đến PDF file
   notes?: string;          // Ghi chú từ admin
+  payoutDestination?: {
+    bankName: string;
+    accountNumber: string;
+    accountHolder: string;
+    source: "users" | "seller_verifications" | "user_profiles";
+  };
 };
 
 /**

@@ -1,4 +1,4 @@
-export type OrderStatus = "pending" | "confirmed" | "shipping" | "delivered" | "completed" | "cancelled";
+export type OrderStatus = "pending" | "deposited" | "confirmed" | "shipping" | "delivered" | "completed" | "cancelled";
 
 export type EscrowStatus = "pending" | "held" | "released" | "refunded";
 
@@ -15,11 +15,13 @@ export type OrderItem = {
 export type WarehouseProcessingMode = "seller_self" | "warehouse";
 
 export type WarehouseOrderStatus =
+  | "in_stock"
   | "awaiting_intake"
   | "in_storage"
   | "processing"
   | "ready_to_ship"
-  | "shipped";
+  | "shipped"
+  | "completed";
 
 export type WarehouseService = {
   enabled: boolean;
@@ -44,12 +46,22 @@ export type Order = {
   totalAmount: number;
   platformFee?: number;
   warehouseService?: WarehouseService;
+  /** Số tiền người mua thanh toán = chỉ tiền hàng (subTotal). Phí nền tảng, lưu kho, sơ chế, vận chuyển thuộc người bán (admin gửi hóa đơn cho seller). */
   grandTotal?: number;
   sellerPayout?: number;
   status: OrderStatus;
   paymentMethod?: "vnpay" | "transfer";
-  paymentStatus?: "success" | "failed";
+  // pending: tạo đơn nhưng chưa thanh toán (hiển thị UI)
+  paymentStatus?: "pending" | "success" | "failed";
+  depositAmount?: number;
+  depositPaidAt?: number;
+  remainingAmount?: number;
+  remainingPaymentStatus?: "pending" | "submitted" | "received";
+  remainingPaymentSubmittedAt?: number;
+  remainingPaymentReceivedAt?: number;
+  remainingPaymentReference?: string;
   transactionRef?: string;
+  paidAmount?: number;
   paidAt?: number;
   confirmedAt?: number;
   pickupDate?: number;            // Khi admin đi lấy hàng
@@ -62,16 +74,28 @@ export type Order = {
   shippingAddress?: string;
   trackingNumber?: string;
   buyerNote?: string;
-  
+  cancelReason?: string;
+
   // ⭐ ESCROW MODEL (Mới)
   paymentReceivedAt?: number;        // Khi Admin nhận tiền từ customer
   escrowStatus?: EscrowStatus;        // Trạng thái tiền (pending/held/released/refunded)
   commissionRate?: number;            // % Hoa hồng (mặc định 10%)
   commissionAmount?: number;          // Số tiền hoa hồng (tính = grandTotal * commissionRate)
-  payoutAmount?: number;              // Số tiền seller sẽ nhận (= grandTotal - commissionAmount)
+  payoutAmount?: number;              // Số tiền seller sẽ nhận (= grandTotal - commissionAmount - pickupFee - processingFee - storageFee - shippingFee)
   payoutStatus?: PayoutStatus;        // Trạng thái thanh toán (pending/scheduled/completed/failed)
   payoutAt?: number;                  // Khi nào seller được thanh toán
   invoiceId?: string;                 // Hóa đơn dịch vụ seller (nếu đã phát hành)
-  
+
+  // ⭐ Chi tiết các khoản phí được trừ từ tiền buyer
+  feeBreakdown?: {
+    commissionAmount: number;
+    pickupFee: number;
+    processingFee: number;
+    storageFee: number;
+    shippingFee: number;
+    totalPlatformFees: number;
+    grandTotal: number;
+  };
+
   createdAt: number;
 };

@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { createPaymentUrl } from "@/lib/payments/vnpay/vnpay";
 import { serverDb } from "@/lib/firebase/server";
 import type { Order } from "@/types/order";
 
 export const runtime = "nodejs";
+const ORDER_HOLD_TIMEOUT_MS = 30 * 60 * 1000;
 
 function getClientIp(request: Request) {
   const xff = request.headers.get("x-forwarded-for");
@@ -21,6 +22,7 @@ function getClientIp(request: Request) {
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const orderId = body?.orderId as string | undefined;
+  const phase = body?.phase as "deposit" | "remaining" | undefined;
 
   if (!orderId) {
     return NextResponse.json({ error: "Missing orderId" }, { status: 400 });
@@ -36,16 +38,84 @@ export async function POST(request: Request) {
     }
 
     const order = orderSnap.data() as Order;
-    const warehouseFeeTotal =
-      order.warehouseService?.serviceFeeTotal ??
-      ((order.warehouseService?.storageFee ?? 0) +
-        (order.warehouseService?.processingFee ?? 0) +
-        (order.warehouseService?.shippingFee ?? 0));
-    const amountVnd =
-      order.grandTotal ??
-      (order.subTotal ?? order.totalAmount) +
-        (order.platformFee ?? 0) +
-        warehouseFeeTotal;
+    const now = Date.now();
+    if (order.status === "pending" && now - order.createdAt >= ORDER_HOLD_TIMEOUT_MS) {
+      await updateDoc(orderRef, {
+        status: "cancelled",
+        cancelledAt: now,
+        cancelReason: "Quá 30 phút chưa thanh toán cọc",
+      });
+      return NextResponse.json({ error: "Đơn đã hết hạn thanh toán cọc" }, { status: 400 });
+    }
+
+    const productSubTotal =
+      order.subTotal ??
+      order.items?.reduce((sum, item) => sum + item.price * item.quantity, 0) ??
+      order.totalAmount;
+    const depositAmount = Math.round(productSubTotal * 0.5);
+    const remainingAmount = Math.max(productSubTotal - depositAmount, 0);
+
+    const paymentPhase: "deposit" | "remaining" =
+      phase === "remaining" || order.depositPaidAt ? "remaining" : "deposit";
+
+    if (paymentPhase === "deposit" && order.depositPaidAt) {
+      return NextResponse.json({ error: "Đơn đã thanh toán cọc" }, { status: 400 });
+    }
+
+    if (paymentPhase === "remaining" && order.remainingPaymentStatus === "received") {
+      return NextResponse.json({ error: "Đơn đã thanh toán đủ 100%" }, { status: 400 });
+    }
+
+    // Ai cọc trước thì giữ đơn; các đơn còn lại cùng listing không được phép thanh toán cọc nữa.
+    if (paymentPhase === "deposit" && order.listingId) {
+      const sameListingSnap = await getDocs(
+        query(collection(serverDb, "orders"), where("listingId", "==", order.listingId))
+      );
+
+      const hasWinner = sameListingSnap.docs
+        .map((d) => ({ id: d.id, ...(d.data() as Omit<Order, "id">) } as Order))
+        .some((o) =>
+          o.id !== orderId &&
+          ["deposited", "shipping", "delivered", "completed"].includes(o.status)
+        );
+
+      if (hasWinner) {
+        if (order.status === "pending") {
+          await updateDoc(orderRef, {
+            status: "cancelled",
+            cancelledAt: now,
+            cancelReason: "Sản phẩm đã được khách khác cọc trước",
+          });
+        }
+        return NextResponse.json(
+          { error: "Sản phẩm đã có khách cọc trước, đơn này đã bị từ chối" },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Người mua chỉ thanh toán tiền hàng theo từng pha: cọc 50% hoặc 50% còn lại.
+    const amountVnd = paymentPhase === "remaining" ? remainingAmount : depositAmount;
+
+    // Tự chuẩn hóa dữ liệu đơn cũ nếu trước đó bị lưu lệch tổng/cọc.
+    if (
+      order.depositAmount !== depositAmount ||
+      order.remainingAmount !== remainingAmount ||
+      order.grandTotal !== productSubTotal ||
+      order.totalAmount !== productSubTotal
+    ) {
+      await updateDoc(orderRef, {
+        subTotal: productSubTotal,
+        grandTotal: productSubTotal,
+        totalAmount: productSubTotal,
+        depositAmount,
+        remainingAmount,
+      });
+    }
+    if (paymentPhase === "remaining" && amountVnd <= 0) {
+      return NextResponse.json({ error: "Không còn khoản thanh toán còn lại" }, { status: 400 });
+    }
+
 
     if (!Number.isFinite(amountVnd) || amountVnd <= 0) {
       return NextResponse.json({ error: "Invalid order amount" }, { status: 400 });
@@ -73,9 +143,12 @@ export async function POST(request: Request) {
     const url = createPaymentUrl(
       { tmnCode, hashSecret, paymentUrl: paymentGatewayUrl, returnUrl },
       {
-        txnRef: orderId,
+        txnRef: paymentPhase === "remaining" ? `rem_${orderId}` : orderId,
         amountVnd,
-        orderInfo: `Thanh toan don hang ${orderId}`,
+        orderInfo:
+          paymentPhase === "remaining"
+            ? `Thanh toan 50 phan tram con lai don ${orderId}`
+            : `Thanh toan dat coc don hang ${orderId}`,
         ipAddr: getClientIp(request),
         locale: "vn",
         orderType: "other",

@@ -25,17 +25,16 @@ const generateInvoiceNumber = (sellerId: string, sequence: number): string => {
 };
 
 /**
- * Lấy sequence cho invoice của seller trong tháng
+ * Lấy sequence cho invoice của seller trong tháng (filter in memory để tránh cần composite index)
  */
 const getInvoiceSequence = async (sellerId: string, db: FirebaseFirestore.Firestore): Promise<number> => {
-  const countSnapshot = await db
+  const monthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime();
+  const snapshot = await db
     .collection("invoices")
     .where("sellerId", "==", sellerId)
-    .where("createdAt", ">", new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime())
-    .count()
     .get();
-
-  return countSnapshot.data().count + 1;
+  const count = snapshot.docs.filter((d) => (d.data().createdAt as number) >= monthStart).length;
+  return count + 1;
 };
 
 /**
@@ -53,12 +52,12 @@ const createInvoiceLineItems = (order: Order, feeBreakdown: any): InvoiceLineIte
     reference: { orderId: order.id },
   });
 
-  // 2. Phí sơ chế (Processing Fee) - nếu có
+  // 2. Phí vận chuyển hàng (mapped on processing_fee field for backward compatibility)
   if (feeBreakdown.processingFee > 0) {
     items.push({
       id: `processing-${order.id}`,
       type: "processing_fee",
-      description: `Phí sơ chế/chế biến (${feeBreakdown.weight || 0}kg @ ${PLATFORM_CONFIG.serviceFeesPerKg.cleaning.toLocaleString("vi-VN")}đ/kg)`,
+      description: `Phí vận chuyển hàng (${feeBreakdown.weight || 0}kg @ ${PLATFORM_CONFIG.serviceFeesPerKg.cleaning.toLocaleString("vi-VN")}đ/kg)`,
       quantity: feeBreakdown.weight,
       unitPrice: PLATFORM_CONFIG.serviceFeesPerKg.cleaning,
       amount: feeBreakdown.processingFee,
@@ -115,7 +114,7 @@ const sendInvoiceToSeller = async (
 
 💰 **Chi Tiết Các Khoản Phí:**
 ├─ Phí đi lấy hàng: ${invoice.pickupFeesTotal.toLocaleString("vi-VN")}đ
-├─ Phí sơ chế: ${invoice.processingFeesTotal.toLocaleString("vi-VN")}đ
+├─ Phí vận chuyển hàng: ${invoice.processingFeesTotal.toLocaleString("vi-VN")}đ
 ├─ Phí lưu kho: ${invoice.storageFeesTotal.toLocaleString("vi-VN")}đ
 └─ Hoa hồng platform: ${invoice.commissionTotal.toLocaleString("vi-VN")}đ
 
@@ -317,23 +316,31 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db.collection("invoices");
-
+    // Tránh composite index: chỉ dùng 1 where, sort trong memory khi cần
+    let snapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>;
     if (sellerId && !all) {
-      query = query.where("sellerId", "==", sellerId);
+      const q = db.collection("invoices").where("sellerId", "==", sellerId).limit(100);
+      snapshot = await q.get();
+    } else if (status && !sellerId) {
+      const q = db.collection("invoices").where("status", "==", status).limit(100);
+      snapshot = await q.get();
+    } else {
+      snapshot = await db.collection("invoices").orderBy("createdAt", "desc").limit(50).get();
     }
 
-    if (status) {
-      query = query.where("status", "==", status);
-    }
-
-    query = query.orderBy("createdAt", "desc");
-
-    const snapshot = await query.limit(50).get();
-    const invoices = snapshot.docs.map((doc) => ({
+    let invoices = snapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
-    }));
+    })) as Array<{ id: string; createdAt?: number; status?: string } & Record<string, unknown>>;
+
+    if (sellerId && !all && invoices.length > 0) {
+      invoices = invoices.sort((a, b) => (b.createdAt ?? 0) - (a.createdAt ?? 0)).slice(0, 50);
+    } else if (status && !sellerId && invoices.length > 0) {
+      invoices = invoices.sort((a, b) => (b.createdAt ?? 0) - (a.createdAt ?? 0)).slice(0, 50);
+    }
+    if (status) {
+      invoices = invoices.filter((i) => i.status === status);
+    }
 
     return NextResponse.json({ invoices }, { status: 200 });
   } catch (error: any) {

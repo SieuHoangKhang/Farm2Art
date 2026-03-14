@@ -15,5 +15,11 @@ export type AppUser = {
   riskLevel?: "low" | "medium" | "high";
   strikeCount?: number;
   fraudNote?: string;
+  payoutAccount?: {
+    bankName: string;
+    accountNumber: string;
+    accountHolder: string;
+    updatedAt?: number;
+  };
   createdAt: number;
 };

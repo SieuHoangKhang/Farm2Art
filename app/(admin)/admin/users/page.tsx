@@ -50,7 +50,7 @@ export default function AdminUsersPage() {
 
   async function updateUserModeration(
     uid: string,
-    payload: Partial<Pick<AppUser, "accountStatus" | "riskLevel" | "strikeCount">>
+    payload: Partial<Pick<AppUser, "accountStatus" | "strikeCount">>
   ) {
     try {
       setSaving(uid);
@@ -68,11 +68,6 @@ export default function AdminUsersPage() {
     const next = currentStatus === "suspended" ? "active" : "suspended";
     await updateUserModeration(uid, { accountStatus: next });
     showToast(next === "suspended" ? "Đã khóa tài khoản" : "Đã mở khóa tài khoản");
-  }
-
-  async function setRisk(uid: string, riskLevel: "low" | "medium" | "high") {
-    await updateUserModeration(uid, { riskLevel });
-    showToast(`Đã cập nhật mức rủi ro: ${riskLevel.toUpperCase()}`);
   }
 
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
@@ -221,16 +216,6 @@ export default function AdminUsersPage() {
                     <div className="flex items-center justify-end gap-2">
                       {u.role !== "admin" && (
                         <>
-                          <select
-                            value={u.riskLevel ?? "low"}
-                            onChange={(e) => setRisk(u.uid, e.target.value as "low" | "medium" | "high")}
-                            disabled={saving === u.uid}
-                            className="px-2 py-1 rounded-lg text-[11px] border border-sage-200 bg-white"
-                          >
-                            <option value="low">Risk thấp</option>
-                            <option value="medium">Risk TB</option>
-                            <option value="high">Risk cao</option>
-                          </select>
                           <button
                             onClick={() => toggleAccountStatus(u.uid, u.accountStatus)}
                             disabled={saving === u.uid}

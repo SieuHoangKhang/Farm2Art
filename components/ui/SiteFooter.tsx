@@ -25,6 +25,7 @@ export function SiteFooter() {
                     src="/images/logo.png"
                     alt="Farm2Art Logo"
                     fill
+                    sizes="44px"
                     className="object-contain"
                   />
                 </div>

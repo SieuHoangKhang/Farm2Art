@@ -18,7 +18,17 @@ function TypeBadge({ type }: { type: Listing["type"] }) {
   );
 }
 
-function MediaPlaceholder({ title, imageUrl, type }: { title: string; imageUrl?: string; type: Listing["type"] }) {
+function MediaPlaceholder({
+  title,
+  imageUrl,
+  type,
+  statusBadge,
+}: {
+  title: string;
+  imageUrl?: string;
+  type: Listing["type"];
+  statusBadge?: string;
+}) {
   const initials = title
     .split(" ")
     .filter(Boolean)
@@ -50,14 +60,19 @@ function MediaPlaceholder({ title, imageUrl, type }: { title: string; imageUrl?:
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       {/* Type Badge */}
-      <div className="absolute left-3 top-3 z-10">
+      <div className="absolute left-3 top-3 z-10 flex items-center gap-2">
         <TypeBadge type={type} />
+        {statusBadge ? (
+          <span className="inline-flex items-center rounded-full border border-red-200 bg-red-100/95 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-red-700">
+            {statusBadge}
+          </span>
+        ) : null}
       </div>
     </div>
   );
 }
 
-export function ListingCard({ listing }: { listing: Listing }) {
+export function ListingCard({ listing, statusBadge }: { listing: Listing; statusBadge?: string }) {
   const qty = listing.quantity != null ? `${listing.quantity.toLocaleString("vi-VN")} ${listing.unit ?? ""}`.trim() : null;
   const firstImage = listing.images?.[0];
   const rawUrl = typeof firstImage === 'object' && firstImage !== null ? (firstImage as any).secureUrl : (firstImage as any);
@@ -68,7 +83,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
       href={`/listing/${listing.id}`}
       className="group block overflow-hidden rounded-2xl border border-sage-200/70 bg-white hover:border-emerald-300/70 hover:shadow-lg hover:shadow-emerald-100/50 transition-all duration-300"
     >
-      <MediaPlaceholder title={listing.title} imageUrl={imageUrl} type={listing.type} />
+      <MediaPlaceholder title={listing.title} imageUrl={imageUrl} type={listing.type} statusBadge={statusBadge} />
       
       <div className="p-3.5 space-y-2">
         {/* Title */}

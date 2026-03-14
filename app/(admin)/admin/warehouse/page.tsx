@@ -3,24 +3,26 @@
 import { useEffect, useState } from "react";
 import { firebaseDb } from "@/lib/firebase/client";
 import {
-  collection, getDocs, query, orderBy,
+  collection, deleteDoc, doc, getDocs, query, orderBy, updateDoc,
 } from "firebase/firestore";
 import type { Order, WarehouseOrderStatus } from "@/types/order";
 
 const WAREHOUSE_STATUS_LABEL: Record<string, string> = {
+  in_stock: "Còn hàng trong kho",
   awaiting_intake: "Chờ nhập kho",
   in_storage: "Đang lưu kho",
-  processing: "Đang sơ chế",
   ready_to_ship: "Sẵn sàng xuất kho",
   shipped: "Đã xuất kho",
+  completed: "Hoàn tất đơn kho",
 };
 
 const WAREHOUSE_STATUS_COLOR: Record<string, string> = {
+  in_stock: "bg-emerald-100 text-emerald-800",
   awaiting_intake: "bg-yellow-100 text-yellow-800",
   in_storage: "bg-blue-100 text-blue-800",
-  processing: "bg-purple-100 text-purple-800",
   ready_to_ship: "bg-indigo-100 text-indigo-800",
   shipped: "bg-green-100 text-green-800",
+  completed: "bg-teal-100 text-teal-800",
 };
 
 function getWarehouseStatusLabel(status?: string) {
@@ -87,12 +89,18 @@ export default function WarehouseManagementPage() {
                   updatedAt: data.updatedAt,
                 },
                 shippedAt: data.shippedAt || o.shippedAt, // Cập nhật nếu auto-sync sang shipping
+                completedAt: data.completedAt || o.completedAt,
               }
             : o
         )
       );
       setWarehouseStatusEditing((prev) => ({ ...prev, [orderId]: "" }));
-      const msg = newStatus === 'shipped' ? `✅ Kho đã shipped → Đơn hàng tự động sang "Đang giao"` : `Cập nhật: ${getWarehouseStatusLabel(newStatus)}`;
+      const msg =
+        newStatus === "shipped"
+          ? "Kho đã xuất hàng -> đơn chuyển sang Đang giao"
+          : newStatus === "completed"
+            ? "Kho và đơn hàng đã hoàn tất"
+            : `Cập nhật: ${getWarehouseStatusLabel(newStatus)}`;
       showToast(msg);
     } catch (err) {
       console.error(err);
@@ -138,14 +146,50 @@ export default function WarehouseManagementPage() {
     }
   }
 
+  async function removeFromWarehouseQueue(order: Order) {
+    if (!order.warehouseService?.enabled) return;
+    if (!confirm("Xóa đơn này khỏi danh sách quản lý kho? Đơn hàng vẫn được giữ trong hệ thống.")) return;
+
+    try {
+      setSaving(order.id);
+      await updateDoc(doc(firebaseDb, "orders", order.id), {
+        "warehouseService.enabled": false,
+        "warehouseService.updatedAt": Date.now(),
+      });
+      setOrders((prev) => prev.filter((o) => o.id !== order.id));
+      showToast("Đã xóa đơn khỏi quản lý kho");
+    } catch (err) {
+      console.error(err);
+      showToast("Lỗi xóa đơn khỏi kho");
+    } finally {
+      setSaving(null);
+    }
+  }
+
+  async function deleteRelatedListing(order: Order) {
+    if (!order.listingId) {
+      showToast("Đơn này không có listing hợp lệ");
+      return;
+    }
+    if (!confirm("Xóa luôn bài đăng sản phẩm liên quan đơn này?")) return;
+
+    try {
+      setSaving(order.id);
+      await deleteDoc(doc(firebaseDb, "listings", order.listingId));
+      showToast("Đã xóa tin đăng liên quan");
+    } catch (err) {
+      console.error(err);
+      showToast("Lỗi xóa tin đăng");
+    } finally {
+      setSaving(null);
+    }
+  }
+
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
 
   const fmt = (n: number) => new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
   const getOrderTotal = (order: Order) =>
-    order.grandTotal ??
-    (order.subTotal ?? order.totalAmount) +
-      (order.platformFee ?? 0) +
-      (order.warehouseService?.serviceFeeTotal ?? 0);
+    order.grandTotal ?? (order.subTotal ?? order.totalAmount);
   const fmtDate = (ts?: number) => ts ? new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }) : "—";
   const fmtTime = (ts?: number) => ts ? new Date(ts).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—";
 
@@ -180,10 +224,9 @@ export default function WarehouseManagementPage() {
   }
 
   const miniKpis = [
-    { label: "Chờ nhập kho", count: statusCounts["awaiting_intake"] || 0, gradient: "from-yellow-400 to-yellow-500", text: "text-yellow-700" },
-    { label: "Đang lưu kho", count: statusCounts["in_storage"] || 0, gradient: "from-blue-400 to-blue-500", text: "text-blue-700" },
-    { label: "Đang sơ chế", count: statusCounts["processing"] || 0, gradient: "from-purple-400 to-purple-500", text: "text-purple-700" },
-    { label: "Sẵn sàng xuất", count: statusCounts["ready_to_ship"] || 0, gradient: "from-indigo-400 to-indigo-500", text: "text-indigo-700" },
+    { label: "Còn hàng", count: (statusCounts["in_stock"] || 0) + (statusCounts["awaiting_intake"] || 0) + (statusCounts["in_storage"] || 0), gradient: "from-emerald-400 to-emerald-500", text: "text-emerald-700" },
+    { label: "Đã xuất kho", count: (statusCounts["shipped"] || 0) + (statusCounts["ready_to_ship"] || 0), gradient: "from-indigo-400 to-indigo-500", text: "text-indigo-700" },
+    { label: "Hoàn tất", count: statusCounts["completed"] || 0, gradient: "from-teal-400 to-teal-500", text: "text-teal-700" },
   ];
 
   return (
@@ -208,7 +251,7 @@ export default function WarehouseManagementPage() {
       </div>
 
       {/* KPI mini cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {miniKpis.map((k, i) => (
           <div key={k.label} className="animate-fadeInUp relative bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 p-5 hover:shadow-lg hover:border-amber-200/60 transition-all duration-300 hover-lift overflow-hidden" style={{ animationDelay: `${(i + 1) * 100}ms` }}>
             <div className={`absolute -top-6 -right-6 w-16 h-16 bg-gradient-to-br ${k.gradient} opacity-[0.08] rounded-full blur-xl`} />
@@ -231,7 +274,7 @@ export default function WarehouseManagementPage() {
           />
         </div>
         <div className="flex gap-1.5 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 p-1.5 overflow-x-auto">
-          {(["all", "awaiting_intake", "in_storage", "processing", "ready_to_ship", "shipped"] as const).map((s) => (
+          {(["all", "in_stock", "awaiting_intake", "in_storage", "ready_to_ship", "shipped", "completed"] as const).map((s) => (
             <button key={s} onClick={() => setStatusFilter(s)}
               className={`whitespace-nowrap px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${statusFilter === s ? "bg-gradient-to-r from-amber-600 to-amber-500 text-white shadow-md shadow-amber-500/20" : "text-stone-600 hover:bg-amber-50/60 hover:text-amber-700"}`}>
               {s === "all" ? "Tất cả" : getWarehouseStatusLabel(s)}
@@ -287,8 +330,8 @@ export default function WarehouseManagementPage() {
                 {/* Warehouse details grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100">
-                    <p className="text-stone-400 font-medium">Sơ chế</p>
-                    <p className="text-stone-700 font-semibold mt-1">{o.warehouseService.processingMode === "warehouse" ? "Kho Farm2Art" : "Người bán"}</p>
+                    <p className="text-stone-400 font-medium">Mô hình giao hàng</p>
+                    <p className="text-stone-700 font-semibold mt-1">Kho Farm2Art</p>
                   </div>
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100">
                     <p className="text-stone-400 font-medium">Lưu kho</p>
@@ -296,7 +339,7 @@ export default function WarehouseManagementPage() {
                   </div>
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100">
                     <p className="text-stone-400 font-medium">Chi tiết phí</p>
-                    <p className="text-stone-700 font-semibold mt-1 text-xs">{fmt(o.warehouseService.processingFee)} + {fmt(o.warehouseService.storageFee)} + {fmt(o.warehouseService.shippingFee)}</p>
+                    <p className="text-stone-700 font-semibold mt-1 text-xs">{fmt(o.warehouseService.storageFee)} + {fmt(o.warehouseService.shippingFee)}</p>
                   </div>
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100">
                     <p className="text-stone-400 font-medium">Tổng phí</p>
@@ -316,9 +359,9 @@ export default function WarehouseManagementPage() {
                         className="w-full px-3 py-2 text-sm border border-amber-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
                       >
                         <option value="">Chọn trạng thái...</option>
+                        <option value="in_stock">Còn hàng trong kho</option>
                         <option value="awaiting_intake">Chờ nhập kho</option>
                         <option value="in_storage">Đang lưu kho</option>
-                        <option value="processing">Đang sơ chế</option>
                         <option value="ready_to_ship">Sẵn sàng xuất kho</option>
                         <option value="shipped">Đã xuất kho</option>
                       </select>
@@ -403,6 +446,31 @@ export default function WarehouseManagementPage() {
                           ? "Đang tạo..."
                           : "Phát hành hóa đơn"}
                     </button>
+                  </div>
+                </div>
+
+                <div className="bg-white/60 rounded-xl p-3 border border-sage-100 text-xs">
+                  <p className="text-stone-400 font-medium">Tác vụ sau giao hàng</p>
+                  <div className="mt-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                    <p className="text-stone-700">
+                      Chỉ áp dụng khi đơn đã hoàn tất hoặc đã xuất kho.
+                    </p>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => removeFromWarehouseQueue(o)}
+                        disabled={saving === o.id || !["completed", "shipped"].includes(o.warehouseService.warehouseStatus || "")}
+                        className="px-4 py-2 text-xs font-semibold rounded-lg border border-amber-300 text-amber-700 bg-white hover:bg-amber-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      >
+                        Xóa đơn khỏi kho
+                      </button>
+                      <button
+                        onClick={() => deleteRelatedListing(o)}
+                        disabled={saving === o.id || o.status !== "completed"}
+                        className="px-4 py-2 text-xs font-semibold rounded-lg border border-red-300 text-red-700 bg-white hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      >
+                        Xóa listing
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

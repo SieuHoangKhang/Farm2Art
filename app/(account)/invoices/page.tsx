@@ -1,22 +1,37 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useAuthUser } from "@/lib/auth/useAuthUser";
 import { firebaseDb } from "@/lib/firebase/client";
-import type { SellerInvoice } from "@/types/invoice";
+import type { SellerInvoice, InvoiceLineItem } from "@/types/invoice";
+
+const FEE_TYPE_LABELS: Record<InvoiceLineItem["type"], string> = {
+  pickup_fee: "Phí đi lấy hàng",
+  processing_fee: "Phí dịch vụ",
+  storage_fee: "Phí lưu kho",
+  commission: "Hoa hồng platform",
+  adjustment: "Điều chỉnh",
+};
 
 export default function SellerInvoicesPage() {
   const { user, loading } = useAuthUser();
+  const searchParams = useSearchParams();
   const [invoices, setInvoices] = useState<SellerInvoice[]>([]);
   const [loadingData, setLoadingData] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [contractAcceptedAt, setContractAcceptedAt] = useState<number | null>(null);
   const [accepting, setAccepting] = useState(false);
   const [savingInvoiceId, setSavingInvoiceId] = useState<string | null>(null);
+  const [detailInvoice, setDetailInvoice] = useState<SellerInvoice | null>(null);
+  const [paymentLoadingId, setPaymentLoadingId] = useState<string | null>(null);
+
+  const getAmountDue = (inv: SellerInvoice) =>
+    Math.max((inv.totalDeductions ?? 0) - (inv.adjustmentsTotal ?? 0), 0);
 
   const totals = useMemo(() => {
     const totalGross = invoices.reduce((s, i) => s + (i.grossRevenue || 0), 0);
@@ -25,12 +40,20 @@ export default function SellerInvoicesPage() {
     return { totalGross, totalDeduction, totalNet };
   }, [invoices]);
 
+  // Hiển thị kết quả thanh toán VNPay (khi redirect về từ /invoices?payment=success|failed)
+  const paymentResult = searchParams.get("payment");
+  useEffect(() => {
+    if (paymentResult === "failed") {
+      setError("Thanh toán không thành công. Vui lòng thử lại.");
+    }
+  }, [paymentResult]);
+
   useEffect(() => {
     if (!user?.uid) return;
 
     async function loadAll() {
       setLoadingData(true);
-      setError(null);
+      if (paymentResult !== "failed") setError(null);
       try {
         const [invoicesRes, userSnap] = await Promise.all([
           fetch(`/api/invoices/generate?sellerId=${user.uid}`, { method: "GET" }),
@@ -45,6 +68,7 @@ export default function SellerInvoicesPage() {
         const invoicesData = (await invoicesRes.json()) as { invoices?: SellerInvoice[] };
         setInvoices(invoicesData.invoices || []);
 
+        // Trạng thái chấp thuận được lưu vĩnh viễn trong Firestore (users/{uid}.sellerContractAcceptedAt) — người bán chỉ cần chấp thuận một lần
         const acceptedAt = userSnap.exists() ? (userSnap.data() as { sellerContractAcceptedAt?: number }).sellerContractAcceptedAt : undefined;
         setContractAcceptedAt(acceptedAt || null);
       } catch (e) {
@@ -55,13 +79,14 @@ export default function SellerInvoicesPage() {
     }
 
     void loadAll();
-  }, [user?.uid]);
+  }, [user?.uid, paymentResult]);
 
   async function acceptContract() {
     if (!user?.uid) return;
     setAccepting(true);
     try {
       const now = Date.now();
+      // Lưu vào Firestore (merge: true) để lần sau đăng nhập vẫn hiển thị "Đã chấp thuận", không cần chấp thuận lại
       await setDoc(
         doc(firebaseDb, "users", user.uid),
         {
@@ -92,10 +117,35 @@ export default function SellerInvoicesPage() {
       }
 
       setInvoices((prev) => prev.map((inv) => (inv.id === id ? { ...inv, status } : inv)));
+      if (detailInvoice?.id === id) setDetailInvoice((prev) => (prev ? { ...prev, status } : null));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Lỗi cập nhật hóa đơn");
     } finally {
       setSavingInvoiceId(null);
+    }
+  }
+
+  async function payInvoiceViaVnpay(inv: SellerInvoice) {
+    if (!user?.uid || inv.status === "paid" || getAmountDue(inv) <= 0) return;
+    setPaymentLoadingId(inv.id);
+    setError(null);
+    try {
+      const res = await fetch("/api/payments/vnpay/create-invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ invoiceId: inv.id, sellerId: user?.uid }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || "Không thể tạo giao dịch thanh toán");
+      if (data.paymentUrl) {
+        window.location.href = data.paymentUrl;
+        return;
+      }
+      throw new Error("Không nhận được link thanh toán");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Lỗi thanh toán VNPay");
+    } finally {
+      setPaymentLoadingId(null);
     }
   }
 
@@ -116,9 +166,14 @@ export default function SellerInvoicesPage() {
     <div className="space-y-6">
       <PageHeader
         title="Hợp đồng & hóa đơn dịch vụ"
-        subtitle="Quản lý điều khoản hợp tác và các hóa đơn phí kho, sơ chế, vận chuyển cho từng đơn hàng"
+        subtitle="Nơi người bán quản lý hợp đồng dịch vụ và theo dõi các khoản tiền admin đã chi trả sau khi đơn hoàn thành"
       />
 
+      {paymentResult === "success" && (
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+          Thanh toán qua VNPay đã thành công. Hóa đơn đã được cập nhật trạng thái.
+        </div>
+      )}
       {error && (
         <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
       )}
@@ -129,7 +184,7 @@ export default function SellerInvoicesPage() {
             <div>
               <p className="text-sm font-semibold text-stone-900">Điều khoản dịch vụ người bán</p>
               <p className="mt-1 text-sm text-stone-600">
-                Seller xác nhận Farm2Art được thu phí dịch vụ gồm: phí đi lấy hàng, phí sơ chế (nếu chọn), phí lưu kho và phí vận chuyển theo từng đơn thực tế.
+                Seller xác nhận Farm2Art được thu phí dịch vụ gồm: phí đi lấy hàng, phí lưu kho và phí vận chuyển theo từng đơn thực tế.
               </p>
               <p className="mt-2 text-xs text-stone-500">
                 Trạng thái: {contractAcceptedAt ? `Đã chấp thuận lúc ${fmtDateTime(contractAcceptedAt)}` : "Chưa chấp thuận"}
@@ -181,6 +236,13 @@ export default function SellerInvoicesPage() {
                       <td className="px-3 py-2 text-stone-500">{fmtDateTime(inv.createdAt)}</td>
                       <td className="px-3 py-2">
                         <div className="flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setDetailInvoice(inv)}
+                            className="rounded bg-stone-100 px-2 py-1 text-xs text-stone-700 hover:bg-stone-200"
+                          >
+                            Xem chi tiết
+                          </button>
                           <a
                             href={`/api/invoices/${inv.id}/pdf`}
                             target="_blank"
@@ -194,6 +256,16 @@ export default function SellerInvoicesPage() {
                           >
                             Tải/In PDF
                           </a>
+                          {inv.status !== "paid" && getAmountDue(inv) > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => payInvoiceViaVnpay(inv)}
+                              disabled={paymentLoadingId === inv.id}
+                              className="rounded bg-amber-100 px-2 py-1 text-xs text-amber-800 hover:bg-amber-200 disabled:opacity-50"
+                            >
+                              {paymentLoadingId === inv.id ? "Đang chuyển..." : `Thanh toán VNPay (${fmtCurrency(getAmountDue(inv))})`}
+                            </button>
+                          )}
                           <button
                             onClick={() => updateInvoiceStatus(inv.id, "paid")}
                             disabled={savingInvoiceId === inv.id || inv.status === "paid"}
@@ -211,6 +283,67 @@ export default function SellerInvoicesPage() {
           )}
         </CardBody>
       </Card>
+
+      {/* Modal chi tiết hóa đơn - các loại phí */}
+      {detailInvoice && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setDetailInvoice(null)}>
+          <div
+            className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-stone-800">Chi tiết hóa đơn {detailInvoice.invoiceNumber}</h3>
+              <button type="button" onClick={() => setDetailInvoice(null)} className="text-stone-400 hover:text-stone-600">✕</button>
+            </div>
+            <div className="space-y-3 text-sm">
+              <p className="text-stone-500">Ngày tạo: {fmtDateTime(detailInvoice.createdAt)}</p>
+              <p className="font-medium text-stone-700">Các khoản phí:</p>
+              <ul className="space-y-2 rounded-lg border border-stone-200 p-3">
+                {(detailInvoice.lineItems || []).map((item, idx) => (
+                  <li key={item.id || idx} className="flex justify-between gap-2 border-b border-stone-100 pb-2 last:border-0 last:pb-0">
+                    <span className="text-stone-700">
+                      {FEE_TYPE_LABELS[item.type]}: {item.description || ""}
+                    </span>
+                    <span className="font-medium text-stone-900 shrink-0">{fmtCurrency(item.amount)}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex justify-between border-t border-stone-200 pt-2">
+                <span className="text-stone-600">Tổng doanh thu</span>
+                <span>{fmtCurrency(detailInvoice.grossRevenue)}</span>
+              </div>
+              <div className="flex justify-between text-red-600">
+                <span>Tổng khoản trừ</span>
+                <span>{fmtCurrency(detailInvoice.totalDeductions)}</span>
+              </div>
+              <div className="flex justify-between font-semibold text-emerald-700">
+                <span>Thực nhận</span>
+                <span>{fmtCurrency(detailInvoice.netPayout)}</span>
+              </div>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href={`/api/invoices/${detailInvoice.id}/pdf`}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-lg bg-slate-100 px-3 py-2 text-sm text-slate-700 hover:bg-slate-200"
+              >
+                Tải/In PDF
+              </a>
+              {detailInvoice.status !== "paid" && getAmountDue(detailInvoice) > 0 && (
+                <button
+                  type="button"
+                  onClick={() => payInvoiceViaVnpay(detailInvoice)}
+                  disabled={paymentLoadingId === detailInvoice.id}
+                  className="rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600 disabled:opacity-50"
+                >
+                  {paymentLoadingId === detailInvoice.id ? "Đang chuyển..." : `Thanh toán qua VNPay (${fmtCurrency(getAmountDue(detailInvoice))})`}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

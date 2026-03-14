@@ -15,7 +15,7 @@ import type { Order, PayoutStatus } from '@/types/order';
 import { PLATFORM_CONFIG } from '@/lib/config/platformFees';
 
 // Constants
-const PAYOUT_CONFIRMATION_DAYS = 3; // Số ngày sau khi delivered để unlock payout
+const PAYOUT_CONFIRMATION_DAYS = 0; // Cho phép chi trả ngay khi đơn completed
 
 /**
  * Helper: Kiểm tra đơn đủ điều kiện payout
@@ -30,11 +30,11 @@ function validatePayoutEligibility(order: Order): { valid: boolean; reason?: str
     return { valid: false, reason: 'Order status must be "completed"' };
   }
 
-  // Check escrow status = held (payment confirmed in escrow)
-  if (order.escrowStatus !== 'held') {
+  // Check escrow status (allow legacy released data for backward compatibility)
+  if (order.escrowStatus !== 'held' && order.escrowStatus !== 'released') {
     return {
       valid: false,
-      reason: `Escrow status must be "held", current: ${order.escrowStatus}`,
+      reason: `Escrow status must be "held" or "released", current: ${order.escrowStatus}`,
     };
   }
 
@@ -43,22 +43,7 @@ function validatePayoutEligibility(order: Order): { valid: boolean; reason?: str
     return { valid: false, reason: 'Payout already completed' };
   }
 
-  // Check 3-day confirmation period has passed
-  if (order.completedAt) {
-    const completedTime = new Date(order.completedAt).getTime();
-    const now = Date.now();
-    const daysPassed = (now - completedTime) / (1000 * 60 * 60 * 24);
-
-    if (daysPassed < PAYOUT_CONFIRMATION_DAYS) {
-      const remainingDays = Math.ceil(
-        PAYOUT_CONFIRMATION_DAYS - daysPassed
-      );
-      return {
-        valid: false,
-        reason: `Must wait ${remainingDays} day(s) after delivery (Completed on ${new Date(completedTime).toLocaleDateString('vi-VN')})`,
-      };
-    }
-  }
+  // No waiting period: payout is available right after completion.
 
   return { valid: true };
 }
@@ -281,8 +266,19 @@ export async function GET(request: NextRequest) {
 
     let queryRef;
 
-    if (sellerId) {
-      // Lấy đơn của seller cụ thể
+    // status=pending must include docs where payoutStatus is missing (legacy data).
+    // Firestore cannot query missing field with equality, so filter in memory for this case.
+    if (status === 'pending') {
+      if (sellerId) {
+        queryRef = query(
+          collection(serverDb, 'orders'),
+          where('status', '==', 'completed'),
+          where('sellerId', '==', sellerId)
+        );
+      } else {
+        queryRef = query(collection(serverDb, 'orders'), where('status', '==', 'completed'));
+      }
+    } else if (sellerId) {
       queryRef = query(
         collection(serverDb, 'orders'),
         where('status', '==', 'completed'),
@@ -290,7 +286,6 @@ export async function GET(request: NextRequest) {
         where('sellerId', '==', sellerId)
       );
     } else {
-      // Lấy tất cả đơn chờ thanh toán (cho admin)
       queryRef = query(
         collection(serverDb, 'orders'),
         where('status', '==', 'completed'),
@@ -299,10 +294,22 @@ export async function GET(request: NextRequest) {
     }
 
     const snap = await getDocs(queryRef);
-    const orders = snap.docs
+    const statusMatched = snap.docs
+      .map(
+        (d) =>
+          ({
+            id: d.id,
+            ...(d.data() as Record<string, unknown>),
+          }) as Record<string, unknown> & { id: string; payoutStatus?: string }
+      )
+      .filter((o) => {
+        const payoutStatus = o.payoutStatus ?? 'pending';
+        return payoutStatus === status;
+      });
+
+    const orders = statusMatched
       .map((d) => {
-        const orderData = d.data() as any;
-        const order: Order = { id: d.id, ...orderData };
+        const order = d as unknown as Order;
 
         // Calculate eligibility info nếu request
         let eligibilityInfo = null;
@@ -313,7 +320,9 @@ export async function GET(request: NextRequest) {
           const daysRemaining = Math.max(0, Math.ceil(PAYOUT_CONFIRMATION_DAYS - daysPassed));
 
           eligibilityInfo = {
-            isEligible: daysRemaining === 0 && order.escrowStatus === 'held',
+            isEligible:
+              daysRemaining === 0 &&
+              (order.escrowStatus === 'held' || order.escrowStatus === 'released'),
             completedAt: order.completedAt,
             eligibleAt: new Date(
               completedTime + PAYOUT_CONFIRMATION_DAYS * 24 * 60 * 60 * 1000

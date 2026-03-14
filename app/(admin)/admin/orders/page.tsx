@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { firebaseDb } from "@/lib/firebase/client";
 import {
   collection, getDocs, doc, updateDoc, query, orderBy,
@@ -9,26 +10,32 @@ import type { Order, OrderStatus } from "@/types/order";
 
 const STATUS_MAP: Record<OrderStatus, { label: string; color: string }> = {
   pending:   { label: "Chờ xử lý",   color: "bg-yellow-100 text-yellow-800" },
+  deposited: { label: "Đã cọc 50%", color: "bg-cyan-100 text-cyan-800" },
   confirmed: { label: "Đã xác nhận", color: "bg-blue-100 text-blue-800" },
   shipping:  { label: "Đang giao",   color: "bg-indigo-100 text-indigo-800" },
   delivered: { label: "Đã giao",     color: "bg-green-100 text-green-800" },
-  completed: { label: "Hoàn thành",  color: "bg-green-100 text-green-800" },
+  completed: { label: "Giao hàng thành công",  color: "bg-green-100 text-green-800" },
   cancelled: { label: "Đã hủy",     color: "bg-red-100 text-red-800" },
 };
 
-const STATUS_FLOW: OrderStatus[] = ["pending", "confirmed", "shipping", "delivered", "completed"];
-
 const WAREHOUSE_STATUS_LABEL: Record<string, string> = {
+  in_stock: "Còn hàng trong kho",
   awaiting_intake: "Chờ nhập kho",
   in_storage: "Đang lưu kho",
-  processing: "Đang sơ chế",
+  processing: "Đang xử lý kho",
   ready_to_ship: "Sẵn sàng xuất kho",
   shipped: "Đã xuất kho",
+  completed: "Hoàn tất đơn kho",
 };
 
 function getWarehouseStatusLabel(status?: string) {
   if (!status) return "—";
   return WAREHOUSE_STATUS_LABEL[status] || status;
+}
+
+function getNextStatus(current: OrderStatus): OrderStatus | null {
+  if (current === "deposited" || current === "confirmed") return "shipping";
+  return null;
 }
 
 export default function AdminOrdersPage() {
@@ -44,6 +51,12 @@ export default function AdminOrdersPage() {
 
   async function loadOrders() {
     try {
+      await fetch('/api/orders/cleanup-old', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ scope: 'all', olderThanDays: 4 }),
+      }).catch(() => null);
+
       const snap = await getDocs(query(collection(firebaseDb, "orders"), orderBy("createdAt", "desc")));
       setOrders(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Order)));
     } catch (err) {
@@ -54,35 +67,51 @@ export default function AdminOrdersPage() {
   }
 
   async function advanceStatus(order: Order) {
-    const idx = STATUS_FLOW.indexOf(order.status);
-    if (idx < 0 || idx >= STATUS_FLOW.length - 1) return;
-    const next = STATUS_FLOW[idx + 1];
-    const tsField = next === "confirmed" ? "confirmedAt" : next === "shipping" ? "shippedAt" : next === "delivered" ? "deliveredAt" : "completedAt";
-    try {
-      setSaving(order.id);
-      await updateDoc(doc(firebaseDb, "orders", order.id), { status: next, [tsField]: Date.now() });
-      setOrders((prev) => prev.map((o) => o.id === order.id ? { ...o, status: next, [tsField]: Date.now() } : o));
+    const next = getNextStatus(order.status);
+    if (!next) return;
+    const now = Date.now();
+    const updateData: Record<string, unknown> = { status: next };
 
-      // Auto-issue service invoice when order is completed
-      if (next === "completed" && !order.invoiceId) {
-        const invoiceRes = await fetch("/api/invoices/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ orderId: order.id, sellerId: order.sellerId }),
-        });
-        const invoiceData = await invoiceRes.json().catch(() => ({}));
-        if (invoiceRes.ok && invoiceData?.invoice?.id) {
-          setOrders((prev) =>
-            prev.map((o) =>
-              o.id === order.id ? { ...o, invoiceId: invoiceData.invoice.id } : o
-            )
-          );
-          showToast(`Cập nhật ${STATUS_MAP[next].label} + phát hành hóa đơn ${invoiceData.invoice.invoiceNumber}`);
-          return;
-        }
+    if (next === "shipping") {
+      if (order.status !== "deposited" && order.paymentStatus !== "success") {
+        showToast("Đơn chưa cọc 50%, không thể chuyển sang Đang giao");
+        return;
       }
 
-      showToast(`Cập nhật  ${STATUS_MAP[next].label}`);
+      updateData.confirmedAt = order.confirmedAt || now;
+      updateData.shippedAt = now;
+      if (order.warehouseService?.enabled) {
+        updateData["warehouseService.warehouseStatus"] = "shipped";
+        updateData["warehouseService.updatedAt"] = now;
+      }
+    }
+
+    try {
+      setSaving(order.id);
+      await updateDoc(doc(firebaseDb, "orders", order.id), updateData);
+      setOrders((prev) => prev.map((o) => {
+        if (o.id !== order.id) return o;
+        const nextWarehouseStatus =
+          next === "shipping"
+            ? "shipped"
+            : o.warehouseService?.warehouseStatus;
+
+        return {
+          ...o,
+          status: next,
+          confirmedAt: (updateData.confirmedAt as number | undefined) ?? o.confirmedAt,
+          shippedAt: (updateData.shippedAt as number | undefined) ?? o.shippedAt,
+          warehouseService: o.warehouseService
+            ? {
+                ...o.warehouseService,
+                warehouseStatus: (nextWarehouseStatus as typeof o.warehouseService.warehouseStatus) || o.warehouseService.warehouseStatus,
+                updatedAt: now,
+              }
+            : o.warehouseService,
+        };
+      }));
+
+      showToast(`Cập nhật ${STATUS_MAP[next].label}`);
     } catch (err) {
       console.error(err);
       showToast("Lỗi cập nhật trạng thái");
@@ -106,14 +135,44 @@ export default function AdminOrdersPage() {
     }
   }
 
+  async function confirmRemainingPayment(order: Order) {
+    try {
+      setSaving(order.id);
+      const res = await fetch("/api/payments/remaining", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: order.id, action: "confirm" }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || "Không thể xác nhận tiền còn lại");
+
+      setOrders((prev) => prev.map((o) =>
+        o.id === order.id
+          ? {
+              ...o,
+              status: "completed",
+              completedAt: Date.now(),
+              paymentStatus: "success",
+              remainingPaymentStatus: "received",
+              remainingPaymentReceivedAt: Date.now(),
+            }
+          : o
+      ));
+      showToast("Đã nhận 50% còn lại và hoàn tất đơn");
+      await loadOrders();
+    } catch (err) {
+      console.error(err);
+      showToast(err instanceof Error ? err.message : "Lỗi xác nhận tiền còn lại");
+    } finally {
+      setSaving(null);
+    }
+  }
+
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
 
   const fmt = (n: number) => new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(n);
   const getPayableTotal = (order: Order) =>
-    order.grandTotal ??
-    (order.subTotal ?? order.totalAmount) +
-      (order.platformFee ?? 0) +
-      (order.warehouseService?.serviceFeeTotal ?? 0);
+    order.grandTotal ?? (order.subTotal ?? order.totalAmount);
   const fmtDate = (ts?: number) => ts ? new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }) : "—";
   const fmtTime = (ts?: number) => ts ? new Date(ts).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—";
 
@@ -217,6 +276,9 @@ export default function AdminOrdersPage() {
               </div>
               <div className="flex items-center gap-3 flex-shrink-0">
                 <span className="text-sm font-extrabold text-stone-800">{fmt(getPayableTotal(o))}</span>
+                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${o.paymentStatus === "success" ? "bg-emerald-100 text-emerald-700" : o.paymentStatus === "failed" ? "bg-red-100 text-red-700" : "bg-amber-100 text-amber-700"}`}>
+                  {o.paymentStatus === "success" ? "Đã thanh toán đủ" : o.depositPaidAt ? "Đã cọc 50%" : o.paymentStatus === "failed" ? "Thanh toán lỗi" : "Chờ thanh toán"}
+                </span>
                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${STATUS_MAP[o.status].color}`}>
                   {STATUS_MAP[o.status].label}
                 </span>
@@ -246,14 +308,19 @@ export default function AdminOrdersPage() {
                 {/* Details grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Thanh toán</p><p className="text-stone-700 font-semibold mt-1">{o.paymentMethod === "vnpay" ? "VNPay" : o.paymentMethod === "transfer" ? "Chuyển khoản" : "—"}</p></div>
-                  <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">TT thanh toán</p><p className={`font-semibold mt-1 ${o.paymentStatus === "success" ? "text-emerald-600" : "text-red-500"}`}>{o.paymentStatus === "success" ? "Thành công" : o.paymentStatus === "failed" ? "Thất bại" : "—"}</p></div>
+                  <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">TT thanh toán</p><p className={`font-semibold mt-1 ${o.paymentStatus === "success" ? "text-emerald-600" : o.paymentStatus === "pending" ? "text-amber-600" : "text-red-500"}`}>{o.paymentStatus === "success" ? "Thành công" : o.paymentStatus === "pending" ? "Đang chờ" : o.paymentStatus === "failed" ? "Thất bại" : "—"}</p></div>
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Mã giao dịch</p><p className="text-stone-700 font-mono mt-1">{o.transactionRef || "—"}</p></div>
                   <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Tracking</p><p className="text-stone-700 font-mono mt-1">{o.trackingNumber || "—"}</p></div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs">
+                  <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Tiền cọc</p><p className="text-stone-700 font-semibold mt-1">{fmt(o.depositAmount || 0)}</p></div>
+                  <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Còn lại</p><p className="text-stone-700 font-semibold mt-1">{fmt(o.remainingAmount || 0)}</p></div>
+                  <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">TT 50% còn lại</p><p className="text-stone-700 font-semibold mt-1">{o.remainingPaymentStatus === "received" ? "Đã nhận" : o.remainingPaymentStatus === "submitted" ? "Buyer đã gửi" : "Chưa gửi"}</p></div>
                 </div>
 
                 {o.warehouseService && (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                    <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Sơ chế</p><p className="text-stone-700 font-semibold mt-1">{o.warehouseService.processingMode === "warehouse" ? "Kho Farm2Art" : "Người bán tự sơ chế"}</p></div>
+                    <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Mô hình giao hàng</p><p className="text-stone-700 font-semibold mt-1">Kho Farm2Art</p></div>
                     <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Lưu kho</p><p className="text-stone-700 font-semibold mt-1">{o.warehouseService.storageDays} ngày</p></div>
                     <div className="bg-white/60 rounded-xl p-3 border border-sage-100"><p className="text-stone-400 font-medium">Phí dịch vụ kho</p><p className="text-stone-700 font-semibold mt-1">{fmt(o.warehouseService.serviceFeeTotal)}</p></div>
                     <div className="bg-white/60 rounded-xl p-3 border border-sage-100">
@@ -305,15 +372,15 @@ export default function AdminOrdersPage() {
                 {/* Actions */}
                 {o.status !== "completed" && o.status !== "cancelled" && (
                   <div className="flex gap-3 pt-2">
-                    <button
-                      onClick={() => advanceStatus(o)}
-                      disabled={saving === o.id}
-                      className="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white hover:shadow-lg hover:shadow-emerald-500/20 disabled:opacity-50 transition-all duration-200 active:scale-[0.97]"
-                    >
-                      {STATUS_FLOW.indexOf(o.status) < STATUS_FLOW.length - 1
-                        ? ` ${STATUS_MAP[STATUS_FLOW[STATUS_FLOW.indexOf(o.status) + 1]].label}`
-                        : "—"}
-                    </button>
+                    {getNextStatus(o.status) && (
+                      <button
+                        onClick={() => advanceStatus(o)}
+                        disabled={saving === o.id || (getNextStatus(o.status) === "shipping" && o.status !== "deposited" && o.paymentStatus !== "success")}
+                        className="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white hover:shadow-lg hover:shadow-emerald-500/20 disabled:opacity-50 transition-all duration-200 active:scale-[0.97]"
+                      >
+                        {` ${STATUS_MAP[getNextStatus(o.status) as OrderStatus].label}`}
+                      </button>
+                    )}
                     <button
                       onClick={() => cancelOrder(o.id)}
                       disabled={saving === o.id}
@@ -321,6 +388,39 @@ export default function AdminOrdersPage() {
                     >
                       Hủy đơn
                     </button>
+                    {o.remainingPaymentStatus === "submitted" && (
+                      <button
+                        onClick={() => confirmRemainingPayment(o)}
+                        disabled={saving === o.id}
+                        className="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-600 to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/20 disabled:opacity-50 transition-all duration-200 active:scale-[0.97]"
+                      >
+                        Xác nhận nhận 50% còn lại
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {o.status === "completed" && o.paymentStatus === "success" && (
+                  <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-xs space-y-3">
+                    <p className="font-bold text-emerald-900">Đơn đã hoàn tất và đã nhận đủ tiền từ buyer</p>
+                    <div className="flex justify-between items-center">
+                      <p className="text-stone-500">{o.payoutStatus === "completed" ? "Đã chi trả" : "Chờ xử lý chi trả"}</p>
+                      {o.payoutStatus === "completed" ? (
+                        <Link
+                          href={`/admin/invoices?orderId=${o.id}`}
+                          className="px-4 py-2 rounded-lg bg-stone-200 text-stone-700 font-semibold hover:bg-stone-300"
+                        >
+                          Xem ở hóa đơn dịch vụ
+                        </Link>
+                      ) : (
+                        <Link
+                          href={`/admin/invoices?orderId=${o.id}`}
+                          className="px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700"
+                        >
+                          Chuyển sang hóa đơn dịch vụ
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

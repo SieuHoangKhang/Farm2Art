@@ -206,14 +206,8 @@ export default function SellerProfilePage() {
               </div>
             </div>
 
-            {/* Contact Button */}
-            <div className="mt-6 pt-6 border-t border-sage-200 flex gap-3">
-              <Link
-                href={`/chat?sellerId=${sellerId}`}
-                className="flex-1 px-6 py-3 bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 font-semibold transition text-center text-sm"
-              >
-                💬 Liên hệ người bán
-              </Link>
+            <div className="mt-6 pt-6 border-t border-sage-200">
+              <p className="text-sm text-stone-600 text-center">Trang này chỉ hiển thị sản phẩm đang bán của người bán.</p>
             </div>
           </div>
 
@@ -222,8 +216,6 @@ export default function SellerProfilePage() {
             <div className="flex border-b border-sage-200">
               {[
                 { key: 'listings', label: `Sản phẩm (${listings.length})` },
-                { key: 'reviews', label: `Đánh giá (${reviews.length})` },
-                { key: 'about', label: 'Thông tin' },
               ].map(tab => (
                 <button
                   key={tab.key}

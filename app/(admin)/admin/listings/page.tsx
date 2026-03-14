@@ -65,7 +65,7 @@ export default function AdminListingsPage() {
         ? { ...l, approvalStatus: "approved", status: "active" } 
         : l
       ));
-      showToast("✅ Đơn hàng đã được duyệt!");
+      showToast("✅ Tin đăng đã được duyệt!");
     } catch (err) {
       console.error(err);
       showToast("❌ Lỗi duyệt tin đăng");
@@ -280,6 +280,11 @@ export default function AdminListingsPage() {
                         )}
                       </div>
                     )}
+                    {l.approvalStatus === "pending_approval" && !l.agreement?.sellerAccepted && (
+                      <div className="mt-2 text-xs">
+                        <span className="bg-amber-100 text-amber-800 px-2 py-1 rounded-full">⚠ Chưa chấp thuận thỏa thuận phí</span>
+                      </div>
+                    )}
                   </td>
                   <td className="px-6 py-4 text-right text-xs text-stone-500 font-medium">
                     {typeof l.createdAt === "number" ? fmtDate(l.createdAt) : "—"}
@@ -297,8 +302,9 @@ export default function AdminListingsPage() {
                           </button>
                           <button
                             onClick={() => approveListing(l.id)}
-                            disabled={saving === l.id}
+                            disabled={saving === l.id || !l.agreement?.sellerAccepted}
                             className="px-3 py-1.5 rounded-xl text-xs font-semibold border border-green-300 bg-green-50 text-green-700 hover:bg-green-100 disabled:opacity-50 transition-all duration-200"
+                            title={!l.agreement?.sellerAccepted ? "Seller chưa đồng ý thỏa thuận phí" : "Duyệt tin đăng"}
                           >
                             ✅ Duyệt
                           </button>
@@ -343,6 +349,35 @@ export default function AdminListingsPage() {
                   {expandedId === l.id && (
                     <tr className="bg-blue-50/50 border-t-2 border-blue-200">
                       <td colSpan={7} className="px-6 py-6">
+                        <div className="space-y-6">
+                          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+                            <p className="text-sm font-bold text-amber-900">Thỏa thuận phí seller - admin</p>
+                            <div className="mt-3 grid gap-3 text-sm md:grid-cols-4">
+                              <div className="rounded-lg bg-white p-3 border border-amber-100">
+                                <p className="text-xs text-stone-500">Hoa hồng admin</p>
+                                <p className="font-semibold text-stone-800">{((l.agreement?.commissionRate ?? l.commissionRate ?? 0.2) * 100).toFixed(0)}%</p>
+                              </div>
+                              <div className="rounded-lg bg-white p-3 border border-amber-100">
+                                <p className="text-xs text-stone-500">Phương án giao hàng</p>
+                                <p className="font-semibold text-stone-800">
+                                  {l.processingPreference === "warehouse" ? "Giao qua kho web" : "Seller giao trực tiếp"}
+                                </p>
+                              </div>
+                              <div className="rounded-lg bg-white p-3 border border-amber-100">
+                                <p className="text-xs text-stone-500">Chính sách phí vận chuyển</p>
+                                <p className="font-semibold text-stone-800">
+                                  {l.processingPreference === "warehouse" ? "5% tổng đơn" : "0%"}
+                                </p>
+                              </div>
+                              <div className="rounded-lg bg-white p-3 border border-amber-100">
+                                <p className="text-xs text-stone-500">Seller xác nhận</p>
+                                <p className={`font-semibold ${l.agreement?.sellerAccepted ? "text-emerald-700" : "text-red-700"}`}>
+                                  {l.agreement?.sellerAccepted ? "Đã đồng ý" : "Chưa đồng ý"}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
                         <div className="grid md:grid-cols-2 gap-8">
                           {/* Seller Info */}
                           <div className="space-y-4">
@@ -430,6 +465,7 @@ export default function AdminListingsPage() {
                               <div className="text-sm text-stone-500">Chưa có đánh giá</div>
                             )}
                           </div>
+                        </div>
                         </div>
                       </td>
                     </tr>

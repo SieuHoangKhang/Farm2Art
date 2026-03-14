@@ -31,7 +31,7 @@ export default function RegisterPage() {
       // Create user profile with default role.
       await ensureUserDoc(cred.user);
 
-      router.push("/account");
+      router.push("/account?welcome=1");
       router.refresh();
     } catch (err: any) {
       const code = String(err?.code ?? "");
@@ -102,6 +102,9 @@ export default function RegisterPage() {
               Đăng nhập
             </Link>
           </p>
+          <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+            Lưu ý: sau khi tạo tài khoản, hãy vào trang cá nhân để cập nhật phương thức nhận tiền VNPAY.
+          </div>
         </CardBody>
       </Card>
     </div>

@@ -16,12 +16,15 @@ export async function POST(request: Request) {
 
     // Update order payment status in Firestore
     const orderRef = doc(serverDb, "orders", orderId);
+    const depositAmount = Math.round(Number(amount));
     await updateDoc(orderRef, {
       paymentMethod: method,
-      paymentStatus: "paid",
-      paidAmount: amount,
-      paidAt: Date.now(),
-      status: "confirmed",
+      paymentStatus: "pending",
+      paidAmount: depositAmount,
+      depositPaidAt: Date.now(),
+      paymentReceivedAt: Date.now(),
+      status: "deposited",
+      escrowStatus: "held",
     });
 
     return NextResponse.json({ success: true, orderId });

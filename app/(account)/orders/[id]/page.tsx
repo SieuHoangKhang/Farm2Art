@@ -11,25 +11,49 @@ import { firebaseDb } from "@/lib/firebase/client";
 import type { Order } from "@/types/order";
 
 const STATUS_UI: Record<Order["status"], { label: string; className: string }> = {
-  pending: { label: "Chờ thanh toán", className: "bg-yellow-100 text-yellow-800" },
-  confirmed: { label: "Đã thanh toán", className: "bg-blue-100 text-blue-800" },
+  pending: { label: "Chờ xác nhận", className: "bg-yellow-100 text-yellow-800" },
+  deposited: { label: "Đã cọc 50%", className: "bg-cyan-100 text-cyan-800" },
+  confirmed: { label: "Đã xác nhận", className: "bg-blue-100 text-blue-800" },
   shipping: { label: "Đang giao", className: "bg-indigo-100 text-indigo-800" },
   delivered: { label: "Đã giao", className: "bg-emerald-100 text-emerald-800" },
-  completed: { label: "Hoàn thành", className: "bg-green-100 text-green-800" },
+  completed: { label: "Giao hàng thành công", className: "bg-green-100 text-green-800" },
   cancelled: { label: "Đã hủy", className: "bg-red-100 text-red-800" },
 };
 
-const WAREHOUSE_STATUS_LABEL: Record<string, string> = {
-  awaiting_intake: "Chờ nhập kho",
-  in_storage: "Đang lưu kho",
-  processing: "Đang sơ chế",
-  ready_to_ship: "Sẵn sàng xuất kho",
-  shipped: "Đã xuất kho",
-};
+const ORDER_PROGRESS_STEPS = [
+  { key: "pending", label: "Đặt hàng", icon: "📝" },
+  { key: "deposited", label: "Đã cọc 50%", icon: "💳" },
+  { key: "shipping", label: "Admin xác nhận và giao hàng", icon: "🚚" },
+  { key: "fully_paid", label: "Thanh toán 50% còn lại", icon: "💰" },
+  { key: "completed", label: "Khách xác nhận nhận hàng", icon: "✅" },
+] as const;
 
-function getWarehouseStatusLabel(status?: string) {
-  if (!status) return "—";
-  return WAREHOUSE_STATUS_LABEL[status] || status;
+type OrderProgressKey = (typeof ORDER_PROGRESS_STEPS)[number]["key"];
+
+
+function getCurrentStepIndex(order: Order): number {
+  if (order.status === "cancelled") return -1;
+  if (order.status === "completed") return 4;
+  if (order.status === "delivered") return 3;
+
+  const indexMap: Record<Order["status"], number> = {
+    pending: 0,
+    deposited: 1,
+    confirmed: 1,
+    shipping: 2,
+    delivered: 3,
+    completed: 4,
+    cancelled: -1,
+  };
+  return indexMap[order.status] ?? 0;
+}
+
+function getStepTimestamp(order: Order, stepKey: OrderProgressKey): number | undefined {
+  if (stepKey === "deposited") return order.depositPaidAt;
+  if (stepKey === "shipping") return order.shippedAt;
+  if (stepKey === "fully_paid") return order.remainingPaymentReceivedAt;
+  if (stepKey === "completed") return order.completedAt;
+  return undefined;
 }
 
 export default function OrderDetailPage() {
@@ -41,6 +65,77 @@ export default function OrderDetailPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [paymentLoading, setPaymentLoading] = useState(false);
+  const [confirmingDelivery, setConfirmingDelivery] = useState(false);
+  const [remainingSubmitting, setRemainingSubmitting] = useState(false);
+
+  async function handleConfirmDelivery() {
+    if (!order || !user) return;
+    const nextStatus: Order["status"] = order.status === "shipping" ? "delivered" : "completed";
+
+    if (nextStatus === "completed" && remainingAmount > 0 && order.remainingPaymentStatus !== "received") {
+      setError("Vui lòng gửi và chờ admin xác nhận 50% còn lại trước khi hoàn tất đơn.");
+      return;
+    }
+
+    setConfirmingDelivery(true);
+    try {
+      const response = await fetch("/api/orders/update-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: order.id,
+          status: nextStatus,
+          buyerId: user.uid,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Lỗi khi xác nhận");
+      }
+
+      setOrder((prev) =>
+        prev
+          ? {
+              ...prev,
+              status: nextStatus,
+              deliveredAt: nextStatus === "delivered" ? Date.now() : prev.deliveredAt,
+              completedAt: nextStatus === "completed" ? Date.now() : prev.completedAt,
+            }
+          : null
+      );
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Lỗi khi xác nhận");
+    } finally {
+      setConfirmingDelivery(false);
+    }
+  }
+
+  async function handleSubmitRemainingPayment() {
+    if (!order || !user) return;
+    setRemainingSubmitting(true);
+    try {
+      const response = await fetch("/api/payments/vnpay/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: order.id,
+          phase: "remaining",
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.error || "Không thể tạo thanh toán VNPay");
+
+      const paymentUrl = data?.paymentUrl as string | undefined;
+      if (!paymentUrl) throw new Error("Không nhận được link thanh toán");
+
+      window.location.href = paymentUrl;
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Lỗi thanh toán 50% còn lại");
+    } finally {
+      setRemainingSubmitting(false);
+    }
+  }
 
   useEffect(() => {
     if (userLoading || !user) return;
@@ -100,8 +195,7 @@ export default function OrderDetailPage() {
   const paymentResult = searchParams.get("payment");
   const queryTxnRef = searchParams.get("txnRef");
   const isPaymentSuccess = paymentResult === "success" || order?.paymentStatus === "success";
-  const effectiveStatus: Order["status"] =
-    isPaymentSuccess && order?.status === "pending" ? "confirmed" : (order?.status ?? "pending");
+  const effectiveStatus: Order["status"] = order?.status ?? "pending";
   const effectivePaymentMethod = order?.paymentMethod ?? (isPaymentSuccess ? "vnpay" : undefined);
   const effectivePaymentStatus = order?.paymentStatus ?? (isPaymentSuccess ? "success" : undefined);
   const effectiveTransactionRef = order?.transactionRef || queryTxnRef || undefined;
@@ -109,14 +203,10 @@ export default function OrderDetailPage() {
     order?.subTotal ??
     order?.items?.reduce((sum, item) => sum + item.price * item.quantity, 0) ??
     0;
-  const warehouseService = order?.warehouseService;
-  const storageFee = warehouseService?.storageFee ?? 0;
-  const processingFee = warehouseService?.processingFee ?? 0;
-  const shippingFee = warehouseService?.shippingFee ?? 0;
-  const warehouseFeeTotal = warehouseService?.serviceFeeTotal ?? (storageFee + processingFee + shippingFee);
-  const payableTotal =
-    order?.grandTotal ??
-    (order ? itemSubTotal + (order.platformFee ?? 0) + warehouseFeeTotal : 0);
+  // Người mua chỉ trả tiền hàng; các phí (nền tảng, lưu kho, sơ chế, vận chuyển) thuộc người bán.
+  const payableTotal = itemSubTotal;
+  const depositAmount = Math.round(itemSubTotal * 0.5);
+  const remainingAmount = Math.max(itemSubTotal - depositAmount, 0);
   const invoiceDate = new Date(order?.paidAt ?? order?.createdAt ?? Date.now());
   const invoiceCode = `INV-${orderId.slice(0, 8).toUpperCase()}-${invoiceDate.getFullYear()}`;
   const paymentProviderLabel = effectivePaymentMethod === "vnpay" ? "VNPay" : "cổng thanh toán";
@@ -248,27 +338,79 @@ export default function OrderDetailPage() {
                     <span className="text-stone-600">Tiền hàng</span>
                     <span className="text-stone-900">{itemSubTotal.toLocaleString("vi-VN")} VNĐ</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Phí nền tảng</span>
-                    <span className="text-stone-900">{(order.platformFee ?? 0).toLocaleString("vi-VN")} VNĐ</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Phí lưu kho</span>
-                    <span className="text-stone-900">{storageFee.toLocaleString("vi-VN")} VNĐ</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Phí sơ chế</span>
-                    <span className="text-stone-900">{processingFee.toLocaleString("vi-VN")} VNĐ</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Phí vận chuyển kho</span>
-                    <span className="text-stone-900">{shippingFee.toLocaleString("vi-VN")} VNĐ</span>
-                  </div>
                   <div className="border-t border-stone-200 pt-2">
                     <div className="flex justify-between text-base font-semibold">
-                      <span className="text-stone-900">Tổng đã thanh toán</span>
-                      <span className="text-emerald-600">{payableTotal.toLocaleString("vi-VN")} VNĐ</span>
+                      <span className="text-stone-900">Số tiền cọc đã thanh toán</span>
+                      <span className="text-emerald-600">{depositAmount.toLocaleString("vi-VN")} VNĐ</span>
                     </div>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+          )}
+
+          {/* Progress Timeline */}
+          {order.status !== "cancelled" && (
+            <Card>
+              <CardBody>
+                <p className="mb-4 text-sm font-semibold text-stone-900">Tiến trình đơn hàng</p>
+                <div className="relative">
+                  <div className="absolute left-4 top-0 h-full w-0.5 bg-stone-200" />
+                  <div className="space-y-6">
+                    {ORDER_PROGRESS_STEPS.map((step, index) => {
+                      const currentIndex = getCurrentStepIndex(order);
+                      const isCompleted = index < currentIndex;
+                      const isCurrent = index === currentIndex;
+                      const isPending = index > currentIndex;
+                      const stepLabel =
+                        step.key === "fully_paid" && order.remainingPaymentStatus === "received"
+                          ? "Đã thanh toán đầy đủ"
+                          : step.label;
+                      const stepTimestamp = getStepTimestamp(order, step.key);
+
+                      return (
+                        <div key={step.key} className="relative flex items-start gap-4 pl-2">
+                          <div
+                            className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm ${
+                              isCompleted
+                                ? "bg-emerald-600 text-white"
+                                : isCurrent
+                                ? "bg-amber-500 text-white"
+                                : "bg-stone-200 text-stone-500"
+                            }`}
+                          >
+                            {isCompleted ? "✓" : isCurrent ? "●" : index + 1}
+                          </div>
+                          <div className="flex-1 pt-1">
+                            <p
+                              className={`text-sm font-medium ${
+                                isPending ? "text-stone-400" : "text-stone-900"
+                              }`}
+                            >
+                              {stepLabel}
+                            </p>
+                            {isCurrent && (
+                              <p className="mt-1 text-xs text-amber-600">
+                                {step.key === "fully_paid" && order.remainingPaymentStatus === "received"
+                                  ? "Đã thanh toán đủ 100% qua VNPay"
+                                  : "Đang ở bước này"}
+                              </p>
+                            )}
+                            {(isCompleted || (isCurrent && !!stepTimestamp)) && stepTimestamp && (
+                              <p className="mt-1 text-xs text-stone-500">
+                                {new Date(stepTimestamp).toLocaleDateString("vi-VN", {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </CardBody>
@@ -341,7 +483,7 @@ export default function OrderDetailPage() {
             </CardBody>
           </Card>
 
-          {/* Amount Summary */}
+          {/* Amount Summary - Người mua chỉ trả tiền hàng */}
           <Card>
             <CardBody>
               <div className="space-y-3 text-sm">
@@ -349,25 +491,17 @@ export default function OrderDetailPage() {
                   <span className="text-stone-600">Tiền hàng:</span>
                   <span className="text-stone-900">{itemSubTotal.toLocaleString("vi-VN")} VNĐ</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-600">Phí nền tảng:</span>
-                  <span className="text-stone-900">{(order.platformFee ?? 0).toLocaleString("vi-VN")} VNĐ</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-600">Phí lưu kho:</span>
-                  <span className="text-stone-900">{storageFee.toLocaleString("vi-VN")} VNĐ</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-600">Phí sơ chế:</span>
-                  <span className="text-stone-900">{processingFee.toLocaleString("vi-VN")} VNĐ</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-600">Phí vận chuyển kho:</span>
-                  <span className="text-stone-900">{shippingFee.toLocaleString("vi-VN")} VNĐ</span>
-                </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone-600">Đã cọc 50%:</span>
+                    <span className="text-stone-900">{depositAmount.toLocaleString("vi-VN")} VNĐ</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone-600">Còn lại 50%:</span>
+                    <span className="text-stone-900">{remainingAmount.toLocaleString("vi-VN")} VNĐ</span>
+                  </div>
                 <div className="border-t border-stone-200 pt-3">
                   <div className="flex justify-between text-base font-semibold">
-                    <span>Tổng thanh toán:</span>
+                    <span>Tổng giá trị đơn:</span>
                     <span className="text-emerald-600">{payableTotal.toLocaleString("vi-VN")} VNĐ</span>
                   </div>
                 </div>
@@ -375,73 +509,74 @@ export default function OrderDetailPage() {
             </CardBody>
           </Card>
 
-          {warehouseService && (
-            <Card>
-              <CardBody>
-                <p className="text-sm font-semibold text-stone-900">Kho lưu giữ và sơ chế</p>
-                <div className="mt-3 space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Phương án sơ chế:</span>
-                    <span className="font-medium text-stone-900">
-                      {warehouseService.processingMode === "warehouse"
-                        ? "Kho Farm2Art sơ chế"
-                        : "Người bán tự sơ chế"}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Số ngày lưu kho:</span>
-                    <span className="font-medium text-stone-900">{warehouseService.storageDays} ngày</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Trạng thái kho:</span>
-                    <span className="font-medium text-stone-900">
-                      {getWarehouseStatusLabel(warehouseService.warehouseStatus)}
-                    </span>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-          )}
-
-          {(effectivePaymentMethod || effectivePaymentStatus || effectiveTransactionRef) && (
-            <Card>
-              <CardBody>
-                <p className="text-sm font-semibold text-stone-900">Thanh toán</p>
-                <div className="mt-3 space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Phương thức:</span>
-                    <span className="font-medium text-stone-900">{effectivePaymentMethod === "vnpay" ? "VNPay" : effectivePaymentMethod === "transfer" ? "Chuyển khoản" : "—"}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-stone-600">Trạng thái thanh toán:</span>
-                    <span className="font-medium text-stone-900">{effectivePaymentStatus === "success" ? "Thành công" : effectivePaymentStatus === "failed" ? "Thất bại" : "—"}</span>
-                  </div>
-                  {effectiveTransactionRef && (
-                    <div className="flex justify-between">
-                      <span className="text-stone-600">Mã giao dịch:</span>
-                      <span className="font-medium text-stone-900">{effectiveTransactionRef}</span>
-                    </div>
-                  )}
-                </div>
-              </CardBody>
-            </Card>
-          )}
-
           {/* Payment Section */}
-          {effectiveStatus === "pending" && !isPaymentSuccess && !effectivePaymentMethod && (
+          {effectiveStatus === "pending" && !order.depositPaidAt && (
             <Card>
               <CardBody>
-                <p className="mb-4 text-sm font-semibold text-stone-900">Thanh toán</p>
+                <p className="mb-4 text-sm font-semibold text-stone-900">Thanh toán cọc 50%</p>
                 <p className="mb-4 text-sm text-stone-600">
-                  Chọn phương thức thanh toán để hoàn tất đơn hàng của bạn.
+                  Bạn thanh toán trước 50% để admin xác nhận giao hàng. 50% còn lại thanh toán sau khi nhận hàng.
                 </p>
                 <Button
                   onClick={handlePayment}
                   disabled={paymentLoading}
                   className="w-full bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400"
                 >
-                  {paymentLoading ? "Đang xử lý..." : "Thanh toán qua VNPay"}
+                  {paymentLoading ? "Đang xử lý..." : `Thanh toán cọc ${depositAmount.toLocaleString("vi-VN")} VNĐ qua VNPay`}
                 </Button>
+              </CardBody>
+            </Card>
+          )}
+
+          {order.status === "delivered" && order.remainingPaymentStatus !== "received" && (
+            <Card>
+              <CardBody>
+                <p className="font-semibold text-stone-900">Thanh toán 50% còn lại</p>
+                <p className="mt-1 text-sm text-stone-600">
+                  Sau khi nhận hàng, thanh toán nốt qua VNPay để có thể hoàn tất đơn ngay.
+                </p>
+                <div className="mt-4">
+                  <Button
+                    onClick={handleSubmitRemainingPayment}
+                    disabled={remainingSubmitting}
+                    className="w-full bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400"
+                  >
+                    {remainingSubmitting
+                        ? "Đang gửi..."
+                        : `Thanh toán VNPay ${remainingAmount.toLocaleString("vi-VN")} VNĐ`}
+                  </Button>
+                </div>
+              </CardBody>
+            </Card>
+          )}
+
+          {/* Confirm Delivery Button - Buyer xác nhận nhận hàng để hoàn tất */}
+          {(order.status === "shipping" || order.status === "delivered") && (
+            <Card>
+              <CardBody>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-semibold text-stone-900">Xác nhận đã nhận hàng</p>
+                    <p className="mt-1 text-sm text-stone-600">
+                      {order.status === "shipping"
+                        ? "Khi hàng đã tới tay bạn, bấm xác nhận để chuyển sang trạng thái đã giao."
+                        : order.remainingPaymentStatus === "received"
+                          ? "Bạn đã thanh toán đủ 100%, bấm để kết thúc đơn hàng."
+                          : "Vui lòng thanh toán 50% còn lại qua VNPay trước khi hoàn tất đơn."}
+                    </p>
+                  </div>
+                  <Button
+                    onClick={handleConfirmDelivery}
+                    disabled={confirmingDelivery || (order.status === "delivered" && order.remainingPaymentStatus !== "received")}
+                    className="bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400"
+                  >
+                    {confirmingDelivery
+                      ? "Đang xử lý..."
+                      : order.status === "shipping"
+                        ? "Xác nhận đã giao"
+                        : "Hoàn tất đơn"}
+                  </Button>
+                </div>
               </CardBody>
             </Card>
           )}

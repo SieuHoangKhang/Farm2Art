@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { LinkButton } from "@/components/ui/Button";
-import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy, limit, doc, getDoc } from "firebase/firestore";
 import { firebaseDb } from "@/lib/firebase/client";
 
 // Carousel banner data
@@ -65,16 +65,17 @@ async function fetchTopSellingProducts(): Promise<FeaturedProduct[]> {
       return []; // Không có order nào, trả về array rỗng (không hiển thị fallback)
     }
 
-    // Fetch listing details cho mỗi top product
+    // Fetch listing details cho mỗi top product (chỉ lấy listing đang active + approved)
     const products: FeaturedProduct[] = [];
     for (const listingId of topListingIds) {
-      const listingSnapshot = await getDocs(
-        query(collection(firebaseDb, "listings"), where("id", "==", listingId), limit(1))
-      );
-      
-      if (listingSnapshot.empty) continue;
-      
-      const listing = listingSnapshot.docs[0].data();
+      const listingRef = doc(firebaseDb, "listings", listingId);
+      const listingSnap = await getDoc(listingRef);
+      if (!listingSnap.exists()) continue;
+
+      const listing = listingSnap.data() as any;
+      if (listing.status !== "active" || listing.approvalStatus !== "approved") {
+        continue;
+      }
       
       // Fetch seller info
       let sellerName = listing.sellerName || "Người bán";
