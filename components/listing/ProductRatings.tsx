@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Review, ProductRating } from '@/types/review';
 
 interface ProductRatingsProps {
@@ -191,10 +192,12 @@ export default function ProductRatings({ productId, refreshKey = 0 }: ProductRat
               {review.images && review.images.length > 0 && (
                 <div className="flex gap-2 mb-3">
                   {review.images.map((img, idx) => (
-                    <img
+                    <Image
                       key={idx}
                       src={img}
                       alt={`Review ${idx + 1}`}
+                      width={80}
+                      height={80}
                       className="w-20 h-20 object-cover rounded cursor-pointer hover:opacity-80"
                     />
                   ))}

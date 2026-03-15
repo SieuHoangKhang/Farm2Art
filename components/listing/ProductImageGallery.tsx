@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface ProductImageGalleryProps {
   images: string[];
@@ -52,16 +53,19 @@ export default function ProductImageGallery({ images, productName }: ProductImag
             className="w-full aspect-square flex items-center justify-center cursor-zoom-in overflow-hidden"
             onClick={() => setShowFullscreen(true)}
           >
-            <img
-              src={displayImages[selectedIndex]}
-              alt={`${productName} - Image ${selectedIndex + 1}`}
-              style={{
-                transform: `scale(${zoomLevel})`,
-                transition: 'transform 0.3s ease',
-                cursor: zoomLevel > 1 ? 'grab' : 'zoom-in',
-              }}
-              className="max-w-full max-h-full object-contain"
-            />
+            <div className="relative w-full h-full">
+              <Image
+                src={displayImages[selectedIndex]}
+                alt={`${productName} - Image ${selectedIndex + 1}`}
+                fill
+                style={{
+                  transform: `scale(${zoomLevel})`,
+                  transition: 'transform 0.3s ease',
+                  cursor: zoomLevel > 1 ? 'grab' : 'zoom-in',
+                }}
+                className="object-contain"
+              />
+            </div>
           </div>
 
           {/* Zoom Controls */}
@@ -126,9 +130,11 @@ export default function ProductImageGallery({ images, productName }: ProductImag
                     : 'border-sage-200 hover:border-stone-400'
                 }`}
               >
-                <img
+                <Image
                   src={image}
                   alt={`Thumbnail ${idx + 1}`}
+                  width={64}
+                  height={64}
                   className="w-full h-full object-cover"
                 />
               </button>
@@ -153,11 +159,14 @@ export default function ProductImageGallery({ images, productName }: ProductImag
             </button>
 
             {/* Main Image */}
-            <img
-              src={displayImages[selectedIndex]}
-              alt={`${productName} - Fullscreen`}
-              className="max-w-full max-h-full object-contain"
-            />
+            <div className="relative w-full h-full">
+              <Image
+                src={displayImages[selectedIndex]}
+                alt={`${productName} - Fullscreen`}
+                fill
+                className="object-contain"
+              />
+            </div>
 
             {/* Navigation */}
             {displayImages.length > 1 && (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
 import { useAuthUser } from "@/lib/auth/useAuthUser";
 import type { NewsArticle } from "@/types/news";
@@ -214,7 +215,9 @@ export default function CreateEditNewsPage() {
           />
           {image && (
             <div className="mt-3">
-              <img src={image} alt="Preview" className="max-h-48 rounded-lg object-cover" />
+              <div className="relative max-h-48 w-full">
+                <Image src={image} alt="Preview" fill className="rounded-lg object-cover" />
+              </div>
             </div>
           )}
         </div>

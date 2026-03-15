@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { notify } from '@/lib/utils/notify';
 
 interface AvatarModalProps {
@@ -70,11 +71,14 @@ export default function AvatarModal({
           {/* Image Container */}
           <div className="flex flex-col items-center justify-center p-6 space-y-4">
             {avatarUrl ? (
-              <img
-                src={avatarUrl}
-                alt={displayName}
-                className="w-full max-w-md rounded-lg object-cover"
-              />
+              <div className="relative w-full max-w-md aspect-square">
+                <Image
+                  src={avatarUrl}
+                  alt={displayName}
+                  fill
+                  className="rounded-lg object-cover"
+                />
+              </div>
             ) : (
               <div className="w-64 h-64 rounded-lg bg-stone-200 flex items-center justify-center text-6xl">
                 

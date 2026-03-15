@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { LinkButton } from "@/components/ui/Button";
 import { collection, getDocs, query, where, orderBy, limit, doc, getDoc } from "firebase/firestore";
 import { firebaseDb } from "@/lib/firebase/client";
@@ -133,11 +134,12 @@ export default function HomePage() {
     <div className="-mx-4 -mt-12 md:-mt-16 min-h-screen">
       {/* ===== Hero Carousel — chỉ ảnh quảng cáo ===== */}
       <section className="group relative h-[420px] md:h-[520px] overflow-hidden">
-        <img
+        <Image
           key={currentBanner.id}
           src={currentBanner.image}
           alt="Farm2Art quảng cáo"
-          className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
+          fill
+          className="object-cover transition-all duration-700"
         />
 
         {/* Nav arrows */}

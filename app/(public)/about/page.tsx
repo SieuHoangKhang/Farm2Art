@@ -1,5 +1,6 @@
 import { Card, CardBody } from "@/components/ui/Card";
 import { PageHeader } from "@/components/ui/PageHeader";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
@@ -21,9 +22,11 @@ export default function AboutPage() {
               {/* Avatar */}
               <div className="flex-shrink-0">
                 <div className="relative h-40 w-40 md:h-48 md:w-48 rounded-full bg-gradient-to-br from-emerald-400 to-amber-400 p-1">
-                  <img
+                  <Image
                     src="/images/khang.jpg"
                     alt="Trần Siêu Hoàng Khang"
+                    width={192}
+                    height={192}
                     className="h-full w-full rounded-full object-cover"
                   />
                 </div>

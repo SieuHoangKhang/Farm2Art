@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
       registration: {
         keywords: ['đăng ký', 'tạo tài khoản', 'sign up', 'register', 'mở tài khoản', 'tài khoản mới'],
         responses: [
-          '✍️ Cách đăng ký Farm2Art (2 phút):\n1️⃣ Trang chủ → \"Đăng ký\"\n2️⃣ Email hoặc số điện thoại\n3️⃣ Mật khẩu mạnh (8+ ký tự)\n4️⃣ Xác minh email/SMS\n5️⃣ Hoàn tất hồ sơ\n\n⚡ Nhanh: Đăng nhập Google/Facebook\nBạn sẵn sàng đăng ký?'
+          '✍️ Cách đăng ký Farm2Art (2 phút):\n1️⃣ Trang chủ → "Đăng ký"\n2️⃣ Email hoặc số điện thoại\n3️⃣ Mật khẩu mạnh (8+ ký tự)\n4️⃣ Xác minh email/SMS\n5️⃣ Hoàn tất hồ sơ\n\n⚡ Nhanh: Đăng nhập Google/Facebook\nBạn sẵn sàng đăng ký?'
         ]
       },
       contact_support: {
