@@ -1,0 +1,1000 @@
+{"prompt":"User: editor.codeActionsOnSave?\nAssistant:","completion":" editor.codeActionsOnSave\n"}
+{"prompt":"User: source.fixAll.eslint?\nAssistant:","completion":" source.fixAll.eslint\n"}
+{"prompt":"User: python.analysis.typeCheckingMode?\nAssistant:","completion":" python.analysis.typeCheckingMode\n"}
+{"prompt":"User: python.analysis.diagnosticsMode?\nAssistant:","completion":" python.analysis.diagnosticsMode\n"}
+{"prompt":"User: python.linting.enabled?\nAssistant:","completion":" python.linting.enabled\n"}
+{"prompt":"User: python.analysis.indexing?\nAssistant:","completion":" python.analysis.indexing\n"}
+{"prompt":"User: python.analysis.extraPaths?\nAssistant:","completion":" python.analysis.extraPaths\n"}
+{"prompt":"User: pylance.enablePylanceDashboard?\nAssistant:","completion":" pylance.enablePylanceDashboard\n"}
+{"prompt":"User: files.watcherExclude?\nAssistant:","completion":" files.watcherExclude\n"}
+{"prompt":"User: editor.minimap.enabled?\nAssistant:","completion":" editor.minimap.enabled\n"}
+{"prompt":"User: editor.renderWhitespace?\nAssistant:","completion":" editor.renderWhitespace\n"}
+{"prompt":"User: editor.renderControlCharacters?\nAssistant:","completion":" editor.renderControlCharacters\n"}
+{"prompt":"User: editor.linkedEditing?\nAssistant:","completion":" editor.linkedEditing\n"}
+{"prompt":"User: editor.lightbulb.enabled?\nAssistant:","completion":" editor.lightbulb.enabled\n"}
+{"prompt":"User: editor.bracketPairColorization.enabled?\nAssistant:","completion":" editor.bracketPairColorization.enabled\n"}
+{"prompt":"User: editor.semanticHighlighting.enabled?\nAssistant:","completion":" editor.semanticHighlighting.enabled\n"}
+{"prompt":"User: search.useIgnoreFiles?\nAssistant:","completion":" search.useIgnoreFiles\n"}
+{"prompt":"User: workbench.statusBar.visible?\nAssistant:","completion":" workbench.statusBar.visible\n"}
+{"prompt":"User: extensions.autoCheckUpdates?\nAssistant:","completion":" extensions.autoCheckUpdates\n"}
+{"prompt":"User: extensions.autoUpdate?\nAssistant:","completion":" extensions.autoUpdate\n"}
+{"prompt":"User: typescript.tsserver.maxTsServerMemory?\nAssistant:","completion":" typescript.tsserver.maxTsServerMemory\n"}
+{"prompt":"User: typescript.disableAutomaticTypeAcquisition?\nAssistant:","completion":" typescript.disableAutomaticTypeAcquisition\n"}
+{"prompt":"User: editor.guides.indentation?\nAssistant:","completion":" editor.guides.indentation\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Button?\nAssistant:","completion":" @/components/ui/Button\n"}
+{"prompt":"User: @/components/ui/TextField?\nAssistant:","completion":" @/components/ui/TextField\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: @/components/listing/ListingCard?\nAssistant:","completion":" @/components/listing/ListingCard\n"}
+{"prompt":"User: @/components/ui/LogoImage?\nAssistant:","completion":" @/components/ui/LogoImage\n"}
+{"prompt":"User: ${uid.slice(0, 6)}…${uid.slice(-4)}?\nAssistant:","completion":" ${uid.slice(0, 6)}…${uid.slice(-4)}\n"}
+{"prompt":"User: h-5 w-5 text-emerald-600?\nAssistant:","completion":" h-5 w-5 text-emerald-600\n"}
+{"prompt":"User: M7 7h.01M7 3h5c.[PHONE]l7 7a[PHONE]l-7 7a[PHONE]l-7-7A[PHONE]V7a[PHONE]z?\nAssistant:","completion":" M7 7h.01M7 3h5c.[PHONE]l7 7a[PHONE]l-7 7a[PHONE]l-7-7A[PHONE]V7a[PHONE]z\n"}
+{"prompt":"User: h-5 w-5 text-amber-600?\nAssistant:","completion":" h-5 w-5 text-amber-600\n"}
+{"prompt":"User: M13 10V3L4 14h7v7l9-11h-7z?\nAssistant:","completion":" M13 10V3L4 14h7v7l9-11h-7z\n"}
+{"prompt":"User: h-5 w-5 text-emerald-600?\nAssistant:","completion":" h-5 w-5 text-emerald-600\n"}
+{"prompt":"User: M9 12l2 2 4-4m6 2a[PHONE]z?\nAssistant:","completion":" M9 12l2 2 4-4m6 2a[PHONE]z\n"}
+{"prompt":"User: Profile subscribe error:?\nAssistant:","completion":" Profile subscribe error:\n"}
+{"prompt":"User: Không thể tải hồ sơ người dùng?\nAssistant:","completion":" Không thể tải hồ sơ người dùng\n"}
+{"prompt":"User: Không thể tải hồ sơ người dùng?\nAssistant:","completion":" Không thể tải hồ sơ người dùng\n"}
+{"prompt":"User: t show raw “create index” errors in UI; just degrade gracefully. if?\nAssistant:","completion":" t show raw “create index” errors in UI; just degrade gracefully. if (!isFirestoreIndexError(e)) { setDataError(e instanceof Error ? e.message : \"Không thể tải dữ liệu liên quan\"); } } finally { if (!cancelled) setDataLoading(false); } } void loadRelated(); return () => { cancelled = true; }; }, [use...\n"}
+{"prompt":"User: , { method:?\nAssistant:","completion":" , { method:\n"}
+{"prompt":"User: , body: formData, }); if (!response.ok) { const error = await response.json();?\nAssistant:","completion":" , body: formData, }); if (!response.ok) { const error = await response.json(); throw new Error(error.error ||\n"}
+{"prompt":"User: Upload avatar thất bại?\nAssistant:","completion":" Upload avatar thất bại\n"}
+{"prompt":"User: py-10 text-sm text-stone-600?\nAssistant:","completion":" py-10 text-sm text-stone-600\n"}
+{"prompt":"User: Thông tin cá nhân, bài đăng và cài đặt.?\nAssistant:","completion":" Thông tin cá nhân, bài đăng và cài đặt.\n"}
+{"prompt":"User: mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800?\nAssistant:","completion":" mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800\n"}
+{"prompt":"User: font-semibold underline?\nAssistant:","completion":" font-semibold underline\n"}
+{"prompt":"User: overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm?\nAssistant:","completion":" overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm\n"}
+{"prompt":"User: px-5 pb-6 pt-5 sm:px-6?\nAssistant:","completion":" px-5 pb-6 pt-5 sm:px-6\n"}
+{"prompt":"User: flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between?\nAssistant:","completion":" flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between\n"}
+{"prompt":"User: flex items-end gap-4?\nAssistant:","completion":" flex items-end gap-4\n"}
+{"prompt":"User: relative h-20 w-20 overflow-hidden rounded-2xl bg-stone-100 shadow ring-4 ring-white?\nAssistant:","completion":" relative h-20 w-20 overflow-hidden rounded-2xl bg-stone-100 shadow ring-4 ring-white\n"}
+{"prompt":"User: h-full w-full object-cover?\nAssistant:","completion":" h-full w-full object-cover\n"}
+{"prompt":"User: absolute inset-0 flex cursor-pointer items-center justify-center bg-black/0 transition-all hover:bg-black/40?\nAssistant:","completion":" absolute inset-0 flex cursor-pointer items-center justify-center bg-black/0 transition-all hover:bg-black/40\n"}
+{"prompt":"User: text-xs font-semibold text-white opacity-0 transition-opacity hover:opacity-100?\nAssistant:","completion":" text-xs font-semibold text-white opacity-0 transition-opacity hover:opacity-100\n"}
+{"prompt":"User: flex flex-wrap items-center gap-2?\nAssistant:","completion":" flex flex-wrap items-center gap-2\n"}
+{"prompt":"User: text-lg font-bold text-stone-900 sm:text-xl?\nAssistant:","completion":" text-lg font-bold text-stone-900 sm:text-xl\n"}
+{"prompt":"User: rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-200?\nAssistant:","completion":" rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-200\n"}
+{"prompt":"User: rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-900 ring-1 ring-amber-200?\nAssistant:","completion":" rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-900 ring-1 ring-amber-200\n"}
+{"prompt":"User: mt-1 text-sm text-stone-600?\nAssistant:","completion":" mt-1 text-sm text-stone-600\n"}
+{"prompt":"User: mt-1 text-xs text-stone-500?\nAssistant:","completion":" mt-1 text-xs text-stone-500\n"}
+{"prompt":"User: mt-2 text-xs text-red-700?\nAssistant:","completion":" mt-2 text-xs text-red-700\n"}
+{"prompt":"User: mt-2 text-xs text-red-700?\nAssistant:","completion":" mt-2 text-xs text-red-700\n"}
+{"prompt":"User: flex flex-wrap items-center gap-2?\nAssistant:","completion":" flex flex-wrap items-center gap-2\n"}
+{"prompt":"User: mt-8 grid gap-4 sm:grid-cols-2?\nAssistant:","completion":" mt-8 grid gap-4 sm:grid-cols-2\n"}
+{"prompt":"User: rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-5 transition-all hover:border-emerald-200 hover:shadow-md?\nAssistant:","completion":" rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-5 transition-all hover:border-emerald-200 hover:shadow-md\n"}
+{"prompt":"User: flex items-start justify-between?\nAssistant:","completion":" flex items-start justify-between\n"}
+{"prompt":"User: text-xs font-semibold uppercase tracking-wide text-stone-500?\nAssistant:","completion":" text-xs font-semibold uppercase tracking-wide text-stone-500\n"}
+{"prompt":"User: mt-2 text-3xl font-bold text-stone-900?\nAssistant:","completion":" mt-2 text-3xl font-bold text-stone-900\n"}
+{"prompt":"User: mt-2 text-xs text-stone-600?\nAssistant:","completion":" mt-2 text-xs text-stone-600\n"}
+{"prompt":"User: rounded-lg bg-emerald-100 p-2.5?\nAssistant:","completion":" rounded-lg bg-emerald-100 p-2.5\n"}
+{"prompt":"User: rounded-2xl border border-amber-100 bg-gradient-to-br from-amber-50 to-white p-5 transition-all hover:border-amber-200 hover:shadow-md?\nAssistant:","completion":" rounded-2xl border border-amber-100 bg-gradient-to-br from-amber-50 to-white p-5 transition-all hover:border-amber-200 hover:shadow-md\n"}
+{"prompt":"User: flex items-start justify-between?\nAssistant:","completion":" flex items-start justify-between\n"}
+{"prompt":"User: text-xs font-semibold uppercase tracking-wide text-stone-500?\nAssistant:","completion":" text-xs font-semibold uppercase tracking-wide text-stone-500\n"}
+{"prompt":"User: mt-2 text-3xl font-bold text-stone-900?\nAssistant:","completion":" mt-2 text-3xl font-bold text-stone-900\n"}
+{"prompt":"User: mt-2 text-xs text-stone-600?\nAssistant:","completion":" mt-2 text-xs text-stone-600\n"}
+{"prompt":"User: rounded-lg bg-amber-100 p-2.5?\nAssistant:","completion":" rounded-lg bg-amber-100 p-2.5\n"}
+{"prompt":"User: rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700?\nAssistant:","completion":" rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700\n"}
+{"prompt":"User: mt-6 grid gap-6 lg:grid-cols-3?\nAssistant:","completion":" mt-6 grid gap-6 lg:grid-cols-3\n"}
+{"prompt":"User: space-y-6 lg:col-span-2?\nAssistant:","completion":" space-y-6 lg:col-span-2\n"}
+{"prompt":"User: flex items-center justify-between gap-4?\nAssistant:","completion":" flex items-center justify-between gap-4\n"}
+{"prompt":"User: text-sm font-semibold text-stone-900?\nAssistant:","completion":" text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-1 text-sm text-stone-600?\nAssistant:","completion":" mt-1 text-sm text-stone-600\n"}
+{"prompt":"User: mt-5 grid gap-4 sm:grid-cols-2?\nAssistant:","completion":" mt-5 grid gap-4 sm:grid-cols-2\n"}
+{"prompt":"User: rounded-xl border border-stone-200 bg-stone-50/40 p-4?\nAssistant:","completion":" rounded-xl border border-stone-200 bg-stone-50/40 p-4\n"}
+{"prompt":"User: text-xs font-semibold uppercase tracking-wide text-stone-500?\nAssistant:","completion":" text-xs font-semibold uppercase tracking-wide text-stone-500\n"}
+{"prompt":"User: mt-2 text-base font-semibold text-stone-900?\nAssistant:","completion":" mt-2 text-base font-semibold text-stone-900\n"}
+{"prompt":"User: rounded-xl border border-stone-200 bg-stone-50/40 p-4?\nAssistant:","completion":" rounded-xl border border-stone-200 bg-stone-50/40 p-4\n"}
+{"prompt":"User: text-xs font-semibold uppercase tracking-wide text-stone-500?\nAssistant:","completion":" text-xs font-semibold uppercase tracking-wide text-stone-500\n"}
+{"prompt":"User: mt-2 text-base font-semibold text-stone-900?\nAssistant:","completion":" mt-2 text-base font-semibold text-stone-900\n"}
+{"prompt":"User: rounded-xl border border-stone-200 bg-stone-50/40 p-4?\nAssistant:","completion":" rounded-xl border border-stone-200 bg-stone-50/40 p-4\n"}
+{"prompt":"User: text-xs font-semibold uppercase tracking-wide text-stone-500?\nAssistant:","completion":" text-xs font-semibold uppercase tracking-wide text-stone-500\n"}
+{"prompt":"User: mt-2 text-base font-semibold text-stone-900?\nAssistant:","completion":" mt-2 text-base font-semibold text-stone-900\n"}
+{"prompt":"User: rounded-xl border border-stone-200 bg-stone-50/40 p-4?\nAssistant:","completion":" rounded-xl border border-stone-200 bg-stone-50/40 p-4\n"}
+{"prompt":"User: text-xs font-semibold uppercase tracking-wide text-stone-500?\nAssistant:","completion":" text-xs font-semibold uppercase tracking-wide text-stone-500\n"}
+{"prompt":"User: mt-2 text-base font-semibold text-stone-900?\nAssistant:","completion":" mt-2 text-base font-semibold text-stone-900\n"}
+{"prompt":"User: rounded-xl border border-stone-200 bg-stone-50/40 p-4?\nAssistant:","completion":" rounded-xl border border-stone-200 bg-stone-50/40 p-4\n"}
+{"prompt":"User: text-xs font-semibold uppercase tracking-wide text-stone-500?\nAssistant:","completion":" text-xs font-semibold uppercase tracking-wide text-stone-500\n"}
+{"prompt":"User: mt-2 text-base font-semibold text-stone-900?\nAssistant:","completion":" mt-2 text-base font-semibold text-stone-900\n"}
+{"prompt":"User: mt-3 text-xs text-stone-500?\nAssistant:","completion":" mt-3 text-xs text-stone-500\n"}
+{"prompt":"User: flex items-center justify-between gap-3?\nAssistant:","completion":" flex items-center justify-between gap-3\n"}
+{"prompt":"User: text-sm font-semibold text-stone-900?\nAssistant:","completion":" text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-1 text-sm text-stone-600?\nAssistant:","completion":" mt-1 text-sm text-stone-600\n"}
+{"prompt":"User: mt-4 rounded-xl border border-dashed border-stone-200 bg-white p-6 text-sm text-stone-600?\nAssistant:","completion":" mt-4 rounded-xl border border-dashed border-stone-200 bg-white p-6 text-sm text-stone-600\n"}
+{"prompt":"User: font-medium underline?\nAssistant:","completion":" font-medium underline\n"}
+{"prompt":"User: mt-4 grid gap-4 md:grid-cols-2?\nAssistant:","completion":" mt-4 grid gap-4 md:grid-cols-2\n"}
+{"prompt":"User: text-sm font-semibold text-stone-900?\nAssistant:","completion":" text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: justify-start h-11 text-sm font-medium?\nAssistant:","completion":" justify-start h-11 text-sm font-medium\n"}
+{"prompt":"User: justify-start h-11 text-sm font-medium?\nAssistant:","completion":" justify-start h-11 text-sm font-medium\n"}
+{"prompt":"User: justify-start h-11 text-sm font-medium?\nAssistant:","completion":" justify-start h-11 text-sm font-medium\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Button?\nAssistant:","completion":" @/components/ui/Button\n"}
+{"prompt":"User: @/components/ui/TextField?\nAssistant:","completion":" @/components/ui/TextField\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: rooms/${roomId}/messages?\nAssistant:","completion":" rooms/${roomId}/messages\n"}
+{"prompt":"User: Init conversation error:?\nAssistant:","completion":" Init conversation error:\n"}
+{"prompt":"User: rooms/${roomId}/participants/${user.uid}?\nAssistant:","completion":" rooms/${roomId}/participants/${user.uid}\n"}
+{"prompt":"User: Không thể tham gia phòng chat?\nAssistant:","completion":" Không thể tham gia phòng chat\n"}
+{"prompt":"User: Vui lòng đăng nhập để gửi tin nhắn?\nAssistant:","completion":" Vui lòng đăng nhập để gửi tin nhắn\n"}
+{"prompt":"User: Update conversation metadata failed:?\nAssistant:","completion":" Update conversation metadata failed:\n"}
+{"prompt":"User: Gửi tin nhắn thất bại?\nAssistant:","completion":" Gửi tin nhắn thất bại\n"}
+{"prompt":"User: py-10 text-center text-stone-600?\nAssistant:","completion":" py-10 text-center text-stone-600\n"}
+{"prompt":"User: py-10 text-center text-stone-600?\nAssistant:","completion":" py-10 text-center text-stone-600\n"}
+{"prompt":"User: Trao đổi trực tiếp giữa người mua và người bán.?\nAssistant:","completion":" Trao đổi trực tiếp giữa người mua và người bán.\n"}
+{"prompt":"User: w-16 h-16 mx-auto text-stone-300 mb-4?\nAssistant:","completion":" w-16 h-16 mx-auto text-stone-300 mb-4\n"}
+{"prompt":"User: M8 12h.01M12 12h.01M16 12h.01M21 12c[PHONE]a[PHONE]L3 20l[PHONE]C[PHONE]c[PHONE]s[PHONE]z?\nAssistant:","completion":" M8 12h.01M12 12h.01M16 12h.01M21 12c[PHONE]a[PHONE]L3 20l[PHONE]C[PHONE]c[PHONE]s[PHONE]z\n"}
+{"prompt":"User: text-stone-600 font-medium mb-2?\nAssistant:","completion":" text-stone-600 font-medium mb-2\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: Chat với ${partnerName}?\nAssistant:","completion":" Chat với ${partnerName}\n"}
+{"prompt":"User: Về sản phẩm: ${productTitle}?\nAssistant:","completion":" Về sản phẩm: ${productTitle}\n"}
+{"prompt":"User: Trao đổi trực tiếp giữa người mua và người bán.?\nAssistant:","completion":" Trao đổi trực tiếp giữa người mua và người bán.\n"}
+{"prompt":"User: rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-900?\nAssistant:","completion":" rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-900\n"}
+{"prompt":"User: mt-1 text-xs text-rose-700?\nAssistant:","completion":" mt-1 text-xs text-rose-700\n"}
+{"prompt":"User: h-96 overflow-auto rounded-lg border border-stone-200 bg-white p-3?\nAssistant:","completion":" h-96 overflow-auto rounded-lg border border-stone-200 bg-white p-3\n"}
+{"prompt":"User: flex items-center justify-center h-full?\nAssistant:","completion":" flex items-center justify-center h-full\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: flex ${isMe ? \"justify-end\" : \"justify-start\"}?\nAssistant:","completion":" flex ${isMe ? \"justify-end\" : \"justify-start\"}\n"}
+{"prompt":"User: max-w-xs px-4 py-2 rounded-2xl ${isMe ? \"bg-emerald-500 text-white\" : \"bg-stone-100 text-stone-800\"}?\nAssistant:","completion":" max-w-xs px-4 py-2 rounded-2xl ${isMe ? \"bg-emerald-500 text-white\" : \"bg-stone-100 text-stone-800\"}\n"}
+{"prompt":"User: text-xs font-medium mb-1 opacity-75?\nAssistant:","completion":" text-xs font-medium mb-1 opacity-75\n"}
+{"prompt":"User: text-xs mt-1 ${isMe ? \"text-emerald-100\" : \"text-stone-400\"}?\nAssistant:","completion":" text-xs mt-1 ${isMe ? \"text-emerald-100\" : \"text-stone-400\"}\n"}
+{"prompt":"User: flex flex-col gap-3 sm:flex-row sm:items-end?\nAssistant:","completion":" flex flex-col gap-3 sm:flex-row sm:items-end\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Container?\nAssistant:","completion":" @/components/ui/Container\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: Load conversations error:?\nAssistant:","completion":" Load conversations error:\n"}
+{"prompt":"User: Trò chuyện với người mua/người bán?\nAssistant:","completion":" Trò chuyện với người mua/người bán\n"}
+{"prompt":"User: flex justify-center py-12?\nAssistant:","completion":" flex justify-center py-12\n"}
+{"prompt":"User: animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500?\nAssistant:","completion":" animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500\n"}
+{"prompt":"User: w-20 h-20 mx-auto text-stone-300 mb-4?\nAssistant:","completion":" w-20 h-20 mx-auto text-stone-300 mb-4\n"}
+{"prompt":"User: M8 12h.01M12 12h.01M16 12h.01M21 12c[PHONE]a[PHONE]L3 20l[PHONE]C[PHONE]c[PHONE]s[PHONE]z?\nAssistant:","completion":" M8 12h.01M12 12h.01M16 12h.01M21 12c[PHONE]a[PHONE]L3 20l[PHONE]C[PHONE]c[PHONE]s[PHONE]z\n"}
+{"prompt":"User: text-stone-600 font-medium text-lg mb-2?\nAssistant:","completion":" text-stone-600 font-medium text-lg mb-2\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: space-y-3 max-w-2xl mx-auto?\nAssistant:","completion":" space-y-3 max-w-2xl mx-auto\n"}
+{"prompt":"User: /chat?sellerId=${partnerId}${conv.productTitle ?\nAssistant:","completion":" /chat?sellerId=${partnerId}${conv.productTitle ?\n"}
+{"prompt":"User: block bg-white rounded-xl border border-stone-200 p-4 hover:border-emerald-300 hover:shadow-md transition-all?\nAssistant:","completion":" block bg-white rounded-xl border border-stone-200 p-4 hover:border-emerald-300 hover:shadow-md transition-all\n"}
+{"prompt":"User: flex items-start gap-4?\nAssistant:","completion":" flex items-start gap-4\n"}
+{"prompt":"User: w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg flex-shrink-0?\nAssistant:","completion":" w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg flex-shrink-0\n"}
+{"prompt":"User: flex justify-between items-start mb-1?\nAssistant:","completion":" flex justify-between items-start mb-1\n"}
+{"prompt":"User: font-semibold text-stone-800?\nAssistant:","completion":" font-semibold text-stone-800\n"}
+{"prompt":"User: text-xs text-stone-400 flex-shrink-0 ml-2?\nAssistant:","completion":" text-xs text-stone-400 flex-shrink-0 ml-2\n"}
+{"prompt":"User: text-xs text-emerald-600 mb-1?\nAssistant:","completion":" text-xs text-emerald-600 mb-1\n"}
+{"prompt":"User: text-sm text-stone-500 truncate?\nAssistant:","completion":" text-sm text-stone-500 truncate\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/Button?\nAssistant:","completion":" @/components/ui/Button\n"}
+{"prompt":"User: @/components/ui/TextField?\nAssistant:","completion":" @/components/ui/TextField\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: Vui lòng điền đầy đủ thông tin?\nAssistant:","completion":" Vui lòng điền đầy đủ thông tin\n"}
+{"prompt":"User: Bạn cần xác nhận đồng ý thỏa thuận phí trước khi gửi?\nAssistant:","completion":" Bạn cần xác nhận đồng ý thỏa thuận phí trước khi gửi admin duyệt\n"}
+{"prompt":"User: Vui lòng vào trang cá nhân cập nhật phương thức thanh toán?\nAssistant:","completion":" Vui lòng vào trang cá nhân cập nhật phương thức thanh toán VNPAY trước khi đăng bán.\n"}
+{"prompt":"User: WALLET-${user.uid.slice(0, 8).toUpperCase()}?\nAssistant:","completion":" WALLET-${user.uid.slice(0, 8).toUpperCase()}\n"}
+{"prompt":"User: /listing/${docRef.id}?\nAssistant:","completion":" /listing/${docRef.id}\n"}
+{"prompt":"User: Lỗi khi tạo bài đăng?\nAssistant:","completion":" Lỗi khi tạo bài đăng\n"}
+{"prompt":"User: /api/upload-listing-image?\nAssistant:","completion":" /api/upload-listing-image\n"}
+{"prompt":"User: py-10 text-center text-stone-600?\nAssistant:","completion":" py-10 text-center text-stone-600\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-10?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-10\n"}
+{"prompt":"User: Chia sẻ sản phẩm của bạn với cộng đồng?\nAssistant:","completion":" Chia sẻ sản phẩm của bạn với cộng đồng\n"}
+{"prompt":"User: fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4?\nAssistant:","completion":" fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4\n"}
+{"prompt":"User: w-full max-w-md shadow-2xl?\nAssistant:","completion":" w-full max-w-md shadow-2xl\n"}
+{"prompt":"User: mb-4 flex justify-center?\nAssistant:","completion":" mb-4 flex justify-center\n"}
+{"prompt":"User: rounded-full bg-emerald-100 p-4?\nAssistant:","completion":" rounded-full bg-emerald-100 p-4\n"}
+{"prompt":"User: h-12 w-12 text-emerald-600?\nAssistant:","completion":" h-12 w-12 text-emerald-600\n"}
+{"prompt":"User: mb-2 text-2xl font-bold text-emerald-600?\nAssistant:","completion":" mb-2 text-2xl font-bold text-emerald-600\n"}
+{"prompt":"User: mb-6 text-base text-stone-700?\nAssistant:","completion":" mb-6 text-base text-stone-700\n"}
+{"prompt":"User: mb-6 rounded-lg border-2 border-emerald-200 bg-emerald-50 p-4?\nAssistant:","completion":" mb-6 rounded-lg border-2 border-emerald-200 bg-emerald-50 p-4\n"}
+{"prompt":"User: mb-2 flex items-start gap-2 text-sm?\nAssistant:","completion":" mb-2 flex items-start gap-2 text-sm\n"}
+{"prompt":"User: mb-4 flex flex-col gap-2 text-xs text-stone-600?\nAssistant:","completion":" mb-4 flex flex-col gap-2 text-xs text-stone-600\n"}
+{"prompt":"User: flex items-center gap-2?\nAssistant:","completion":" flex items-center gap-2\n"}
+{"prompt":"User: flex items-center gap-2?\nAssistant:","completion":" flex items-center gap-2\n"}
+{"prompt":"User: mb-6 text-sm text-stone-500?\nAssistant:","completion":" mb-6 text-sm text-stone-500\n"}
+{"prompt":"User: /listing/${newListingId}?\nAssistant:","completion":" /listing/${newListingId}\n"}
+{"prompt":"User: w-full bg-emerald-600 text-white hover:bg-emerald-700?\nAssistant:","completion":" w-full bg-emerald-600 text-white hover:bg-emerald-700\n"}
+{"prompt":"User: mx-auto max-w-2xl px-4 py-6 sm:px-6?\nAssistant:","completion":" mx-auto max-w-2xl px-4 py-6 sm:px-6\n"}
+{"prompt":"User: mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700?\nAssistant:","completion":" mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700\n"}
+{"prompt":"User: Nhập tiêu đề sản phẩm?\nAssistant:","completion":" Nhập tiêu đề sản phẩm\n"}
+{"prompt":"User: block text-sm font-semibold text-stone-900?\nAssistant:","completion":" block text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-2 w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-900 placeholder-stone-500 focus:border-emerald-500?\nAssistant:","completion":" mt-2 w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-900 placeholder-stone-500 focus:border-emerald-500 focus:outline-none\n"}
+{"prompt":"User: Nhập mô tả chi tiết sản phẩm?\nAssistant:","completion":" Nhập mô tả chi tiết sản phẩm\n"}
+{"prompt":"User: block text-sm font-semibold text-stone-900?\nAssistant:","completion":" block text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: block text-sm font-semibold text-stone-900?\nAssistant:","completion":" block text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-3?\nAssistant:","completion":" rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-3\n"}
+{"prompt":"User: text-sm font-semibold text-amber-900?\nAssistant:","completion":" text-sm font-semibold text-amber-900\n"}
+{"prompt":"User: text-xs text-amber-800?\nAssistant:","completion":" text-xs text-amber-800\n"}
+{"prompt":"User: text-xs text-amber-800?\nAssistant:","completion":" text-xs text-amber-800\n"}
+{"prompt":"User: flex items-start gap-2 rounded-lg border border-amber-300 bg-white p-3?\nAssistant:","completion":" flex items-start gap-2 rounded-lg border border-amber-300 bg-white p-3\n"}
+{"prompt":"User: text-xs text-stone-700?\nAssistant:","completion":" text-xs text-stone-700\n"}
+{"prompt":"User: rounded-xl border border-emerald-200 bg-emerald-50 p-4 space-y-3?\nAssistant:","completion":" rounded-xl border border-emerald-200 bg-emerald-50 p-4 space-y-3\n"}
+{"prompt":"User: text-sm font-semibold text-emerald-900?\nAssistant:","completion":" text-sm font-semibold text-emerald-900\n"}
+{"prompt":"User: text-xs text-emerald-800?\nAssistant:","completion":" text-xs text-emerald-800\n"}
+{"prompt":"User: w-full rounded-lg border border-emerald-300 px-3 py-2 text-sm?\nAssistant:","completion":" w-full rounded-lg border border-emerald-300 px-3 py-2 text-sm\n"}
+{"prompt":"User: text-xs text-red-600?\nAssistant:","completion":" text-xs text-red-600\n"}
+{"prompt":"User: block text-sm font-semibold text-stone-900?\nAssistant:","completion":" block text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-2 block w-full text-sm text-stone-500?\nAssistant:","completion":" mt-2 block w-full text-sm text-stone-500\n"}
+{"prompt":"User: mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3?\nAssistant:","completion":" mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3\n"}
+{"prompt":"User: relative aspect-square overflow-hidden rounded-lg border border-stone-200 bg-stone-100?\nAssistant:","completion":" relative aspect-square overflow-hidden rounded-lg border border-stone-200 bg-stone-100\n"}
+{"prompt":"User: h-full w-full object-cover?\nAssistant:","completion":" h-full w-full object-cover\n"}
+{"prompt":"User: absolute right-1 top-1 rounded-full bg-red-500/80 px-2 py-1 opacity-0 transition-opacity hover:bg-red-600 group-hover:opacity-100 text-white?\nAssistant:","completion":" absolute right-1 top-1 rounded-full bg-red-500/80 px-2 py-1 opacity-0 transition-opacity hover:bg-red-600 group-hover:opacity-100 text-white text-xs font-bold\n"}
+{"prompt":"User: flex-1 bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400?\nAssistant:","completion":" flex-1 bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/Button?\nAssistant:","completion":" @/components/ui/Button\n"}
+{"prompt":"User: @/components/ui/TextField?\nAssistant:","completion":" @/components/ui/TextField\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: Không tìm thấy bài đăng?\nAssistant:","completion":" Không tìm thấy bài đăng\n"}
+{"prompt":"User: Bạn không có quyền sửa bài đăng này?\nAssistant:","completion":" Bạn không có quyền sửa bài đăng này\n"}
+{"prompt":"User: Lỗi khi tải bài đăng?\nAssistant:","completion":" Lỗi khi tải bài đăng\n"}
+{"prompt":"User: Lỗi xác thực người dùng?\nAssistant:","completion":" Lỗi xác thực người dùng\n"}
+{"prompt":"User: Vui lòng điền đầy đủ thông tin?\nAssistant:","completion":" Vui lòng điền đầy đủ thông tin\n"}
+{"prompt":"User: Bài đăng đã được duyệt, bạn không thể chỉnh sửa nữa.?\nAssistant:","completion":" Bài đăng đã được duyệt, bạn không thể chỉnh sửa nữa.\n"}
+{"prompt":"User: /listing/${listing.id}?\nAssistant:","completion":" /listing/${listing.id}\n"}
+{"prompt":"User: Lỗi khi cập nhật bài đăng?\nAssistant:","completion":" Lỗi khi cập nhật bài đăng\n"}
+{"prompt":"User: /api/upload-listing-image?\nAssistant:","completion":" /api/upload-listing-image\n"}
+{"prompt":"User: py-10 text-center text-stone-600?\nAssistant:","completion":" py-10 text-center text-stone-600\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-10?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-10\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-10?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-10\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-10?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-10\n"}
+{"prompt":"User: Cập nhật thông tin sản phẩm?\nAssistant:","completion":" Cập nhật thông tin sản phẩm\n"}
+{"prompt":"User: mx-auto max-w-2xl px-4 py-6 sm:px-6?\nAssistant:","completion":" mx-auto max-w-2xl px-4 py-6 sm:px-6\n"}
+{"prompt":"User: mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700?\nAssistant:","completion":" mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700\n"}
+{"prompt":"User: Nhập tiêu đề sản phẩm?\nAssistant:","completion":" Nhập tiêu đề sản phẩm\n"}
+{"prompt":"User: block text-sm font-semibold text-stone-900?\nAssistant:","completion":" block text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-2 w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-900 placeholder-stone-500 focus:border-emerald-500?\nAssistant:","completion":" mt-2 w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-900 placeholder-stone-500 focus:border-emerald-500 focus:outline-none\n"}
+{"prompt":"User: Nhập mô tả chi tiết sản phẩm?\nAssistant:","completion":" Nhập mô tả chi tiết sản phẩm\n"}
+{"prompt":"User: block text-sm font-semibold text-stone-900?\nAssistant:","completion":" block text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: block text-sm font-semibold text-stone-900?\nAssistant:","completion":" block text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: ml-2 text-sm text-stone-700?\nAssistant:","completion":" ml-2 text-sm text-stone-700\n"}
+{"prompt":"User: block text-sm font-semibold text-stone-900?\nAssistant:","completion":" block text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-2 block w-full text-sm text-stone-500?\nAssistant:","completion":" mt-2 block w-full text-sm text-stone-500\n"}
+{"prompt":"User: mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3?\nAssistant:","completion":" mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3\n"}
+{"prompt":"User: relative aspect-square overflow-hidden rounded-lg border border-stone-200 bg-stone-100?\nAssistant:","completion":" relative aspect-square overflow-hidden rounded-lg border border-stone-200 bg-stone-100\n"}
+{"prompt":"User: h-full w-full object-cover?\nAssistant:","completion":" h-full w-full object-cover\n"}
+{"prompt":"User: absolute right-1 top-1 rounded-full bg-red-500/80 px-2 py-1 opacity-0 transition-opacity hover:bg-red-600 group-hover:opacity-100 text-white?\nAssistant:","completion":" absolute right-1 top-1 rounded-full bg-red-500/80 px-2 py-1 opacity-0 transition-opacity hover:bg-red-600 group-hover:opacity-100 text-white text-xs font-bold\n"}
+{"prompt":"User: flex-1 bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400?\nAssistant:","completion":" flex-1 bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400\n"}
+{"prompt":"User: @/components/auth/RequireAuth?\nAssistant:","completion":" @/components/auth/RequireAuth\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Container?\nAssistant:","completion":" @/components/ui/Container\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: Failed to load gift cards:?\nAssistant:","completion":" Failed to load gift cards:\n"}
+{"prompt":"User: Vui lòng chọn giá trị và nhập email?\nAssistant:","completion":" Vui lòng chọn giá trị và nhập email\n"}
+{"prompt":"User: GIFT-${new Date().getFullYear()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}?\nAssistant:","completion":" GIFT-${new Date().getFullYear()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}\n"}
+{"prompt":"User: Thẻ quà tặng đã được tạo! Mã: ${newCard.code}?\nAssistant:","completion":" Thẻ quà tặng đã được tạo! Mã: ${newCard.code}\n"}
+{"prompt":"User: Sẽ gửi email tới ${recipientEmail}?\nAssistant:","completion":" Sẽ gửi email tới ${recipientEmail}\n"}
+{"prompt":"User: Vui lòng nhập mã thẻ?\nAssistant:","completion":" Vui lòng nhập mã thẻ\n"}
+{"prompt":"User: Đã kích hoạt thẻ quà tặng! Cộng ${matchedCard.balance.toLocaleString('vi-VN')} VNĐ vào tài khoản?\nAssistant:","completion":" Đã kích hoạt thẻ quà tặng! Cộng ${matchedCard.balance.toLocaleString('vi-VN')} VNĐ vào tài khoản của bạn\n"}
+{"prompt":"User: Đã kích hoạt thẻ quà tặng thành công!?\nAssistant:","completion":" Đã kích hoạt thẻ quà tặng thành công!\n"}
+{"prompt":"User: Mua và sử dụng thẻ quà tặng?\nAssistant:","completion":" Mua và sử dụng thẻ quà tặng\n"}
+{"prompt":"User: flex gap-2 mb-8 border-b border-sage-200?\nAssistant:","completion":" flex gap-2 mb-8 border-b border-sage-200\n"}
+{"prompt":"User: px-4 py-3 font-medium border-b-2 transition ${ activeTab === tab ? 'text-emerald-600 border-emerald-600'?\nAssistant:","completion":" px-4 py-3 font-medium border-b-2 transition ${ activeTab === tab ? 'text-emerald-600 border-emerald-600' : 'text-stone-500 border-transparent hover:text-stone-800' }\n"}
+{"prompt":"User: grid grid-cols-1 md:grid-cols-2 gap-6?\nAssistant:","completion":" grid grid-cols-1 md:grid-cols-2 gap-6\n"}
+{"prompt":"User: bg-gradient-to-br from-purple-500 to-pink-500?\nAssistant:","completion":" bg-gradient-to-br from-purple-500 to-pink-500\n"}
+{"prompt":"User: text-3xl font-bold mt-4 mb-8?\nAssistant:","completion":" text-3xl font-bold mt-4 mb-8\n"}
+{"prompt":"User: flex justify-between items-end?\nAssistant:","completion":" flex justify-between items-end\n"}
+{"prompt":"User: text-xs opacity-75 mb-1?\nAssistant:","completion":" text-xs opacity-75 mb-1\n"}
+{"prompt":"User: font-mono text-sm font-bold?\nAssistant:","completion":" font-mono text-sm font-bold\n"}
+{"prompt":"User: text-xs opacity-75 mb-1?\nAssistant:","completion":" text-xs opacity-75 mb-1\n"}
+{"prompt":"User: text-sm font-semibold?\nAssistant:","completion":" text-sm font-semibold\n"}
+{"prompt":"User: block text-sm font-medium text-stone-800 mb-3?\nAssistant:","completion":" block text-sm font-medium text-stone-800 mb-3\n"}
+{"prompt":"User: grid grid-cols-2 gap-3?\nAssistant:","completion":" grid grid-cols-2 gap-3\n"}
+{"prompt":"User: p-4 rounded-lg font-semibold transition border-2 ${ selectedAmount === amount ? 'border-emerald-500 bg-emerald-50?\nAssistant:","completion":" p-4 rounded-lg font-semibold transition border-2 ${ selectedAmount === amount ? 'border-emerald-500 bg-emerald-50 text-emerald-600' : 'border-sage-200 hover:border-sage-300' }\n"}
+{"prompt":"User: block text-sm font-medium text-stone-800 mb-2?\nAssistant:","completion":" block text-sm font-medium text-stone-800 mb-2\n"}
+{"prompt":"User: w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500?\nAssistant:","completion":" w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500\n"}
+{"prompt":"User: w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium transition?\nAssistant:","completion":" w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium transition\n"}
+{"prompt":"User: block text-sm font-medium text-stone-800 mb-2?\nAssistant:","completion":" block text-sm font-medium text-stone-800 mb-2\n"}
+{"prompt":"User: w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono?\nAssistant:","completion":" w-full px-4 py-2 border border-sage-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono\n"}
+{"prompt":"User: w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium transition?\nAssistant:","completion":" w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium transition\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/Button?\nAssistant:","completion":" @/components/ui/Button\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: Thanh toán không thành công. Vui lòng thử lại.?\nAssistant:","completion":" Thanh toán không thành công. Vui lòng thử lại.\n"}
+{"prompt":"User: /api/invoices/generate?sellerId=${user.uid}?\nAssistant:","completion":" /api/invoices/generate?sellerId=${user.uid}\n"}
+{"prompt":"User: Không thể tải hóa đơn?\nAssistant:","completion":" Không thể tải hóa đơn\n"}
+{"prompt":"User: Không thể cập nhật hợp đồng?\nAssistant:","completion":" Không thể cập nhật hợp đồng\n"}
+{"prompt":"User: Không thể cập nhật hóa đơn?\nAssistant:","completion":" Không thể cập nhật hóa đơn\n"}
+{"prompt":"User: Lỗi cập nhật hóa đơn?\nAssistant:","completion":" Lỗi cập nhật hóa đơn\n"}
+{"prompt":"User: /api/payments/vnpay/create-invoice?\nAssistant:","completion":" /api/payments/vnpay/create-invoice\n"}
+{"prompt":"User: Không thể tạo giao dịch thanh toán?\nAssistant:","completion":" Không thể tạo giao dịch thanh toán\n"}
+{"prompt":"User: Không nhận được link thanh toán?\nAssistant:","completion":" Không nhận được link thanh toán\n"}
+{"prompt":"User: Lỗi thanh toán VNPay?\nAssistant:","completion":" Lỗi thanh toán VNPay\n"}
+{"prompt":"User: py-8 text-sm text-stone-600?\nAssistant:","completion":" py-8 text-sm text-stone-600\n"}
+{"prompt":"User: py-8 text-sm text-stone-600?\nAssistant:","completion":" py-8 text-sm text-stone-600\n"}
+{"prompt":"User: Hợp đồng & hóa đơn dịch vụ?\nAssistant:","completion":" Hợp đồng & hóa đơn dịch vụ\n"}
+{"prompt":"User: Nơi người bán quản lý hợp đồng dịch vụ và theo dõi?\nAssistant:","completion":" Nơi người bán quản lý hợp đồng dịch vụ và theo dõi các khoản tiền admin đã chi trả sau khi đơn hoàn thành\n"}
+{"prompt":"User: rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800?\nAssistant:","completion":" rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800\n"}
+{"prompt":"User: rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700?\nAssistant:","completion":" rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700\n"}
+{"prompt":"User: flex flex-col gap-4 md:flex-row md:items-center md:justify-between?\nAssistant:","completion":" flex flex-col gap-4 md:flex-row md:items-center md:justify-between\n"}
+{"prompt":"User: text-sm font-semibold text-stone-900?\nAssistant:","completion":" text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-1 text-sm text-stone-600?\nAssistant:","completion":" mt-1 text-sm text-stone-600\n"}
+{"prompt":"User: mt-2 text-xs text-stone-500?\nAssistant:","completion":" mt-2 text-xs text-stone-500\n"}
+{"prompt":"User: Đã chấp thuận lúc ${fmtDateTime(contractAcceptedAt)}?\nAssistant:","completion":" Đã chấp thuận lúc ${fmtDateTime(contractAcceptedAt)}\n"}
+{"prompt":"User: grid grid-cols-1 gap-4 md:grid-cols-3?\nAssistant:","completion":" grid grid-cols-1 gap-4 md:grid-cols-3\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: mt-2 text-xl font-bold text-stone-900?\nAssistant:","completion":" mt-2 text-xl font-bold text-stone-900\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: mt-2 text-xl font-bold text-red-600?\nAssistant:","completion":" mt-2 text-xl font-bold text-red-600\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: mt-2 text-xl font-bold text-emerald-700?\nAssistant:","completion":" mt-2 text-xl font-bold text-emerald-700\n"}
+{"prompt":"User: text-sm font-semibold text-stone-900?\nAssistant:","completion":" text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-4 text-sm text-stone-500?\nAssistant:","completion":" mt-4 text-sm text-stone-500\n"}
+{"prompt":"User: mt-4 text-sm text-stone-500?\nAssistant:","completion":" mt-4 text-sm text-stone-500\n"}
+{"prompt":"User: mt-4 overflow-x-auto?\nAssistant:","completion":" mt-4 overflow-x-auto\n"}
+{"prompt":"User: border-b border-stone-200 text-left text-stone-500?\nAssistant:","completion":" border-b border-stone-200 text-left text-stone-500\n"}
+{"prompt":"User: border-b border-stone-100?\nAssistant:","completion":" border-b border-stone-100\n"}
+{"prompt":"User: px-3 py-2 font-medium text-stone-800?\nAssistant:","completion":" px-3 py-2 font-medium text-stone-800\n"}
+{"prompt":"User: px-3 py-2 text-red-600?\nAssistant:","completion":" px-3 py-2 text-red-600\n"}
+{"prompt":"User: px-3 py-2 text-emerald-700 font-semibold?\nAssistant:","completion":" px-3 py-2 text-emerald-700 font-semibold\n"}
+{"prompt":"User: rounded-full bg-stone-100 px-2.5 py-1 text-xs text-stone-700?\nAssistant:","completion":" rounded-full bg-stone-100 px-2.5 py-1 text-xs text-stone-700\n"}
+{"prompt":"User: px-3 py-2 text-stone-500?\nAssistant:","completion":" px-3 py-2 text-stone-500\n"}
+{"prompt":"User: flex flex-wrap gap-2?\nAssistant:","completion":" flex flex-wrap gap-2\n"}
+{"prompt":"User: rounded bg-stone-100 px-2 py-1 text-xs text-stone-700 hover:bg-stone-200?\nAssistant:","completion":" rounded bg-stone-100 px-2 py-1 text-xs text-stone-700 hover:bg-stone-200\n"}
+{"prompt":"User: /api/invoices/${inv.id}/pdf?\nAssistant:","completion":" /api/invoices/${inv.id}/pdf\n"}
+{"prompt":"User: rounded bg-slate-100 px-2 py-1 text-xs text-slate-700 hover:bg-slate-200?\nAssistant:","completion":" rounded bg-slate-100 px-2 py-1 text-xs text-slate-700 hover:bg-slate-200\n"}
+{"prompt":"User: rounded bg-amber-100 px-2 py-1 text-xs text-amber-800 hover:bg-amber-200 disabled:opacity-50?\nAssistant:","completion":" rounded bg-amber-100 px-2 py-1 text-xs text-amber-800 hover:bg-amber-200 disabled:opacity-50\n"}
+{"prompt":"User: Thanh toán VNPay (${fmtCurrency(getAmountDue(inv))})?\nAssistant:","completion":" Thanh toán VNPay (${fmtCurrency(getAmountDue(inv))})\n"}
+{"prompt":"User: rounded bg-emerald-100 px-2 py-1 text-xs text-emerald-700 hover:bg-emerald-200 disabled:opacity-50?\nAssistant:","completion":" rounded bg-emerald-100 px-2 py-1 text-xs text-emerald-700 hover:bg-emerald-200 disabled:opacity-50\n"}
+{"prompt":"User: fixed inset-0 z-50 flex items-center justify-center bg-black/50?\nAssistant:","completion":" fixed inset-0 z-50 flex items-center justify-center bg-black/50\n"}
+{"prompt":"User: max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-xl?\nAssistant:","completion":" max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-xl\n"}
+{"prompt":"User: mb-4 flex items-center justify-between?\nAssistant:","completion":" mb-4 flex items-center justify-between\n"}
+{"prompt":"User: text-lg font-semibold text-stone-800?\nAssistant:","completion":" text-lg font-semibold text-stone-800\n"}
+{"prompt":"User: text-stone-400 hover:text-stone-600?\nAssistant:","completion":" text-stone-400 hover:text-stone-600\n"}
+{"prompt":"User: font-medium text-stone-700?\nAssistant:","completion":" font-medium text-stone-700\n"}
+{"prompt":"User: space-y-2 rounded-lg border border-stone-200 p-3?\nAssistant:","completion":" space-y-2 rounded-lg border border-stone-200 p-3\n"}
+{"prompt":"User: flex justify-between gap-2 border-b border-stone-100 pb-2 last:border-0 last:pb-0?\nAssistant:","completion":" flex justify-between gap-2 border-b border-stone-100 pb-2 last:border-0 last:pb-0\n"}
+{"prompt":"User: font-medium text-stone-900 shrink-0?\nAssistant:","completion":" font-medium text-stone-900 shrink-0\n"}
+{"prompt":"User: flex justify-between border-t border-stone-200 pt-2?\nAssistant:","completion":" flex justify-between border-t border-stone-200 pt-2\n"}
+{"prompt":"User: flex justify-between text-red-600?\nAssistant:","completion":" flex justify-between text-red-600\n"}
+{"prompt":"User: flex justify-between font-semibold text-emerald-700?\nAssistant:","completion":" flex justify-between font-semibold text-emerald-700\n"}
+{"prompt":"User: mt-4 flex flex-wrap gap-2?\nAssistant:","completion":" mt-4 flex flex-wrap gap-2\n"}
+{"prompt":"User: /api/invoices/${detailInvoice.id}/pdf?\nAssistant:","completion":" /api/invoices/${detailInvoice.id}/pdf\n"}
+{"prompt":"User: rounded-lg bg-slate-100 px-3 py-2 text-sm text-slate-700 hover:bg-slate-200?\nAssistant:","completion":" rounded-lg bg-slate-100 px-3 py-2 text-sm text-slate-700 hover:bg-slate-200\n"}
+{"prompt":"User: rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600 disabled:opacity-50?\nAssistant:","completion":" rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600 disabled:opacity-50\n"}
+{"prompt":"User: Thanh toán qua VNPay (${fmtCurrency(getAmountDue(detailInvoice))})?\nAssistant:","completion":" Thanh toán qua VNPay (${fmtCurrency(getAmountDue(detailInvoice))})\n"}
+{"prompt":"User: @/components/auth/RequireAuth?\nAssistant:","completion":" @/components/auth/RequireAuth\n"}
+{"prompt":"User: @/components/ui/SiteHeader?\nAssistant:","completion":" @/components/ui/SiteHeader\n"}
+{"prompt":"User: @/components/ui/SiteFooter?\nAssistant:","completion":" @/components/ui/SiteFooter\n"}
+{"prompt":"User: @/components/ui/Container?\nAssistant:","completion":" @/components/ui/Container\n"}
+{"prompt":"User: @/components/chatbot/FloatingChatButton?\nAssistant:","completion":" @/components/chatbot/FloatingChatButton\n"}
+{"prompt":"User: flex min-h-screen flex-col?\nAssistant:","completion":" flex min-h-screen flex-col\n"}
+{"prompt":"User: flex-1 py-12 md:py-16?\nAssistant:","completion":" flex-1 py-12 md:py-16\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/Button?\nAssistant:","completion":" @/components/ui/Button\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: Lỗi khi tải bài đăng?\nAssistant:","completion":" Lỗi khi tải bài đăng\n"}
+{"prompt":"User: Bạn có chắc chắn muốn xóa bài đăng này?\nAssistant:","completion":" Bạn có chắc chắn muốn xóa bài đăng này?\n"}
+{"prompt":"User: Lỗi khi xóa bài đăng?\nAssistant:","completion":" Lỗi khi xóa bài đăng\n"}
+{"prompt":"User: Lỗi khi cập nhật trạng thái?\nAssistant:","completion":" Lỗi khi cập nhật trạng thái\n"}
+{"prompt":"User: py-10 text-center text-stone-600?\nAssistant:","completion":" py-10 text-center text-stone-600\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-10?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-10\n"}
+{"prompt":"User: Quản lý tất cả sản phẩm bạn đang bán?\nAssistant:","completion":" Quản lý tất cả sản phẩm bạn đang bán\n"}
+{"prompt":"User: mx-auto max-w-6xl px-4 py-6 sm:px-6?\nAssistant:","completion":" mx-auto max-w-6xl px-4 py-6 sm:px-6\n"}
+{"prompt":"User: mb-6 flex items-center justify-between?\nAssistant:","completion":" mb-6 flex items-center justify-between\n"}
+{"prompt":"User: rounded-lg px-4 py-2 text-sm font-medium transition-all ${filter === f ? \"bg-emerald-600 text-white\"?\nAssistant:","completion":" rounded-lg px-4 py-2 text-sm font-medium transition-all ${filter === f ? \"bg-emerald-600 text-white\" : \"border border-stone-200 bg-white text-stone-700 hover:border-stone-300\" }\n"}
+{"prompt":"User: bg-emerald-600 text-white?\nAssistant:","completion":" bg-emerald-600 text-white\n"}
+{"prompt":"User: mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700?\nAssistant:","completion":" mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700\n"}
+{"prompt":"User: text-center text-stone-600?\nAssistant:","completion":" text-center text-stone-600\n"}
+{"prompt":"User: flex items-start justify-between gap-4?\nAssistant:","completion":" flex items-start justify-between gap-4\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: mt-1 text-sm text-stone-600?\nAssistant:","completion":" mt-1 text-sm text-stone-600\n"}
+{"prompt":"User: mt-1 text-xs text-stone-500?\nAssistant:","completion":" mt-1 text-xs text-stone-500\n"}
+{"prompt":"User: inline-block rounded-full px-3 py-1 text-xs font-semibold ${listing.status === \"active\" ? \"bg-green-100 text-green-800\"?\nAssistant:","completion":" inline-block rounded-full px-3 py-1 text-xs font-semibold ${listing.status === \"active\" ? \"bg-green-100 text-green-800\" : \"bg-yellow-100 text-yellow-800\" }\n"}
+{"prompt":"User: /listing/${listing.id}?\nAssistant:","completion":" /listing/${listing.id}\n"}
+{"prompt":"User: /edit-listing/${listing.id}?\nAssistant:","completion":" /edit-listing/${listing.id}\n"}
+{"prompt":"User: text-xs bg-blue-100 text-blue-700 hover:bg-blue-200?\nAssistant:","completion":" text-xs bg-blue-100 text-blue-700 hover:bg-blue-200\n"}
+{"prompt":"User: text-xs bg-stone-200 text-stone-900 hover:bg-stone-300?\nAssistant:","completion":" text-xs bg-stone-200 text-stone-900 hover:bg-stone-300\n"}
+{"prompt":"User: text-xs bg-red-100 text-red-700 hover:bg-red-200?\nAssistant:","completion":" text-xs bg-red-100 text-red-700 hover:bg-red-200\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/Button?\nAssistant:","completion":" @/components/ui/Button\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: bg-yellow-100 text-yellow-800?\nAssistant:","completion":" bg-yellow-100 text-yellow-800\n"}
+{"prompt":"User: bg-cyan-100 text-cyan-800?\nAssistant:","completion":" bg-cyan-100 text-cyan-800\n"}
+{"prompt":"User: bg-blue-100 text-blue-800?\nAssistant:","completion":" bg-blue-100 text-blue-800\n"}
+{"prompt":"User: bg-indigo-100 text-indigo-800?\nAssistant:","completion":" bg-indigo-100 text-indigo-800\n"}
+{"prompt":"User: bg-emerald-100 text-emerald-800?\nAssistant:","completion":" bg-emerald-100 text-emerald-800\n"}
+{"prompt":"User: Giao hàng thành công?\nAssistant:","completion":" Giao hàng thành công\n"}
+{"prompt":"User: bg-green-100 text-green-800?\nAssistant:","completion":" bg-green-100 text-green-800\n"}
+{"prompt":"User: bg-red-100 text-red-800?\nAssistant:","completion":" bg-red-100 text-red-800\n"}
+{"prompt":"User: Lỗi khi tải đơn hàng?\nAssistant:","completion":" Lỗi khi tải đơn hàng\n"}
+{"prompt":"User: py-10 text-center text-stone-600?\nAssistant:","completion":" py-10 text-center text-stone-600\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-10?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-10\n"}
+{"prompt":"User: Quản lý tất cả đơn hàng của bạn?\nAssistant:","completion":" Quản lý tất cả đơn hàng của bạn\n"}
+{"prompt":"User: mx-auto max-w-6xl px-4 py-6 sm:px-6?\nAssistant:","completion":" mx-auto max-w-6xl px-4 py-6 sm:px-6\n"}
+{"prompt":"User: rounded-lg px-4 py-2 text-sm font-medium transition-all ${filter === f ? \"bg-emerald-600 text-white\"?\nAssistant:","completion":" rounded-lg px-4 py-2 text-sm font-medium transition-all ${filter === f ? \"bg-emerald-600 text-white\" : \"border border-stone-200 bg-white text-stone-700 hover:border-stone-300\" }\n"}
+{"prompt":"User: mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700?\nAssistant:","completion":" mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700\n"}
+{"prompt":"User: text-center text-stone-600?\nAssistant:","completion":" text-center text-stone-600\n"}
+{"prompt":"User: transition-shadow hover:shadow-md?\nAssistant:","completion":" transition-shadow hover:shadow-md\n"}
+{"prompt":"User: flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between?\nAssistant:","completion":" flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between\n"}
+{"prompt":"User: flex items-center gap-2?\nAssistant:","completion":" flex items-center gap-2\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_UI[order.status].className}?\nAssistant:","completion":" inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_UI[order.status].className}\n"}
+{"prompt":"User: mt-1 text-sm text-stone-500?\nAssistant:","completion":" mt-1 text-sm text-stone-500\n"}
+{"prompt":"User: text-lg font-semibold text-emerald-600?\nAssistant:","completion":" text-lg font-semibold text-emerald-600\n"}
+{"prompt":"User: mt-1 text-xs text-emerald-600?\nAssistant:","completion":" mt-1 text-xs text-emerald-600\n"}
+{"prompt":"User: mt-1 text-xs text-amber-600?\nAssistant:","completion":" mt-1 text-xs text-amber-600\n"}
+{"prompt":"User: mt-4 grid gap-3 border-t border-stone-100 pt-3 sm:grid-cols-2?\nAssistant:","completion":" mt-4 grid gap-3 border-t border-stone-100 pt-3 sm:grid-cols-2\n"}
+{"prompt":"User: text-xs font-medium text-stone-500 uppercase?\nAssistant:","completion":" text-xs font-medium text-stone-500 uppercase\n"}
+{"prompt":"User: text-sm text-stone-700?\nAssistant:","completion":" text-sm text-stone-700\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: text-xs font-medium text-stone-500 uppercase?\nAssistant:","completion":" text-xs font-medium text-stone-500 uppercase\n"}
+{"prompt":"User: text-sm text-stone-700?\nAssistant:","completion":" text-sm text-stone-700\n"}
+{"prompt":"User: mt-4 border-t border-stone-100 pt-3?\nAssistant:","completion":" mt-4 border-t border-stone-100 pt-3\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/Button?\nAssistant:","completion":" @/components/ui/Button\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: bg-yellow-100 text-yellow-800?\nAssistant:","completion":" bg-yellow-100 text-yellow-800\n"}
+{"prompt":"User: bg-cyan-100 text-cyan-800?\nAssistant:","completion":" bg-cyan-100 text-cyan-800\n"}
+{"prompt":"User: bg-blue-100 text-blue-800?\nAssistant:","completion":" bg-blue-100 text-blue-800\n"}
+{"prompt":"User: bg-indigo-100 text-indigo-800?\nAssistant:","completion":" bg-indigo-100 text-indigo-800\n"}
+{"prompt":"User: bg-emerald-100 text-emerald-800?\nAssistant:","completion":" bg-emerald-100 text-emerald-800\n"}
+{"prompt":"User: Giao hàng thành công?\nAssistant:","completion":" Giao hàng thành công\n"}
+{"prompt":"User: bg-green-100 text-green-800?\nAssistant:","completion":" bg-green-100 text-green-800\n"}
+{"prompt":"User: bg-red-100 text-red-800?\nAssistant:","completion":" bg-red-100 text-red-800\n"}
+{"prompt":"User: Admin xác nhận và giao hàng?\nAssistant:","completion":" Admin xác nhận và giao hàng\n"}
+{"prompt":"User: Thanh toán 50% còn lại?\nAssistant:","completion":" Thanh toán 50% còn lại\n"}
+{"prompt":"User: Khách xác nhận nhận hàng?\nAssistant:","completion":" Khách xác nhận nhận hàng\n"}
+{"prompt":"User: Vui lòng gửi và chờ admin xác nhận 50% còn lại trước?\nAssistant:","completion":" Vui lòng gửi và chờ admin xác nhận 50% còn lại trước khi hoàn tất đơn.\n"}
+{"prompt":"User: /api/orders/update-status?\nAssistant:","completion":" /api/orders/update-status\n"}
+{"prompt":"User: /api/payments/vnpay/create?\nAssistant:","completion":" /api/payments/vnpay/create\n"}
+{"prompt":"User: Không thể tạo thanh toán VNPay?\nAssistant:","completion":" Không thể tạo thanh toán VNPay\n"}
+{"prompt":"User: Không nhận được link thanh toán?\nAssistant:","completion":" Không nhận được link thanh toán\n"}
+{"prompt":"User: Lỗi thanh toán 50% còn lại?\nAssistant:","completion":" Lỗi thanh toán 50% còn lại\n"}
+{"prompt":"User: Không tìm thấy đơn hàng?\nAssistant:","completion":" Không tìm thấy đơn hàng\n"}
+{"prompt":"User: Bạn không có quyền xem đơn hàng này?\nAssistant:","completion":" Bạn không có quyền xem đơn hàng này\n"}
+{"prompt":"User: Lỗi khi tải thông tin đơn hàng?\nAssistant:","completion":" Lỗi khi tải thông tin đơn hàng\n"}
+{"prompt":"User: /api/payments/vnpay/create?\nAssistant:","completion":" /api/payments/vnpay/create\n"}
+{"prompt":"User: Lỗi khi tạo yêu cầu thanh toán?\nAssistant:","completion":" Lỗi khi tạo yêu cầu thanh toán\n"}
+{"prompt":"User: Lỗi khi xử lý thanh toán?\nAssistant:","completion":" Lỗi khi xử lý thanh toán\n"}
+{"prompt":"User: INV-${orderId.slice(0, 8).toUpperCase()}-${invoiceDate.getFullYear()}?\nAssistant:","completion":" INV-${orderId.slice(0, 8).toUpperCase()}-${invoiceDate.getFullYear()}\n"}
+{"prompt":"User: py-10 text-center text-stone-600?\nAssistant:","completion":" py-10 text-center text-stone-600\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-10?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-10\n"}
+{"prompt":"User: py-10 text-center text-stone-600?\nAssistant:","completion":" py-10 text-center text-stone-600\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-10?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-10\n"}
+{"prompt":"User: Không tìm thấy đơn hàng?\nAssistant:","completion":" Không tìm thấy đơn hàng\n"}
+{"prompt":"User: Đơn hàng #${orderId.slice(0, 8)}?\nAssistant:","completion":" Đơn hàng #${orderId.slice(0, 8)}\n"}
+{"prompt":"User: Chi tiết đơn hàng của bạn?\nAssistant:","completion":" Chi tiết đơn hàng của bạn\n"}
+{"prompt":"User: mx-auto max-w-4xl px-4 py-6 sm:px-6?\nAssistant:","completion":" mx-auto max-w-4xl px-4 py-6 sm:px-6\n"}
+{"prompt":"User: mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700?\nAssistant:","completion":" mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700\n"}
+{"prompt":"User: flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between?\nAssistant:","completion":" flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between\n"}
+{"prompt":"User: text-sm font-semibold text-emerald-700?\nAssistant:","completion":" text-sm font-semibold text-emerald-700\n"}
+{"prompt":"User: mt-1 text-xs text-stone-500?\nAssistant:","completion":" mt-1 text-xs text-stone-500\n"}
+{"prompt":"User: bg-stone-100 text-stone-800 hover:bg-stone-200?\nAssistant:","completion":" bg-stone-100 text-stone-800 hover:bg-stone-200\n"}
+{"prompt":"User: mt-4 grid gap-3 rounded-lg border border-sage-200 bg-sage-50 p-4 text-sm sm:grid-cols-2?\nAssistant:","completion":" mt-4 grid gap-3 rounded-lg border border-sage-200 bg-sage-50 p-4 text-sm sm:grid-cols-2\n"}
+{"prompt":"User: flex justify-between sm:block?\nAssistant:","completion":" flex justify-between sm:block\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: flex justify-between sm:block?\nAssistant:","completion":" flex justify-between sm:block\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: flex justify-between sm:block?\nAssistant:","completion":" flex justify-between sm:block\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: flex justify-between sm:block?\nAssistant:","completion":" flex justify-between sm:block\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: flex justify-between sm:block?\nAssistant:","completion":" flex justify-between sm:block\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: flex justify-between sm:block?\nAssistant:","completion":" flex justify-between sm:block\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: mt-4 overflow-hidden rounded-lg border border-stone-200?\nAssistant:","completion":" mt-4 overflow-hidden rounded-lg border border-stone-200\n"}
+{"prompt":"User: bg-stone-50 text-stone-700?\nAssistant:","completion":" bg-stone-50 text-stone-700\n"}
+{"prompt":"User: px-4 py-2 text-left font-semibold?\nAssistant:","completion":" px-4 py-2 text-left font-semibold\n"}
+{"prompt":"User: px-4 py-2 text-center font-semibold?\nAssistant:","completion":" px-4 py-2 text-center font-semibold\n"}
+{"prompt":"User: px-4 py-2 text-right font-semibold?\nAssistant:","completion":" px-4 py-2 text-right font-semibold\n"}
+{"prompt":"User: px-4 py-2 text-right font-semibold?\nAssistant:","completion":" px-4 py-2 text-right font-semibold\n"}
+{"prompt":"User: border-t border-stone-100?\nAssistant:","completion":" border-t border-stone-100\n"}
+{"prompt":"User: px-4 py-2 text-stone-900?\nAssistant:","completion":" px-4 py-2 text-stone-900\n"}
+{"prompt":"User: px-4 py-2 text-center text-stone-700?\nAssistant:","completion":" px-4 py-2 text-center text-stone-700\n"}
+{"prompt":"User: px-4 py-2 text-right text-stone-700?\nAssistant:","completion":" px-4 py-2 text-right text-stone-700\n"}
+{"prompt":"User: px-4 py-2 text-right font-medium text-stone-900?\nAssistant:","completion":" px-4 py-2 text-right font-medium text-stone-900\n"}
+{"prompt":"User: mt-4 space-y-2 rounded-lg border border-stone-200 p-4 text-sm?\nAssistant:","completion":" mt-4 space-y-2 rounded-lg border border-stone-200 p-4 text-sm\n"}
+{"prompt":"User: flex justify-between?\nAssistant:","completion":" flex justify-between\n"}
+{"prompt":"User: border-t border-stone-200 pt-2?\nAssistant:","completion":" border-t border-stone-200 pt-2\n"}
+{"prompt":"User: flex justify-between text-base font-semibold?\nAssistant:","completion":" flex justify-between text-base font-semibold\n"}
+{"prompt":"User: mb-4 text-sm font-semibold text-stone-900?\nAssistant:","completion":" mb-4 text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: absolute left-4 top-0 h-full w-0.5 bg-stone-200?\nAssistant:","completion":" absolute left-4 top-0 h-full w-0.5 bg-stone-200\n"}
+{"prompt":"User: Đã thanh toán đầy đủ?\nAssistant:","completion":" Đã thanh toán đầy đủ\n"}
+{"prompt":"User: relative flex items-start gap-4 pl-2?\nAssistant:","completion":" relative flex items-start gap-4 pl-2\n"}
+{"prompt":"User: relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm ${ isCompleted?\nAssistant:","completion":" relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm ${ isCompleted ? \"bg-emerald-600 text-white\" : isCurrent ? \"bg-amber-500 text-white\" : \"bg-stone-200 text-stone-500\" }\n"}
+{"prompt":"User: text-sm font-medium ${ isPending ? \"text-stone-400\" : \"text-stone-900\" }?\nAssistant:","completion":" text-sm font-medium ${ isPending ? \"text-stone-400\" : \"text-stone-900\" }\n"}
+{"prompt":"User: mt-1 text-xs text-amber-600?\nAssistant:","completion":" mt-1 text-xs text-amber-600\n"}
+{"prompt":"User: Đã thanh toán đủ 100% qua VNPay?\nAssistant:","completion":" Đã thanh toán đủ 100% qua VNPay\n"}
+{"prompt":"User: mt-1 text-xs text-stone-500?\nAssistant:","completion":" mt-1 text-xs text-stone-500\n"}
+{"prompt":"User: flex items-center justify-between?\nAssistant:","completion":" flex items-center justify-between\n"}
+{"prompt":"User: text-sm text-stone-600?\nAssistant:","completion":" text-sm text-stone-600\n"}
+{"prompt":"User: mt-2 text-lg font-semibold text-stone-900?\nAssistant:","completion":" mt-2 text-lg font-semibold text-stone-900\n"}
+{"prompt":"User: rounded-full px-3 py-1 text-sm font-semibold ${STATUS_UI[effectiveStatus].className}?\nAssistant:","completion":" rounded-full px-3 py-1 text-sm font-semibold ${STATUS_UI[effectiveStatus].className}\n"}
+{"prompt":"User: text-sm font-semibold text-stone-900?\nAssistant:","completion":" text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-4 space-y-3 text-sm?\nAssistant:","completion":" mt-4 space-y-3 text-sm\n"}
+{"prompt":"User: flex justify-between?\nAssistant:","completion":" flex justify-between\n"}
+{"prompt":"User: font-medium text-stone-900?\nAssistant:","completion":" font-medium text-stone-900\n"}
+{"prompt":"User: flex justify-between?\nAssistant:","completion":" flex justify-between\n"}
+{"prompt":"User: font-medium text-stone-900?\nAssistant:","completion":" font-medium text-stone-900\n"}
+{"prompt":"User: flex justify-between?\nAssistant:","completion":" flex justify-between\n"}
+{"prompt":"User: font-medium text-stone-900?\nAssistant:","completion":" font-medium text-stone-900\n"}
+{"prompt":"User: text-sm font-semibold text-stone-900?\nAssistant:","completion":" text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mt-4 space-y-3 border-t border-stone-200 pt-4?\nAssistant:","completion":" mt-4 space-y-3 border-t border-stone-200 pt-4\n"}
+{"prompt":"User: flex justify-between?\nAssistant:","completion":" flex justify-between\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: font-medium text-stone-900?\nAssistant:","completion":" font-medium text-stone-900\n"}
+{"prompt":"User: flex justify-between?\nAssistant:","completion":" flex justify-between\n"}
+{"prompt":"User: flex justify-between?\nAssistant:","completion":" flex justify-between\n"}
+{"prompt":"User: flex justify-between?\nAssistant:","completion":" flex justify-between\n"}
+{"prompt":"User: border-t border-stone-200 pt-3?\nAssistant:","completion":" border-t border-stone-200 pt-3\n"}
+{"prompt":"User: flex justify-between text-base font-semibold?\nAssistant:","completion":" flex justify-between text-base font-semibold\n"}
+{"prompt":"User: mb-4 text-sm font-semibold text-stone-900?\nAssistant:","completion":" mb-4 text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: mb-4 text-sm text-stone-600?\nAssistant:","completion":" mb-4 text-sm text-stone-600\n"}
+{"prompt":"User: w-full bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400?\nAssistant:","completion":" w-full bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400\n"}
+{"prompt":"User: Thanh toán cọc ${depositAmount.toLocaleString(\"vi-VN\")} VNĐ qua VNPay?\nAssistant:","completion":" Thanh toán cọc ${depositAmount.toLocaleString(\"vi-VN\")} VNĐ qua VNPay\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: mt-1 text-sm text-stone-600?\nAssistant:","completion":" mt-1 text-sm text-stone-600\n"}
+{"prompt":"User: w-full bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400?\nAssistant:","completion":" w-full bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400\n"}
+{"prompt":"User: Thanh toán VNPay ${remainingAmount.toLocaleString(\"vi-VN\")} VNĐ?\nAssistant:","completion":" Thanh toán VNPay ${remainingAmount.toLocaleString(\"vi-VN\")} VNĐ\n"}
+{"prompt":"User: flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between?\nAssistant:","completion":" flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\n"}
+{"prompt":"User: font-semibold text-stone-900?\nAssistant:","completion":" font-semibold text-stone-900\n"}
+{"prompt":"User: mt-1 text-sm text-stone-600?\nAssistant:","completion":" mt-1 text-sm text-stone-600\n"}
+{"prompt":"User: Khi hàng đã tới tay bạn, bấm xác nhận để chuyển sang?\nAssistant:","completion":" Khi hàng đã tới tay bạn, bấm xác nhận để chuyển sang trạng thái đã giao.\n"}
+{"prompt":"User: Bạn đã thanh toán đủ 100%, bấm để kết thúc đơn hàng.?\nAssistant:","completion":" Bạn đã thanh toán đủ 100%, bấm để kết thúc đơn hàng.\n"}
+{"prompt":"User: Vui lòng thanh toán 50% còn lại qua VNPay trước khi hoàn?\nAssistant:","completion":" Vui lòng thanh toán 50% còn lại qua VNPay trước khi hoàn tất đơn.\n"}
+{"prompt":"User: bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400?\nAssistant:","completion":" bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-stone-400\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/components/profile/AvatarModal?\nAssistant:","completion":" @/components/profile/AvatarModal\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: ${parts[0][0] ?? ''}${parts[parts.length - 1][0] ?? ''}?\nAssistant:","completion":" ${parts[0][0] ?? ''}${parts[parts.length - 1][0] ?? ''}\n"}
+{"prompt":"User: t exist const newProfile: UserProfile = { userId: user?.uid ||?\nAssistant:","completion":" t exist const newProfile: UserProfile = { userId: user?.uid ||\n"}
+{"prompt":"User: , displayName: user?.displayName ||?\nAssistant:","completion":" , displayName: user?.displayName ||\n"}
+{"prompt":"User: , email: user?.email ||?\nAssistant:","completion":" , email: user?.email ||\n"}
+{"prompt":"User: , avatar: user?.photoURL || undefined, savedAddresses: [], savedPaymentMethods: [], preferences: { notifications:?\nAssistant:","completion":" , avatar: user?.photoURL || undefined, savedAddresses: [], savedPaymentMethods: [], preferences: { notifications: true, promotionalEmails: true, language:\n"}
+{"prompt":"User: , darkMode: false, }, privacy: { visibility:?\nAssistant:","completion":" , darkMode: false, }, privacy: { visibility:\n"}
+{"prompt":"User: , showOrderHistory: false, }, }; setProfile(newProfile); setDisplayName(newProfile.displayName); setPhone(newProfile.phone); // Persist initial profile?\nAssistant:","completion":" , showOrderHistory: false, }, }; setProfile(newProfile); setDisplayName(newProfile.displayName); setPhone(newProfile.phone); // Persist initial profile (best-effort) await setDoc(ref, stripUndefinedDeep({ ...newProfile, updatedAt: new Date().toISOString() }), { merge: true }); // Also sync basic fie...\n"}
+{"prompt":"User: , error); notify.error(?\nAssistant:","completion":" , error); notify.error(\n"}
+{"prompt":"User: ); } finally { setLoading(false); } }; const handleAvatarUpload = async (file:?\nAssistant:","completion":" ); } finally { setLoading(false); } }; const handleAvatarUpload = async (file: File) => { if (!user?.uid) { notify.error(\n"}
+{"prompt":"User: ); return; } setUploadingAvatar(true); try { const formData = new FormData(); formData.append(?\nAssistant:","completion":" ); return; } setUploadingAvatar(true); try { const formData = new FormData(); formData.append(\n"}
+{"prompt":"User: , file); console.log(?\nAssistant:","completion":" , file); console.log(\n"}
+{"prompt":"User: ); const response = await fetch(?\nAssistant:","completion":" ); const response = await fetch(\n"}
+{"prompt":"User: , { method:?\nAssistant:","completion":" , { method:\n"}
+{"prompt":"User: , body: formData, }); console.log(?\nAssistant:","completion":" , body: formData, }); console.log(\n"}
+{"prompt":"User: , response.status); if (!response.ok) { const error = await response.json(); console.error(?\nAssistant:","completion":" , response.status); if (!response.ok) { const error = await response.json(); console.error(\n"}
+{"prompt":"User: , error); throw new Error(error.error ||?\nAssistant:","completion":" , error); throw new Error(error.error ||\n"}
+{"prompt":"User: ); } const data = await response.json(); console.log(?\nAssistant:","completion":" ); } const data = await response.json(); console.log(\n"}
+{"prompt":"User: , data.secure_url); if (data.secure_url) { const updatedProfile: UserProfile = profile ? {?\nAssistant:","completion":" , data.secure_url); if (data.secure_url) { const updatedProfile: UserProfile = profile ? { ...profile, avatar: data.secure_url } : { userId: user.uid, displayName: user.displayName ||\n"}
+{"prompt":"User: , email: user.email ||?\nAssistant:","completion":" , email: user.email ||\n"}
+{"prompt":"User: , avatar: data.secure_url, savedAddresses: [], savedPaymentMethods: [], preferences: { notifications: true, promotionalEmails:?\nAssistant:","completion":" , avatar: data.secure_url, savedAddresses: [], savedPaymentMethods: [], preferences: { notifications: true, promotionalEmails: true, language:\n"}
+{"prompt":"User: , darkMode: false, }, privacy: { visibility:?\nAssistant:","completion":" , darkMode: false, }, privacy: { visibility:\n"}
+{"prompt":"User: , showOrderHistory: false, }, }; // Lưu avatar vào Firestore (client SDK?\nAssistant:","completion":" , showOrderHistory: false, }, }; // Lưu avatar vào Firestore (client SDK - has auth) await setDoc( doc(firebaseDb,\n"}
+{"prompt":"User: , user.uid), stripUndefinedDeep({ ...updatedProfile, updatedAt: new Date().toISOString() }), { merge: true }?\nAssistant:","completion":" , user.uid), stripUndefinedDeep({ ...updatedProfile, updatedAt: new Date().toISOString() }), { merge: true } ); await syncUserDoc({ displayName: updatedProfile.displayName, phone: updatedProfile.phone, avatarUrl: updatedProfile.avatar, }); setProfile(updatedProfile); setShowAvatarModal(false); notif...\n"}
+{"prompt":"User: ); } } catch (error) { console.error(?\nAssistant:","completion":" ); } } catch (error) { console.error(\n"}
+{"prompt":"User: , error); notify.error(`Lỗi: ${error instanceof Error ? error.message :?\nAssistant:","completion":" , error); notify.error(`Lỗi: ${error instanceof Error ? error.message :\n"}
+{"prompt":"User: }`); } finally { setUploadingAvatar(false); } }; // Address handlers const handleAddAddress?\nAssistant:","completion":" }`); } finally { setUploadingAvatar(false); } }; // Address handlers const handleAddAddress = () => { setAddressForm({ id: Date.now().toString(), type:\n"}
+{"prompt":"User: , postalCode:?\nAssistant:","completion":" , postalCode:\n"}
+{"prompt":"User: , default: false, }); setEditingAddressId(null); setShowAddressForm(true); }; const handleEditAddress = (addr: SavedAddress)?\nAssistant:","completion":" , default: false, }); setEditingAddressId(null); setShowAddressForm(true); }; const handleEditAddress = (addr: SavedAddress) => { setAddressForm(addr); setEditingAddressId(addr.id); setShowAddressForm(true); }; const handleSaveAddress = async () => { if (!profile) return; let updated; if (editingAdd...\n"}
+{"prompt":"User: , user.uid), stripUndefinedDeep({ ...newProfile, updatedAt: new Date().toISOString() }), { merge: true }?\nAssistant:","completion":" , user.uid), stripUndefinedDeep({ ...newProfile, updatedAt: new Date().toISOString() }), { merge: true } ); const primary = primaryAddressFromSaved(newProfile.savedAddresses); await syncUserDoc({ address: primary?.address ||\n"}
+{"prompt":"User: , city: primary?.city ||?\nAssistant:","completion":" , city: primary?.city ||\n"}
+{"prompt":"User: , district: primary?.district ||?\nAssistant:","completion":" , district: primary?.district ||\n"}
+{"prompt":"User: , }); } notify.success(?\nAssistant:","completion":" , }); } notify.success(\n"}
+{"prompt":"User: ); }; const handleDeleteAddress = async (id: string) => { if (!profile)?\nAssistant:","completion":" ); }; const handleDeleteAddress = async (id: string) => { if (!profile) return; const updated = { ...profile, savedAddresses: profile.savedAddresses.filter(a => a.id !== id), }; setProfile(updated); // Save to Firestore if (user?.uid) { await setDoc( doc(firebaseDb,\n"}
+{"prompt":"User: , user.uid), stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }), { merge: true }?\nAssistant:","completion":" , user.uid), stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }), { merge: true } ); const primary = primaryAddressFromSaved(updated.savedAddresses); await syncUserDoc({ address: primary?.address ||\n"}
+{"prompt":"User: , city: primary?.city ||?\nAssistant:","completion":" , city: primary?.city ||\n"}
+{"prompt":"User: , district: primary?.district ||?\nAssistant:","completion":" , district: primary?.district ||\n"}
+{"prompt":"User: , }); } notify.success(?\nAssistant:","completion":" , }); } notify.success(\n"}
+{"prompt":"User: ); }; // Payment handlers const handleAddPayment = () => { setPaymentForm({?\nAssistant:","completion":" ); }; // Payment handlers const handleAddPayment = () => { setPaymentForm({ id: Date.now().toString(), type:\n"}
+{"prompt":"User: , default: false, }); setShowPaymentForm(true); }; const handleSavePayment = async () =>?\nAssistant:","completion":" , default: false, }); setShowPaymentForm(true); }; const handleSavePayment = async () => { if (!profile) return; const trimmedName = (paymentForm.name ||\n"}
+{"prompt":"User: ).trim(); const normalized: SavedPaymentMethod = paymentForm.type ===?\nAssistant:","completion":" ).trim(); const normalized: SavedPaymentMethod = paymentForm.type ===\n"}
+{"prompt":"User: ? { ...paymentForm, name:?\nAssistant:","completion":" ? { ...paymentForm, name:\n"}
+{"prompt":"User: , lastDigits: undefined } : { ...paymentForm, name: trimmedName ||?\nAssistant:","completion":" , lastDigits: undefined } : { ...paymentForm, name: trimmedName ||\n"}
+{"prompt":"User: , lastDigits: undefined }; const updated = { ...profile, savedPaymentMethods: [...profile.savedPaymentMethods, normalized],?\nAssistant:","completion":" , lastDigits: undefined }; const updated = { ...profile, savedPaymentMethods: [...profile.savedPaymentMethods, normalized], }; setProfile(updated); setShowPaymentForm(false); // Save to Firestore if (user?.uid) { await setDoc( doc(firebaseDb,\n"}
+{"prompt":"User: , user.uid), stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }), { merge: true }?\nAssistant:","completion":" , user.uid), stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }), { merge: true } ); } notify.success(\n"}
+{"prompt":"User: ); }; const handleDeletePayment = async (id: string) => { if (!profile)?\nAssistant:","completion":" ); }; const handleDeletePayment = async (id: string) => { if (!profile) return; const updated = { ...profile, savedPaymentMethods: profile.savedPaymentMethods.filter(m => m.id !== id), }; setProfile(updated); // Save to Firestore if (user?.uid) { await setDoc( doc(firebaseDb,\n"}
+{"prompt":"User: , user.uid), stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }), { merge: true }?\nAssistant:","completion":" , user.uid), stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }), { merge: true } ); } notify.success(\n"}
+{"prompt":"User: )} </div> )} <div className=\"absolute inset-0 rounded-full bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex?\nAssistant:","completion":" )} </div> )} <div className=\"absolute inset-0 rounded-full bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-2xl\"> Đổi </div> </div> <div> <h1 className=\"text-2xl font-semibold text-amber-900\">{profile.displayName}</h1> <p className=\"te...\n"}
+{"prompt":"User: ].map(tab => ( <button key={tab} onClick={() => setActiveTab(tab as typeof activeTab)} className={`py-4?\nAssistant:","completion":" ].map(tab => ( <button key={tab} onClick={() => setActiveTab(tab as typeof activeTab)} className={`py-4 px-6 font-medium text-center border-b-2 transition whitespace-nowrap ${ activeTab === tab ?\n"}
+{"prompt":"User: }`} > {tab ===?\nAssistant:","completion":" }`} > {tab ===\n"}
+{"prompt":"User: } {tab ===?\nAssistant:","completion":" } {tab ===\n"}
+{"prompt":"User: } {tab ===?\nAssistant:","completion":" } {tab ===\n"}
+{"prompt":"User: } {tab ===?\nAssistant:","completion":" } {tab ===\n"}
+{"prompt":"User: } {tab ===?\nAssistant:","completion":" } {tab ===\n"}
+{"prompt":"User: } </button> ))} </div> <div className=\"p-6\"> {/* Info Tab */} {activeTab ===?\nAssistant:","completion":" } </button> ))} </div> <div className=\"p-6\"> {/* Info Tab */} {activeTab ===\n"}
+{"prompt":"User: && ( <div className=\"space-y-4\"> {editMode ? ( <> <div> <label className=\"block text-sm?\nAssistant:","completion":" && ( <div className=\"space-y-4\"> {editMode ? ( <> <div> <label className=\"block text-sm font-medium text-stone-800 mb-2\">Tên hiển thị</label> <input type=\"text\" value={displayName} onChange={(e) => setDisplayName(e.target.value)} className=\"w-full px-4 py-2 border border-sage-300 rounded-lg focus:ri...\n"}
+{"prompt":"User: , user.uid), stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }), { merge: true }?\nAssistant:","completion":" , user.uid), stripUndefinedDeep({ ...updated, updatedAt: new Date().toISOString() }), { merge: true } ); await syncUserDoc({ displayName: updated.displayName, phone: updated.phone, }); setProfile(updated); } setEditMode(false); notify.success(\n"}
+{"prompt":"User: }</p> </div> </div> )} </div> )} {/* Addresses Tab */} {activeTab ===?\nAssistant:","completion":" }</p> </div> </div> )} </div> )} {/* Addresses Tab */} {activeTab ===\n"}
+{"prompt":"User: && ( <div className=\"space-y-4\"> {!showPaymentForm ? ( <> <button onClick={handleAddPayment} className=\"w-full py-2?\nAssistant:","completion":" && ( <div className=\"space-y-4\"> {!showPaymentForm ? ( <> <button onClick={handleAddPayment} className=\"w-full py-2 border-2 border-dashed border-sage-300 rounded-lg text-emerald-600 hover:border-emerald-600 transition\" > Thêm phương thức thanh toán </button> {profile.savedPaymentMethods.map(method...\n"}
+{"prompt":"User: ) : (method.name ||?\nAssistant:","completion":" ) : (method.name ||\n"}
+{"prompt":"User: ]; setPaymentForm((prev) => ({ ...prev, type: nextType, name: nextType ===?\nAssistant:","completion":" ]; setPaymentForm((prev) => ({ ...prev, type: nextType, name: nextType ===\n"}
+{"prompt":"User: ), lastDigits: undefined, })); }} className=\"w-full px-3 py-2 border border-sage-300 rounded focus:ring-2?\nAssistant:","completion":" ), lastDigits: undefined, })); }} className=\"w-full px-3 py-2 border border-sage-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-transparent\" > <option value=\"ewallet\">Ví điện tử</option> <option value=\"cod\">Thanh toán khi nhận hàng (COD)</option> </select> {paymentForm.type ===\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: /api/orders/cleanup-old?\nAssistant:","completion":" /api/orders/cleanup-old\n"}
+{"prompt":"User: s orders const ordersRef = collection(firebaseDb,?\nAssistant:","completion":" s orders const ordersRef = collection(firebaseDb,\n"}
+{"prompt":"User: ); const ordersQ = query(ordersRef, where(?\nAssistant:","completion":" ); const ordersQ = query(ordersRef, where(\n"}
+{"prompt":"User: , sellerId)); const ordersSnap = await getDocs(ordersQ); let totalRevenue = 0; let?\nAssistant:","completion":" , sellerId)); const ordersSnap = await getDocs(ordersQ); let totalRevenue = 0; let completedOrders = 0; let pendingOrders = 0; const productSalesMap = new Map<string, { name: string; sales: number; revenue: number }>(); const recentOrders: SalesMetrics[\n"}
+{"prompt":"User: ] = []; ordersSnap.docs.forEach((d) => { const order = d.data(); totalRevenue +=?\nAssistant:","completion":" ] = []; ordersSnap.docs.forEach((d) => { const order = d.data(); totalRevenue += getSellerEarning(order); if (order.status ===\n"}
+{"prompt":"User: ) completedOrders++; if (order.status ===?\nAssistant:","completion":" ) completedOrders++; if (order.status ===\n"}
+{"prompt":"User: ) pendingOrders++; // Track product sales if (order.items) { order.items.forEach((item: any) =>?\nAssistant:","completion":" ) pendingOrders++; // Track product sales if (order.items) { order.items.forEach((item: any) => { const existing = productSalesMap.get(item.id); if (existing) { existing.sales += item.quantity || 1; existing.revenue += (item.price || 0) * (item.quantity || 1); } else { productSalesMap.set(item.id, {...\n"}
+{"prompt":"User: , sales: item.quantity || 1, revenue: (item.price || 0) * (item.quantity ||?\nAssistant:","completion":" , sales: item.quantity || 1, revenue: (item.price || 0) * (item.quantity || 1), }); } }); } recentOrders.push({ id: d.id, buyerId: order.buyerId, total: getSellerEarning(order), status: order.status, date: order.createdAt, }); }); // Fetch seller\n"}
+{"prompt":"User: Failed to fetch metrics:?\nAssistant:","completion":" Failed to fetch metrics:\n"}
+{"prompt":"User: bg-yellow-100 text-yellow-800?\nAssistant:","completion":" bg-yellow-100 text-yellow-800\n"}
+{"prompt":"User: bg-blue-100 text-blue-800?\nAssistant:","completion":" bg-blue-100 text-blue-800\n"}
+{"prompt":"User: bg-indigo-100 text-indigo-800?\nAssistant:","completion":" bg-indigo-100 text-indigo-800\n"}
+{"prompt":"User: bg-emerald-100 text-emerald-800?\nAssistant:","completion":" bg-emerald-100 text-emerald-800\n"}
+{"prompt":"User: bg-green-100 text-green-800?\nAssistant:","completion":" bg-green-100 text-green-800\n"}
+{"prompt":"User: bg-red-100 text-red-800?\nAssistant:","completion":" bg-red-100 text-red-800\n"}
+{"prompt":"User: bg-stone-100 text-stone-800?\nAssistant:","completion":" bg-stone-100 text-stone-800\n"}
+{"prompt":"User: flex justify-center items-center min-h-screen?\nAssistant:","completion":" flex justify-center items-center min-h-screen\n"}
+{"prompt":"User: animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500?\nAssistant:","completion":" animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500\n"}
+{"prompt":"User: max-w-7xl mx-auto px-4?\nAssistant:","completion":" max-w-7xl mx-auto px-4\n"}
+{"prompt":"User: text-3xl font-semibold text-amber-900?\nAssistant:","completion":" text-3xl font-semibold text-amber-900\n"}
+{"prompt":"User: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8?\nAssistant:","completion":" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8\n"}
+{"prompt":"User: bg-white rounded-xl border border-stone-200 shadow-sm p-6?\nAssistant:","completion":" bg-white rounded-xl border border-stone-200 shadow-sm p-6\n"}
+{"prompt":"User: text-stone-500 text-sm font-medium?\nAssistant:","completion":" text-stone-500 text-sm font-medium\n"}
+{"prompt":"User: text-3xl font-bold text-stone-800 mt-2?\nAssistant:","completion":" text-3xl font-bold text-stone-800 mt-2\n"}
+{"prompt":"User: bg-white rounded-xl border border-stone-200 shadow-sm p-6?\nAssistant:","completion":" bg-white rounded-xl border border-stone-200 shadow-sm p-6\n"}
+{"prompt":"User: text-stone-500 text-sm font-medium?\nAssistant:","completion":" text-stone-500 text-sm font-medium\n"}
+{"prompt":"User: text-3xl font-bold text-stone-800 mt-2?\nAssistant:","completion":" text-3xl font-bold text-stone-800 mt-2\n"}
+{"prompt":"User: text-xs text-stone-500 mt-2?\nAssistant:","completion":" text-xs text-stone-500 mt-2\n"}
+{"prompt":"User: bg-white rounded-xl border border-stone-200 shadow-sm p-6?\nAssistant:","completion":" bg-white rounded-xl border border-stone-200 shadow-sm p-6\n"}
+{"prompt":"User: text-stone-500 text-sm font-medium?\nAssistant:","completion":" text-stone-500 text-sm font-medium\n"}
+{"prompt":"User: text-3xl font-bold text-stone-800 mt-2?\nAssistant:","completion":" text-3xl font-bold text-stone-800 mt-2\n"}
+{"prompt":"User: bg-white rounded-xl border border-stone-200 shadow-sm p-6?\nAssistant:","completion":" bg-white rounded-xl border border-stone-200 shadow-sm p-6\n"}
+{"prompt":"User: text-stone-500 text-sm font-medium?\nAssistant:","completion":" text-stone-500 text-sm font-medium\n"}
+{"prompt":"User: text-3xl font-bold text-stone-800 mt-2?\nAssistant:","completion":" text-3xl font-bold text-stone-800 mt-2\n"}
+{"prompt":"User: grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8?\nAssistant:","completion":" grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8\n"}
+{"prompt":"User: bg-white rounded-xl border border-stone-200 shadow-sm p-6?\nAssistant:","completion":" bg-white rounded-xl border border-stone-200 shadow-sm p-6\n"}
+{"prompt":"User: text-lg font-semibold text-amber-900 mb-4?\nAssistant:","completion":" text-lg font-semibold text-amber-900 mb-4\n"}
+{"prompt":"User: text-stone-500 text-sm?\nAssistant:","completion":" text-stone-500 text-sm\n"}
+{"prompt":"User: flex items-center justify-between py-2 border-b border-stone-100 last:border-0?\nAssistant:","completion":" flex items-center justify-between py-2 border-b border-stone-100 last:border-0\n"}
+{"prompt":"User: flex items-center gap-3?\nAssistant:","completion":" flex items-center gap-3\n"}
+{"prompt":"User: font-bold text-stone-400 text-lg?\nAssistant:","completion":" font-bold text-stone-400 text-lg\n"}
+{"prompt":"User: font-medium text-stone-800 text-sm?\nAssistant:","completion":" font-medium text-stone-800 text-sm\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: font-semibold text-emerald-600 text-sm?\nAssistant:","completion":" font-semibold text-emerald-600 text-sm\n"}
+{"prompt":"User: bg-white rounded-xl border border-stone-200 shadow-sm p-6?\nAssistant:","completion":" bg-white rounded-xl border border-stone-200 shadow-sm p-6\n"}
+{"prompt":"User: text-lg font-semibold text-amber-900 mb-4?\nAssistant:","completion":" text-lg font-semibold text-amber-900 mb-4\n"}
+{"prompt":"User: text-stone-500 text-sm?\nAssistant:","completion":" text-stone-500 text-sm\n"}
+{"prompt":"User: flex items-center justify-between py-2 border-b border-stone-100 last:border-0?\nAssistant:","completion":" flex items-center justify-between py-2 border-b border-stone-100 last:border-0\n"}
+{"prompt":"User: text-sm font-medium text-stone-800?\nAssistant:","completion":" text-sm font-medium text-stone-800\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: text-sm font-semibold text-stone-800?\nAssistant:","completion":" text-sm font-semibold text-stone-800\n"}
+{"prompt":"User: inline-block text-xs px-2 py-0.5 rounded ${statusColor(o.status)}?\nAssistant:","completion":" inline-block text-xs px-2 py-0.5 rounded ${statusColor(o.status)}\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Container?\nAssistant:","completion":" @/components/ui/Container\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: Vui lòng điền đầy đủ thông tin?\nAssistant:","completion":" Vui lòng điền đầy đủ thông tin\n"}
+{"prompt":"User: Số tiền không hợp lệ?\nAssistant:","completion":" Số tiền không hợp lệ\n"}
+{"prompt":"User: Rút tiền về ${bankInfo.bankName} - ${bankInfo.accountNumber} (${bankInfo.accountHolder})?\nAssistant:","completion":" Rút tiền về ${bankInfo.bankName} - ${bankInfo.accountNumber} (${bankInfo.accountHolder})\n"}
+{"prompt":"User: Yêu cầu rút tiền đã được gửi. Sẽ được xử lý trong?\nAssistant:","completion":" Yêu cầu rút tiền đã được gửi. Sẽ được xử lý trong 1-3 ngày\n"}
+{"prompt":"User: Rút tiền thất bại. Vui lòng thử lại.?\nAssistant:","completion":" Rút tiền thất bại. Vui lòng thử lại.\n"}
+{"prompt":"User: Quản lý số dư và giao dịch?\nAssistant:","completion":" Quản lý số dư và giao dịch\n"}
+{"prompt":"User: flex justify-center py-12?\nAssistant:","completion":" flex justify-center py-12\n"}
+{"prompt":"User: animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500?\nAssistant:","completion":" animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500\n"}
+{"prompt":"User: mb-8 bg-gradient-to-r from-emerald-600 to-emerald-800?\nAssistant:","completion":" mb-8 bg-gradient-to-r from-emerald-600 to-emerald-800\n"}
+{"prompt":"User: text-sm opacity-90 mb-2?\nAssistant:","completion":" text-sm opacity-90 mb-2\n"}
+{"prompt":"User: text-5xl font-bold mb-6?\nAssistant:","completion":" text-5xl font-bold mb-6\n"}
+{"prompt":"User: grid grid-cols-2 gap-4?\nAssistant:","completion":" grid grid-cols-2 gap-4\n"}
+{"prompt":"User: flex gap-2 mb-6 border-b border-stone-200?\nAssistant:","completion":" flex gap-2 mb-6 border-b border-stone-200\n"}
+{"prompt":"User: px-4 py-3 font-medium border-b-2 transition ${ activeTab === tab ? 'text-emerald-600 border-emerald-600'?\nAssistant:","completion":" px-4 py-3 font-medium border-b-2 transition ${ activeTab === tab ? 'text-emerald-600 border-emerald-600' : 'text-stone-500 border-transparent hover:text-stone-800' }\n"}
+{"prompt":"User: grid grid-cols-1 md:grid-cols-3 gap-4?\nAssistant:","completion":" grid grid-cols-1 md:grid-cols-3 gap-4\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: text-3xl font-bold text-emerald-600 mt-2?\nAssistant:","completion":" text-3xl font-bold text-emerald-600 mt-2\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: text-3xl font-bold text-emerald-600 mt-2?\nAssistant:","completion":" text-3xl font-bold text-emerald-600 mt-2\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: text-3xl font-bold text-orange-600 mt-2?\nAssistant:","completion":" text-3xl font-bold text-orange-600 mt-2\n"}
+{"prompt":"User: text-center py-12 text-stone-500?\nAssistant:","completion":" text-center py-12 text-stone-500\n"}
+{"prompt":"User: flex justify-between items-start?\nAssistant:","completion":" flex justify-between items-start\n"}
+{"prompt":"User: w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center?\nAssistant:","completion":" w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center\n"}
+{"prompt":"User: text-sm font-bold text-stone-600?\nAssistant:","completion":" text-sm font-bold text-stone-600\n"}
+{"prompt":"User: font-medium text-stone-800?\nAssistant:","completion":" font-medium text-stone-800\n"}
+{"prompt":"User: text-xs text-stone-500 mt-1?\nAssistant:","completion":" text-xs text-stone-500 mt-1\n"}
+{"prompt":"User: inline-block text-xs mt-2 px-2 py-1 rounded ${ txn.status === 'completed' ? 'bg-green-100?\nAssistant:","completion":" inline-block text-xs mt-2 px-2 py-1 rounded ${ txn.status === 'completed' ? 'bg-green-100 text-green-800' : txn.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800' }\n"}
+{"prompt":"User: font-bold text-lg ${getTransactionColor(txn.type)}?\nAssistant:","completion":" font-bold text-lg ${getTransactionColor(txn.type)}\n"}
+{"prompt":"User: block text-sm font-medium text-stone-800 mb-2?\nAssistant:","completion":" block text-sm font-medium text-stone-800 mb-2\n"}
+{"prompt":"User: w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500?\nAssistant:","completion":" w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500\n"}
+{"prompt":"User: text-xs text-stone-500 mt-1?\nAssistant:","completion":" text-xs text-stone-500 mt-1\n"}
+{"prompt":"User: block text-sm font-medium text-stone-800 mb-2?\nAssistant:","completion":" block text-sm font-medium text-stone-800 mb-2\n"}
+{"prompt":"User: w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500?\nAssistant:","completion":" w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500\n"}
+{"prompt":"User: block text-sm font-medium text-stone-800 mb-2?\nAssistant:","completion":" block text-sm font-medium text-stone-800 mb-2\n"}
+{"prompt":"User: w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500?\nAssistant:","completion":" w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500\n"}
+{"prompt":"User: block text-sm font-medium text-stone-800 mb-2?\nAssistant:","completion":" block text-sm font-medium text-stone-800 mb-2\n"}
+{"prompt":"User: w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500?\nAssistant:","completion":" w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500\n"}
+{"prompt":"User: w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium transition?\nAssistant:","completion":" w-full px-4 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:bg-stone-300 font-medium transition\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: @/lib/auth/useAuthUser?\nAssistant:","completion":" @/lib/auth/useAuthUser\n"}
+{"prompt":"User: /api/wishlist?userId=${user.uid}?\nAssistant:","completion":" /api/wishlist?userId=${user.uid}\n"}
+{"prompt":"User: Failed to fetch wishlist:?\nAssistant:","completion":" Failed to fetch wishlist:\n"}
+{"prompt":"User: /api/wishlist?userId=${user.uid}&productId=${productId}?\nAssistant:","completion":" /api/wishlist?userId=${user.uid}&productId=${productId}\n"}
+{"prompt":"User: Failed to remove from wishlist:?\nAssistant:","completion":" Failed to remove from wishlist:\n"}
+{"prompt":"User: flex justify-center items-center min-h-screen?\nAssistant:","completion":" flex justify-center items-center min-h-screen\n"}
+{"prompt":"User: animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500?\nAssistant:","completion":" animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500\n"}
+{"prompt":"User: min-h-screen flex items-center justify-center?\nAssistant:","completion":" min-h-screen flex items-center justify-center\n"}
+{"prompt":"User: text-2xl font-semibold mb-4?\nAssistant:","completion":" text-2xl font-semibold mb-4\n"}
+{"prompt":"User: px-6 py-3 bg-emerald-500 text-white rounded-lg font-medium hover:bg-emerald-600?\nAssistant:","completion":" px-6 py-3 bg-emerald-500 text-white rounded-lg font-medium hover:bg-emerald-600\n"}
+{"prompt":"User: max-w-6xl mx-auto px-4?\nAssistant:","completion":" max-w-6xl mx-auto px-4\n"}
+{"prompt":"User: text-3xl font-semibold mb-8?\nAssistant:","completion":" text-3xl font-semibold mb-8\n"}
+{"prompt":"User: bg-white rounded-xl border border-sage-200 p-12 text-center?\nAssistant:","completion":" bg-white rounded-xl border border-sage-200 p-12 text-center\n"}
+{"prompt":"User: px-6 py-3 bg-emerald-500 text-white rounded-lg font-medium hover:bg-emerald-600?\nAssistant:","completion":" px-6 py-3 bg-emerald-500 text-white rounded-lg font-medium hover:bg-emerald-600\n"}
+{"prompt":"User: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6?\nAssistant:","completion":" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6\n"}
+{"prompt":"User: bg-white rounded-xl border border-sage-200 overflow-hidden shadow-sm hover:shadow-md transition?\nAssistant:","completion":" bg-white rounded-xl border border-sage-200 overflow-hidden shadow-sm hover:shadow-md transition\n"}
+{"prompt":"User: w-full h-48 bg-sage-100 flex items-center justify-center?\nAssistant:","completion":" w-full h-48 bg-sage-100 flex items-center justify-center\n"}
+{"prompt":"User: font-semibold text-stone-800 mb-2?\nAssistant:","completion":" font-semibold text-stone-800 mb-2\n"}
+{"prompt":"User: text-2xl font-bold text-orange-500?\nAssistant:","completion":" text-2xl font-bold text-orange-500\n"}
+{"prompt":"User: /listing/${item.productId}?\nAssistant:","completion":" /listing/${item.productId}\n"}
+{"prompt":"User: block w-full text-center px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition?\nAssistant:","completion":" block w-full text-center px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition\n"}
+{"prompt":"User: w-full px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition?\nAssistant:","completion":" w-full px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition\n"}
+{"prompt":"User: mt-3 pt-3 border-t border-sage-100 text-sm text-stone-400?\nAssistant:","completion":" mt-3 pt-3 border-t border-sage-100 text-sm text-stone-400\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: /api/invoices/generate?all=true?\nAssistant:","completion":" /api/invoices/generate?all=true\n"}
+{"prompt":"User: /api/admin/payouts?status=pending&includeDueInfo=true?\nAssistant:","completion":" /api/admin/payouts?status=pending&includeDueInfo=true\n"}
+{"prompt":"User: Khong the tai danh sach hoa don?\nAssistant:","completion":" Khong the tai danh sach hoa don\n"}
+{"prompt":"User: /api/invoices/payout?\nAssistant:","completion":" /api/invoices/payout\n"}
+{"prompt":"User: Khong the chi tra tu dong?\nAssistant:","completion":" Khong the chi tra tu dong\n"}
+{"prompt":"User: Da chi tra thanh cong cho don #${order.id.slice(0, 8)}. Hoa don ${data?.invoice?.invoiceNumber?\nAssistant:","completion":" Da chi tra thanh cong cho don #${order.id.slice(0, 8)}. Hoa don ${data?.invoice?.invoiceNumber || \"da duoc tao\"}.\n"}
+{"prompt":"User: Hoa don va chi tra seller?\nAssistant:","completion":" Hoa don va chi tra seller\n"}
+{"prompt":"User: Quan ly hoa don dich vu va xu ly chi tra cho?\nAssistant:","completion":" Quan ly hoa don dich vu va xu ly chi tra cho nguoi ban\n"}
+{"prompt":"User: rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800?\nAssistant:","completion":" rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800\n"}
+{"prompt":"User: Da mo tu don hang #${targetOrderId.slice(0, 8)}. Vui long thuc hien chi?\nAssistant:","completion":" Da mo tu don hang #${targetOrderId.slice(0, 8)}. Vui long thuc hien chi tra tai bang ben duoi.\n"}
+{"prompt":"User: Don #${targetOrderId.slice(0, 8)} khong nam trong danh sach cho chi tra (co?\nAssistant:","completion":" Don #${targetOrderId.slice(0, 8)} khong nam trong danh sach cho chi tra (co the da duoc xu ly).\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700?\nAssistant:","completion":" rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700\n"}
+{"prompt":"User: rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700?\nAssistant:","completion":" rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700\n"}
+{"prompt":"User: grid gap-4 md:grid-cols-3?\nAssistant:","completion":" grid gap-4 md:grid-cols-3\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: mt-2 text-2xl font-bold text-stone-900?\nAssistant:","completion":" mt-2 text-2xl font-bold text-stone-900\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: mt-2 text-2xl font-bold text-emerald-700?\nAssistant:","completion":" mt-2 text-2xl font-bold text-emerald-700\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: mt-2 text-2xl font-bold text-indigo-700?\nAssistant:","completion":" mt-2 text-2xl font-bold text-indigo-700\n"}
+{"prompt":"User: mb-4 flex items-center justify-between?\nAssistant:","completion":" mb-4 flex items-center justify-between\n"}
+{"prompt":"User: text-sm font-semibold text-stone-900?\nAssistant:","completion":" text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: rounded-lg border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-50?\nAssistant:","completion":" rounded-lg border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-50\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: border-b border-stone-200 text-left text-stone-500?\nAssistant:","completion":" border-b border-stone-200 text-left text-stone-500\n"}
+{"prompt":"User: border-b border-stone-100 ${isTarget ? \"bg-emerald-50/60\" : \"\"}?\nAssistant:","completion":" border-b border-stone-100 ${isTarget ? \"bg-emerald-50/60\" : \"\"}\n"}
+{"prompt":"User: px-3 py-2 font-medium text-stone-800?\nAssistant:","completion":" px-3 py-2 font-medium text-stone-800\n"}
+{"prompt":"User: ml-2 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700?\nAssistant:","completion":" ml-2 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700\n"}
+{"prompt":"User: px-3 py-2 text-stone-700?\nAssistant:","completion":" px-3 py-2 text-stone-700\n"}
+{"prompt":"User: px-3 py-2 text-red-600?\nAssistant:","completion":" px-3 py-2 text-red-600\n"}
+{"prompt":"User: px-3 py-2 font-semibold text-emerald-700?\nAssistant:","completion":" px-3 py-2 font-semibold text-emerald-700\n"}
+{"prompt":"User: rounded-full bg-emerald-100 px-2.5 py-1 text-xs text-emerald-700?\nAssistant:","completion":" rounded-full bg-emerald-100 px-2.5 py-1 text-xs text-emerald-700\n"}
+{"prompt":"User: rounded-full bg-amber-100 px-2.5 py-1 text-xs text-amber-700?\nAssistant:","completion":" rounded-full bg-amber-100 px-2.5 py-1 text-xs text-amber-700\n"}
+{"prompt":"User: rounded bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50?\nAssistant:","completion":" rounded bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50\n"}
+{"prompt":"User: Chi tra + tao hoa don?\nAssistant:","completion":" Chi tra + tao hoa don\n"}
+{"prompt":"User: mb-4 text-sm font-semibold text-stone-900?\nAssistant:","completion":" mb-4 text-sm font-semibold text-stone-900\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: border-b border-stone-200 text-left text-stone-500?\nAssistant:","completion":" border-b border-stone-200 text-left text-stone-500\n"}
+{"prompt":"User: border-b border-stone-100?\nAssistant:","completion":" border-b border-stone-100\n"}
+{"prompt":"User: px-3 py-2 font-medium text-stone-800?\nAssistant:","completion":" px-3 py-2 font-medium text-stone-800\n"}
+{"prompt":"User: px-3 py-2 text-stone-700?\nAssistant:","completion":" px-3 py-2 text-stone-700\n"}
+{"prompt":"User: px-3 py-2 text-red-600?\nAssistant:","completion":" px-3 py-2 text-red-600\n"}
+{"prompt":"User: px-3 py-2 font-semibold text-emerald-700?\nAssistant:","completion":" px-3 py-2 font-semibold text-emerald-700\n"}
+{"prompt":"User: px-3 py-2 text-xs text-stone-600?\nAssistant:","completion":" px-3 py-2 text-xs text-stone-600\n"}
+{"prompt":"User: ${inv.payoutDestination.bankName} - ${inv.payoutDestination.accountNumber}?\nAssistant:","completion":" ${inv.payoutDestination.bankName} - ${inv.payoutDestination.accountNumber}\n"}
+{"prompt":"User: px-3 py-2 text-stone-500?\nAssistant:","completion":" px-3 py-2 text-stone-500\n"}
+{"prompt":"User: /api/invoices/${inv.id}/pdf?\nAssistant:","completion":" /api/invoices/${inv.id}/pdf\n"}
+{"prompt":"User: rounded bg-slate-100 px-2 py-1 text-xs text-slate-700 hover:bg-slate-200?\nAssistant:","completion":" rounded bg-slate-100 px-2 py-1 text-xs text-slate-700 hover:bg-slate-200\n"}
+{"prompt":"User: @/lib/firebase/client?\nAssistant:","completion":" @/lib/firebase/client\n"}
+{"prompt":"User: Load listings error:?\nAssistant:","completion":" Load listings error:\n"}
+{"prompt":"User: Lỗi cập nhật trạng thái?\nAssistant:","completion":" Lỗi cập nhật trạng thái\n"}
+{"prompt":"User: /api/admin/listings/approval?\nAssistant:","completion":" /api/admin/listings/approval\n"}
+{"prompt":"User: ✅ Tin đăng đã được duyệt!?\nAssistant:","completion":" ✅ Tin đăng đã được duyệt!\n"}
+{"prompt":"User: ❌ Lỗi duyệt tin đăng?\nAssistant:","completion":" ❌ Lỗi duyệt tin đăng\n"}
+{"prompt":"User: /api/admin/listings/approval?\nAssistant:","completion":" /api/admin/listings/approval\n"}
+{"prompt":"User: ✅ Tin đăng đã bị từ chối?\nAssistant:","completion":" ✅ Tin đăng đã bị từ chối\n"}
+{"prompt":"User: ❌ Lỗi từ chối tin đăng?\nAssistant:","completion":" ❌ Lỗi từ chối tin đăng\n"}
+{"prompt":"User: Bạn chắc chắn muốn xóa tin đăng này?\nAssistant:","completion":" Bạn chắc chắn muốn xóa tin đăng này?\n"}
+{"prompt":"User: Load seller details error:?\nAssistant:","completion":" Load seller details error:\n"}
+{"prompt":"User: space-y-6 animate-pulse?\nAssistant:","completion":" space-y-6 animate-pulse\n"}
+{"prompt":"User: h-36 rounded-2xl bg-emerald-100/50?\nAssistant:","completion":" h-36 rounded-2xl bg-emerald-100/50\n"}
+{"prompt":"User: h-12 bg-white/80 rounded-2xl border border-sage-200?\nAssistant:","completion":" h-12 bg-white/80 rounded-2xl border border-sage-200\n"}
+{"prompt":"User: h-18 bg-white/80 rounded-2xl border border-sage-200?\nAssistant:","completion":" h-18 bg-white/80 rounded-2xl border border-sage-200\n"}
+{"prompt":"User: fixed top-4 right-4 z-50 glass-dark text-white px-5 py-3 rounded-2xl text-sm shadow-xl animate-fadeInDown?\nAssistant:","completion":" fixed top-4 right-4 z-50 glass-dark text-white px-5 py-3 rounded-2xl text-sm shadow-xl animate-fadeInDown font-medium\n"}
+{"prompt":"User: relative rounded-2xl bg-gradient-to-br from-emerald-800 via-emerald-700 to-emerald-900 px-6 md:px-8 py-8 shadow-lg overflow-hidden animate-fadeInUp?\nAssistant:","completion":" relative rounded-2xl bg-gradient-to-br from-emerald-800 via-emerald-700 to-emerald-900 px-6 md:px-8 py-8 shadow-lg overflow-hidden animate-fadeInUp\n"}
+{"prompt":"User: absolute inset-0 pattern-dots opacity-10?\nAssistant:","completion":" absolute inset-0 pattern-dots opacity-10\n"}
+{"prompt":"User: absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl?\nAssistant:","completion":" absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl\n"}
+{"prompt":"User: absolute -bottom-8 -left-8 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl?\nAssistant:","completion":" absolute -bottom-8 -left-8 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl\n"}
+{"prompt":"User: text-xs font-bold uppercase tracking-widest text-emerald-300/80 mb-2?\nAssistant:","completion":" text-xs font-bold uppercase tracking-widest text-emerald-300/80 mb-2\n"}
+{"prompt":"User: text-3xl font-extrabold text-white tracking-tight?\nAssistant:","completion":" text-3xl font-extrabold text-white tracking-tight\n"}
+{"prompt":"User: h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-emerald-400 mt-3?\nAssistant:","completion":" h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-emerald-400 mt-3\n"}
+{"prompt":"User: text-sm text-emerald-100/70 mt-3?\nAssistant:","completion":" text-sm text-emerald-100/70 mt-3\n"}
+{"prompt":"User: flex flex-col md:flex-row gap-3 animate-fadeInUp?\nAssistant:","completion":" flex flex-col md:flex-row gap-3 animate-fadeInUp\n"}
+{"prompt":"User: absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400?\nAssistant:","completion":" absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400\n"}
+{"prompt":"User: M21 21l-6-6m2-5a[PHONE]z?\nAssistant:","completion":" M21 21l-6-6m2-5a[PHONE]z\n"}
+{"prompt":"User: Tìm theo tiêu đề, seller ID...?\nAssistant:","completion":" Tìm theo tiêu đề, seller ID...\n"}
+{"prompt":"User: w-full pl-10 pr-4 py-3 rounded-2xl border border-sage-300 bg-white/90 backdrop-blur-sm text-sm focus:outline-none focus:ring-2?\nAssistant:","completion":" w-full pl-10 pr-4 py-3 rounded-2xl border border-sage-300 bg-white/90 backdrop-blur-sm text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200\n"}
+{"prompt":"User: flex gap-2 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 p-1.5?\nAssistant:","completion":" flex gap-2 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 p-1.5\n"}
+{"prompt":"User: px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 ${approvalFilter === a ?\nAssistant:","completion":" px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 ${approvalFilter === a ? \"bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md shadow-blue-500/20\" : \"text-stone-600 hover:bg-blue-50/60 hover:text-blue-700\"}\n"}
+{"prompt":"User: animate-fadeInUp bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden?\nAssistant:","completion":" animate-fadeInUp bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden\n"}
+{"prompt":"User: w-full min-w-[800px]?\nAssistant:","completion":" w-full min-w-[800px]\n"}
+{"prompt":"User: bg-gradient-to-r from-emerald-50/80 via-white to-cream-50/60?\nAssistant:","completion":" bg-gradient-to-r from-emerald-50/80 via-white to-cream-50/60\n"}
+{"prompt":"User: text-left px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider?\nAssistant:","completion":" text-left px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider\n"}
+{"prompt":"User: text-left px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider?\nAssistant:","completion":" text-left px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider\n"}
+{"prompt":"User: text-left px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider?\nAssistant:","completion":" text-left px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider\n"}
+{"prompt":"User: text-right px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider?\nAssistant:","completion":" text-right px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider\n"}
+{"prompt":"User: text-center px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider?\nAssistant:","completion":" text-center px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider\n"}
+{"prompt":"User: text-right px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider?\nAssistant:","completion":" text-right px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider\n"}
+{"prompt":"User: text-right px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider?\nAssistant:","completion":" text-right px-6 py-4 text-xs font-bold text-stone-500 uppercase tracking-wider\n"}
+{"prompt":"User: h-px bg-gradient-to-r from-emerald-300/40 via-amber-300/30 to-transparent?\nAssistant:","completion":" h-px bg-gradient-to-r from-emerald-300/40 via-amber-300/30 to-transparent\n"}
+{"prompt":"User: divide-y divide-sage-100/60?\nAssistant:","completion":" divide-y divide-sage-100/60\n"}
+{"prompt":"User: py-16 text-center text-stone-400 text-sm?\nAssistant:","completion":" py-16 text-center text-stone-400 text-sm\n"}
+{"prompt":"User: hover:bg-emerald-50/30 transition-colors duration-200 group?\nAssistant:","completion":" hover:bg-emerald-50/30 transition-colors duration-200 group\n"}
+{"prompt":"User: text-sm font-semibold text-stone-700 truncate max-w-[240px]?\nAssistant:","completion":" text-sm font-semibold text-stone-700 truncate max-w-[240px]\n"}
+{"prompt":"User: text-xs text-stone-400 mt-0.5 truncate max-w-[240px]?\nAssistant:","completion":" text-xs text-stone-400 mt-0.5 truncate max-w-[240px]\n"}
+{"prompt":"User: px-3 py-1 rounded-full text-xs font-semibold ${l.type === \"art\" ? \"bg-purple-100 text-purple-800\" :?\nAssistant:","completion":" px-3 py-1 rounded-full text-xs font-semibold ${l.type === \"art\" ? \"bg-purple-100 text-purple-800\" : \"bg-amber-100 text-amber-800\"}\n"}
+{"prompt":"User: font-mono text-xs text-stone-500 bg-stone-50 px-2 py-1 rounded-lg?\nAssistant:","completion":" font-mono text-xs text-stone-500 bg-stone-50 px-2 py-1 rounded-lg\n"}
+{"prompt":"User: px-6 py-4 text-right?\nAssistant:","completion":" px-6 py-4 text-right\n"}
+{"prompt":"User: text-sm font-bold text-stone-800?\nAssistant:","completion":" text-sm font-bold text-stone-800\n"}
+{"prompt":"User: text-xs text-stone-400 ml-1?\nAssistant:","completion":" text-xs text-stone-400 ml-1\n"}
+{"prompt":"User: px-6 py-4 text-center?\nAssistant:","completion":" px-6 py-4 text-center\n"}
+{"prompt":"User: inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${ l.status === \"active\"?\nAssistant:","completion":" inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${ l.status === \"active\" ? \"bg-green-100 text-green-800\" : l.status === \"hidden\" ? \"bg-red-100 text-red-800\" : \"bg-stone-100 text-stone-600\" }\n"}
+{"prompt":"User: w-1.5 h-1.5 rounded-full ${l.status === \"active\" ? \"bg-green-500\" : l.status === \"hidden\"?\nAssistant:","completion":" w-1.5 h-1.5 rounded-full ${l.status === \"active\" ? \"bg-green-500\" : l.status === \"hidden\" ? \"bg-red-400\" : \"bg-stone-400\"}\n"}
+{"prompt":"User: bg-blue-100 text-blue-800 px-2 py-1 rounded-full?\nAssistant:","completion":" bg-blue-100 text-blue-800 px-2 py-1 rounded-full\n"}
+{"prompt":"User: bg-green-100 text-green-800 px-2 py-1 rounded-full?\nAssistant:","completion":" bg-green-100 text-green-800 px-2 py-1 rounded-full\n"}
+{"prompt":"User: bg-red-100 text-red-800 px-2 py-1 rounded-full?\nAssistant:","completion":" bg-red-100 text-red-800 px-2 py-1 rounded-full\n"}
+{"prompt":"User: bg-amber-100 text-amber-800 px-2 py-1 rounded-full?\nAssistant:","completion":" bg-amber-100 text-amber-800 px-2 py-1 rounded-full\n"}
+{"prompt":"User: px-6 py-4 text-right text-xs text-stone-500 font-medium?\nAssistant:","completion":" px-6 py-4 text-right text-xs text-stone-500 font-medium\n"}
+{"prompt":"User: px-6 py-4 text-right?\nAssistant:","completion":" px-6 py-4 text-right\n"}
+{"prompt":"User: flex items-center justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity duration-200?\nAssistant:","completion":" flex items-center justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity duration-200\n"}
+{"prompt":"User: px-3 py-1.5 rounded-xl text-xs font-semibold border border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 disabled:opacity-50 transition-all?\nAssistant:","completion":" px-3 py-1.5 rounded-xl text-xs font-semibold border border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 disabled:opacity-50 transition-all duration-200\n"}
+{"prompt":"User: px-3 py-1.5 rounded-xl text-xs font-semibold border border-green-300 bg-green-50 text-green-700 hover:bg-green-100 disabled:opacity-50 transition-all?\nAssistant:","completion":" px-3 py-1.5 rounded-xl text-xs font-semibold border border-green-300 bg-green-50 text-green-700 hover:bg-green-100 disabled:opacity-50 transition-all duration-200\n"}
+{"prompt":"User: Seller chưa đồng ý thỏa thuận phí?\nAssistant:","completion":" Seller chưa đồng ý thỏa thuận phí\n"}
+{"prompt":"User: px-3 py-1.5 rounded-xl text-xs font-semibold border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 disabled:opacity-50 transition-all?\nAssistant:","completion":" px-3 py-1.5 rounded-xl text-xs font-semibold border border-red-300 bg-red-50 text-red-700 hover:bg-red-100 disabled:opacity-50 transition-all duration-200\n"}
+{"prompt":"User: px-3 py-1.5 rounded-xl text-xs font-semibold border border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 disabled:opacity-50 transition-all?\nAssistant:","completion":" px-3 py-1.5 rounded-xl text-xs font-semibold border border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 disabled:opacity-50 transition-all duration-200\n"}
+{"prompt":"User: px-3 py-1.5 rounded-xl text-xs font-semibold border border-sage-300 bg-white text-stone-600 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700?\nAssistant:","completion":" px-3 py-1.5 rounded-xl text-xs font-semibold border border-sage-300 bg-white text-stone-600 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 disabled:opacity-50 transition-all duration-200\n"}
+{"prompt":"User: px-3 py-1.5 rounded-xl text-xs font-semibold border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50 transition-all?\nAssistant:","completion":" px-3 py-1.5 rounded-xl text-xs font-semibold border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 disabled:opacity-50 transition-all duration-200\n"}
+{"prompt":"User: bg-blue-50/50 border-t-2 border-blue-200?\nAssistant:","completion":" bg-blue-50/50 border-t-2 border-blue-200\n"}
+{"prompt":"User: rounded-xl border border-amber-200 bg-amber-50 p-4?\nAssistant:","completion":" rounded-xl border border-amber-200 bg-amber-50 p-4\n"}
+{"prompt":"User: text-sm font-bold text-amber-900?\nAssistant:","completion":" text-sm font-bold text-amber-900\n"}
+{"prompt":"User: mt-3 grid gap-3 text-sm md:grid-cols-4?\nAssistant:","completion":" mt-3 grid gap-3 text-sm md:grid-cols-4\n"}
+{"prompt":"User: rounded-lg bg-white p-3 border border-amber-100?\nAssistant:","completion":" rounded-lg bg-white p-3 border border-amber-100\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: font-semibold text-stone-800?\nAssistant:","completion":" font-semibold text-stone-800\n"}
+{"prompt":"User: rounded-lg bg-white p-3 border border-amber-100?\nAssistant:","completion":" rounded-lg bg-white p-3 border border-amber-100\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: font-semibold text-stone-800?\nAssistant:","completion":" font-semibold text-stone-800\n"}
+{"prompt":"User: Seller giao trực tiếp?\nAssistant:","completion":" Seller giao trực tiếp\n"}
+{"prompt":"User: rounded-lg bg-white p-3 border border-amber-100?\nAssistant:","completion":" rounded-lg bg-white p-3 border border-amber-100\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: font-semibold text-stone-800?\nAssistant:","completion":" font-semibold text-stone-800\n"}
+{"prompt":"User: rounded-lg bg-white p-3 border border-amber-100?\nAssistant:","completion":" rounded-lg bg-white p-3 border border-amber-100\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: font-semibold ${l.agreement?.sellerAccepted ? \"text-emerald-700\" : \"text-red-700\"}?\nAssistant:","completion":" font-semibold ${l.agreement?.sellerAccepted ? \"text-emerald-700\" : \"text-red-700\"}\n"}
+{"prompt":"User: grid md:grid-cols-2 gap-8?\nAssistant:","completion":" grid md:grid-cols-2 gap-8\n"}
+{"prompt":"User: font-bold text-stone-900 text-base?\nAssistant:","completion":" font-bold text-stone-900 text-base\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: space-y-3 bg-white p-4 rounded-lg border border-blue-200?\nAssistant:","completion":" space-y-3 bg-white p-4 rounded-lg border border-blue-200\n"}
+{"prompt":"User: text-xs text-stone-500 font-semibold?\nAssistant:","completion":" text-xs text-stone-500 font-semibold\n"}
+{"prompt":"User: text-sm text-stone-800 font-medium?\nAssistant:","completion":" text-sm text-stone-800 font-medium\n"}
+{"prompt":"User: text-xs text-stone-500 font-semibold?\nAssistant:","completion":" text-xs text-stone-500 font-semibold\n"}
+{"prompt":"User: text-sm text-stone-800 break-all?\nAssistant:","completion":" text-sm text-stone-800 break-all\n"}
+{"prompt":"User: text-xs text-stone-500 font-semibold?\nAssistant:","completion":" text-xs text-stone-500 font-semibold\n"}
+{"prompt":"User: text-sm text-stone-800 font-medium?\nAssistant:","completion":" text-sm text-stone-800 font-medium\n"}
+{"prompt":"User: text-xs text-stone-500 font-semibold?\nAssistant:","completion":" text-xs text-stone-500 font-semibold\n"}
+{"prompt":"User: inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold?\nAssistant:","completion":" inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold\n"}
+{"prompt":"User: inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold?\nAssistant:","completion":" inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold\n"}
+{"prompt":"User: text-xs text-stone-500 font-semibold?\nAssistant:","completion":" text-xs text-stone-500 font-semibold\n"}
+{"prompt":"User: inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${ sellerInfo.accountStatus === \"active\" ?\nAssistant:","completion":" inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${ sellerInfo.accountStatus === \"active\" ? \"bg-green-100 text-green-700\" : sellerInfo.accountStatus === \"suspended\" ? \"bg-red-100 text-red-700\" : \"bg-stone-100 text-stone-700\" }\n"}
+{"prompt":"User: text-xs text-stone-500 font-semibold?\nAssistant:","completion":" text-xs text-stone-500 font-semibold\n"}
+{"prompt":"User: text-sm text-stone-800 font-medium?\nAssistant:","completion":" text-sm text-stone-800 font-medium\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: font-bold text-stone-900 text-base?\nAssistant:","completion":" font-bold text-stone-900 text-base\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: space-y-3 max-h-96 overflow-y-auto?\nAssistant:","completion":" space-y-3 max-h-96 overflow-y-auto\n"}
+{"prompt":"User: bg-white p-3 rounded-lg border border-blue-200 space-y-2?\nAssistant:","completion":" bg-white p-3 rounded-lg border border-blue-200 space-y-2\n"}
+{"prompt":"User: flex items-center justify-between?\nAssistant:","completion":" flex items-center justify-between\n"}
+{"prompt":"User: text-yellow-400 text-lg?\nAssistant:","completion":" text-yellow-400 text-lg\n"}
+{"prompt":"User: text-stone-300 text-lg?\nAssistant:","completion":" text-stone-300 text-lg\n"}
+{"prompt":"User: text-xs text-stone-400?\nAssistant:","completion":" text-xs text-stone-400\n"}
+{"prompt":"User: text-sm text-stone-800?\nAssistant:","completion":" text-sm text-stone-800\n"}
+{"prompt":"User: text-xs text-stone-500?\nAssistant:","completion":" text-xs text-stone-500\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}
+{"prompt":"User: fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4?\nAssistant:","completion":" fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4\n"}
+{"prompt":"User: bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 space-y-4 animate-fadeIn?\nAssistant:","completion":" bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 space-y-4 animate-fadeIn\n"}
+{"prompt":"User: text-lg font-bold text-stone-900?\nAssistant:","completion":" text-lg font-bold text-stone-900\n"}
+{"prompt":"User: Nhập lý do từ chối (tùy chọn)...?\nAssistant:","completion":" Nhập lý do từ chối (tùy chọn)...\n"}
+{"prompt":"User: w-full h-24 p-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm?\nAssistant:","completion":" w-full h-24 p-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm\n"}
+{"prompt":"User: flex gap-3 justify-end?\nAssistant:","completion":" flex gap-3 justify-end\n"}
+{"prompt":"User: px-4 py-2 rounded-xl text-sm font-semibold border border-stone-300 bg-white text-stone-600 hover:bg-stone-50 disabled:opacity-50?\nAssistant:","completion":" px-4 py-2 rounded-xl text-sm font-semibold border border-stone-300 bg-white text-stone-600 hover:bg-stone-50 disabled:opacity-50\n"}
+{"prompt":"User: px-4 py-2 rounded-xl text-sm font-semibold bg-red-600 text-white hover:bg-red-700 disabled:opacity-50?\nAssistant:","completion":" px-4 py-2 rounded-xl text-sm font-semibold bg-red-600 text-white hover:bg-red-700 disabled:opacity-50\n"}
+{"prompt":"User: @/components/admin/InventoryManagement?\nAssistant:","completion":" @/components/admin/InventoryManagement\n"}
+{"prompt":"User: @/components/admin/OrderManagement?\nAssistant:","completion":" @/components/admin/OrderManagement\n"}
+{"prompt":"User: @/components/admin/SettlementDashboard?\nAssistant:","completion":" @/components/admin/SettlementDashboard\n"}
+{"prompt":"User: /api/admin-chat?all=true?\nAssistant:","completion":" /api/admin-chat?all=true\n"}
+{"prompt":"User: Error fetching conversations:?\nAssistant:","completion":" Error fetching conversations:\n"}
+{"prompt":"User: Failed to send reply?\nAssistant:","completion":" Failed to send reply\n"}
+{"prompt":"User: /api/admin-chat?all=true?\nAssistant:","completion":" /api/admin-chat?all=true\n"}
+{"prompt":"User: space-y-6 animate-pulse?\nAssistant:","completion":" space-y-6 animate-pulse\n"}
+{"prompt":"User: h-36 rounded-2xl bg-emerald-100/50?\nAssistant:","completion":" h-36 rounded-2xl bg-emerald-100/50\n"}
+{"prompt":"User: h-[500px] bg-white/80 rounded-2xl border border-sage-200?\nAssistant:","completion":" h-[500px] bg-white/80 rounded-2xl border border-sage-200\n"}
+{"prompt":"User: fixed top-4 right-4 z-50 glass-dark text-white px-5 py-3 rounded-2xl text-sm shadow-xl animate-fadeInDown?\nAssistant:","completion":" fixed top-4 right-4 z-50 glass-dark text-white px-5 py-3 rounded-2xl text-sm shadow-xl animate-fadeInDown font-medium\n"}
+{"prompt":"User: relative rounded-2xl bg-gradient-to-br from-emerald-800 via-emerald-700 to-emerald-900 px-6 md:px-8 py-8 shadow-lg overflow-hidden animate-fadeInUp?\nAssistant:","completion":" relative rounded-2xl bg-gradient-to-br from-emerald-800 via-emerald-700 to-emerald-900 px-6 md:px-8 py-8 shadow-lg overflow-hidden animate-fadeInUp\n"}
+{"prompt":"User: absolute inset-0 pattern-dots opacity-10?\nAssistant:","completion":" absolute inset-0 pattern-dots opacity-10\n"}
+{"prompt":"User: absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl?\nAssistant:","completion":" absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl\n"}
+{"prompt":"User: absolute -bottom-8 -left-8 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl?\nAssistant:","completion":" absolute -bottom-8 -left-8 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl\n"}
+{"prompt":"User: relative flex flex-col md:flex-row md:items-end md:justify-between gap-4?\nAssistant:","completion":" relative flex flex-col md:flex-row md:items-end md:justify-between gap-4\n"}
+{"prompt":"User: text-xs font-bold uppercase tracking-widest text-emerald-300/80 mb-2?\nAssistant:","completion":" text-xs font-bold uppercase tracking-widest text-emerald-300/80 mb-2\n"}
+{"prompt":"User: text-3xl font-extrabold text-white tracking-tight?\nAssistant:","completion":" text-3xl font-extrabold text-white tracking-tight\n"}
+{"prompt":"User: h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-emerald-400 mt-3?\nAssistant:","completion":" h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-emerald-400 mt-3\n"}
+{"prompt":"User: text-sm text-emerald-100/70 mt-3?\nAssistant:","completion":" text-sm text-emerald-100/70 mt-3\n"}
+{"prompt":"User: flex items-center gap-2?\nAssistant:","completion":" flex items-center gap-2\n"}
+{"prompt":"User: bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-2.5 text-center?\nAssistant:","completion":" bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-2.5 text-center\n"}
+{"prompt":"User: text-lg font-extrabold text-amber-300?\nAssistant:","completion":" text-lg font-extrabold text-amber-300\n"}
+{"prompt":"User: text-[10px] text-emerald-200/80 font-medium?\nAssistant:","completion":" text-[10px] text-emerald-200/80 font-medium\n"}
+{"prompt":"User: animate-fadeInUp flex flex-col lg:flex-row gap-4 h-[600px]?\nAssistant:","completion":" animate-fadeInUp flex flex-col lg:flex-row gap-4 h-[600px]\n"}
+{"prompt":"User: w-full lg:w-80 flex-shrink-0 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm overflow-hidden flex flex-col?\nAssistant:","completion":" w-full lg:w-80 flex-shrink-0 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm overflow-hidden flex flex-col\n"}
+{"prompt":"User: p-3 border-b border-sage-100/60?\nAssistant:","completion":" p-3 border-b border-sage-100/60\n"}
+{"prompt":"User: absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400?\nAssistant:","completion":" absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400\n"}
+{"prompt":"User: M21 21l-6-6m2-5a[PHONE]z?\nAssistant:","completion":" M21 21l-6-6m2-5a[PHONE]z\n"}
+{"prompt":"User: w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border border-sage-300 bg-white/90 focus:ring-2 focus:ring-emerald-500 focus:outline-none?\nAssistant:","completion":" w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border border-sage-300 bg-white/90 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all\n"}
+{"prompt":"User: flex-1 overflow-y-auto?\nAssistant:","completion":" flex-1 overflow-y-auto\n"}
+{"prompt":"User: flex items-center justify-center h-full p-4 text-center text-stone-400 text-sm?\nAssistant:","completion":" flex items-center justify-center h-full p-4 text-center text-stone-400 text-sm\n"}
+{"prompt":"User: w-10 h-10 mx-auto mb-2 text-stone-300?\nAssistant:","completion":" w-10 h-10 mx-auto mb-2 text-stone-300\n"}
+{"prompt":"User: M8 12h.01M12 12h.01M16 12h.01M21 12c[PHONE]a[PHONE]L3 20l[PHONE]C[PHONE]c[PHONE]s[PHONE]z?\nAssistant:","completion":" M8 12h.01M12 12h.01M16 12h.01M21 12c[PHONE]a[PHONE]L3 20l[PHONE]C[PHONE]c[PHONE]s[PHONE]z\n"}
+{"prompt":"User: w-full text-left px-4 py-3.5 rounded-xl transition-all duration-200 ${isSelected ? \"bg-gradient-to-r from-emerald-500 to-emerald-600?\nAssistant:","completion":" w-full text-left px-4 py-3.5 rounded-xl transition-all duration-200 ${isSelected ? \"bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/20\" : \"hover:bg-emerald-50/60 group\"}\n"}
+{"prompt":"User: flex items-center gap-3?\nAssistant:","completion":" flex items-center gap-3\n"}
+{"prompt":"User: w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${isSelected ? \"bg-white/20?\nAssistant:","completion":" w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 ${isSelected ? \"bg-white/20 text-white\" : \"bg-emerald-100 text-emerald-700\"}\n"}
+{"prompt":"User: flex items-center justify-between?\nAssistant:","completion":" flex items-center justify-between\n"}
+{"prompt":"User: text-sm font-bold truncate ${isSelected ? \"text-white\" : \"text-stone-800\"}?\nAssistant:","completion":" text-sm font-bold truncate ${isSelected ? \"text-white\" : \"text-stone-800\"}\n"}
+{"prompt":"User: text-[10px] flex-shrink-0 ${isSelected ? \"text-emerald-200\" : \"text-stone-400\"}?\nAssistant:","completion":" text-[10px] flex-shrink-0 ${isSelected ? \"text-emerald-200\" : \"text-stone-400\"}\n"}
+{"prompt":"User: text-xs truncate mt-0.5 ${isSelected ? \"text-emerald-100\" : \"text-stone-400\"}?\nAssistant:","completion":" text-xs truncate mt-0.5 ${isSelected ? \"text-emerald-100\" : \"text-stone-400\"}\n"}
+{"prompt":"User: text-[10px] mt-1 ${isSelected ? \"text-emerald-200/70\" : \"text-stone-300\"}?\nAssistant:","completion":" text-[10px] mt-1 ${isSelected ? \"text-emerald-200/70\" : \"text-stone-300\"}\n"}
+{"prompt":"User: flex-1 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm overflow-hidden flex flex-col?\nAssistant:","completion":" flex-1 bg-white/90 backdrop-blur-sm rounded-2xl border border-sage-200/80 shadow-sm overflow-hidden flex flex-col\n"}
+{"prompt":"User: px-5 py-4 border-b border-sage-100/60 bg-gradient-to-r from-emerald-50/80 via-white to-cream-50/60?\nAssistant:","completion":" px-5 py-4 border-b border-sage-100/60 bg-gradient-to-r from-emerald-50/80 via-white to-cream-50/60\n"}
+{"prompt":"User: flex items-center gap-3?\nAssistant:","completion":" flex items-center gap-3\n"}
+{"prompt":"User: w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold?\nAssistant:","completion":" w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold\n"}
+{"prompt":"User: text-sm font-bold text-stone-800?\nAssistant:","completion":" text-sm font-bold text-stone-800\n"}
+{"prompt":"User: text-xs text-stone-400?\nAssistant:","completion":" text-xs text-stone-400\n"}
+{"prompt":"User: font-mono text-[10px]?\nAssistant:","completion":" font-mono text-[10px]\n"}
+{"prompt":"User: flex-1 overflow-y-auto px-5 py-4 space-y-3 bg-gradient-to-b from-sage-50/30 to-white/50?\nAssistant:","completion":" flex-1 overflow-y-auto px-5 py-4 space-y-3 bg-gradient-to-b from-sage-50/30 to-white/50\n"}
+{"prompt":"User: flex items-center gap-3 my-4?\nAssistant:","completion":" flex items-center gap-3 my-4\n"}
+{"prompt":"User: flex-1 h-px bg-sage-200/50?\nAssistant:","completion":" flex-1 h-px bg-sage-200/50\n"}
+{"prompt":"User: text-[10px] font-medium text-stone-400 bg-sage-50 px-2 py-0.5 rounded-full?\nAssistant:","completion":" text-[10px] font-medium text-stone-400 bg-sage-50 px-2 py-0.5 rounded-full\n"}
+{"prompt":"User: flex-1 h-px bg-sage-200/50?\nAssistant:","completion":" flex-1 h-px bg-sage-200/50\n"}
+{"prompt":"User: flex ${msg.isAdmin ? \"justify-start\" : \"justify-end\"}?\nAssistant:","completion":" flex ${msg.isAdmin ? \"justify-start\" : \"justify-end\"}\n"}
+{"prompt":"User: max-w-[75%] px-4 py-3 text-sm ${msg.isAdmin ? \"bg-white border border-sage-200/60 rounded-2xl rounded-bl-sm text-stone-700?\nAssistant:","completion":" max-w-[75%] px-4 py-3 text-sm ${msg.isAdmin ? \"bg-white border border-sage-200/60 rounded-2xl rounded-bl-sm text-stone-700 shadow-sm\" : \"bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl rounded-br-sm shadow-md shadow-emerald-500/10\"}\n"}
+{"prompt":"User: text-[10px] font-bold text-emerald-600 mb-1?\nAssistant:","completion":" text-[10px] font-bold text-emerald-600 mb-1\n"}
+{"prompt":"User: break-words whitespace-pre-wrap leading-relaxed?\nAssistant:","completion":" break-words whitespace-pre-wrap leading-relaxed\n"}
+{"prompt":"User: text-[10px] mt-1.5 ${msg.isAdmin ? \"text-stone-400\" : \"text-emerald-200\"}?\nAssistant:","completion":" text-[10px] mt-1.5 ${msg.isAdmin ? \"text-stone-400\" : \"text-emerald-200\"}\n"}
+{"prompt":"User: border-t border-sage-100/60 p-4 bg-white/80?\nAssistant:","completion":" border-t border-sage-100/60 p-4 bg-white/80\n"}
+{"prompt":"User: flex-1 px-4 py-3 text-sm rounded-2xl border border-sage-300 bg-white/90 backdrop-blur-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none?\nAssistant:","completion":" flex-1 px-4 py-3 text-sm rounded-2xl border border-sage-300 bg-white/90 backdrop-blur-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none resize-none transition-all placeholder:text-stone-400\n"}
+{"prompt":"User: px-5 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white hover:shadow-lg hover:shadow-emerald-500/20 disabled:opacity-40?\nAssistant:","completion":" px-5 py-3 rounded-2xl text-sm font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white hover:shadow-lg hover:shadow-emerald-500/20 disabled:opacity-40 transition-all duration-200 active:scale-[0.97] self-end\n"}
+{"prompt":"User: w-5 h-5 animate-spin?\nAssistant:","completion":" w-5 h-5 animate-spin\n"}
+{"prompt":"User: M4 12a[PHONE]V0C[PHONE]h4z?\nAssistant:","completion":" M4 12a[PHONE]V0C[PHONE]h4z\n"}
+{"prompt":"User: flex-1 flex items-center justify-center?\nAssistant:","completion":" flex-1 flex items-center justify-center\n"}
+{"prompt":"User: w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-cream-100 flex items-center justify-center mx-auto mb-4?\nAssistant:","completion":" w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-cream-100 flex items-center justify-center mx-auto mb-4\n"}
+{"prompt":"User: w-8 h-8 text-emerald-500?\nAssistant:","completion":" w-8 h-8 text-emerald-500\n"}
+{"prompt":"User: M8 12h.01M12 12h.01M16 12h.01M21 12c[PHONE]a[PHONE]L3 20l[PHONE]C[PHONE]c[PHONE]s[PHONE]z?\nAssistant:","completion":" M8 12h.01M12 12h.01M16 12h.01M21 12c[PHONE]a[PHONE]L3 20l[PHONE]C[PHONE]c[PHONE]s[PHONE]z\n"}
+{"prompt":"User: text-sm font-bold text-stone-700?\nAssistant:","completion":" text-sm font-bold text-stone-700\n"}
+{"prompt":"User: text-xs text-stone-400 mt-1?\nAssistant:","completion":" text-xs text-stone-400 mt-1\n"}
+{"prompt":"User: @/components/ui/Card?\nAssistant:","completion":" @/components/ui/Card\n"}
+{"prompt":"User: @/components/ui/PageHeader?\nAssistant:","completion":" @/components/ui/PageHeader\n"}
+{"prompt":"User: Hình ảnh không phù hợp?\nAssistant:","completion":" Hình ảnh không phù hợp\n"}
+{"prompt":"User: Failed to load listings:?\nAssistant:","completion":" Failed to load listings:\n"}
+{"prompt":"User: /api/admin-moderation/${listingId}?\nAssistant:","completion":" /api/admin-moderation/${listingId}\n"}
+{"prompt":"User: /api/admin-moderation/${listingId}?\nAssistant:","completion":" /api/admin-moderation/${listingId}\n"}
+{"prompt":"User: min-h-screen bg-sage-50?\nAssistant:","completion":" min-h-screen bg-sage-50\n"}
+{"prompt":"User: Kiểm duyệt và ẩn bài đăng vi phạm.?\nAssistant:","completion":" Kiểm duyệt và ẩn bài đăng vi phạm.\n"}
+{"prompt":"User: max-w-6xl mx-auto px-4 py-8?\nAssistant:","completion":" max-w-6xl mx-auto px-4 py-8\n"}
+{"prompt":"User: grid grid-cols-1 md:grid-cols-3 gap-4 mb-8?\nAssistant:","completion":" grid grid-cols-1 md:grid-cols-3 gap-4 mb-8\n"}
+{"prompt":"User: text-sm text-stone-500?\nAssistant:","completion":" text-sm text-stone-500\n"}

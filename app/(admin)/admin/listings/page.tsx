@@ -20,6 +20,15 @@ export default function AdminListingsPage() {
   const [showRejectDialog, setShowRejectDialog] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [sellerInfo, setSellerInfo] = useState<any>(null);
+  const [sellerProfile, setSellerProfile] = useState<any>(null);
+  const [sellerListingStats, setSellerListingStats] = useState<{
+    total: number;
+    active: number;
+    hidden: number;
+    pending: number;
+    approved: number;
+    rejected: number;
+  } | null>(null);
   const [sellerReviews, setSellerReviews] = useState<any[]>([]);
   const [loadingDetails, setLoadingDetails] = useState(false);
 
@@ -119,21 +128,20 @@ export default function AdminListingsPage() {
   async function loadSellerDetails(sellerId: string) {
     setLoadingDetails(true);
     try {
-      // Load seller info
-      const { doc: fDoc, getDoc } = await import("firebase/firestore");
-      const sellerRef = fDoc(firebaseDb, "users", sellerId);
-      const sellerSnap = await getDoc(sellerRef);
-      setSellerInfo(sellerSnap.exists() ? sellerSnap.data() : null);
+      const res = await fetch(`/api/admin/sellers/${sellerId}`);
+      const data = await res.json();
 
-      // Load seller reviews (without orderBy to avoid needing composite index)
-      const { collection: fCollection, getDocs: fGetDocs, query: fQuery, where } = await import("firebase/firestore");
-      const reviewsSnap = await fGetDocs(fQuery(
-        fCollection(firebaseDb, "reviews"),
-        where("sellerId", "==", sellerId)
-      ));
-      const reviews = reviewsSnap.docs.map(d => ({ id: d.id, ...d.data() })) as any[];
-      // Sort by createdAt on client side
-      reviews.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+      if (!res.ok) {
+        throw new Error(data?.error || "Failed to load seller details");
+      }
+
+      setSellerInfo(data.sellerInfo ?? null);
+      setSellerProfile(data.sellerProfile ?? null);
+      setSellerListingStats(data.sellerListingStats ?? null);
+
+      // Sort reviews by createdAt desc
+      const reviews = Array.isArray(data.sellerReviews) ? data.sellerReviews : [];
+      reviews.sort((a: any, b: any) => (b.createdAt || 0) - (a.createdAt || 0));
       setSellerReviews(reviews);
     } catch (err) {
       console.error("Load seller details error:", err);
@@ -254,21 +262,31 @@ export default function AdminListingsPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="font-mono text-xs text-stone-500 bg-stone-50 px-2 py-1 rounded-lg">{l.sellerId?.slice(0, 12) || "—"}</span>
+                    <button
+                      type="button"
+                      onClick={() => toggleExpanded(l.id, l.sellerId)}
+                      className="font-mono text-xs text-stone-500 bg-stone-50 px-2 py-1 rounded-lg hover:bg-emerald-50 transition"
+                      title="Xem thông tin người đăng"
+                    >
+                      {l.sellerId?.slice(0, 12) || "—"}
+                    </button>
                   </td>
                   <td className="px-6 py-4 text-right">
                     <span className="text-sm font-bold text-stone-800">{fmt(l.price)}</span>
                     {l.unit && <span className="text-xs text-stone-400 ml-1">/{l.unit}</span>}
                   </td>
                   <td className="px-6 py-4 text-center">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
-                      l.status === "active" ? "bg-green-100 text-green-800" :
-                      l.status === "hidden" ? "bg-red-100 text-red-800" :
-                      "bg-stone-100 text-stone-600"
-                    }`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${l.status === "active" ? "bg-green-500" : l.status === "hidden" ? "bg-red-400" : "bg-stone-400"}`} />
-                      {l.status === "active" ? "Active" : l.status === "hidden" ? "Ẩn" : l.status === "draft" ? "Nháp" : l.status}
-                    </span>
+                    {(["active", "hidden", "draft"] as const).includes(l.status as any) && (
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
+                        l.status === "active" ? "bg-green-100 text-green-800" :
+                        l.status === "hidden" ? "bg-red-100 text-red-800" :
+                        "bg-stone-100 text-stone-600"
+                      }`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${l.status === "active" ? "bg-green-500" : l.status === "hidden" ? "bg-red-400" : "bg-stone-400"}`} />
+                        {l.status === "active" ? "Active" : l.status === "hidden" ? "Ẩn" : "Nháp"}
+                      </span>
+                    )}
+
                     {l.approvalStatus && (
                       <div className="text-xs mt-2">
                         {l.approvalStatus === "pending_approval" ? (
@@ -390,24 +408,37 @@ export default function AdminListingsPage() {
                                   <p className="text-xs text-stone-500 font-semibold">Tên hiển thị</p>
                                   <p className="text-sm text-stone-800 font-medium">{sellerInfo.displayName || "—"}</p>
                                 </div>
-                                <div>
-                                  <p className="text-xs text-stone-500 font-semibold">Email</p>
-                                  <p className="text-sm text-stone-800 break-all">{sellerInfo.email || "—"}</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                  <div>
+                                    <p className="text-xs text-stone-500 font-semibold">Email</p>
+                                    <p className="text-sm text-stone-800 break-all">{sellerInfo.email || "—"}</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-xs text-stone-500 font-semibold">Điện thoại</p>
+                                    <p className="text-sm text-stone-800 font-medium">{sellerInfo.phone || "—"}</p>
+                                  </div>
                                 </div>
-                                <div>
-                                  <p className="text-xs text-stone-500 font-semibold">Điện thoại</p>
-                                  <p className="text-sm text-stone-800 font-medium">{sellerInfo.phone || "—"}</p>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                  <div>
+                                    <p className="text-xs text-stone-500 font-semibold">Địa chỉ</p>
+                                    <p className="text-sm text-stone-800 font-medium">{sellerInfo.address || "—"}</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-xs text-stone-500 font-semibold">Tỉnh / Thành</p>
+                                    <p className="text-sm text-stone-800">{sellerInfo.city || "—"} / {sellerInfo.district || "—"}</p>
+                                  </div>
                                 </div>
-                                <div>
-                                  <p className="text-xs text-stone-500 font-semibold">Xác minh</p>
-                                  <p className="text-sm">
-                                    {sellerInfo.sellerVerified ? (
-                                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">✅ Đã xác minh</span>
-                                    ) : (
-                                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">❌ Chưa xác minh</span>
-                                    )}
-                                  </p>
-                                </div>
+
+                                {sellerInfo.payoutAccount && (
+                                  <div className="bg-sage-50 border border-sage-100 rounded-lg p-3">
+                                    <p className="text-xs text-stone-500 font-semibold">Tài khoản nhận tiền</p>
+                                    <p className="text-sm font-medium text-stone-800">{sellerInfo.payoutAccount.bankName || "—"}</p>
+                                    <p className="text-xs text-stone-500">Số tài khoản: {sellerInfo.payoutAccount.accountNumber || "—"}</p>
+                                    <p className="text-xs text-stone-500">Chủ tài khoản: {sellerInfo.payoutAccount.accountHolder || "—"}</p>
+                                  </div>
+                                )}
+
                                 <div>
                                   <p className="text-xs text-stone-500 font-semibold">Trạng thái tài khoản</p>
                                   <p className="text-sm">
@@ -427,6 +458,18 @@ export default function AdminListingsPage() {
                                   <div>
                                     <p className="text-xs text-stone-500 font-semibold">Tên kinh doanh</p>
                                     <p className="text-sm text-stone-800 font-medium">{sellerInfo.businessName}</p>
+                                  </div>
+                                )}
+
+                                {sellerListingStats && (
+                                  <div className="bg-sage-50 border border-sage-100 rounded-lg p-3">
+                                    <p className="text-xs text-stone-500 font-semibold">Số tin đã đăng</p>
+                                    <p className="text-sm text-stone-800">
+                                      {sellerListingStats.total} tin •
+                                      <span className="ml-1 text-emerald-700">Đã duyệt {sellerListingStats.approved}</span>{" "}
+                                      <span className="ml-1 text-blue-700">Chờ duyệt {sellerListingStats.pending}</span>{" "}
+                                      <span className="ml-1 text-red-700">Ẩn {sellerListingStats.hidden}</span>
+                                    </p>
                                   </div>
                                 )}
                               </div>

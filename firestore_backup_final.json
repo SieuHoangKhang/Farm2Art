@@ -1,0 +1,4277 @@
+{
+  "admin_chat_messages": [
+    {
+      "id": "1772786509169-pnm96lhje",
+      "userId": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "userName": "Guest",
+      "message": "xin chào ",
+      "timestamp": "2026-03-06T08:41:49.168Z",
+      "isAdmin": false,
+      "createdAt": "2026-03-06T08:41:49.169Z",
+      "read": true,
+      "updatedAt": "2026-03-06T08:49:21.864Z"
+    },
+    {
+      "id": "1772786626119-j8k592xiz",
+      "userId": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "userName": "Admin",
+      "message": "bạn cần hỗ trợ dì ",
+      "timestamp": "2026-03-06T08:43:46.118Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-06T08:43:46.119Z",
+      "updatedAt": "2026-03-06T08:43:46.119Z"
+    },
+    {
+      "id": "1772786635862-sucd83gs4",
+      "userId": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "userName": "Admin",
+      "message": "muốn dì nói luôn !",
+      "timestamp": "2026-03-06T08:43:55.862Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-06T08:43:55.862Z",
+      "updatedAt": "2026-03-06T08:43:55.862Z"
+    },
+    {
+      "id": "1772786971590-uoudhiipc",
+      "userId": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "userName": "Admin",
+      "message": "chào ",
+      "timestamp": "2026-03-06T08:49:31.590Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-06T08:49:31.590Z",
+      "updatedAt": "2026-03-06T08:49:31.590Z"
+    },
+    {
+      "id": "1773051927695-uc4jwjd8h",
+      "userId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "userName": "Huỳnh Như",
+      "message": "chào",
+      "timestamp": "2026-03-09T10:25:27.694Z",
+      "isAdmin": false,
+      "createdAt": "2026-03-09T10:25:27.695Z",
+      "read": true,
+      "updatedAt": "2026-03-09T10:25:39.669Z"
+    },
+    {
+      "id": "1773051944249-u0l3s97rg",
+      "userId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "userName": "Admin",
+      "message": "dì ku ",
+      "timestamp": "2026-03-09T10:25:44.249Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-09T10:25:44.249Z",
+      "updatedAt": "2026-03-09T10:25:44.249Z"
+    },
+    {
+      "id": "1773051976994-w7b3d45vd",
+      "userId": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "userName": "clone2",
+      "message": "hi",
+      "timestamp": "2026-03-09T10:26:16.993Z",
+      "isAdmin": false,
+      "createdAt": "2026-03-09T10:26:16.994Z",
+      "read": true,
+      "updatedAt": "2026-03-09T10:26:24.947Z"
+    },
+    {
+      "id": "1773051986581-vwo71gk59",
+      "userId": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "userName": "Admin",
+      "message": "chào ",
+      "timestamp": "2026-03-09T10:26:26.581Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-09T10:26:26.581Z",
+      "updatedAt": "2026-03-09T10:26:26.581Z"
+    },
+    {
+      "id": "1773055849277-qa3eprlf7",
+      "userId": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "userName": "clone2",
+      "message": "chào lại ",
+      "timestamp": "2026-03-09T11:30:49.277Z",
+      "isAdmin": false,
+      "createdAt": "2026-03-09T11:30:49.277Z",
+      "read": true,
+      "updatedAt": "2026-03-09T11:33:06.175Z"
+    },
+    {
+      "id": "1773055988397-w0jmvdn87",
+      "userId": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "userName": "Admin",
+      "message": "test ",
+      "timestamp": "2026-03-09T11:33:08.397Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-09T11:33:08.397Z",
+      "updatedAt": "2026-03-09T11:33:08.397Z"
+    },
+    {
+      "id": "1773125989083-iz0xnnnh7",
+      "userId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "userName": "Nguyễn Thị Huỳnh Như",
+      "message": "hé lo",
+      "timestamp": "2026-03-10T06:59:49.083Z",
+      "isAdmin": false,
+      "createdAt": "2026-03-10T06:59:49.083Z",
+      "read": true,
+      "updatedAt": "2026-03-10T11:58:46.547Z"
+    },
+    {
+      "id": "1773126034332-fz9hpawvg",
+      "userId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "userName": "Nguyễn Thị Huỳnh Như",
+      "message": "tui muốn đăng bài bán túi lục bình",
+      "timestamp": "2026-03-10T07:00:34.332Z",
+      "isAdmin": false,
+      "createdAt": "2026-03-10T07:00:34.332Z",
+      "read": true,
+      "updatedAt": "2026-03-10T11:58:46.548Z"
+    },
+    {
+      "id": "1773143935020-72e6l5mci",
+      "userId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "userName": "Admin",
+      "message": "dạ bạn cứ đăng ạ ",
+      "timestamp": "2026-03-10T11:58:55.020Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-10T11:58:55.020Z",
+      "updatedAt": "2026-03-10T11:58:55.020Z"
+    },
+    {
+      "id": "1773380190916-1xk8jmvty",
+      "userId": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "userName": "Admin",
+      "message": "test ",
+      "timestamp": "2026-03-13T05:36:30.916Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-13T05:36:30.916Z",
+      "updatedAt": "2026-03-13T05:36:30.916Z"
+    },
+    {
+      "id": "1773380201872-wykikp4h3",
+      "userId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "userName": "Admin",
+      "message": "love you ",
+      "timestamp": "2026-03-13T05:36:41.872Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-13T05:36:41.872Z",
+      "updatedAt": "2026-03-13T05:36:41.872Z"
+    },
+    {
+      "id": "1773380211462-1eng0vdm7",
+      "userId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "userName": "Admin",
+      "message": "ksfdklfnskjsjfnsjdnf",
+      "timestamp": "2026-03-13T05:36:51.462Z",
+      "isAdmin": true,
+      "read": false,
+      "createdAt": "2026-03-13T05:36:51.462Z",
+      "updatedAt": "2026-03-13T05:36:51.462Z"
+    },
+    {
+      "id": "1773380468064-jazjiextu",
+      "userId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "userName": "Huỳnh Như",
+      "message": "love ",
+      "timestamp": "2026-03-13T05:41:08.064Z",
+      "isAdmin": false,
+      "createdAt": "2026-03-13T05:41:08.064Z",
+      "read": true,
+      "updatedAt": "2026-03-13T05:41:47.988Z"
+    },
+    {
+      "id": "JaEIvpkQaqkomOZmyJOX",
+      "userId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "userName": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "message": "Đơn #l1ftXg6v đã cọc 50% thành công. Sẵn sàng giao hàng.",
+      "timestamp": "2026-03-13T05:48:20.385Z",
+      "isAdmin": false,
+      "read": true,
+      "updatedAt": "2026-03-13T09:53:04.042Z"
+    }
+  ],
+  "chat_logs": [
+    {
+      "id": "0SvZFI3zDs7qYqzyqA9e",
+      "userMessage": "tôi muốn bán hàng trên farm2art",
+      "userMessageNormalized": "tôi muốn bán hàng trên farm2art",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773494006261
+    },
+    {
+      "id": "0TtgBcxNk2K1qGJMHwMd",
+      "userMessage": "viết bình luận ở đâu",
+      "userMessageNormalized": "viết bình luận ở đâu",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773492721236
+    },
+    {
+      "id": "0aP6k6t6lcZtXu82mGDb",
+      "userMessage": "tôi muốn đặt hàng hôm nay",
+      "userMessageNormalized": "tôi muốn đặt hàng hôm nay",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773492688562
+    },
+    {
+      "id": "1M3jZ0Td29OSZ32wH83B",
+      "userMessage": "lần đầu mua, phải làm gì",
+      "userMessageNormalized": "lần đầu mua, phải làm gì",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493984037
+    },
+    {
+      "id": "1TyHz3n9d81Byv83ceH5",
+      "userMessage": "tìm artwork đẹp",
+      "userMessageNormalized": "tìm artwork đẹp",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773492675339
+    },
+    {
+      "id": "1UpkZ5JIe8pHKWYihski",
+      "userMessage": "sao vậy",
+      "userMessageNormalized": "sao vậy",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773494034214
+    },
+    {
+      "id": "1fyY7jDn1LSNFOHdpDDG",
+      "userMessage": "rau sạch",
+      "userMessageNormalized": "rau sạch",
+      "botReply": "🥬 Farm2Art cung cấp rau xanh từ nông dân bền vững:\n• Luôn tươi, không hóa chất\n• Giao hàng nhanh 2-3 ngày\n• Giá: 50,000 - 150,000 VND/kg\n\nBạn muốn chọn loại rau nào?",
+      "matchedCategory": "vegetable",
+      "usedModel": "rule-based",
+      "createdAt": 1773493908300
+    },
+    {
+      "id": "1h2fqYproMB6BvgvGjQP",
+      "userMessage": "vnpay có được không",
+      "userMessageNormalized": "vnpay có được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493228517
+    },
+    {
+      "id": "1lQ7jxLgbf2BMiEIu2R1",
+      "userMessage": "chính sách",
+      "userMessageNormalized": "chính sách",
+      "botReply": "📌 Có điều gì khác tôi có thể giúp? Ví dụ:\n✓ Tìm kiếm sản phẩm\n✓ Thông tin thanh toán\n✓ Hỏi về vận chuyển\n✓ Cách quản lý tài khoản",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773493041743
+    },
+    {
+      "id": "27K12ANs4FJZfo1HCzPm",
+      "userMessage": "đặt hàng có khó không",
+      "userMessageNormalized": "đặt hàng có khó không",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493981489
+    },
+    {
+      "id": "29L7T6gUpmV3j9ciBgIj",
+      "userMessage": "có quả cam nào không",
+      "userMessageNormalized": "có quả cam nào không",
+      "botReply": "🍊 Trái cây tươi từ các vùng nông sản:\n• Được chọn lọc kỹ lưỡng\n• Đủ độ chín, đảm bảo chất lượng\n• Giá: 50,000 - 300,000 VND/kg\n• Thích hợp làm quà hoặc ăn hàng ngày\n\nLoại trái cây nào bạn thích?",
+      "matchedCategory": "fruit",
+      "usedModel": "rule-based",
+      "createdAt": 1773493202316
+    },
+    {
+      "id": "2GQ00Vc9xbsaq2JFIbKv",
+      "userMessage": "chính sách ",
+      "userMessageNormalized": "chính sách",
+      "botReply": "🤔 Tôi chưa hiểu rõ câu hỏi của bạn. Hãy thử:\n• Cách tìm kiếm sản phẩm\n• Hỏi về giá cả\n• Hỏi cách mua hàng\n• Liên hệ hỗ trợ khách hàng",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773492917624
+    },
+    {
+      "id": "2Mo3QYNwhTkdXa34CUWO",
+      "userMessage": "farm2art là gì",
+      "userMessageNormalized": "farm2art là gì",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773493265279
+    },
+    {
+      "id": "2Pw15WCXGm1R9tZYmbkt",
+      "userMessage": "tôi muốn đặt hàng hôm nay",
+      "userMessageNormalized": "tôi muốn đặt hàng hôm nay",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493979020
+    },
+    {
+      "id": "2wHlEeCvkyAstdNZ1iwp",
+      "userMessage": "chính sách",
+      "userMessageNormalized": "chính sách",
+      "botReply": "📋 **Chính Sách Farm2Art**:\n\n💳 **Thanh toán**: VNPay, Chuyển khoản, Ví điện tử, COD (khi nhận)\n\n🚚 **Giao hàng**: 2-5 ngày, miễn phí từ 500k, toàn quốc\n\n🔄 **Hoàn/Đổi**: Lỗi sản phẩm = đổi/hoàn 100%, trong 7 ngày\n\n⭐ **Đánh giá**: Bạn có quyền đánh giá sau khi nhận hàng\n\n🌱 **Bảo vệ**: 100% sản phẩm tự nhiên, không hóa chất\n\nCác chính sách khác nào bạn muốn biết?",
+      "matchedCategory": "policy",
+      "usedModel": "rule-based",
+      "createdAt": 1773493124170
+    },
+    {
+      "id": "3TsEpF0ucD23OeFmtjuW",
+      "userMessage": "mật ong có không?",
+      "userMessageNormalized": "mật ong có không?",
+      "botReply": "🍯 Mật ong nguyên chất từ các trang trại:\n• Không pha trộn, không xử lý hóa chất\n• Giàu dưỡng chất, hỗ trợ sức khỏe\n• Giá: 150,000 - 500,000 VND/hũ\n• Có chứng chỉ chất lượng\n\nBạn muốn tìm mật ong nào? (Hoa cà phê, Rừng, v.v.)",
+      "matchedCategory": "honey",
+      "usedModel": "rule-based",
+      "createdAt": 1773492674033
+    },
+    {
+      "id": "3vHlHPnM8I0UAkAZUcuB",
+      "userMessage": "hàng tôi đã tới chưa",
+      "userMessageNormalized": "hàng tôi đã tới chưa",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773492708018
+    },
+    {
+      "id": "4GDDex1wk1yUo1Z6eoBv",
+      "userMessage": "xem review người khác",
+      "userMessageNormalized": "xem review người khác",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773494013536
+    },
+    {
+      "id": "4LZASfafOenG6Ww9oVhr",
+      "userMessage": "chất lượng sao",
+      "userMessageNormalized": "chất lượng sao",
+      "botReply": "✅ Cam kết chất lượng Farm2Art:\n✓ Tất cả sản phẩm kiểm chứng\n✓ Có chứng chỉ & giấy tờ pháp lý\n✓ Không thuốc độc hại\n✓ Đo lường & cân đúng\n✓ Test độc tố\n\nBạn hoàn toàn an tâm!",
+      "matchedCategory": "quality",
+      "usedModel": "rule-based",
+      "createdAt": 1773493916762
+    },
+    {
+      "id": "4gwQv5eD7kirOWDKTkrL",
+      "userMessage": "sản phẩm không như mô tả",
+      "userMessageNormalized": "sản phẩm không như mô tả",
+      "botReply": "📦 Farm2Art có tất cả các sản phẩm bạn cần:\n✓ Nông sản tươi (50k-500k)\n✓ Nước ép & đồ uống (80k-300k)\n✓ Mật ong & đặc sản (150k-500k)\n✓ Artwork tái chế (150k-2M)\n✓ Gói combo tiết kiệm\n\nBạn muốn mua gì?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773494015921
+    },
+    {
+      "id": "4lb0QzLui69Z7P6rY4BX",
+      "userMessage": "xem review người khác",
+      "userMessageNormalized": "xem review người khác",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773493253503
+    },
+    {
+      "id": "4tn6nWG4HIkKLwmOT1YT",
+      "userMessage": "lần đầu mua, phải làm gì",
+      "userMessageNormalized": "lần đầu mua, phải làm gì",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773492693362
+    },
+    {
+      "id": "5FwvqmLzE4tdoj0oAoqa",
+      "userMessage": "chào các bạn",
+      "userMessageNormalized": "chào các bạn",
+      "botReply": "👍 Xin chào xin chào! Mình giúp bạn tìm sản phẩm tuyệt vời nha!",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493902058
+    },
+    {
+      "id": "5Tu7gYWEhx92RrUMqlYX",
+      "userMessage": "thanh toán khi nhận được không",
+      "userMessageNormalized": "thanh toán khi nhận được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493229746
+    },
+    {
+      "id": "5evldHkdGZ9mdCgz5GLa",
+      "userMessage": "mua số lượng lớn có giảm giá không",
+      "userMessageNormalized": "mua số lượng lớn có giảm giá không",
+      "botReply": "📦 Farm2Art hỗ trợ bán sỉ:\n• Giảm giá từ 5+ sản phẩm\n• Liên hệ: kinh doanh@farm2art.vn\n• Hỗ trợ giải pháp theo nhu cầu\n• Giao hàng định kỳ\n\nBạn muốn bao nhiêu?",
+      "matchedCategory": "bulk_order",
+      "usedModel": "rule-based",
+      "createdAt": 1773492685067
+    },
+    {
+      "id": "5mmXrvz0hrxmNNw7QDvG",
+      "userMessage": "có bán gì tốt không",
+      "userMessageNormalized": "có bán gì tốt không",
+      "botReply": "🛍️ Farm2Art có kho sản phẩm phong phú:\n- 🥕 Nông sản tươi\n- 🧃 Nước ép & đồ uống\n- 🎨 Artwork tái chế\n- 📦 Combo & gói quà\n\nHãy cho tôi biết loại nào bạn quan tâm!",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493905908
+    },
+    {
+      "id": "5nmqZcSaLuX2BSYTm6rz",
+      "userMessage": "quà tặng gì tốt",
+      "userMessageNormalized": "quà tặng gì tốt",
+      "botReply": "🎁 Farm2Art gợi ý quà tặng:\n👨‍👩‍👧‍👦 **Cho gia đình**: Rau, quả, nước ép\n💏 **Cho người yêu**: Artwork đẹp, combo quà\n👨‍👩‍👧 **Cho bạn**: Nước ép, mật ong\n🎂 **Sinh nhật**: Combo + artwork\n\nBạn tặng ai? Tôi sẽ gợi ý chi tiết!",
+      "matchedCategory": "gift",
+      "usedModel": "rule-based",
+      "createdAt": 1773493927340
+    },
+    {
+      "id": "6Q6XUuTHjhPDbntsQdA0",
+      "userMessage": "nước ép cam bao nhiêu tiền",
+      "userMessageNormalized": "nước ép cam bao nhiêu tiền",
+      "botReply": "💰 Bảng giá Farm2Art:\n🥬 Nông sản: 50k - 500k VND\n🧃 Nước ép: 80k - 300k VND\n🍯 Đặc sản: 150k - 500k VND\n🎨 Artwork: 150k - 2M VND\n\n+ Ship: Miễn phí từ 500k (nội thành)\nBạn tìm sản phẩm trong tầm giá nào?",
+      "matchedCategory": "price_inquiry",
+      "usedModel": "rule-based",
+      "createdAt": 1773492672813
+    },
+    {
+      "id": "6e3frSQOCsLnUETGQlRk",
+      "userMessage": "giao hàng bao lâu",
+      "userMessageNormalized": "giao hàng bao lâu",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773492702096
+    },
+    {
+      "id": "70bvIWDUxXIWA1Ux7f6y",
+      "userMessage": "xem thông tin người bán",
+      "userMessageNormalized": "xem thông tin người bán",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773494007488
+    },
+    {
+      "id": "753CU7QZnuYb5kCyFGyY",
+      "userMessage": "hàng không tới",
+      "userMessageNormalized": "hàng không tới",
+      "botReply": "❓ Tôi chưa hiểu rõ câu hỏi. Hãy thử hỏi:\n• \"Sản phẩm nào có?\" → Xem danh sách\n• \"Giá rau bao nhiêu?\" → Xem giá\n• \"Cách mua hàng\" → Hướng dẫn mua\n• \"Chính sách hoàn tiền\" → Xem chính sách\n\nBạn muốn hỏi gì cụ thể?",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773494021824
+    },
+    {
+      "id": "7R8oJR1KowrURX4VVwMB",
+      "userMessage": "có thể chuyển khoản không",
+      "userMessageNormalized": "có thể chuyển khoản không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493987928
+    },
+    {
+      "id": "7n9jh4kLyczNrelorlvD",
+      "userMessage": "tôi muốn bán hàng trên farm2art",
+      "userMessageNormalized": "tôi muốn bán hàng trên farm2art",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773492715301
+    },
+    {
+      "id": "7q5zpqeEGmmNtPWvwOb4",
+      "userMessage": "Sản phẩm nông sản tươi ",
+      "userMessageNormalized": "sản phẩm nông sản tươi",
+      "botReply": " Câu hỏi hay! Tôi chưa có thông tin cụ thể về điều này. Bạn có thể:\n Liên hệ hỗ trợ: support@farm2art.vn\n Chat với người bán\n Hỏi về chủ đề khác",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773491805330
+    },
+    {
+      "id": "8OKIYueQEWXL9FAFC9bF",
+      "userMessage": "sao vậy",
+      "userMessageNormalized": "sao vậy",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773493273784
+    },
+    {
+      "id": "95aTMaCOMyjeslvvquht",
+      "userMessage": "combo giá bao nhiêu",
+      "userMessageNormalized": "combo giá bao nhiêu",
+      "botReply": "🎁 Farm2Art có các combo hấp dẫn:\n• Combo sức khỏe: Rau + Nước ép + Mật ong\n• Combo quà tặng: Artwork + Nông sản\n• Combo tuần: Nông sản & đồ uống lên menu hàng tuần\n• Giá combo tiết kiệm hơn 10-20%\n\nBạn muốn combo nào?",
+      "matchedCategory": "combo",
+      "usedModel": "rule-based",
+      "createdAt": 1773492686203
+    },
+    {
+      "id": "9HQilaOv23pN6PZAd10g",
+      "userMessage": "có bao nhiêu loại sản phẩm",
+      "userMessageNormalized": "có bao nhiêu loại sản phẩm",
+      "botReply": "👍 Xin chào xin chào! Mình giúp bạn tìm sản phẩm tuyệt vời nha!",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773492677810
+    },
+    {
+      "id": "9LhYYVDFpMVMvWqd8EqK",
+      "userMessage": "hoàn lại sản phẩm sao",
+      "userMessageNormalized": "hoàn lại sản phẩm sao",
+      "botReply": "🛍️ Farm2Art cung cấp 5 danh mục sản phẩm chính:\n\n🥬 **Nông sản tươi**: Rau, quả, sản phẩm đặc sản từ nông dân bền vững\n\n🧃 **Nước ép & Đồ uống**: 100% từ trái cây tươi, không đường\n\n🍯 **Đặc sản**: Mật ong, cà phê, sản phẩm nông sản đặc biệt\n\n🎨 **Artwork tái chế**: Tranh, trang trí từ phế phẩm nông sản\n\n📦 **Combo & Gói quà**: Bộ sản phẩm tiết kiệm + tặng bạn\n\nBạn muốn tìm loại nào?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773494018192
+    },
+    {
+      "id": "9kkA24QaxseSL1O9caS0",
+      "userMessage": "người làm thủ công",
+      "userMessageNormalized": "người làm thủ công",
+      "botReply": "🎨 Farm2Art kết nối các artisan & nhà thiết kế:\n✓ Sản phẩm thủ công độc đáo\n✓ Limited edition - Hạn chế\n✓ Mỗi sản phẩm = Tình yêu\n✓ Hỗ trợ cộng đồng sáng tạo\n\nBạn muốn xem artwork của artisan nào?",
+      "matchedCategory": "artisan",
+      "usedModel": "rule-based",
+      "createdAt": 1773493915567
+    },
+    {
+      "id": "9uOdV0YLkn3xhZWq7Lxa",
+      "userMessage": "sản phẩm tái chế tốt không",
+      "userMessageNormalized": "sản phẩm tái chế tốt không",
+      "botReply": "🛍️ Farm2Art cung cấp 5 danh mục sản phẩm chính:\n\n🥬 **Nông sản tươi**: Rau, quả, sản phẩm đặc sản từ nông dân bền vững\n\n🧃 **Nước ép & Đồ uống**: 100% từ trái cây tươi, không đường\n\n🍯 **Đặc sản**: Mật ong, cà phê, sản phẩm nông sản đặc biệt\n\n🎨 **Artwork tái chế**: Tranh, trang trí từ phế phẩm nông sản\n\n📦 **Combo & Gói quà**: Bộ sản phẩm tiết kiệm + tặng bạn\n\nBạn muốn tìm loại nào?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773494024241
+    },
+    {
+      "id": "A9Vkv9ZK7hJrWGbVR1LP",
+      "userMessage": "Tìm kiếm sản phẩm ",
+      "userMessageNormalized": "tìm kiếm sản phẩm",
+      "botReply": "🛍️ Farm2Art có nhiều danh mục sản phẩm tuyệt vời. Bạn muốn tìm:\n- Sản phẩm nông sản tươi?\n- Đồ uống lành mạnh?\n- Tài chế tạo từ phế phẩm?\n- Bát đĩa artwork?\n\nHãy yêu cầu cụ thể hơn nhé!",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773491782291
+    },
+    {
+      "id": "AODADl8SQP6Ecwkfn2nf",
+      "userMessage": "chào chào",
+      "userMessageNormalized": "chào chào",
+      "botReply": "🌟 Xin chào bạn! Tôi là trợ lý AI của Farm2Art. Bạn đang tìm sản phẩm hay muốn biết thêm về chúng tôi?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493957777
+    },
+    {
+      "id": "ARViZzqRyXbpR0Sa3nRq",
+      "userMessage": "sản phẩm",
+      "userMessageNormalized": "sản phẩm",
+      "botReply": " Câu hỏi hay! Tôi chưa có thông tin cụ thể về điều này. Bạn có thể:\n Liên hệ hỗ trợ: support@farm2art.vn\n Chat với người bán\n Hỏi về chủ đề khác",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773492887523
+    },
+    {
+      "id": "ApkG3QyMImTtsbHg9VOO",
+      "userMessage": "ví điện tử được không",
+      "userMessageNormalized": "ví điện tử được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493991616
+    },
+    {
+      "id": "AzgpDq3pLbGLdVsa6mSj",
+      "userMessage": "hello",
+      "userMessageNormalized": "hello",
+      "botReply": "👋 Xin chào! Chào mừng bạn đến với Farm2Art - nền tảng bán nông sản & artwork tái chế. Có gì tôi có thể giúp?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773492666354
+    },
+    {
+      "id": "B8KY9IZHzcGzwUXviMvP",
+      "userMessage": "có sản phẩm giá rẻ không?",
+      "userMessageNormalized": "có sản phẩm giá rẻ không?",
+      "botReply": "🛍️ Farm2Art có kho sản phẩm phong phú:\n- 🥕 Nông sản tươi\n- 🧃 Nước ép & đồ uống\n- 🎨 Artwork tái chế\n- 📦 Combo & gói quà\n\nHãy cho tôi biết loại nào bạn quan tâm!",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773492683874
+    },
+    {
+      "id": "BAOA7BVaDAA6WQ8gSZcI",
+      "userMessage": "nông dân farm2art kiếm được tiền không",
+      "userMessageNormalized": "nông dân farm2art kiếm được tiền không",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773492749706
+    },
+    {
+      "id": "BJEZKlntHXlPBolTdUIm",
+      "userMessage": "giao đến nơi tôi ở được không",
+      "userMessageNormalized": "giao đến nơi tôi ở được không",
+      "botReply": " Câu hỏi hay! Tôi chưa có thông tin cụ thể về điều này. Bạn có thể:\n Liên hệ hỗ trợ: support@farm2art.vn\n Chat với người bán\n Hỏi về chủ đề khác",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773492705666
+    },
+    {
+      "id": "BTn3T5t96UOj71AshUNE",
+      "userMessage": "hình thức thanh toán nào",
+      "userMessageNormalized": "hình thức thanh toán nào",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493986652
+    },
+    {
+      "id": "BY7inVr3hMt95v8eEmK5",
+      "userMessage": "sản phẩm",
+      "userMessageNormalized": "sản phẩm",
+      "botReply": "🛍️ Farm2Art cung cấp 5 danh mục sản phẩm chính:\n\n🥬 **Nông sản tươi**: Rau, quả, sản phẩm đặc sản từ nông dân bền vững\n\n🧃 **Nước ép & Đồ uống**: 100% từ trái cây tươi, không đường\n\n🍯 **Đặc sản**: Mật ong, cà phê, sản phẩm nông sản đặc biệt\n\n🎨 **Artwork tái chế**: Tranh, trang trí từ phế phẩm nông sản\n\n📦 **Combo & Gói quà**: Bộ sản phẩm tiết kiệm + tặng bạn\n\nBạn muốn tìm loại nào?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773493122634
+    },
+    {
+      "id": "Bv6FoNTGUhzbHg7Ka3rB",
+      "userMessage": "tí xíu bạn ơi",
+      "userMessageNormalized": "tí xíu bạn ơi",
+      "botReply": "👋 Xin chào! Chào mừng bạn đến với Farm2Art - nền tảng bán nông sản & artwork tái chế. Có gì tôi có thể giúp?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493200062
+    },
+    {
+      "id": "CGkUUM1fsPax22vLSPqm",
+      "userMessage": "farm2art bảo vệ môi trường thế nào",
+      "userMessageNormalized": "farm2art bảo vệ môi trường thế nào",
+      "botReply": "🌱 Farm2Art cam kết bên vững:\n✓ Sản phẩm từ nông dân bảo vệ môi trường\n✓ Không hóa chất độc hại\n✓ Bao bì 100% tái chế\n✓ Giảm phát thải & rác thải\n✓ Mỗi mua = Hỗ trợ nông dân\n\nBạn quan tâm lĩnh vực nào? (Nông sản, Artwork, ...)",
+      "matchedCategory": "sustainability",
+      "usedModel": "rule-based",
+      "createdAt": 1773493262931
+    },
+    {
+      "id": "CLmGztl1MmIRumYkqGVL",
+      "userMessage": "xin chào",
+      "userMessageNormalized": "xin chào",
+      "botReply": "🌻 Chào bạn yêu! Bạn cần tìm nông sản tươi hay artwork tái chế?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493954138
+    },
+    {
+      "id": "CZJqlzwyrRHQb8rUZGT3",
+      "userMessage": "phí vận chuyển bao nhiêu",
+      "userMessageNormalized": "phí vận chuyển bao nhiêu",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773492703295
+    },
+    {
+      "id": "Cakv7Lx1Ju8J5Zprlmlo",
+      "userMessage": "tìm artwork đẹp",
+      "userMessageNormalized": "tìm artwork đẹp",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773493965195
+    },
+    {
+      "id": "CiLtAzBv8A1vO54E5vvJ",
+      "userMessage": "có sản phẩm giá rẻ không?",
+      "userMessageNormalized": "có sản phẩm giá rẻ không?",
+      "botReply": "🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493974070
+    },
+    {
+      "id": "CsKK7EAjm5x10JKiWEub",
+      "userMessage": "artist bán artwork ở đây phải đáp ứng điều kiện gì",
+      "userMessageNormalized": "artist bán artwork ở đây phải đáp ứng điều kiện gì",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773494030426
+    },
+    {
+      "id": "D12t8WCcv8Hjwmu31H3U",
+      "userMessage": "tôi muốn tìm rau sạch",
+      "userMessageNormalized": "tôi muốn tìm rau sạch",
+      "botReply": "🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493960152
+    },
+    {
+      "id": "DPkQWj0N1Mrj0rDf80P8",
+      "userMessage": "đơn hàng của tôi ở đâu nhỉ",
+      "userMessageNormalized": "đơn hàng của tôi ở đâu nhỉ",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773493277259
+    },
+    {
+      "id": "DWIcnHNCc69iOl9moSsi",
+      "userMessage": "cách tạo tài khoản",
+      "userMessageNormalized": "cách tạo tài khoản",
+      "botReply": "✍️ Cách đăng ký Farm2Art (2 phút):\n1️⃣ Trang chủ → \"Đăng ký\"\n2️⃣ Email hoặc số điện thoại\n3️⃣ Mật khẩu mạnh (8+ ký tự)\n4️⃣ Xác minh email/SMS\n5️⃣ Hoàn tất hồ sơ\n\n⚡ Nhanh: Đăng nhập Google/Facebook\nBạn sẵn sàng đăng ký?",
+      "matchedCategory": "registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773492709250
+    },
+    {
+      "id": "Dk9cxQKeYUxCKYDnpdby",
+      "userMessage": "hình thức thanh toán nào",
+      "userMessageNormalized": "hình thức thanh toán nào",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493226161
+    },
+    {
+      "id": "DqGwSo4HDMLzDm8nvql7",
+      "userMessage": "có thể chuyển khoản không",
+      "userMessageNormalized": "có thể chuyển khoản không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773492697254
+    },
+    {
+      "id": "EPwXhcSkryMRe7wlSN30",
+      "userMessage": "đăng ký như thế nào",
+      "userMessageNormalized": "đăng ký như thế nào",
+      "botReply": "✍️ Cách đăng ký Farm2Art (2 phút):\n1️⃣ Trang chủ → \"Đăng ký\"\n2️⃣ Email hoặc số điện thoại\n3️⃣ Mật khẩu mạnh (8+ ký tự)\n4️⃣ Xác minh email/SMS\n5️⃣ Hoàn tất hồ sơ\n\n⚡ Nhanh: Đăng nhập Google/Facebook\nBạn sẵn sàng đăng ký?",
+      "matchedCategory": "registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773492710474
+    },
+    {
+      "id": "ES7dQR6DkGQ0udbJuczL",
+      "userMessage": "miễn phí ship khi nào",
+      "userMessageNormalized": "miễn phí ship khi nào",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773493995405
+    },
+    {
+      "id": "EpapeLH9XBUsZtX0qYiO",
+      "userMessage": "thanh toán khi nhận được không",
+      "userMessageNormalized": "thanh toán khi nhận được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493990386
+    },
+    {
+      "id": "Eq2pocMM4KKgBuvFWXPb",
+      "userMessage": "rau bao nhiêu tiền một kg",
+      "userMessageNormalized": "rau bao nhiêu tiền một kg",
+      "botReply": "💰 Bảng giá Farm2Art:\n🥬 Nông sản: 50k - 500k VND\n🧃 Nước ép: 80k - 300k VND\n🍯 Đặc sản: 150k - 500k VND\n🎨 Artwork: 150k - 2M VND\n\n+ Ship: Miễn phí từ 500k (nội thành)\nBạn tìm sản phẩm trong tầm giá nào?",
+      "matchedCategory": "price_inquiry",
+      "usedModel": "rule-based",
+      "createdAt": 1773492680357
+    },
+    {
+      "id": "FRpIvmaobCR96lyaXBHN",
+      "userMessage": "thêm vào giỏ hàng rồi sao",
+      "userMessageNormalized": "thêm vào giỏ hàng rồi sao",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773492694698
+    },
+    {
+      "id": "FTVEylx7JMrYlayUAp7L",
+      "userMessage": "theo dõi hàng ở đâu",
+      "userMessageNormalized": "theo dõi hàng ở đâu",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773492706793
+    },
+    {
+      "id": "FzSvrRf7uZyVXnd1Lz1J",
+      "userMessage": "lưu sản phẩm yêu thích",
+      "userMessageNormalized": "lưu sản phẩm yêu thích",
+      "botReply": "❤️ Quản lý danh sách yêu thích:\n1️⃣ Click ❤️ trên sản phẩm\n2️⃣ Sản phẩm được lưu tự động\n3️⃣ Xem bất kỳ lúc nào\n4️⃣ Được thông báo nếu giảm giá\n5️⃣ Chia sẻ danh sách với bạn\n\nBạn muốn lưu sản phẩm nào?",
+      "matchedCategory": "wishlist",
+      "usedModel": "rule-based",
+      "createdAt": 1773494005044
+    },
+    {
+      "id": "GQOUjET7idwN8bqmGQTg",
+      "userMessage": "điều kiện trở thành người bán",
+      "userMessageNormalized": "điều kiện trở thành người bán",
+      "botReply": "🛵 Cách trở thành người bán Farm2Art:\n1️⃣ Đáp ứng tiêu chí: 18+, nông dân hoặc artisan\n2️⃣ Gửi đơn + chứng chỉ\n3️⃣ Farm2Art kiểm duyệt (3-5 ngày)\n4️⃣ Cấp quyền bán\n5️⃣ Bắt đầu bán (2% hoa hồng)\n\nBạn muốn đăng ký? support@farm2art.vn",
+      "matchedCategory": "seller_registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773494009951
+    },
+    {
+      "id": "GUSmC8zJGGETyMmn6X2i",
+      "userMessage": "tôi muốn mua rau và nước ép, giá là bao nhiêu, giao mất bao lâu",
+      "userMessageNormalized": "tôi muốn mua rau và nước ép, giá là bao nhiêu, giao mất bao lâu",
+      "botReply": "🧃 Nước ép 100% từ trái cây tươi:\n• Không đường, không chất bảo quản\n• Áp lực lạnh để giữ dinh dưỡng\n• Giá: 80,000 - 200,000 VND/chai\n• Giao nhanh, tươi mới\n\nFlavor nào bạn muốn? (Cam, Chanh, Dâu, Lựu...)",
+      "matchedCategory": "juice",
+      "usedModel": "rule-based",
+      "createdAt": 1773494027923
+    },
+    {
+      "id": "Hg4p88t0QSTyYzTyiXBP",
+      "userMessage": "miễn phí ship khi nào",
+      "userMessageNormalized": "miễn phí ship khi nào",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773492704525
+    },
+    {
+      "id": "HjQ7jochlikNnDLi5qgh",
+      "userMessage": "mua rau cách nào",
+      "userMessageNormalized": "mua rau cách nào",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493980251
+    },
+    {
+      "id": "HlHP23BAoMyVjlPFXJjK",
+      "userMessage": "bước đầu tiên để mua là gì",
+      "userMessageNormalized": "bước đầu tiên để mua là gì",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493982808
+    },
+    {
+      "id": "I3du4y8oM4jH2zyHBNyf",
+      "userMessage": "sản phẩm ",
+      "userMessageNormalized": "sản phẩm",
+      "botReply": "📌 Có điều gì khác tôi có thể giúp? Ví dụ:\n✓ Tìm kiếm sản phẩm\n✓ Thông tin thanh toán\n✓ Hỏi về vận chuyển\n✓ Cách quản lý tài khoản",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773491770923
+    },
+    {
+      "id": "IZWeLHOIuTFPb1whkdLo",
+      "userMessage": "sản phẩm không như mô tả",
+      "userMessageNormalized": "sản phẩm không như mô tả",
+      "botReply": "🤔 Tôi chưa hiểu rõ câu hỏi của bạn. Hãy thử:\n• Cách tìm kiếm sản phẩm\n• Hỏi về giá cả\n• Hỏi cách mua hàng\n• Liên hệ hỗ trợ khách hàng",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773492724736
+    },
+    {
+      "id": "IaLxahyoo4YeYQ1l2qMk",
+      "userMessage": "xìn cháo ",
+      "userMessageNormalized": "xìn cháo",
+      "botReply": "🤔 Tôi chưa hiểu rõ câu hỏi của bạn. Hãy thử:\n• Cách tìm kiếm sản phẩm\n• Hỏi về giá cả\n• Hỏi cách mua hàng\n• Liên hệ hỗ trợ khách hàng",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773491746648
+    },
+    {
+      "id": "IqAqamcxfWYDalh09Mub",
+      "userMessage": "farm2art là gì",
+      "userMessageNormalized": "farm2art là gì",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773494025508
+    },
+    {
+      "id": "JPtBKKeQCVXyChfXEPDz",
+      "userMessage": "giới thiệu về farm2art",
+      "userMessageNormalized": "giới thiệu về farm2art",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773494026737
+    },
+    {
+      "id": "Jqam6MUSPHAzNPxq8Aql",
+      "userMessage": "bạn có gì ",
+      "userMessageNormalized": "bạn có gì",
+      "botReply": "📌 Có điều gì khác tôi có thể giúp? Ví dụ:\n✓ Tìm kiếm sản phẩm\n✓ Thông tin thanh toán\n✓ Hỏi về vận chuyển\n✓ Cách quản lý tài khoản",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773492896528
+    },
+    {
+      "id": "KIVGCbwSAjrZU93Dplo2",
+      "userMessage": "Xin chào",
+      "userMessageNormalized": "xin chào",
+      "botReply": " Chào bạn! Farm2Art rất sẵn lòng phục vụ. Để tôi giúp bạn tìm những sản phẩm tuyệt vời.",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773477973984
+    },
+    {
+      "id": "KfLMjdyyBJ4XlSx3QxyL",
+      "userMessage": "miễn phí ship khi nào",
+      "userMessageNormalized": "miễn phí ship khi nào",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773493234866
+    },
+    {
+      "id": "KwBeuzCAYdQhNJUH2KZ1",
+      "userMessage": "tôi muốn đặt hàng hôm nay",
+      "userMessageNormalized": "tôi muốn đặt hàng hôm nay",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493218997
+    },
+    {
+      "id": "LA2yOAw5R0fsv8GHe8I3",
+      "userMessage": "ví điện tử được không",
+      "userMessageNormalized": "ví điện tử được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493230977
+    },
+    {
+      "id": "LBL3t1pqdFkeqLLWoglb",
+      "userMessage": "cập nhật hồ sơ sao",
+      "userMessageNormalized": "cập nhật hồ sơ sao",
+      "botReply": "👤 Quản lý tài khoản Farm2Art:\n✏️ Cập nhật thông tin cá nhân\n🎯 Xem lịch sử đơn hàng\n❤️ Danh sách yêu thích\n💬 Chat với người bán\n🔐 Cài đặt bảo mật & mật khẩu\n\nBạn muốn cập nhật thông tin gì?",
+      "matchedCategory": "profile_management",
+      "usedModel": "rule-based",
+      "createdAt": 1773494003904
+    },
+    {
+      "id": "LSgDoWSNsDzLBr5nErXM",
+      "userMessage": "???",
+      "userMessageNormalized": "???",
+      "botReply": "🤔 Tôi chưa hiểu rõ câu hỏi của bạn. Hãy thử:\n• Cách tìm kiếm sản phẩm\n• Hỏi về giá cả\n• Hỏi cách mua hàng\n• Liên hệ hỗ trợ khách hàng",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773492744994
+    },
+    {
+      "id": "Lfm85T0y0Jn5lSrZx0GE",
+      "userMessage": "người bán này uy tín không",
+      "userMessageNormalized": "người bán này uy tín không",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773494008716
+    },
+    {
+      "id": "LkFVnQkP7z9ec9OtTSiO",
+      "userMessage": "viết bình luận ở đâu",
+      "userMessageNormalized": "viết bình luận ở đâu",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773493252277
+    },
+    {
+      "id": "M0ZI95Qdgjg0degmSL2i",
+      "userMessage": "artist bán artwork ở đây phải đáp ứng điều kiện gì",
+      "userMessageNormalized": "artist bán artwork ở đây phải đáp ứng điều kiện gì",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773492739041
+    },
+    {
+      "id": "ME9N8aAS45uguhotAUEz",
+      "userMessage": "tôi có câu hỏi về hóa đơn và giao hàng",
+      "userMessageNormalized": "tôi có câu hỏi về hóa đơn và giao hàng",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773493271529
+    },
+    {
+      "id": "MLgxiUyZ1q4w7bIneRVb",
+      "userMessage": "hàng tôi bị hỏng rồi",
+      "userMessageNormalized": "hàng tôi bị hỏng rồi",
+      "botReply": "⚠️ Farm2Art hỗ trợ 100%:\n❌ Sản phẩm hỏng: Đổi/Hoàn 100% (xác nhận hình)\n❌ Đơn không đến: Tra cứu + bồi thường\n❌ Lỗi ứng dụng: Báo cáo để sửa ngay\n❌ Huỷ/Hoàn: Xử lý 24h\n\n⏱️ Quy trình: Chat → Hình ảnh → Xử lý 48h\nBạn gặp vấn đề gì cụ thể?",
+      "matchedCategory": "complaints",
+      "usedModel": "rule-based",
+      "createdAt": 1773493254686
+    },
+    {
+      "id": "MPJ3QnupbtY39SLk6aMN",
+      "userMessage": "đơn hàng của tôi ở đâu nhỉ",
+      "userMessageNormalized": "đơn hàng của tôi ở đâu nhỉ",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773492746104
+    },
+    {
+      "id": "MTjExsolqgoBAQDTVxtp",
+      "userMessage": "theo dõi hàng ở đâu",
+      "userMessageNormalized": "theo dõi hàng ở đâu",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773493997759
+    },
+    {
+      "id": "N56tlrpuwfpnvRowenL1",
+      "userMessage": "ứng dụng bị lỗi",
+      "userMessageNormalized": "ứng dụng bị lỗi",
+      "botReply": "⚠️ Farm2Art hỗ trợ 100%:\n❌ Sản phẩm hỏng: Đổi/Hoàn 100% (xác nhận hình)\n❌ Đơn không đến: Tra cứu + bồi thường\n❌ Lỗi ứng dụng: Báo cáo để sửa ngay\n❌ Huỷ/Hoàn: Xử lý 24h\n\n⏱️ Quy trình: Chat → Hình ảnh → Xử lý 48h\nBạn gặp vấn đề gì cụ thể?",
+      "matchedCategory": "complaints",
+      "usedModel": "rule-based",
+      "createdAt": 1773492729304
+    },
+    {
+      "id": "NCbG9ZRk1lxweuV0btQT",
+      "userMessage": "ứng dụng bị lỗi",
+      "userMessageNormalized": "ứng dụng bị lỗi",
+      "botReply": "⚠️ Farm2Art hỗ trợ 100%:\n❌ Sản phẩm hỏng: Đổi/Hoàn 100% (xác nhận hình)\n❌ Đơn không đến: Tra cứu + bồi thường\n❌ Lỗi ứng dụng: Báo cáo để sửa ngay\n❌ Huỷ/Hoàn: Xử lý 24h\n\n⏱️ Quy trình: Chat → Hình ảnh → Xử lý 48h\nBạn gặp vấn đề gì cụ thể?",
+      "matchedCategory": "complaints",
+      "usedModel": "rule-based",
+      "createdAt": 1773493260670
+    },
+    {
+      "id": "NdMEWJc5iiIGkIxh3YDi",
+      "userMessage": "sao vậy",
+      "userMessageNormalized": "sao vậy",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773492742745
+    },
+    {
+      "id": "NtuxPO4ESlzuRBPIECyq",
+      "userMessage": "quản lý tài khoản ở đâu",
+      "userMessageNormalized": "quản lý tài khoản ở đâu",
+      "botReply": "👤 Quản lý tài khoản Farm2Art:\n✏️ Cập nhật thông tin cá nhân\n🎯 Xem lịch sử đơn hàng\n❤️ Danh sách yêu thích\n💬 Chat với người bán\n🔐 Cài đặt bảo mật & mật khẩu\n\nBạn muốn cập nhật thông tin gì?",
+      "matchedCategory": "profile_management",
+      "usedModel": "rule-based",
+      "createdAt": 1773492711601
+    },
+    {
+      "id": "O9Aw44h667Xuy0cKkvxD",
+      "userMessage": "tôi muốn khám phá sản phẩm tái chế",
+      "userMessageNormalized": "tôi muốn khám phá sản phẩm tái chế",
+      "botReply": "🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773492676671
+    },
+    {
+      "id": "OBt2igHdgctIhquHGUYJ",
+      "userMessage": "lọc sản phẩm nào",
+      "userMessageNormalized": "lọc sản phẩm nào",
+      "botReply": "🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773492679129
+    },
+    {
+      "id": "OFPuUSg3REGkL4dOeNrN",
+      "userMessage": "chào bạn ",
+      "userMessageNormalized": "chào bạn",
+      "botReply": "🎯 Chào bạn! Tôi sẵn sàng giúp bạn khám phá những sản phẩm chất lượng từ nông dân bền vững.",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773492880316
+    },
+    {
+      "id": "ORnYsuLolAP9Hwm3nIoK",
+      "userMessage": "xem thông tin người bán",
+      "userMessageNormalized": "xem thông tin người bán",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773493247153
+    },
+    {
+      "id": "OYXcQzSdHgCrupa4Hb2g",
+      "userMessage": "lọc sản phẩm nào",
+      "userMessageNormalized": "lọc sản phẩm nào",
+      "botReply": "🛍️ Farm2Art có kho sản phẩm phong phú:\n- 🥕 Nông sản tươi\n- 🧃 Nước ép & đồ uống\n- 🎨 Artwork tái chế\n- 📦 Combo & gói quà\n\nHãy cho tôi biết loại nào bạn quan tâm!",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493209471
+    },
+    {
+      "id": "OfngPKl39kPaaVXgPs3l",
+      "userMessage": "artwork đắt không?",
+      "userMessageNormalized": "artwork đắt không?",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773492682665
+    },
+    {
+      "id": "PClrnrFxgJDUKLZWgJbc",
+      "userMessage": "liên hệ support ở đâu",
+      "userMessageNormalized": "liên hệ support ở đâu",
+      "botReply": "📞 Liên hệ hỗ trợ Farm2Art:\n💬 Chat: Sử dụng tính năng chat trên app\n📧 Email: support@farm2art.vn\n⏰ 8:00 - 20:00 (Thứ 2 - CN, không lễ)\n🔧 Hỗ trợ: Thanh toán, giao hàng, sản phẩm, tài khoản\n\nVấn đề của bạn là gì?",
+      "matchedCategory": "contact_support",
+      "usedModel": "rule-based",
+      "createdAt": 1773492728179
+    },
+    {
+      "id": "PCnEeZGzAUfW5nlRa6uZ",
+      "userMessage": "xin chào",
+      "userMessageNormalized": "xin chào",
+      "botReply": "👍 Xin chào xin chào! Mình giúp bạn tìm sản phẩm tuyệt vời nha!",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493195339
+    },
+    {
+      "id": "PF9GJRldkzk1v6PuRDDo",
+      "userMessage": "bước đầu tiên để mua là gì",
+      "userMessageNormalized": "bước đầu tiên để mua là gì",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773492692047
+    },
+    {
+      "id": "Pb0LR6Mek4Xll42qkFIs",
+      "userMessage": "chào",
+      "userMessageNormalized": "chào",
+      "botReply": "👍 Xin chào xin chào! Mình giúp bạn tìm sản phẩm tuyệt vời nha!",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493127064
+    },
+    {
+      "id": "PzNs72QguIbTeV9S7kEr",
+      "userMessage": "mua rau cách nào",
+      "userMessageNormalized": "mua rau cách nào",
+      "botReply": "🥬 Farm2Art cung cấp rau xanh từ nông dân bền vững:\n• Luôn tươi, không hóa chất\n• Giao hàng nhanh 2-3 ngày\n• Giá: 50,000 - 150,000 VND/kg\n\nBạn muốn chọn loại rau nào?",
+      "matchedCategory": "vegetable",
+      "usedModel": "rule-based",
+      "createdAt": 1773492689693
+    },
+    {
+      "id": "QFpAfUvFBO312gIaWurG",
+      "userMessage": "đăng ký như thế nào",
+      "userMessageNormalized": "đăng ký như thế nào",
+      "botReply": "✍️ Cách đăng ký Farm2Art (2 phút):\n1️⃣ Trang chủ → \"Đăng ký\"\n2️⃣ Email hoặc số điện thoại\n3️⃣ Mật khẩu mạnh (8+ ký tự)\n4️⃣ Xác minh email/SMS\n5️⃣ Hoàn tất hồ sơ\n\n⚡ Nhanh: Đăng nhập Google/Facebook\nBạn sẵn sàng đăng ký?",
+      "matchedCategory": "registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773494001429
+    },
+    {
+      "id": "QUm6tDdsiM1htlO8irrz",
+      "userMessage": "cách mua hàng như thế nào",
+      "userMessageNormalized": "cách mua hàng như thế nào",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493977790
+    },
+    {
+      "id": "QxdpTJWBTFG1H3XfETEQ",
+      "userMessage": "giá nước ép bao lăm",
+      "userMessageNormalized": "giá nước ép bao lăm",
+      "botReply": "🧃 Nước ép 100% từ trái cây tươi:\n• Không đường, không chất bảo quản\n• Áp lực lạnh để giữ dinh dưỡng\n• Giá: 80,000 - 200,000 VND/chai\n• Giao nhanh, tươi mới\n\nFlavor nào bạn muốn? (Cam, Chanh, Dâu, Lựu...)",
+      "matchedCategory": "juice",
+      "usedModel": "rule-based",
+      "createdAt": 1773492681490
+    },
+    {
+      "id": "RJBBjVhuQbP2ET4rPqRP",
+      "userMessage": "xem thông tin người bán",
+      "userMessageNormalized": "xem thông tin người bán",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773492716420
+    },
+    {
+      "id": "Rj2Uee2jj4IyrlJC2mee",
+      "userMessage": "combo giá bao nhiêu",
+      "userMessageNormalized": "combo giá bao nhiêu",
+      "botReply": "🎁 Farm2Art có các combo hấp dẫn:\n• Combo sức khỏe: Rau + Nước ép + Mật ong\n• Combo quà tặng: Artwork + Nông sản\n• Combo tuần: Nông sản & đồ uống lên menu hàng tuần\n• Giá combo tiết kiệm hơn 10-20%\n\nBạn muốn combo nào?",
+      "matchedCategory": "combo",
+      "usedModel": "rule-based",
+      "createdAt": 1773493216536
+    },
+    {
+      "id": "Rpjy1nIfxrehOJzS9nBk",
+      "userMessage": "chào bạn",
+      "userMessageNormalized": "chào bạn",
+      "botReply": "🌻 Chào bạn yêu! Bạn cần tìm nông sản tươi hay artwork tái chế?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773492665196
+    },
+    {
+      "id": "Rr4Tb1vKEF6oq5Rvr8Yv",
+      "userMessage": "hàng không tới",
+      "userMessageNormalized": "hàng không tới",
+      "botReply": "❓ Tôi chưa hiểu rõ câu hỏi. Hãy thử hỏi:\n• \"Sản phẩm nào có?\" → Xem danh sách\n• \"Giá rau bao nhiêu?\" → Xem giá\n• \"Cách mua hàng\" → Hướng dẫn mua\n• \"Chính sách hoàn tiền\" → Xem chính sách\n\nBạn muốn hỏi gì cụ thể?",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773493261797
+    },
+    {
+      "id": "SBvSm5dP846PbahcDBWA",
+      "userMessage": "???",
+      "userMessageNormalized": "???",
+      "botReply": "💬 Có thể tôi chưa đủ \"thông minh\" với câu hỏi này. Hãy thử:\n✓ Hỏi về sản phẩm cụ thể (rau, nước ép, artwork)\n✓ Hỏi về mua bán (giá, thanh toán, giao hàng)\n✓ Hỏi về dịch vụ (hoàn tiền, đánh giá, account)\n\nCo thể giúp gì không?",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773494036581
+    },
+    {
+      "id": "SVgVbWzFaSFDVcRGdRnk",
+      "userMessage": "tôi muốn hoàn tiền",
+      "userMessageNormalized": "tôi muốn hoàn tiền",
+      "botReply": "💰 Chính sách hoàn tiền Farm2Art:\n✓ Lý do: Hỏng, lỗi, không như mô tả\n✓ Thời hạn: Trong 7 ngày nhận hàng\n✓ Quy trình: Chat → Kiểm chứng → Hoàn\n✓ Thời gian: 1-3 ngày\n✓ Phí: Miễn phí nếu lỗi của shop\n\nBạn muốn hoàn tiền đơn nào?",
+      "matchedCategory": "refund",
+      "usedModel": "rule-based",
+      "createdAt": 1773492725859
+    },
+    {
+      "id": "SeRJoWw1nAt2BcJuxO9L",
+      "userMessage": "tí xíu bạn ơi",
+      "userMessageNormalized": "tí xíu bạn ơi",
+      "botReply": "🎯 Chào bạn! Tôi sẵn sàng giúp bạn khám phá những sản phẩm chất lượng từ nông dân bền vững.",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493959003
+    },
+    {
+      "id": "Sin9ienjWXn3kliCfdb8",
+      "userMessage": "hàng tôi bị hỏng rồi",
+      "userMessageNormalized": "hàng tôi bị hỏng rồi",
+      "botReply": "⚠️ Farm2Art hỗ trợ 100%:\n❌ Sản phẩm hỏng: Đổi/Hoàn 100% (xác nhận hình)\n❌ Đơn không đến: Tra cứu + bồi thường\n❌ Lỗi ứng dụng: Báo cáo để sửa ngay\n❌ Huỷ/Hoàn: Xử lý 24h\n\n⏱️ Quy trình: Chat → Hình ảnh → Xử lý 48h\nBạn gặp vấn đề gì cụ thể?",
+      "matchedCategory": "complaints",
+      "usedModel": "rule-based",
+      "createdAt": 1773494014757
+    },
+    {
+      "id": "T66TQ5q3wJMiR00GZKyI",
+      "userMessage": "farm2art bảo vệ môi trường thế nào",
+      "userMessageNormalized": "farm2art bảo vệ môi trường thế nào",
+      "botReply": "🌱 Farm2Art cam kết bên vững:\n✓ Sản phẩm từ nông dân bảo vệ môi trường\n✓ Không hóa chất độc hại\n✓ Bao bì 100% tái chế\n✓ Giảm phát thải & rác thải\n✓ Mỗi mua = Hỗ trợ nông dân\n\nBạn quan tâm lĩnh vực nào? (Nông sản, Artwork, ...)",
+      "matchedCategory": "sustainability",
+      "usedModel": "rule-based",
+      "createdAt": 1773492731660
+    },
+    {
+      "id": "TCpybwJgG2PCAeO81Ayh",
+      "userMessage": "đặt hàng có khó không",
+      "userMessageNormalized": "đặt hàng có khó không",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773492690819
+    },
+    {
+      "id": "TPquzP3pd0A3rrKbWwoK",
+      "userMessage": "chào",
+      "userMessageNormalized": "chào",
+      "botReply": "🌟 Xin chào bạn! Tôi là trợ lý AI của Farm2Art. Bạn đang tìm sản phẩm hay muốn biết thêm về chúng tôi?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493044500
+    },
+    {
+      "id": "TaUu32YPa5VeZSiiABFO",
+      "userMessage": "đánh giá sản phẩm thế nào",
+      "userMessageNormalized": "đánh giá sản phẩm thế nào",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773493250841
+    },
+    {
+      "id": "TgF6nDs7znYd0XqmaoPt",
+      "userMessage": "nông dân farm2art kiếm được tiền không",
+      "userMessageNormalized": "nông dân farm2art kiếm được tiền không",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773493280853
+    },
+    {
+      "id": "TuSSiddNbY0czRNkaqAL",
+      "userMessage": "giới thiệu về farm2art",
+      "userMessageNormalized": "giới thiệu về farm2art",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773492735358
+    },
+    {
+      "id": "TzttkLU0Cfq5JSROYEYo",
+      "userMessage": "sản phẩm",
+      "userMessageNormalized": "sản phẩm",
+      "botReply": " Câu hỏi hay! Tôi chưa có thông tin cụ thể về điều này. Bạn có thể:\n Liên hệ hỗ trợ: support@farm2art.vn\n Chat với người bán\n Hỏi về chủ đề khác",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773493040413
+    },
+    {
+      "id": "U6kDCxXJ7mbkigdSqk3T",
+      "userMessage": "xin chào",
+      "userMessageNormalized": "xin chào",
+      "botReply": "🌟 Xin chào bạn! Tôi là trợ lý AI của Farm2Art. Bạn đang tìm sản phẩm hay muốn biết thêm về chúng tôi?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493125602
+    },
+    {
+      "id": "UD3Da1YSqmRWlkTKPL5k",
+      "userMessage": "rau bao nhiêu tiền một kg",
+      "userMessageNormalized": "rau bao nhiêu tiền một kg",
+      "botReply": "💰 Bảng giá Farm2Art:\n🥬 Nông sản: 50k - 500k VND\n🧃 Nước ép: 80k - 300k VND\n🍯 Đặc sản: 150k - 500k VND\n🎨 Artwork: 150k - 2M VND\n\n+ Ship: Miễn phí từ 500k (nội thành)\nBạn tìm sản phẩm trong tầm giá nào?",
+      "matchedCategory": "price_inquiry",
+      "usedModel": "rule-based",
+      "createdAt": 1773493210698
+    },
+    {
+      "id": "UivnroiDUwmmL127VC3D",
+      "userMessage": "thêm vào giỏ hàng rồi sao",
+      "userMessageNormalized": "thêm vào giỏ hàng rồi sao",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773493985368
+    },
+    {
+      "id": "Uj18ivDaNk9rOFMbeneZ",
+      "userMessage": "có quả cam nào không",
+      "userMessageNormalized": "có quả cam nào không",
+      "botReply": "🍊 Trái cây tươi từ các vùng nông sản:\n• Được chọn lọc kỹ lưỡng\n• Đủ độ chín, đảm bảo chất lượng\n• Giá: 50,000 - 300,000 VND/kg\n• Thích hợp làm quà hoặc ăn hàng ngày\n\nLoại trái cây nào bạn thích?",
+      "matchedCategory": "fruit",
+      "usedModel": "rule-based",
+      "createdAt": 1773492671653
+    },
+    {
+      "id": "VI05r8DlEFUrV05pK6u8",
+      "userMessage": "giao hàng bao lâu",
+      "userMessageNormalized": "giao hàng bao lâu",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773493232305
+    },
+    {
+      "id": "Vrmx1qRe3nFZMPBi2ZD5",
+      "userMessage": "cách tạo tài khoản",
+      "userMessageNormalized": "cách tạo tài khoản",
+      "botReply": "✍️ Cách đăng ký Farm2Art (2 phút):\n1️⃣ Trang chủ → \"Đăng ký\"\n2️⃣ Email hoặc số điện thoại\n3️⃣ Mật khẩu mạnh (8+ ký tự)\n4️⃣ Xác minh email/SMS\n5️⃣ Hoàn tất hồ sơ\n\n⚡ Nhanh: Đăng nhập Google/Facebook\nBạn sẵn sàng đăng ký?",
+      "matchedCategory": "registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773494000172
+    },
+    {
+      "id": "VzvNb4bfFET176K4jwdP",
+      "userMessage": "mật ong có không?",
+      "userMessageNormalized": "mật ong có không?",
+      "botReply": "🍯 Mật ong nguyên chất từ các trang trại:\n• Không pha trộn, không xử lý hóa chất\n• Giàu dưỡng chất, hỗ trợ sức khỏe\n• Giá: 150,000 - 500,000 VND/hũ\n• Có chứng chỉ chất lượng\n\nBạn muốn tìm mật ong nào? (Hoa cà phê, Rừng, v.v.)",
+      "matchedCategory": "honey",
+      "usedModel": "rule-based",
+      "createdAt": 1773493204693
+    },
+    {
+      "id": "WoZRF9H30UGejTVdB0Cr",
+      "userMessage": "chào bạn",
+      "userMessageNormalized": "chào bạn",
+      "botReply": "🎯 Chào bạn! Tôi sẵn sàng giúp bạn khám phá những sản phẩm chất lượng từ nông dân bền vững.",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493196471
+    },
+    {
+      "id": "Wr2b5WyOAkX6Mu0VMpgx",
+      "userMessage": "quà sinh nhật",
+      "userMessageNormalized": "quà sinh nhật",
+      "botReply": "🎁 Farm2Art gợi ý quà tặng:\n👨‍👩‍👧‍👦 **Cho gia đình**: Rau, quả, nước ép\n💏 **Cho người yêu**: Artwork đẹp, combo quà\n👨‍👩‍👧 **Cho bạn**: Nước ép, mật ong\n🎂 **Sinh nhật**: Combo + artwork\n\nBạn tặng ai? Tôi sẽ gợi ý chi tiết!",
+      "matchedCategory": "gift",
+      "usedModel": "rule-based",
+      "createdAt": 1773493928537
+    },
+    {
+      "id": "XFRlaawaIeK1HzcTMGcu",
+      "userMessage": "???",
+      "userMessageNormalized": "???",
+      "botReply": "🎯 Liên hệ hỗ trợ ngay nếu cần:\n📧 Email: support@farm2art.vn\n💬 Chat trực tiếp: Mở app Farm2Art\n⏰ Thời gian: 8:00 - 20:00 hàng ngày\n\nHoặc hãy cho tôi biết bạn cần gì?",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773493276030
+    },
+    {
+      "id": "XINon9MKePfx2gdtef9w",
+      "userMessage": "lưu sản phẩm yêu thích",
+      "userMessageNormalized": "lưu sản phẩm yêu thích",
+      "botReply": "❤️ Quản lý danh sách yêu thích:\n1️⃣ Click ❤️ trên sản phẩm\n2️⃣ Sản phẩm được lưu tự động\n3️⃣ Xem bất kỳ lúc nào\n4️⃣ Được thông báo nếu giảm giá\n5️⃣ Chia sẻ danh sách với bạn\n\nBạn muốn lưu sản phẩm nào?",
+      "matchedCategory": "wishlist",
+      "usedModel": "rule-based",
+      "createdAt": 1773492714150
+    },
+    {
+      "id": "XPcfJlJvI5TCNJ2cHyGU",
+      "userMessage": "điều kiện trở thành người bán",
+      "userMessageNormalized": "điều kiện trở thành người bán",
+      "botReply": "🛵 Cách trở thành người bán Farm2Art:\n1️⃣ Đáp ứng tiêu chí: 18+, nông dân hoặc artisan\n2️⃣ Gửi đơn + chứng chỉ\n3️⃣ Farm2Art kiểm duyệt (3-5 ngày)\n4️⃣ Cấp quyền bán\n5️⃣ Bắt đầu bán (2% hoa hồng)\n\nBạn muốn đăng ký? support@farm2art.vn",
+      "matchedCategory": "seller_registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773492718851
+    },
+    {
+      "id": "Xc7OGruoPyzy5YolpEkm",
+      "userMessage": "tôi muốn làm quà cho bạn, có gợi ý không",
+      "userMessageNormalized": "tôi muốn làm quà cho bạn, có gợi ý không",
+      "botReply": "🎁 Farm2Art gợi ý quà tặng:\n👨‍👩‍👧‍👦 **Cho gia đình**: Rau, quả, nước ép\n💏 **Cho người yêu**: Artwork đẹp, combo quà\n👨‍👩‍👧 **Cho bạn**: Nước ép, mật ong\n🎂 **Sinh nhật**: Combo + artwork\n\nBạn tặng ai? Tôi sẽ gợi ý chi tiết!",
+      "matchedCategory": "gift",
+      "usedModel": "rule-based",
+      "createdAt": 1773494040235
+    },
+    {
+      "id": "Y3WdqtyEht7ableaYcZM",
+      "userMessage": "giao hàng bao lâu",
+      "userMessageNormalized": "giao hàng bao lâu",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773493992845
+    },
+    {
+      "id": "YYQI56pBM03DNewn20tY",
+      "userMessage": "nước ép cam bao nhiêu tiền",
+      "userMessageNormalized": "nước ép cam bao nhiêu tiền",
+      "botReply": "💰 Bảng giá Farm2Art:\n🥬 Nông sản: 50k - 500k VND\n🧃 Nước ép: 80k - 300k VND\n🍯 Đặc sản: 150k - 500k VND\n🎨 Artwork: 150k - 2M VND\n\n+ Ship: Miễn phí từ 500k (nội thành)\nBạn tìm sản phẩm trong tầm giá nào?",
+      "matchedCategory": "price_inquiry",
+      "usedModel": "rule-based",
+      "createdAt": 1773493203531
+    },
+    {
+      "id": "YrDwBJRKZqquV4pWjIiG",
+      "userMessage": "mật ong có không?",
+      "userMessageNormalized": "mật ong có không?",
+      "botReply": "🍯 Mật ong nguyên chất từ các trang trại:\n• Không pha trộn, không xử lý hóa chất\n• Giàu dưỡng chất, hỗ trợ sức khỏe\n• Giá: 150,000 - 500,000 VND/hũ\n• Có chứng chỉ chất lượng\n\nBạn muốn tìm mật ong nào? (Hoa cà phê, Rừng, v.v.)",
+      "matchedCategory": "honey",
+      "usedModel": "rule-based",
+      "createdAt": 1773493963967
+    },
+    {
+      "id": "YujP2bxnjbRS0ulOub69",
+      "userMessage": "đặt hàng có khó không",
+      "userMessageNormalized": "đặt hàng có khó không",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493221254
+    },
+    {
+      "id": "YwWoERqQNqPqWwTG0xFv",
+      "userMessage": "artist bán artwork ở đây phải đáp ứng điều kiện gì",
+      "userMessageNormalized": "artist bán artwork ở đây phải đáp ứng điều kiện gì",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773493270314
+    },
+    {
+      "id": "ZMGRHFXYLgoCNChGs3aN",
+      "userMessage": "artwork đắt không?",
+      "userMessageNormalized": "artwork đắt không?",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773493972780
+    },
+    {
+      "id": "ZMLGKOAYh4LW3nRcqqvA",
+      "userMessage": "ơi",
+      "userMessageNormalized": "ơi",
+      "botReply": "💡 Bạn muốn hỏi gì? Tôi có thể giúp bạn:\n🛍️ Tìm sản phẩm (rau, quả, nước ép, artwork)\n💰 Hỏi giá cả\n🛒 Cách mua hàng\n💳 Hình thức thanh toán\n🚚 Giao hàng bao lâu\n\nHãy cụ thể hơn nhé!",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773493274905
+    },
+    {
+      "id": "ZRlEKEVk5pf4nH0761VY",
+      "userMessage": "mua số lượng lớn có giảm giá không",
+      "userMessageNormalized": "mua số lượng lớn có giảm giá không",
+      "botReply": "📦 Farm2Art hỗ trợ bán sỉ:\n• Giảm giá từ 5+ sản phẩm\n• Liên hệ: kinh doanh@farm2art.vn\n• Hỗ trợ giải pháp theo nhu cầu\n• Giao hàng định kỳ\n\nBạn muốn bao nhiêu?",
+      "matchedCategory": "bulk_order",
+      "usedModel": "rule-based",
+      "createdAt": 1773493215320
+    },
+    {
+      "id": "ZTuKUslSvyccyCRH3rfm",
+      "userMessage": "cách mua hàng như thế nào",
+      "userMessageNormalized": "cách mua hàng như thế nào",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773492687446
+    },
+    {
+      "id": "ZtPPKUUrlwkELtnYpPGR",
+      "userMessage": "mua lô hàng lớn để bán lại được không",
+      "userMessageNormalized": "mua lô hàng lớn để bán lại được không",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773494032983
+    },
+    {
+      "id": "ZtUDoSAAQEkWC3ZPjmvy",
+      "userMessage": "theo dõi hàng ở đâu",
+      "userMessageNormalized": "theo dõi hàng ở đâu",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773493237236
+    },
+    {
+      "id": "a2u6iH7IdYQq1dC5Y7L3",
+      "userMessage": "có khuyến mãi không",
+      "userMessageNormalized": "có khuyến mãi không",
+      "botReply": "🎉 Farm2Art có khuyến mãi hàng tuần:\n💰 Giảm giá sản phẩm\n🎁 Combo tiết kiệm\n🔥 Flash sale\n📍 Free ship\n💳 Code giảm giá\n\nFollowing Farm2Art để không miss deal!",
+      "matchedCategory": "discount",
+      "usedModel": "rule-based",
+      "createdAt": 1773493922680
+    },
+    {
+      "id": "a7EmzEtVrZawiJdDK2YA",
+      "userMessage": "hello",
+      "userMessageNormalized": "hello",
+      "botReply": "👋 Xin chào! Chào mừng bạn đến với Farm2Art - nền tảng bán nông sản & artwork tái chế. Có gì tôi có thể giúp?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493197611
+    },
+    {
+      "id": "aP6PnGpWuKOgBsQsAEof",
+      "userMessage": "lần đầu mua, phải làm gì",
+      "userMessageNormalized": "lần đầu mua, phải làm gì",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493223704
+    },
+    {
+      "id": "aVObaPH04298ZnLdbwKM",
+      "userMessage": "sản phẩm tái chế tốt không",
+      "userMessageNormalized": "sản phẩm tái chế tốt không",
+      "botReply": "🛍️ Farm2Art cung cấp 5 danh mục sản phẩm chính:\n\n🥬 **Nông sản tươi**: Rau, quả, sản phẩm đặc sản từ nông dân bền vững\n\n🧃 **Nước ép & Đồ uống**: 100% từ trái cây tươi, không đường\n\n🍯 **Đặc sản**: Mật ong, cà phê, sản phẩm nông sản đặc biệt\n\n🎨 **Artwork tái chế**: Tranh, trang trí từ phế phẩm nông sản\n\n📦 **Combo & Gói quà**: Bộ sản phẩm tiết kiệm + tặng bạn\n\nBạn muốn tìm loại nào?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773493264061
+    },
+    {
+      "id": "ahd9rPK0URKDx7Wcm1iL",
+      "userMessage": "ví điện tử được không",
+      "userMessageNormalized": "ví điện tử được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773492700850
+    },
+    {
+      "id": "aktXZMEFa0f4FhMJk87r",
+      "userMessage": "chào bạn",
+      "userMessageNormalized": "chào bạn",
+      "botReply": "🎯 Chào bạn! Tôi sẵn sàng giúp bạn khám phá những sản phẩm chất lượng từ nông dân bền vững.",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493037742
+    },
+    {
+      "id": "b5FpAeyB8KT4FSiZoozl",
+      "userMessage": "nông dân farm2art kiếm được tiền không",
+      "userMessageNormalized": "nông dân farm2art kiếm được tiền không",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773494041487
+    },
+    {
+      "id": "bCWa2tNJduDT33Uj5z9C",
+      "userMessage": "có sản phẩm giá rẻ không?",
+      "userMessageNormalized": "có sản phẩm giá rẻ không?",
+      "botReply": "🛍️ Farm2Art có kho sản phẩm phong phú:\n- 🥕 Nông sản tươi\n- 🧃 Nước ép & đồ uống\n- 🎨 Artwork tái chế\n- 📦 Combo & gói quà\n\nHãy cho tôi biết loại nào bạn quan tâm!",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493214184
+    },
+    {
+      "id": "bFrKVGuwAmZXZA4lGnZy",
+      "userMessage": "phí vận chuyển bao nhiêu",
+      "userMessageNormalized": "phí vận chuyển bao nhiêu",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773493233535
+    },
+    {
+      "id": "bOTfrVLoRnOyXOqmROKz",
+      "userMessage": "tôi muốn tìm rau",
+      "userMessageNormalized": "tôi muốn tìm rau",
+      "botReply": "🛍️ Farm2Art có kho sản phẩm phong phú:\n- 🥕 Nông sản tươi\n- 🧃 Nước ép & đồ uống\n- 🎨 Artwork tái chế\n- 📦 Combo & gói quà\n\nHãy cho tôi biết loại nào bạn quan tâm!",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493128560
+    },
+    {
+      "id": "bOvU8ElFD2oaiMiyPtaV",
+      "userMessage": "vnpay có được không",
+      "userMessageNormalized": "vnpay có được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773492698385
+    },
+    {
+      "id": "bTwuMTA2vIfjeUMclEUK",
+      "userMessage": "hàng tôi đã tới chưa",
+      "userMessageNormalized": "hàng tôi đã tới chưa",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773493998988
+    },
+    {
+      "id": "bZ0Kfb0EpbtoDFYhQndy",
+      "userMessage": "mua số lượng lớn có giảm giá không",
+      "userMessageNormalized": "mua số lượng lớn có giảm giá không",
+      "botReply": "📦 Farm2Art hỗ trợ bán sỉ:\n• Giảm giá từ 5+ sản phẩm\n• Liên hệ: kinh doanh@farm2art.vn\n• Hỗ trợ giải pháp theo nhu cầu\n• Giao hàng định kỳ\n\nBạn muốn bao nhiêu?",
+      "matchedCategory": "bulk_order",
+      "usedModel": "rule-based",
+      "createdAt": 1773493975333
+    },
+    {
+      "id": "boEMxYSgGLrLYhGuaLnB",
+      "userMessage": "giá nước ép bao lăm",
+      "userMessageNormalized": "giá nước ép bao lăm",
+      "botReply": "🧃 Nước ép 100% từ trái cây tươi:\n• Không đường, không chất bảo quản\n• Áp lực lạnh để giữ dinh dưỡng\n• Giá: 80,000 - 200,000 VND/chai\n• Giao nhanh, tươi mới\n\nFlavor nào bạn muốn? (Cam, Chanh, Dâu, Lựu...)",
+      "matchedCategory": "juice",
+      "usedModel": "rule-based",
+      "createdAt": 1773493211845
+    },
+    {
+      "id": "cehmWp51MWAakkgXBNzH",
+      "userMessage": "điều kiện trở thành người bán",
+      "userMessageNormalized": "điều kiện trở thành người bán",
+      "botReply": "🛵 Cách trở thành người bán Farm2Art:\n1️⃣ Đáp ứng tiêu chí: 18+, nông dân hoặc artisan\n2️⃣ Gửi đơn + chứng chỉ\n3️⃣ Farm2Art kiểm duyệt (3-5 ngày)\n4️⃣ Cấp quyền bán\n5️⃣ Bắt đầu bán (2% hoa hồng)\n\nBạn muốn đăng ký? support@farm2art.vn",
+      "matchedCategory": "seller_registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773493249614
+    },
+    {
+      "id": "cxOUu5I9qzenR1wWH8dD",
+      "userMessage": "nước ép cam bao nhiêu tiền",
+      "userMessageNormalized": "nước ép cam bao nhiêu tiền",
+      "botReply": "💰 Bảng giá Farm2Art:\n🥬 Nông sản: 50k - 500k VND\n🧃 Nước ép: 80k - 300k VND\n🍯 Đặc sản: 150k - 500k VND\n🎨 Artwork: 150k - 2M VND\n\n+ Ship: Miễn phí từ 500k (nội thành)\nBạn tìm sản phẩm trong tầm giá nào?",
+      "matchedCategory": "price_inquiry",
+      "usedModel": "rule-based",
+      "createdAt": 1773493962738
+    },
+    {
+      "id": "d6s5SFOdhZ1Prr3mWi4r",
+      "userMessage": "xin chào",
+      "userMessageNormalized": "xin chào",
+      "botReply": "👍 Xin chào xin chào! Mình giúp bạn tìm sản phẩm tuyệt vời nha!",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773492662696
+    },
+    {
+      "id": "dR5k4NeYnB0y1vcxRV60",
+      "userMessage": "farm2art có hỗ trợ nông dân không",
+      "userMessageNormalized": "farm2art có hỗ trợ nông dân không",
+      "botReply": "👨‍🌾 Farm2Art kết nối hơn 1000+ nông dân bền vững.\nTất cả sản phẩm được kiểm chứng chất lượng & giấy tờ pháp lý.\n\nBạn muốn tìm sản phẩm từ nông dân cụ thể không?",
+      "matchedCategory": "farmer",
+      "usedModel": "rule-based",
+      "createdAt": 1773493912051
+    },
+    {
+      "id": "de9ffAP3ZH8uyHtBStaS",
+      "userMessage": "farm2art uy tín không",
+      "userMessageNormalized": "farm2art uy tín không",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773493920345
+    },
+    {
+      "id": "droBnReR5kTxtBKLwMtZ",
+      "userMessage": "quản lý tài khoản ở đâu",
+      "userMessageNormalized": "quản lý tài khoản ở đâu",
+      "botReply": "👤 Quản lý tài khoản Farm2Art:\n✏️ Cập nhật thông tin cá nhân\n🎯 Xem lịch sử đơn hàng\n❤️ Danh sách yêu thích\n💬 Chat với người bán\n🔐 Cài đặt bảo mật & mật khẩu\n\nBạn muốn cập nhật thông tin gì?",
+      "matchedCategory": "profile_management",
+      "usedModel": "rule-based",
+      "createdAt": 1773493242340
+    },
+    {
+      "id": "dzdkNapsSZ5R78dsxf4u",
+      "userMessage": "liên hệ support ở đâu",
+      "userMessageNormalized": "liên hệ support ở đâu",
+      "botReply": "📞 Liên hệ hỗ trợ Farm2Art:\n💬 Chat: Sử dụng tính năng chat trên app\n📧 Email: support@farm2art.vn\n⏰ 8:00 - 20:00 (Thứ 2 - CN, không lễ)\n🔧 Hỗ trợ: Thanh toán, giao hàng, sản phẩm, tài khoản\n\nVấn đề của bạn là gì?",
+      "matchedCategory": "contact_support",
+      "usedModel": "rule-based",
+      "createdAt": 1773494019368
+    },
+    {
+      "id": "e9ygouOcfEoTgQe6Z8Zf",
+      "userMessage": "mua rau cách nào",
+      "userMessageNormalized": "mua rau cách nào",
+      "botReply": "🥬 Farm2Art cung cấp rau xanh từ nông dân bền vững:\n• Luôn tươi, không hóa chất\n• Giao hàng nhanh 2-3 ngày\n• Giá: 50,000 - 150,000 VND/kg\n\nBạn muốn chọn loại rau nào?",
+      "matchedCategory": "vegetable",
+      "usedModel": "rule-based",
+      "createdAt": 1773493220131
+    },
+    {
+      "id": "eFx0lZWaCLRe1pXlYJPG",
+      "userMessage": "tôi có câu hỏi về hóa đơn và giao hàng",
+      "userMessageNormalized": "tôi có câu hỏi về hóa đơn và giao hàng",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773492740364
+    },
+    {
+      "id": "edV7m15xu8n4rN1vvzjj",
+      "userMessage": "tôi muốn mua rau và nước ép, giá là bao nhiêu, giao mất bao lâu",
+      "userMessageNormalized": "tôi muốn mua rau và nước ép, giá là bao nhiêu, giao mất bao lâu",
+      "botReply": "🧃 Nước ép 100% từ trái cây tươi:\n• Không đường, không chất bảo quản\n• Áp lực lạnh để giữ dinh dưỡng\n• Giá: 80,000 - 200,000 VND/chai\n• Giao nhanh, tươi mới\n\nFlavor nào bạn muốn? (Cam, Chanh, Dâu, Lựu...)",
+      "matchedCategory": "juice",
+      "usedModel": "rule-based",
+      "createdAt": 1773492736541
+    },
+    {
+      "id": "eewyrpkwOsRbJ6OTUFOn",
+      "userMessage": "tôi muốn khám phá sản phẩm tái chế",
+      "userMessageNormalized": "tôi muốn khám phá sản phẩm tái chế",
+      "botReply": "🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493966527
+    },
+    {
+      "id": "ek3vri6R8Idng6otm4Wb",
+      "userMessage": "sản phẩm tái chế có chất lượng tốt không, mua thế nào",
+      "userMessageNormalized": "sản phẩm tái chế có chất lượng tốt không, mua thế nào",
+      "botReply": "🛍️ Farm2Art cung cấp 5 danh mục sản phẩm chính:\n\n🥬 **Nông sản tươi**: Rau, quả, sản phẩm đặc sản từ nông dân bền vững\n\n🧃 **Nước ép & Đồ uống**: 100% từ trái cây tươi, không đường\n\n🍯 **Đặc sản**: Mật ong, cà phê, sản phẩm nông sản đặc biệt\n\n🎨 **Artwork tái chế**: Tranh, trang trí từ phế phẩm nông sản\n\n📦 **Combo & Gói quà**: Bộ sản phẩm tiết kiệm + tặng bạn\n\nBạn muốn tìm loại nào?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773493269080
+    },
+    {
+      "id": "ekWEhxdsgzlyVzBfjIhN",
+      "userMessage": "đăng ký như thế nào",
+      "userMessageNormalized": "đăng ký như thế nào",
+      "botReply": "✍️ Cách đăng ký Farm2Art (2 phút):\n1️⃣ Trang chủ → \"Đăng ký\"\n2️⃣ Email hoặc số điện thoại\n3️⃣ Mật khẩu mạnh (8+ ký tự)\n4️⃣ Xác minh email/SMS\n5️⃣ Hoàn tất hồ sơ\n\n⚡ Nhanh: Đăng nhập Google/Facebook\nBạn sẵn sàng đăng ký?",
+      "matchedCategory": "registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773493241019
+    },
+    {
+      "id": "etZFPIiJnHRhG97bHNlQ",
+      "userMessage": "ứng dụng bị lỗi",
+      "userMessageNormalized": "ứng dụng bị lỗi",
+      "botReply": "⚠️ Farm2Art hỗ trợ 100%:\n❌ Sản phẩm hỏng: Đổi/Hoàn 100% (xác nhận hình)\n❌ Đơn không đến: Tra cứu + bồi thường\n❌ Lỗi ứng dụng: Báo cáo để sửa ngay\n❌ Huỷ/Hoàn: Xử lý 24h\n\n⏱️ Quy trình: Chat → Hình ảnh → Xử lý 48h\nBạn gặp vấn đề gì cụ thể?",
+      "matchedCategory": "complaints",
+      "usedModel": "rule-based",
+      "createdAt": 1773494020598
+    },
+    {
+      "id": "eymgzfARm3Q9USMPQJom",
+      "userMessage": "đánh giá sản phẩm thế nào",
+      "userMessageNormalized": "đánh giá sản phẩm thế nào",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773492720092
+    },
+    {
+      "id": "f2s4Bnz0Tyd0OQMW591d",
+      "userMessage": "đơn hàng của tôi ở đâu nhỉ",
+      "userMessageNormalized": "đơn hàng của tôi ở đâu nhỉ",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773494037801
+    },
+    {
+      "id": "f4n4MwAIMG0uXygqESi1",
+      "userMessage": "tôi muốn hoàn tiền",
+      "userMessageNormalized": "tôi muốn hoàn tiền",
+      "botReply": "💰 Chính sách hoàn tiền Farm2Art:\n✓ Lý do: Hỏng, lỗi, không như mô tả\n✓ Thời hạn: Trong 7 ngày nhận hàng\n✓ Quy trình: Chat → Kiểm chứng → Hoàn\n✓ Thời gian: 1-3 ngày\n✓ Phí: Miễn phí nếu lỗi của shop\n\nBạn muốn hoàn tiền đơn nào?",
+      "matchedCategory": "refund",
+      "usedModel": "rule-based",
+      "createdAt": 1773494017049
+    },
+    {
+      "id": "f9PNERCCvy11kFaEQMn0",
+      "userMessage": "bạn bán gì",
+      "userMessageNormalized": "bạn bán gì",
+      "botReply": "🛵 Cách trở thành người bán Farm2Art:\n1️⃣ Đáp ứng tiêu chí: 18+, nông dân hoặc artisan\n2️⃣ Gửi đơn + chứng chỉ\n3️⃣ Farm2Art kiểm duyệt (3-5 ngày)\n4️⃣ Cấp quyền bán\n5️⃣ Bắt đầu bán (2% hoa hồng)\n\nBạn muốn đăng ký? support@farm2art.vn",
+      "matchedCategory": "seller_registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773493903251
+    },
+    {
+      "id": "fPAtVKu2To7bt0vh7pan",
+      "userMessage": "mua lô hàng lớn để bán lại được không",
+      "userMessageNormalized": "mua lô hàng lớn để bán lại được không",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773492741510
+    },
+    {
+      "id": "ffp52yBD6fi3HLssbAhZ",
+      "userMessage": "có quả cam nào không",
+      "userMessageNormalized": "có quả cam nào không",
+      "botReply": "🍊 Trái cây tươi từ các vùng nông sản:\n• Được chọn lọc kỹ lưỡng\n• Đủ độ chín, đảm bảo chất lượng\n• Giá: 50,000 - 300,000 VND/kg\n• Thích hợp làm quà hoặc ăn hàng ngày\n\nLoại trái cây nào bạn thích?",
+      "matchedCategory": "fruit",
+      "usedModel": "rule-based",
+      "createdAt": 1773493961408
+    },
+    {
+      "id": "fiUTI680wtBL9I0FpeJt",
+      "userMessage": "combo giá bao nhiêu",
+      "userMessageNormalized": "combo giá bao nhiêu",
+      "botReply": "🎁 Farm2Art có các combo hấp dẫn:\n• Combo sức khỏe: Rau + Nước ép + Mật ong\n• Combo quà tặng: Artwork + Nông sản\n• Combo tuần: Nông sản & đồ uống lên menu hàng tuần\n• Giá combo tiết kiệm hơn 10-20%\n\nBạn muốn combo nào?",
+      "matchedCategory": "combo",
+      "usedModel": "rule-based",
+      "createdAt": 1773493976563
+    },
+    {
+      "id": "goXR7IMQCu7PaG18LqyN",
+      "userMessage": "hàng không tới",
+      "userMessageNormalized": "hàng không tới",
+      "botReply": "🤔 Tôi chưa hiểu rõ câu hỏi của bạn. Hãy thử:\n• Cách tìm kiếm sản phẩm\n• Hỏi về giá cả\n• Hỏi cách mua hàng\n• Liên hệ hỗ trợ khách hàng",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773492730446
+    },
+    {
+      "id": "gy4vE7CfNGqIIvGU43TK",
+      "userMessage": "chào bạn",
+      "userMessageNormalized": "chào bạn",
+      "botReply": "😊 Chào mừng bạ! Hôm nay bạn muốn mua gì trên Farm2Art?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493955527
+    },
+    {
+      "id": "h0zWUVWQ8URyFKn4XvjO",
+      "userMessage": "giao đến nơi tôi ở được không",
+      "userMessageNormalized": "giao đến nơi tôi ở được không",
+      "botReply": "💡 Bạn muốn hỏi gì? Tôi có thể giúp bạn:\n🛍️ Tìm sản phẩm (rau, quả, nước ép, artwork)\n💰 Hỏi giá cả\n🛒 Cách mua hàng\n💳 Hình thức thanh toán\n🚚 Giao hàng bao lâu\n\nHãy cụ thể hơn nhé!",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773493236000
+    },
+    {
+      "id": "hAYAt79wIaEyejcMZudT",
+      "userMessage": "tí xíu bạn ơi",
+      "userMessageNormalized": "tí xíu bạn ơi",
+      "botReply": "🌟 Xin chào bạn! Tôi là trợ lý AI của Farm2Art. Bạn đang tìm sản phẩm hay muốn biết thêm về chúng tôi?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773492669092
+    },
+    {
+      "id": "hO8W2SzZIdrbytlmpfsd",
+      "userMessage": "tôi muốn tìm rau sạch",
+      "userMessageNormalized": "tôi muốn tìm rau sạch",
+      "botReply": "🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493201182
+    },
+    {
+      "id": "hYqPrPFHVqm11zImMgGi",
+      "userMessage": "quản lý tài khoản ở đâu",
+      "userMessageNormalized": "quản lý tài khoản ở đâu",
+      "botReply": "👤 Quản lý tài khoản Farm2Art:\n✏️ Cập nhật thông tin cá nhân\n🎯 Xem lịch sử đơn hàng\n❤️ Danh sách yêu thích\n💬 Chat với người bán\n🔐 Cài đặt bảo mật & mật khẩu\n\nBạn muốn cập nhật thông tin gì?",
+      "matchedCategory": "profile_management",
+      "usedModel": "rule-based",
+      "createdAt": 1773494002658
+    },
+    {
+      "id": "hlmSPVcORJ3wOFiXbugG",
+      "userMessage": "tôi muốn làm quà cho bạn, có gợi ý không",
+      "userMessageNormalized": "tôi muốn làm quà cho bạn, có gợi ý không",
+      "botReply": "🎁 Farm2Art có các combo hấp dẫn:\n• Combo sức khỏe: Rau + Nước ép + Mật ong\n• Combo quà tặng: Artwork + Nông sản\n• Combo tuần: Nông sản & đồ uống lên menu hàng tuần\n• Giá combo tiết kiệm hơn 10-20%\n\nBạn muốn combo nào?",
+      "matchedCategory": "combo",
+      "usedModel": "rule-based",
+      "createdAt": 1773493279718
+    },
+    {
+      "id": "hxa2kdxO5V324PwQgJIq",
+      "userMessage": "kiểm chứng",
+      "userMessageNormalized": "kiểm chứng",
+      "botReply": "✅ Cam kết chất lượng Farm2Art:\n✓ Tất cả sản phẩm kiểm chứng\n✓ Có chứng chỉ & giấy tờ pháp lý\n✓ Không thuốc độc hại\n✓ Đo lường & cân đúng\n✓ Test độc tố\n\nBạn hoàn toàn an tâm!",
+      "matchedCategory": "quality",
+      "usedModel": "rule-based",
+      "createdAt": 1773493919168
+    },
+    {
+      "id": "hzrE5CYjWnZWrhn3djNR",
+      "userMessage": "có thể chuyển khoản không",
+      "userMessageNormalized": "có thể chuyển khoản không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493227296
+    },
+    {
+      "id": "iHdMkUZVScuzaJmqq1Fr",
+      "userMessage": "vnpay có được không",
+      "userMessageNormalized": "vnpay có được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773493989157
+    },
+    {
+      "id": "jAqVE4Y5pyPLPNfmYkGL",
+      "userMessage": "artwork đắt không?",
+      "userMessageNormalized": "artwork đắt không?",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773493213045
+    },
+    {
+      "id": "jF8raCNSPpaWTnIp0ahl",
+      "userMessage": "farm2art là gì",
+      "userMessageNormalized": "farm2art là gì",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773492734220
+    },
+    {
+      "id": "jO0oSTGhslzmLrGTiEzp",
+      "userMessage": "lưu sản phẩm yêu thích",
+      "userMessageNormalized": "lưu sản phẩm yêu thích",
+      "botReply": "❤️ Quản lý danh sách yêu thích:\n1️⃣ Click ❤️ trên sản phẩm\n2️⃣ Sản phẩm được lưu tự động\n3️⃣ Xem bất kỳ lúc nào\n4️⃣ Được thông báo nếu giảm giá\n5️⃣ Chia sẻ danh sách với bạn\n\nBạn muốn lưu sản phẩm nào?",
+      "matchedCategory": "wishlist",
+      "usedModel": "rule-based",
+      "createdAt": 1773493244696
+    },
+    {
+      "id": "jaB0T6Rytnd2VJxFJkNt",
+      "userMessage": "giao đến nơi tôi ở được không",
+      "userMessageNormalized": "giao đến nơi tôi ở được không",
+      "botReply": "❓ Tôi chưa hiểu rõ câu hỏi. Hãy thử hỏi:\n• \"Sản phẩm nào có?\" → Xem danh sách\n• \"Giá rau bao nhiêu?\" → Xem giá\n• \"Cách mua hàng\" → Hướng dẫn mua\n• \"Chính sách hoàn tiền\" → Xem chính sách\n\nBạn muốn hỏi gì cụ thể?",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773493996604
+    },
+    {
+      "id": "jpV9YlGkWsCRxBYUxnj2",
+      "userMessage": "người bán này uy tín không",
+      "userMessageNormalized": "người bán này uy tín không",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773493248395
+    },
+    {
+      "id": "k2gysWZrKJA9OGfjkqP8",
+      "userMessage": "sản phẩm tái chế có chất lượng tốt không, mua thế nào",
+      "userMessageNormalized": "sản phẩm tái chế có chất lượng tốt không, mua thế nào",
+      "botReply": " Farm2Art tự hào có sản phẩm tái chế:\n• Giảm rác thải nông sản\n• Thân thiện môi trường 100%\n• Sáng tạo & độc đáo\n• Hỗ trợ nông dân thêm doanh thu\n\nChi tiết sản phẩm tái chế?",
+      "matchedCategory": "recycled",
+      "usedModel": "rule-based",
+      "createdAt": 1773492737724
+    },
+    {
+      "id": "kAkUhr0vXuxX3FWTCL2O",
+      "userMessage": "trả hàng",
+      "userMessageNormalized": "trả hàng",
+      "botReply": "🔄 Chính sách đổi/trả Farm2Art:\n✓ 7 ngày đổi/trả miễn phí\n✓ Sản phẩm nguyên đai, chưa sử dụng\n✓ Hoàn toàn miễn phí ship\n✓ Xử lý trong 48h\n\nBạn muốn đổi/trả sản phẩm nào?",
+      "matchedCategory": "return",
+      "usedModel": "rule-based",
+      "createdAt": 1773493926209
+    },
+    {
+      "id": "kHXfg7fpNFrwX6p0HRle",
+      "userMessage": "ơi",
+      "userMessageNormalized": "ơi",
+      "botReply": "📌 Có điều gì khác tôi có thể giúp? Ví dụ:\n✓ Tìm kiếm sản phẩm\n✓ Thông tin thanh toán\n✓ Hỏi về vận chuyển\n✓ Cách quản lý tài khoản",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773492743863
+    },
+    {
+      "id": "khBy2LiqRqEvucqVYZA2",
+      "userMessage": "thanh toán khi nhận được không",
+      "userMessageNormalized": "thanh toán khi nhận được không",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773492699630
+    },
+    {
+      "id": "koLBhK8WEEN2x5Zaqnpt",
+      "userMessage": "tôi muốn hoàn tiền",
+      "userMessageNormalized": "tôi muốn hoàn tiền",
+      "botReply": "💰 Chính sách hoàn tiền Farm2Art:\n✓ Lý do: Hỏng, lỗi, không như mô tả\n✓ Thời hạn: Trong 7 ngày nhận hàng\n✓ Quy trình: Chat → Kiểm chứng → Hoàn\n✓ Thời gian: 1-3 ngày\n✓ Phí: Miễn phí nếu lỗi của shop\n\nBạn muốn hoàn tiền đơn nào?",
+      "matchedCategory": "refund",
+      "usedModel": "rule-based",
+      "createdAt": 1773493257091
+    },
+    {
+      "id": "kzvD72AqEKUREaqAsuWN",
+      "userMessage": "đánh giá sản phẩm thế nào",
+      "userMessageNormalized": "đánh giá sản phẩm thế nào",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773494011174
+    },
+    {
+      "id": "l1vm2EdAHEWH3nt5FzWE",
+      "userMessage": "lọc sản phẩm nào",
+      "userMessageNormalized": "lọc sản phẩm nào",
+      "botReply": "🛍️ Farm2Art có kho sản phẩm phong phú:\n- 🥕 Nông sản tươi\n- 🧃 Nước ép & đồ uống\n- 🎨 Artwork tái chế\n- 📦 Combo & gói quà\n\nHãy cho tôi biết loại nào bạn quan tâm!",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493969086
+    },
+    {
+      "id": "lxQJTPyOgnSNAzOX7J2O",
+      "userMessage": "liên hệ support ở đâu",
+      "userMessageNormalized": "liên hệ support ở đâu",
+      "botReply": "📞 Liên hệ hỗ trợ Farm2Art:\n💬 Chat: Sử dụng tính năng chat trên app\n📧 Email: support@farm2art.vn\n⏰ 8:00 - 20:00 (Thứ 2 - CN, không lễ)\n🔧 Hỗ trợ: Thanh toán, giao hàng, sản phẩm, tài khoản\n\nVấn đề của bạn là gì?",
+      "matchedCategory": "contact_support",
+      "usedModel": "rule-based",
+      "createdAt": 1773493259450
+    },
+    {
+      "id": "mRSHwL3A6tHPiJztTPDn",
+      "userMessage": "tôi thường xuyên đặt hàng",
+      "userMessageNormalized": "tôi thường xuyên đặt hàng",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493278391
+    },
+    {
+      "id": "mr5q2ZjuwXQScwgzZ6I5",
+      "userMessage": "farm2art bảo vệ môi trường thế nào",
+      "userMessageNormalized": "farm2art bảo vệ môi trường thế nào",
+      "botReply": "🌱 Farm2Art cam kết bên vững:\n✓ Sản phẩm từ nông dân bảo vệ môi trường\n✓ Không hóa chất độc hại\n✓ Bao bì 100% tái chế\n✓ Giảm phát thải & rác thải\n✓ Mỗi mua = Hỗ trợ nông dân\n\nBạn quan tâm lĩnh vực nào? (Nông sản, Artwork, ...)",
+      "matchedCategory": "sustainability",
+      "usedModel": "rule-based",
+      "createdAt": 1773494023050
+    },
+    {
+      "id": "nz8gR5VRLn5XOzUPiD5D",
+      "userMessage": "thêm vào giỏ hàng rồi sao",
+      "userMessageNormalized": "thêm vào giỏ hàng rồi sao",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773493224933
+    },
+    {
+      "id": "o47yjENG4D9u7O7cqh61",
+      "userMessage": "hỗ trợ nông dân không",
+      "userMessageNormalized": "hỗ trợ nông dân không",
+      "botReply": "👨‍🌾 Farm2Art kết nối hơn 1000+ nông dân bền vững.\nTất cả sản phẩm được kiểm chứng chất lượng & giấy tờ pháp lý.\n\nBạn muốn tìm sản phẩm từ nông dân cụ thể không?",
+      "matchedCategory": "farmer",
+      "usedModel": "rule-based",
+      "createdAt": 1773493910823
+    },
+    {
+      "id": "oK8w6qhEaiuKLYu3O39c",
+      "userMessage": "tôi có câu hỏi về hóa đơn và giao hàng",
+      "userMessageNormalized": "tôi có câu hỏi về hóa đơn và giao hàng",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773494031735
+    },
+    {
+      "id": "oRGDUno79QJQQVQuEeHy",
+      "userMessage": "hình thức thanh toán nào",
+      "userMessageNormalized": "hình thức thanh toán nào",
+      "botReply": "💳 Hình thức thanh toán Farm2Art:\n✓ VNPay (ATM/Visa/Mastercard): Tức thì\n✓ Chuyển khoản: Xác nhận 2h\n✓ Ví (Momo/ZaloPay): Tức thì\n✓ COD (khi nhận): Không phí\n\n🔒 Bảo mật 100% - Mã hóa SSL\nBạn chọn cách nào?",
+      "matchedCategory": "payment_methods",
+      "usedModel": "rule-based",
+      "createdAt": 1773492696026
+    },
+    {
+      "id": "oyhUL1uoT0SmopkCJIFh",
+      "userMessage": "brand farm2art",
+      "userMessageNormalized": "brand farm2art",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773493921499
+    },
+    {
+      "id": "pA435LV4DxTkzMLXiPRK",
+      "userMessage": "sản phẩm tái chế có chất lượng tốt không, mua thế nào",
+      "userMessageNormalized": "sản phẩm tái chế có chất lượng tốt không, mua thế nào",
+      "botReply": "✅ Cam kết chất lượng Farm2Art:\n✓ Tất cả sản phẩm kiểm chứng\n✓ Có chứng chỉ & giấy tờ pháp lý\n✓ Không thuốc độc hại\n✓ Đo lường & cân đúng\n✓ Test độc tố\n\nBạn hoàn toàn an tâm!",
+      "matchedCategory": "quality",
+      "usedModel": "rule-based",
+      "createdAt": 1773494029195
+    },
+    {
+      "id": "pHJt4PZ5jQVJKN5DpF9G",
+      "userMessage": "có bao nhiêu loại sản phẩm",
+      "userMessageNormalized": "có bao nhiêu loại sản phẩm",
+      "botReply": "📦 Farm2Art có tất cả các sản phẩm bạn cần:\n✓ Nông sản tươi (50k-500k)\n✓ Nước ép & đồ uống (80k-300k)\n✓ Mật ong & đặc sản (150k-500k)\n✓ Artwork tái chế (150k-2M)\n✓ Gói combo tiết kiệm\n\nBạn muốn mua gì?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773493967758
+    },
+    {
+      "id": "pSbWY0JTCXWwTommTgCD",
+      "userMessage": "tôi muốn mua rau và nước ép, giá là bao nhiêu, giao mất bao lâu",
+      "userMessageNormalized": "tôi muốn mua rau và nước ép, giá là bao nhiêu, giao mất bao lâu",
+      "botReply": "🧃 Nước ép 100% từ trái cây tươi:\n• Không đường, không chất bảo quản\n• Áp lực lạnh để giữ dinh dưỡng\n• Giá: 80,000 - 200,000 VND/chai\n• Giao nhanh, tươi mới\n\nFlavor nào bạn muốn? (Cam, Chanh, Dâu, Lựu...)",
+      "matchedCategory": "juice",
+      "usedModel": "rule-based",
+      "createdAt": 1773493267749
+    },
+    {
+      "id": "pZFizF6yX4aeJ7cl22u3",
+      "userMessage": "flash sale hôm nay",
+      "userMessageNormalized": "flash sale hôm nay",
+      "botReply": "🎉 Farm2Art có khuyến mãi hàng tuần:\n💰 Giảm giá sản phẩm\n🎁 Combo tiết kiệm\n🔥 Flash sale\n📍 Free ship\n💳 Code giảm giá\n\nFollowing Farm2Art để không miss deal!",
+      "matchedCategory": "discount",
+      "usedModel": "rule-based",
+      "createdAt": 1773493923848
+    },
+    {
+      "id": "paPYtwe30wH9qIhaXCGG",
+      "userMessage": "halo",
+      "userMessageNormalized": "halo",
+      "botReply": "👋 Xin chào! Chào mừng bạn đến với Farm2Art - nền tảng bán nông sản & artwork tái chế. Có gì tôi có thể giúp?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493899240
+    },
+    {
+      "id": "phyk55Eze7sySOdQG4Ql",
+      "userMessage": "tôi thường xuyên đặt hàng",
+      "userMessageNormalized": "tôi thường xuyên đặt hàng",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773492747342
+    },
+    {
+      "id": "r0EFGmBsOn2yE59j0GTR",
+      "userMessage": "bạn làm được gì ",
+      "userMessageNormalized": "bạn làm được gì",
+      "botReply": " Câu hỏi hay! Tôi chưa có thông tin cụ thể về điều này. Bạn có thể:\n Liên hệ hỗ trợ: support@farm2art.vn\n Chat với người bán\n Hỏi về chủ đề khác",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773491760478
+    },
+    {
+      "id": "rGqQ0G1l9bCmnHrIHQp8",
+      "userMessage": "cập nhật hồ sơ sao",
+      "userMessageNormalized": "cập nhật hồ sơ sao",
+      "botReply": "👤 Quản lý tài khoản Farm2Art:\n✏️ Cập nhật thông tin cá nhân\n🎯 Xem lịch sử đơn hàng\n❤️ Danh sách yêu thích\n💬 Chat với người bán\n🔐 Cài đặt bảo mật & mật khẩu\n\nBạn muốn cập nhật thông tin gì?",
+      "matchedCategory": "profile_management",
+      "usedModel": "rule-based",
+      "createdAt": 1773492712830
+    },
+    {
+      "id": "rJfhmdOkxZcdcxpnXEM9",
+      "userMessage": "chứng chỉ",
+      "userMessageNormalized": "chứng chỉ",
+      "botReply": "✅ Cam kết chất lượng Farm2Art:\n✓ Tất cả sản phẩm kiểm chứng\n✓ Có chứng chỉ & giấy tờ pháp lý\n✓ Không thuốc độc hại\n✓ Đo lường & cân đúng\n✓ Test độc tố\n\nBạn hoàn toàn an tâm!",
+      "matchedCategory": "quality",
+      "usedModel": "rule-based",
+      "createdAt": 1773493917990
+    },
+    {
+      "id": "raBXsTRZnTCn9tLV2NDk",
+      "userMessage": "có bao nhiêu loại sản phẩm",
+      "userMessageNormalized": "có bao nhiêu loại sản phẩm",
+      "botReply": "🛍️ Farm2Art cung cấp 5 danh mục sản phẩm chính:\n\n🥬 **Nông sản tươi**: Rau, quả, sản phẩm đặc sản từ nông dân bền vững\n\n🧃 **Nước ép & Đồ uống**: 100% từ trái cây tươi, không đường\n\n🍯 **Đặc sản**: Mật ong, cà phê, sản phẩm nông sản đặc biệt\n\n🎨 **Artwork tái chế**: Tranh, trang trí từ phế phẩm nông sản\n\n📦 **Combo & Gói quà**: Bộ sản phẩm tiết kiệm + tặng bạn\n\nBạn muốn tìm loại nào?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773493208157
+    },
+    {
+      "id": "s6jEDOlCC4jtmfdhFEH6",
+      "userMessage": "bước đầu tiên để mua là gì",
+      "userMessageNormalized": "bước đầu tiên để mua là gì",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493222485
+    },
+    {
+      "id": "s6wTZjsaHhzaYfZXRm0D",
+      "userMessage": "tôi thường xuyên đặt hàng",
+      "userMessageNormalized": "tôi thường xuyên đặt hàng",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773494039025
+    },
+    {
+      "id": "sLv45q7chPWKTH6D8G4R",
+      "userMessage": "cập nhật hồ sơ sao",
+      "userMessageNormalized": "cập nhật hồ sơ sao",
+      "botReply": "👤 Quản lý tài khoản Farm2Art:\n✏️ Cập nhật thông tin cá nhân\n🎯 Xem lịch sử đơn hàng\n❤️ Danh sách yêu thích\n💬 Chat với người bán\n🔐 Cài đặt bảo mật & mật khẩu\n\nBạn muốn cập nhật thông tin gì?",
+      "matchedCategory": "profile_management",
+      "usedModel": "rule-based",
+      "createdAt": 1773493243570
+    },
+    {
+      "id": "sdFPl2HSbCtsv6u1uGpQ",
+      "userMessage": "farm2art bán gì",
+      "userMessageNormalized": "farm2art bán gì",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773493904578
+    },
+    {
+      "id": "skFeByn5rh7Vtdls2pDa",
+      "userMessage": "viết bình luận ở đâu",
+      "userMessageNormalized": "viết bình luận ở đâu",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773494012406
+    },
+    {
+      "id": "svxhGGhxf6pSiVJAHW4a",
+      "userMessage": "tôi muốn tìm rau",
+      "userMessageNormalized": "tôi muốn tìm rau",
+      "botReply": "🛍️ Farm2Art có kho sản phẩm phong phú:\n- 🥕 Nông sản tươi\n- 🧃 Nước ép & đồ uống\n- 🎨 Artwork tái chế\n- 📦 Combo & gói quà\n\nHãy cho tôi biết loại nào bạn quan tâm!",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493045837
+    },
+    {
+      "id": "sxCnUgBDIg5SGQYa6tVB",
+      "userMessage": "xin chào",
+      "userMessageNormalized": "xin chào",
+      "botReply": "🎯 Chào bạn! Tôi sẵn sàng giúp bạn khám phá những sản phẩm chất lượng từ nông dân bền vững.",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493043068
+    },
+    {
+      "id": "t8TjPIcQ6Den9YKkWoh3",
+      "userMessage": "tìm artwork đẹp",
+      "userMessageNormalized": "tìm artwork đẹp",
+      "botReply": "🎨 Artwork tái chế của Farm2Art - độc đáo & bền vững:\n• Từ vỏ dừa, giấy dệt, gỗ phế liệu\n• Thủ công, hạn chế (limited edition)\n• Giá: 150,000 - 2,000,000 VND\n• Hoàn hảo làm quà tặng hoặc trang trí\n\nBạn thích phong cách nào?",
+      "matchedCategory": "artwork",
+      "usedModel": "rule-based",
+      "createdAt": 1773493205900
+    },
+    {
+      "id": "tcbAL8gN7B9671vVFJYA",
+      "userMessage": "tôi muốn tìm rau sạch",
+      "userMessageNormalized": "tôi muốn tìm rau sạch",
+      "botReply": "🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773492670323
+    },
+    {
+      "id": "tedfC9YHEuwFtqNtz7Ci",
+      "userMessage": "sản phẩm tái chế tốt không",
+      "userMessageNormalized": "sản phẩm tái chế tốt không",
+      "botReply": " Farm2Art tự hào có sản phẩm tái chế:\n• Giảm rác thải nông sản\n• Thân thiện môi trường 100%\n• Sáng tạo & độc đáo\n• Hỗ trợ nông dân thêm doanh thu\n\nChi tiết sản phẩm tái chế?",
+      "matchedCategory": "recycled",
+      "usedModel": "rule-based",
+      "createdAt": 1773492732991
+    },
+    {
+      "id": "uETjCHwEVeEnKKpDS3ii",
+      "userMessage": "tôi muốn khám phá sản phẩm tái chế",
+      "userMessageNormalized": "tôi muốn khám phá sản phẩm tái chế",
+      "botReply": "🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?",
+      "matchedCategory": "search",
+      "usedModel": "rule-based",
+      "createdAt": 1773493207023
+    },
+    {
+      "id": "uh7XlGmtNIeHwX9it0ot",
+      "userMessage": "artisan",
+      "userMessageNormalized": "artisan",
+      "botReply": "🎨 Farm2Art kết nối các artisan & nhà thiết kế:\n✓ Sản phẩm thủ công độc đáo\n✓ Limited edition - Hạn chế\n✓ Mỗi sản phẩm = Tình yêu\n✓ Hỗ trợ cộng đồng sáng tạo\n\nBạn muốn xem artwork của artisan nào?",
+      "matchedCategory": "artisan",
+      "usedModel": "rule-based",
+      "createdAt": 1773493913199
+    },
+    {
+      "id": "uz5MVnHQ53KFp6tKmU9w",
+      "userMessage": "người bán này uy tín không",
+      "userMessageNormalized": "người bán này uy tín không",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773492717548
+    },
+    {
+      "id": "v0eLqaBMg1VYnFfnVfS3",
+      "userMessage": "cách tạo tài khoản",
+      "userMessageNormalized": "cách tạo tài khoản",
+      "botReply": "✍️ Cách đăng ký Farm2Art (2 phút):\n1️⃣ Trang chủ → \"Đăng ký\"\n2️⃣ Email hoặc số điện thoại\n3️⃣ Mật khẩu mạnh (8+ ký tự)\n4️⃣ Xác minh email/SMS\n5️⃣ Hoàn tất hồ sơ\n\n⚡ Nhanh: Đăng nhập Google/Facebook\nBạn sẵn sàng đăng ký?",
+      "matchedCategory": "registration",
+      "usedModel": "rule-based",
+      "createdAt": 1773493239781
+    },
+    {
+      "id": "v3jwc53dnF4OaAPhlCzR",
+      "userMessage": "tôi muốn bán hàng trên farm2art",
+      "userMessageNormalized": "tôi muốn bán hàng trên farm2art",
+      "botReply": "👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?",
+      "matchedCategory": "seller_profile",
+      "usedModel": "rule-based",
+      "createdAt": 1773493245852
+    },
+    {
+      "id": "v5izYweFTiwIgs5sJkyK",
+      "userMessage": "mua lô hàng lớn để bán lại được không",
+      "userMessageNormalized": "mua lô hàng lớn để bán lại được không",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493272653
+    },
+    {
+      "id": "vLdpUfrDkXE9jmiSGztz",
+      "userMessage": "rau không hóa chất",
+      "userMessageNormalized": "rau không hóa chất",
+      "botReply": "🥬 Farm2Art cung cấp rau xanh từ nông dân bền vững:\n• Luôn tươi, không hóa chất\n• Giao hàng nhanh 2-3 ngày\n• Giá: 50,000 - 150,000 VND/kg\n\nBạn muốn chọn loại rau nào?",
+      "matchedCategory": "vegetable",
+      "usedModel": "rule-based",
+      "createdAt": 1773493909593
+    },
+    {
+      "id": "vcxLBn5Fb0yc3aGHmMaE",
+      "userMessage": "hàng tôi đã tới chưa",
+      "userMessageNormalized": "hàng tôi đã tới chưa",
+      "botReply": "📍 Theo dõi đơn hàng:\n1️⃣ Mở email/SMS từ Farm2Art\n2️⃣ Nhấp link tracking\n3️⃣ Xem vị trí, thời gian giao\n4️⃣ Chat với người giao nếu cần\n\nHoặc:\n📱 Mở app Farm2Art → Tài khoản → Đơn hàng\nNhập mã đơn hàng: ?\n\nBạn cần kiểm tra đơn nào?",
+      "matchedCategory": "tracking",
+      "usedModel": "rule-based",
+      "createdAt": 1773493238551
+    },
+    {
+      "id": "vkawM4Q5EzDT2W6HwiuK",
+      "userMessage": "chào chào",
+      "userMessageNormalized": "chào chào",
+      "botReply": "👍 Xin chào xin chào! Mình giúp bạn tìm sản phẩm tuyệt vời nha!",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493198829
+    },
+    {
+      "id": "vttDaO6qfo46rSKo70gZ",
+      "userMessage": "sản phẩm không như mô tả",
+      "userMessageNormalized": "sản phẩm không như mô tả",
+      "botReply": "🛍️ Farm2Art cung cấp 5 danh mục sản phẩm chính:\n\n🥬 **Nông sản tươi**: Rau, quả, sản phẩm đặc sản từ nông dân bền vững\n\n🧃 **Nước ép & Đồ uống**: 100% từ trái cây tươi, không đường\n\n🍯 **Đặc sản**: Mật ong, cà phê, sản phẩm nông sản đặc biệt\n\n🎨 **Artwork tái chế**: Tranh, trang trí từ phế phẩm nông sản\n\n📦 **Combo & Gói quà**: Bộ sản phẩm tiết kiệm + tặng bạn\n\nBạn muốn tìm loại nào?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773493255871
+    },
+    {
+      "id": "w2z3J7qQExwZYrrLpNq4",
+      "userMessage": "hoàn lại sản phẩm sao",
+      "userMessageNormalized": "hoàn lại sản phẩm sao",
+      "botReply": "💰 Chính sách hoàn tiền Farm2Art:\n✓ Lý do: Hỏng, lỗi, không như mô tả\n✓ Thời hạn: Trong 7 ngày nhận hàng\n✓ Quy trình: Chat → Kiểm chứng → Hoàn\n✓ Thời gian: 1-3 ngày\n✓ Phí: Miễn phí nếu lỗi của shop\n\nBạn muốn hoàn tiền đơn nào?",
+      "matchedCategory": "refund",
+      "usedModel": "rule-based",
+      "createdAt": 1773492726996
+    },
+    {
+      "id": "wCnX9lBmDBdNw87ZTEi9",
+      "userMessage": "hàng tôi bị hỏng rồi",
+      "userMessageNormalized": "hàng tôi bị hỏng rồi",
+      "botReply": "⚠️ Farm2Art hỗ trợ 100%:\n❌ Sản phẩm hỏng: Đổi/Hoàn 100% (xác nhận hình)\n❌ Đơn không đến: Tra cứu + bồi thường\n❌ Lỗi ứng dụng: Báo cáo để sửa ngay\n❌ Huỷ/Hoàn: Xử lý 24h\n\n⏱️ Quy trình: Chat → Hình ảnh → Xử lý 48h\nBạn gặp vấn đề gì cụ thể?",
+      "matchedCategory": "complaints",
+      "usedModel": "rule-based",
+      "createdAt": 1773492723580
+    },
+    {
+      "id": "wDJCRnOQcEmpvfs4cdCX",
+      "userMessage": "giới thiệu về farm2art",
+      "userMessageNormalized": "giới thiệu về farm2art",
+      "botReply": "📚 Về Farm2Art:\n🌾 Nền tảng kết nối nông dân & artisan bền vững\n🎯 Sứ mệnh: Nâng cao giá trị nông sản, bảo vệ môi trường\n🌍 Phạm vi: Toàn quốc, 1000+ nông dân kiểm chứng\n🏆 Khác biệt: Artwork tái chế + Nông sản xanh\n💚 Cam kết: Lợi nhuận chia sẻ công bằng\n\nBạn muốn biết thêm?",
+      "matchedCategory": "about",
+      "usedModel": "rule-based",
+      "createdAt": 1773493266414
+    },
+    {
+      "id": "wPydqYrmRJ3wnTo4pZs9",
+      "userMessage": "cách mua hàng như thế nào",
+      "userMessageNormalized": "cách mua hàng như thế nào",
+      "botReply": "🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?",
+      "matchedCategory": "buying_process",
+      "usedModel": "rule-based",
+      "createdAt": 1773493217765
+    },
+    {
+      "id": "wg00dDP3dBFKKcPArv3q",
+      "userMessage": "xem review người khác",
+      "userMessageNormalized": "xem review người khác",
+      "botReply": "⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?",
+      "matchedCategory": "reviews",
+      "usedModel": "rule-based",
+      "createdAt": 1773492722362
+    },
+    {
+      "id": "whV4jQBcVsn5bkd7YYhd",
+      "userMessage": "hello",
+      "userMessageNormalized": "hello",
+      "botReply": "👋 Xin chào! Chào mừng bạn đến với Farm2Art - nền tảng bán nông sản & artwork tái chế. Có gì tôi có thể giúp?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493956639
+    },
+    {
+      "id": "x0TqfnanZV7i2fPgZjxJ",
+      "userMessage": "phí vận chuyển bao nhiêu",
+      "userMessageNormalized": "phí vận chuyển bao nhiêu",
+      "botReply": "🚚 Vận chuyển Farm2Art:\n⏱️ Thời gian: 2-5 ngày (tùy khoảng cách)\n💰 Phí: Miễn phí từ 500k, tính theo km\n📍 Phạm vi: Toàn quốc\n📍 Ngoại thành TP.HCM: +1-2 ngày + phí\n\nTracking: Link gửi qua email/SMS\nBạn ở đâu? Tôi tính phí chính xác.",
+      "matchedCategory": "shipping_info",
+      "usedModel": "rule-based",
+      "createdAt": 1773493994178
+    },
+    {
+      "id": "xGJjris5F38OcnJThNyB",
+      "userMessage": "rau an toàn",
+      "userMessageNormalized": "rau an toàn",
+      "botReply": "✅ Cam kết chất lượng Farm2Art:\n✓ Tất cả sản phẩm kiểm chứng\n✓ Có chứng chỉ & giấy tờ pháp lý\n✓ Không thuốc độc hại\n✓ Đo lường & cân đúng\n✓ Test độc tố\n\nBạn hoàn toàn an tâm!",
+      "matchedCategory": "quality",
+      "usedModel": "rule-based",
+      "createdAt": 1773493907136
+    },
+    {
+      "id": "xPpllKRJX7XYpz5hGQVZ",
+      "userMessage": "tôi muốn làm quà cho bạn, có gợi ý không",
+      "userMessageNormalized": "tôi muốn làm quà cho bạn, có gợi ý không",
+      "botReply": "🎁 Farm2Art có các combo hấp dẫn:\n• Combo sức khỏe: Rau + Nước ép + Mật ong\n• Combo quà tặng: Artwork + Nông sản\n• Combo tuần: Nông sản & đồ uống lên menu hàng tuần\n• Giá combo tiết kiệm hơn 10-20%\n\nBạn muốn combo nào?",
+      "matchedCategory": "combo",
+      "usedModel": "rule-based",
+      "createdAt": 1773492748565
+    },
+    {
+      "id": "xTy3D0VOTOqbANgEeuQG",
+      "userMessage": "chào chào",
+      "userMessageNormalized": "chào chào",
+      "botReply": "🌟 Xin chào bạn! Tôi là trợ lý AI của Farm2Art. Bạn đang tìm sản phẩm hay muốn biết thêm về chúng tôi?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773492667659
+    },
+    {
+      "id": "xskxbutFBKoR3SHieNNB",
+      "userMessage": "ơi",
+      "userMessageNormalized": "ơi",
+      "botReply": "🎯 Liên hệ hỗ trợ ngay nếu cần:\n📧 Email: support@farm2art.vn\n💬 Chat trực tiếp: Mở app Farm2Art\n⏰ Thời gian: 8:00 - 20:00 hàng ngày\n\nHoặc hãy cho tôi biết bạn cần gì?",
+      "matchedCategory": "fallback",
+      "usedModel": "rule-based",
+      "createdAt": 1773494035441
+    },
+    {
+      "id": "xvpmmyWkmLtcegeBbGtF",
+      "userMessage": "hoàn lại sản phẩm sao",
+      "userMessageNormalized": "hoàn lại sản phẩm sao",
+      "botReply": "🛍️ Farm2Art cung cấp 5 danh mục sản phẩm chính:\n\n🥬 **Nông sản tươi**: Rau, quả, sản phẩm đặc sản từ nông dân bền vững\n\n🧃 **Nước ép & Đồ uống**: 100% từ trái cây tươi, không đường\n\n🍯 **Đặc sản**: Mật ong, cà phê, sản phẩm nông sản đặc biệt\n\n🎨 **Artwork tái chế**: Tranh, trang trí từ phế phẩm nông sản\n\n📦 **Combo & Gói quà**: Bộ sản phẩm tiết kiệm + tặng bạn\n\nBạn muốn tìm loại nào?",
+      "matchedCategory": "products",
+      "usedModel": "rule-based",
+      "createdAt": 1773493258316
+    },
+    {
+      "id": "y2hKtLmIK7gegrIy4urI",
+      "userMessage": "rau bao nhiêu tiền một kg",
+      "userMessageNormalized": "rau bao nhiêu tiền một kg",
+      "botReply": "💰 Bảng giá Farm2Art:\n🥬 Nông sản: 50k - 500k VND\n🧃 Nước ép: 80k - 300k VND\n🍯 Đặc sản: 150k - 500k VND\n🎨 Artwork: 150k - 2M VND\n\n+ Ship: Miễn phí từ 500k (nội thành)\nBạn tìm sản phẩm trong tầm giá nào?",
+      "matchedCategory": "price_inquiry",
+      "usedModel": "rule-based",
+      "createdAt": 1773493970316
+    },
+    {
+      "id": "yn2sidW2IcuFbs2imZPV",
+      "userMessage": "giá nước ép bao lăm",
+      "userMessageNormalized": "giá nước ép bao lăm",
+      "botReply": "🧃 Nước ép 100% từ trái cây tươi:\n• Không đường, không chất bảo quản\n• Áp lực lạnh để giữ dinh dưỡng\n• Giá: 80,000 - 200,000 VND/chai\n• Giao nhanh, tươi mới\n\nFlavor nào bạn muốn? (Cam, Chanh, Dâu, Lựu...)",
+      "matchedCategory": "juice",
+      "usedModel": "rule-based",
+      "createdAt": 1773493971524
+    },
+    {
+      "id": "zd7YDz3XFxbuBWdjkMtI",
+      "userMessage": "xin chào ",
+      "userMessageNormalized": "xin chào",
+      "botReply": "👋 Xin chào! Chào mừng bạn đến với Farm2Art. Tôi là trợ lý AI của bạn. Có gì tôi có thể giúp bạn?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773491751979
+    },
+    {
+      "id": "zu9F0PPSzDXnd7FIJfvV",
+      "userMessage": "đổi hàng sao",
+      "userMessageNormalized": "đổi hàng sao",
+      "botReply": "🔄 Chính sách đổi/trả Farm2Art:\n✓ 7 ngày đổi/trả miễn phí\n✓ Sản phẩm nguyên đai, chưa sử dụng\n✓ Hoàn toàn miễn phí ship\n✓ Xử lý trong 48h\n\nBạn muốn đổi/trả sản phẩm nào?",
+      "matchedCategory": "return",
+      "usedModel": "rule-based",
+      "createdAt": 1773493925057
+    },
+    {
+      "id": "zykGCkYnmZn0Yd2Et70h",
+      "userMessage": "handmade",
+      "userMessageNormalized": "handmade",
+      "botReply": "🎨 Farm2Art kết nối các artisan & nhà thiết kế:\n✓ Sản phẩm thủ công độc đáo\n✓ Limited edition - Hạn chế\n✓ Mỗi sản phẩm = Tình yêu\n✓ Hỗ trợ cộng đồng sáng tạo\n\nBạn muốn xem artwork của artisan nào?",
+      "matchedCategory": "artisan",
+      "usedModel": "rule-based",
+      "createdAt": 1773493914422
+    },
+    {
+      "id": "zze9Rd3SdmZ22z9vskII",
+      "userMessage": "heyyy",
+      "userMessageNormalized": "heyyy",
+      "botReply": "🌻 Chào bạn yêu! Bạn cần tìm nông sản tươi hay artwork tái chế?",
+      "matchedCategory": "greet",
+      "usedModel": "rule-based",
+      "createdAt": 1773493900891
+    }
+  ],
+  "conversations": [
+    {
+      "id": "5gtdl5MxlThYfePaN7UCjqC987v1_RRt0FEKyTFZOI7xoQQz1iBTNDEv1",
+      "productTitle": "Hột mít",
+      "participantNames": {
+        "5gtdl5MxlThYfePaN7UCjqC987v1": "khang tran",
+        "RRt0FEKyTFZOI7xoQQz1iBTNDEv1": "Nguyễn Văn A"
+      },
+      "participants": [
+        "5gtdl5MxlThYfePaN7UCjqC987v1",
+        "RRt0FEKyTFZOI7xoQQz1iBTNDEv1"
+      ],
+      "updatedAt": 1773320111976
+    },
+    {
+      "id": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2_SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "productTitle": null,
+      "participantNames": {
+        "9xBPZqp3xbZTMS1gtQlNugFbvDQ2": "Người sử dụng số 1",
+        "SxkY6CL5vfVvlYriwLS67sOnz6j2": "Huỳnh Như"
+      },
+      "participants": [
+        "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+        "9xBPZqp3xbZTMS1gtQlNugFbvDQ2"
+      ],
+      "updatedAt": 1773051949009
+    },
+    {
+      "id": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2_psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "productTitle": "phế phẩm test ",
+      "orderId": null,
+      "participantNames": {
+        "psgJJo6iLHNNVttbh3YfGOTPfQ03": "Người dùng",
+        "9xBPZqp3xbZTMS1gtQlNugFbvDQ2": "Người sử dụng số 1"
+      },
+      "participants": [
+        "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+        "9xBPZqp3xbZTMS1gtQlNugFbvDQ2"
+      ],
+      "lastMessage": "😊😊",
+      "lastMessageTime": 1772706759753,
+      "updatedAt": 1772706759753
+    },
+    {
+      "id": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1_RRt0FEKyTFZOI7xoQQz1iBTNDEv1",
+      "productTitle": "TEST bán trấu sạch",
+      "participantNames": {
+        "AA6L4s3DAeOOlzlsopZ0WvFBtDp1": "Khangg",
+        "RRt0FEKyTFZOI7xoQQz1iBTNDEv1": "Nguyễn Văn A"
+      },
+      "participants": [
+        "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+        "RRt0FEKyTFZOI7xoQQz1iBTNDEv1"
+      ],
+      "updatedAt": 1772534857454
+    }
+  ],
+  "invoices": [
+    {
+      "id": "72SLCEBbSXsn7xlpXAVp",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "sellerName": "Huỳnh Như",
+      "invoiceNumber": "PAYOUT-202603-SXKY6CL5-931554",
+      "invoiceType": "order_based",
+      "periodStart": 1773380808557,
+      "periodEnd": 1773398931554,
+      "lineItems": [
+        {
+          "id": "72SLCEBbSXsn7xlpXAVp-commission",
+          "type": "commission",
+          "description": "Khau tru hoa hong 20.00% cho don l1ftXg6v8GM0XLA0XwOH",
+          "amount": 12000,
+          "quantity": 1,
+          "unitPrice": 12000,
+          "reference": {
+            "orderId": "l1ftXg6v8GM0XLA0XwOH",
+            "listingId": "wKpDwGr4E8VZImFJgTZ9"
+          }
+        },
+        {
+          "id": "72SLCEBbSXsn7xlpXAVp-service",
+          "type": "processing_fee",
+          "description": "Phi dich vu da thuong luong cho don l1ftXg6v8GM0XLA0XwOH",
+          "amount": 0,
+          "quantity": 1,
+          "unitPrice": 0,
+          "reference": {
+            "orderId": "l1ftXg6v8GM0XLA0XwOH",
+            "listingId": "wKpDwGr4E8VZImFJgTZ9"
+          }
+        }
+      ],
+      "pickupFeesTotal": 0,
+      "processingFeesTotal": 0,
+      "storageFeesTotal": 0,
+      "commissionTotal": 12000,
+      "adjustmentsTotal": 0,
+      "totalDeductions": 12000,
+      "grossRevenue": 59999,
+      "netPayout": 47999,
+      "status": "paid",
+      "createdAt": 1773398931554,
+      "generatedAt": 1773398931554,
+      "sentAt": 1773398931554,
+      "paidAt": 1773398931554,
+      "paymentMethod": "vnpay_payout",
+      "transactionRef": "VNPAY-PAYOUT-7XLPXAVP",
+      "pdfUrl": "/api/invoices/72SLCEBbSXsn7xlpXAVp/pdf",
+      "notes": "Chi tra tu dong cho seller. Tai khoan nhan: Ví điện tử - WALLET-1773395223991 (Huỳnh Như)",
+      "payoutDestination": {
+        "bankName": "Ví điện tử",
+        "accountNumber": "WALLET-1773395223991",
+        "accountHolder": "Huỳnh Như",
+        "source": "user_profiles"
+      }
+    },
+    {
+      "id": "t0Bl6kvoZ9VEaVbopSN5",
+      "sellerId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "sellerName": "Khangg",
+      "invoiceNumber": "INV-202603-AA6L4S3D-001",
+      "invoiceType": "order_based",
+      "periodStart": 1773124218285,
+      "periodEnd": 1773124218285,
+      "lineItems": [
+        {
+          "id": "manual-0-1773124218285",
+          "type": "storage_fee",
+          "description": "phí lưu giữ hàng tại kho ",
+          "quantity": 1,
+          "unitPrice": 50000,
+          "amount": 50000
+        },
+        {
+          "id": "manual-1-1773124218285",
+          "type": "pickup_fee",
+          "description": "phí đi nhận hàng ",
+          "quantity": 1,
+          "unitPrice": 15000,
+          "amount": 15000
+        },
+        {
+          "id": "manual-2-1773124218285",
+          "type": "processing_fee",
+          "description": "Phí sơ chế sản phẩm theo yêu cầu ",
+          "quantity": 1,
+          "unitPrice": 15000,
+          "amount": 15000
+        }
+      ],
+      "pickupFeesTotal": 15000,
+      "processingFeesTotal": 15000,
+      "storageFeesTotal": 50000,
+      "commissionTotal": 0,
+      "adjustmentsTotal": 0,
+      "totalDeductions": 80000,
+      "grossRevenue": 80000,
+      "netPayout": 0,
+      "createdAt": 1773124218285,
+      "generatedAt": 1773124218285,
+      "notes": "test ghi chú ",
+      "pdfUrl": "/api/invoices/t0Bl6kvoZ9VEaVbopSN5/pdf",
+      "messageId": "Qnq5D4s6zC96zSNLpiVE",
+      "sentAt": 1773124219447,
+      "viewedAt": 1773124241953,
+      "updatedAt": 1773124241953,
+      "paidAt": 1773124885090,
+      "paymentMethod": "vnpay",
+      "transactionRef": "15444698",
+      "status": "paid"
+    }
+  ],
+  "listings": [
+    {
+      "id": "11529ATC3uCcLCnEYK3z",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "title": "20kg xơ dừa ",
+      "description": "Xơ dừa dùng để trồng cây",
+      "price": 50000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [],
+      "createdAt": 1773126724397,
+      "approvalStatus": "approved",
+      "approvedAt": 1773143949515,
+      "status": "active"
+    },
+    {
+      "id": "8ol4K5YidXm2VDpfjYhE",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "title": "50kg vỏ cà phê",
+      "description": "vỏ cà phê cứt chồn",
+      "price": 400000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "createdAt": 1773051767916,
+      "approvalStatus": "approved",
+      "approvedAt": 1773051806358,
+      "status": "active",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773051856/farm2art/listings/i4ctqqyaxynnawube8uk.jpg"
+      ]
+    },
+    {
+      "id": "BLyvYz8yBLyxEylfueYz",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "title": "Túi lục bình handmade",
+      "description": "40 chiếc túi đan từ lục bình khô đính hoa",
+      "price": 400000,
+      "type": "art",
+      "processingPreference": "self",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773125956/farm2art/listings/wxt9y8dksyotxuv8p4z9.jpg"
+      ],
+      "createdAt": 1773125959637,
+      "approvalStatus": "approved",
+      "approvedAt": 1773143952270,
+      "status": "active"
+    },
+    {
+      "id": "ChTkk0o1f1eMZzGhJ2NF",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "title": "Vỏ sò các loại",
+      "description": "30 kg vỏ sò ",
+      "price": 200000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773126242/farm2art/listings/k3mhtvdjlnua51yipos0.jpg"
+      ],
+      "createdAt": 1773126264972,
+      "approvalStatus": "approved",
+      "approvedAt": 1773143951434,
+      "status": "active"
+    },
+    {
+      "id": "ErKLazJS7p49w4vhbA9l",
+      "sellerId": "nOxN449yNETD14J0ogkDdjiBQDt2",
+      "title": "Lá dừa nước tươi",
+      "price": 500000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773128562/farm2art/listings/rtrjwrpdakplpojxqb8m.jpg"
+      ],
+      "createdAt": 1773128564582,
+      "description": "120 chiếc lá dừa nước tươi dùng làm trang trí",
+      "approvalStatus": "approved",
+      "approvedAt": 1773143944963,
+      "status": "active"
+    },
+    {
+      "id": "HV2GeO7AmsmLbPPo3bMA",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "title": "60kg vỏ khóm",
+      "description": "Vỏ khóm để tái chế làm chất tẩy rửa",
+      "price": 300000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773126978/farm2art/listings/mcsrj8nv0jymbulkdys5.jpg"
+      ],
+      "createdAt": 1773126984893,
+      "approvalStatus": "approved",
+      "approvedAt": 1773143947932,
+      "status": "active"
+    },
+    {
+      "id": "IZZ5y82btE9r5Nl85Y3p",
+      "sellerId": "ZIPes0JYWrXxkq9S9S1BQtlVAbI3",
+      "title": "2kg gáo dừa ",
+      "description": "Gáo dừa còn nguyên không vỡ nát ",
+      "price": 100000,
+      "location": "Quận Ninh Kiều",
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1772872759/farm2art/listings/tdmybioq49z5usedhnb1.jpg"
+      ],
+      "status": "active",
+      "createdAt": 1772872805853
+    },
+    {
+      "id": "IqKA19YSCPqZLEzUXwXy",
+      "sellerId": "RRt0FEKyTFZOI7xoQQz1iBTNDEv1",
+      "title": "Hột mít",
+      "description": "100kg hột mít",
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773319758/farm2art/listings/mcsv1onhlrdpgqgoy2g1.png"
+      ],
+      "commissionRate": 0.2,
+      "serviceFeeConfig": {
+        "shippingFee": 0.05
+      },
+      "agreement": {
+        "commissionRate": 0.2,
+        "processingFee": 0,
+        "shippingFee": 0.05,
+        "sellerAccepted": true,
+        "sellerAcceptedAt": 1773319773344
+      },
+      "createdAt": 1773319773344,
+      "approvalStatus": "approved",
+      "approvedAt": 1773319838668,
+      "status": "active",
+      "price": 200000
+    },
+    {
+      "id": "MYSV2P21kDEiBS7qyj3l",
+      "sellerId": "nOxN449yNETD14J0ogkDdjiBQDt2",
+      "title": "Tiểu cảnh thác nước tre trúc",
+      "description": "Tiểu cảnh thác nước tre trúc trang trí hồ cá",
+      "price": 400000,
+      "type": "art",
+      "processingPreference": "self",
+      "images": [],
+      "createdAt": 1773128407126,
+      "approvalStatus": "approved",
+      "approvedAt": 1773143945926,
+      "status": "active"
+    },
+    {
+      "id": "S2N4GH6dtk7ONfLDdFin",
+      "sellerId": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "title": "5kg gáo dừa sạch ",
+      "description": "gáo dừa vẫn còn nguyên không bị vỡ nát ",
+      "price": 200000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1772876506/farm2art/listings/ypbktthbphllzqpj5ak8.jpg"
+      ],
+      "createdAt": 1772876515273,
+      "approvalStatus": "approved",
+      "approvedAt": 1772878392929,
+      "status": "active"
+    },
+    {
+      "id": "UTDv6w4rWAcrOT9XrVJf",
+      "type": "byproduct",
+      "title": "TEST bán trấu sạch",
+      "description": "đây là mô tả test sản phẩm của người bán !@@@",
+      "price": 10000000000,
+      "quantity": 50,
+      "unit": "kg",
+      "location": "Cái Nước Cà Mau",
+      "ownerId": "RRt0FEKyTFZOI7xoQQz1iBTNDEv1",
+      "images": [
+        {
+          "publicId": "farm2art/listings/RRt0FEKyTFZOI7xoQQz1iBTNDEv1/j0psqhhsettpqy9bri4e",
+          "secureUrl": "https://res.cloudinary.com/dlg2dpmej/image/upload/v1768042249/farm2art/listings/RRt0FEKyTFZOI7xoQQz1iBTNDEv1/j0psqhhsettpqy9bri4e.png",
+          "width": 734,
+          "height": 792,
+          "format": "png"
+        }
+      ],
+      "status": "active",
+      "createdAt": 1768042261179
+    },
+    {
+      "id": "Y2Fpjvbh6G2YXbg0B6iy",
+      "sellerId": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "title": "5kg vỏ bắp và cùi bắp ",
+      "description": "vỏ bắp và cùi bắp nguyên vẹn ,được phơi khô, không ẩm mốc ",
+      "price": 200000,
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773049903/farm2art/listings/xv7px3ixm8bapcqhkgqq.png"
+      ],
+      "createdAt": 1773050000406,
+      "approvalStatus": "approved",
+      "approvedAt": 1773050451507,
+      "status": "active",
+      "type": "byproduct"
+    },
+    {
+      "id": "fS809lMilOp4PKVXSAwv",
+      "sellerId": "ZMELjDHOfJdRihPp1tmrc3nv4tG2",
+      "title": "2kg Bã mía ",
+      "description": "Bã mía vẫn còn nguyên không bị vụn ",
+      "price": 50000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773048940/farm2art/listings/raxtxxhuk7iihvzgerae.png"
+      ],
+      "createdAt": 1773048947268,
+      "approvalStatus": "approved",
+      "approvedAt": 1773048969612,
+      "status": "active"
+    },
+    {
+      "id": "mbuwoHj6ni82iqlNjwyB",
+      "sellerId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "title": "10kg rơm sạch cuộn ",
+      "description": "Rơm cuộn sạch sẽ không bị ẩm mốc",
+      "price": 1000000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773045599/farm2art/listings/pc94qo4oeyfswa6tahav.jpg"
+      ],
+      "createdAt": 1773045722495,
+      "approvalStatus": "approved",
+      "approvedAt": 1773048255668,
+      "status": "active"
+    },
+    {
+      "id": "o0HgFE87hrpqJP4gu2jW",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "title": "Tranh handmade vỏ sò",
+      "description": "Tranh thủ công làm từ vỏ sò với hoạ tiết tinh xảo",
+      "price": 150000,
+      "type": "art",
+      "processingPreference": "self",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773126415/farm2art/listings/v2pohu6hxbfvgr3eh6w1.jpg"
+      ],
+      "createdAt": 1773126434357,
+      "approvalStatus": "approved",
+      "approvedAt": 1773143950542,
+      "status": "active"
+    },
+    {
+      "id": "pEU9NjORTtXVw7DEph0X",
+      "sellerId": "nOxN449yNETD14J0ogkDdjiBQDt2",
+      "title": "500 cây cừ tràm",
+      "description": "Cừ tràm dùng cho xây dựng",
+      "price": 1000000,
+      "type": "byproduct",
+      "processingPreference": "warehouse",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773128728/farm2art/listings/kv1lhe47brswgpip9yvo.jpg"
+      ],
+      "createdAt": 1773128736750,
+      "approvalStatus": "approved",
+      "approvedAt": 1773143943190,
+      "status": "active"
+    },
+    {
+      "id": "tvPIyr0mxl2N7byRHWmp",
+      "sellerId": "BwW4T56MT8QVtrXKJgrOdfoqifu1",
+      "title": "Nhựa HDPE",
+      "description": "đầu tư hdpe thì ngon luôn\nCông dụng: làm ca dũ nhựa, mà hơi cứng",
+      "price": 10000000,
+      "type": "byproduct",
+      "processingPreference": "self",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773162127/farm2art/listings/spbmdlnnq13iixtfadhy.jpg"
+      ],
+      "createdAt": 1773162145613,
+      "approvalStatus": "approved",
+      "approvedAt": 1773303877137,
+      "status": "active"
+    },
+    {
+      "id": "wKpDwGr4E8VZImFJgTZ9",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "title": "200 cái ống hút tre",
+      "description": "Ống hút tre tự nhiên đã được làm sạch 100%",
+      "price": 59999,
+      "type": "art",
+      "processingPreference": "self",
+      "images": [
+        "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773127619/farm2art/listings/mceddfjpbk8gics6fhzf.jpg"
+      ],
+      "createdAt": 1773127623070,
+      "approvalStatus": "approved",
+      "approvedAt": 1773143946865,
+      "hiddenAt": 1773380900693,
+      "status": "inactive"
+    }
+  ],
+  "messages": [
+    {
+      "id": "8bt8icK8JJMaGc56iUHT",
+      "senderId": "system",
+      "receiverId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "type": "invoice",
+      "content": "Farm2Art da chuyen tien don l1ftXg6v8GM0XLA0XwOH. So tien thuc nhan: 47.999 VND. Hoa don: PAYOUT-202603-SXKY6CL5-931554. Tai khoan nhan: Ví điện tử - WALLET-1773395223991",
+      "invoiceId": "72SLCEBbSXsn7xlpXAVp",
+      "createdAt": 1773398931554,
+      "read": false
+    },
+    {
+      "id": "Qnq5D4s6zC96zSNLpiVE",
+      "senderId": "system",
+      "receiverId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "type": "invoice",
+      "content": "📄 **Hóa Đơn Chi Tiết - INV-202603-AA6L4S3D-001**\n\n👤 **Người bán:** Khangg\n📅 **Kỳ phát hành:** 10/3/2026\n📝 **Loại hóa đơn:** Theo đơn hàng\n\n💰 **Chi Tiết Các Khoản Phí:**\n├─ 1. phí lưu giữ hàng tại kho : 50.000đ\n├─ 2. phí đi nhận hàng : 15.000đ\n├─ 3. Phí sơ chế sản phẩm theo yêu cầu : 15.000đ\n\n📊 **Tóm tắt:**\n├─ Tổng doanh thu: 80.000đ\n├─ Tổng khoản trừ: 80.000đ\n└─ **Số tiền bạn sẽ nhận:** 0đ\n\n📋 **Ghi chú:** test ghi chú \n\n✅ Hóa đơn này sẽ được xử lý thanh toán sau 3 ngày xác nhận.\n📥 Tải PDF: Xem chi tiết đầy đủ trong mục \"Hóa đơn\"",
+      "invoiceId": "t0Bl6kvoZ9VEaVbopSN5",
+      "createdAt": 1773124218658,
+      "read": false
+    }
+  ],
+  "notifications": [
+    {
+      "id": "A6vnPrqUH3EBtLletKPM",
+      "userId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "type": "order_cancelled_unpaid",
+      "title": "Đơn hàng bị hủy",
+      "message": "Đơn của bạn đã bị hủy vì sản phẩm đã được khách khác cọc trước.",
+      "orderId": "m5dbrRTpz7GaMCyPcxX0",
+      "read": false,
+      "createdAt": 1773380902228,
+      "timestamp": 1773380902228,
+      "icon": "❌",
+      "action": {
+        "label": "Xem đơn hàng",
+        "href": "/orders/m5dbrRTpz7GaMCyPcxX0"
+      }
+    },
+    {
+      "id": "pIySKAJoc7oDco79E1bv",
+      "userId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "type": "order_cancelled_unpaid",
+      "title": "Đơn hàng bị hủy",
+      "message": "Đơn của bạn đã bị hủy vì sản phẩm đã được khách khác cọc trước.",
+      "orderId": "7DErChJiuKSnhsLdTPKC",
+      "read": false,
+      "createdAt": 1773380901614,
+      "timestamp": 1773380901614,
+      "icon": "❌",
+      "action": {
+        "label": "Xem đơn hàng",
+        "href": "/orders/7DErChJiuKSnhsLdTPKC"
+      }
+    },
+    {
+      "id": "rNThToFeCCSJSvJlnFxE",
+      "userId": "admin",
+      "type": "order_deposit_confirmed",
+      "title": "Đơn hàng đã cọc 50%",
+      "message": "Đơn #l1ftXg6v đã cọc thành công. Admin có thể bấm Giao hàng.",
+      "orderId": "l1ftXg6v8GM0XLA0XwOH",
+      "read": false,
+      "createdAt": 1773380899786,
+      "timestamp": 1773380899786,
+      "icon": "💳",
+      "action": {
+        "label": "Mở quản lý đơn",
+        "href": "/admin/orders"
+      }
+    }
+  ],
+  "orders": [
+    {
+      "id": "04s1N3NSGHFtS8296dXE",
+      "listingId": "IqKA19YSCPqZLEzUXwXy",
+      "sellerId": "RRt0FEKyTFZOI7xoQQz1iBTNDEv1",
+      "sellerName": "Nguyễn Văn A",
+      "buyerId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "paymentStatus": "pending",
+      "subTotal": 200000,
+      "platformFee": 40000,
+      "commissionRate": 0.2,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 10000,
+        "serviceFeeTotal": 10000,
+        "warehouseStatus": "in_stock"
+      },
+      "sellerPayout": 160000,
+      "items": [
+        {
+          "id": "IqKA19YSCPqZLEzUXwXy",
+          "name": "Hột mít",
+          "price": 200000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773320467737,
+      "cancelledAt": 1773323294333,
+      "cancelReason": "Quá 30 phút chưa thanh toán cọc",
+      "status": "cancelled",
+      "depositAmount": 100000,
+      "remainingAmount": 100000,
+      "totalAmount": 200000,
+      "grandTotal": 200000
+    },
+    {
+      "id": "7DErChJiuKSnhsLdTPKC",
+      "listingId": "wKpDwGr4E8VZImFJgTZ9",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "sellerName": "Huỳnh Như",
+      "buyerId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "paymentStatus": "pending",
+      "depositAmount": 30000,
+      "remainingAmount": 29999,
+      "remainingPaymentStatus": "pending",
+      "subTotal": 59999,
+      "totalAmount": 59999,
+      "platformFee": 12000,
+      "commissionRate": 0.2,
+      "warehouseService": {
+        "enabled": false,
+        "processingMode": "seller_self",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 0,
+        "serviceFeeTotal": 0,
+        "warehouseStatus": "in_stock"
+      },
+      "grandTotal": 59999,
+      "sellerPayout": 47999,
+      "items": [
+        {
+          "id": "wKpDwGr4E8VZImFJgTZ9",
+          "name": "200 cái ống hút tre",
+          "price": 59999,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773380785091,
+      "cancelledAt": 1773380901310,
+      "cancelReason": "Đơn bị hủy vì có khách khác đã cọc trước",
+      "status": "cancelled"
+    },
+    {
+      "id": "9su96BCspddyPinwaYfT",
+      "listingId": "BLyvYz8yBLyxEylfueYz",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "sellerName": "Nguyễn Thị Huỳnh Như",
+      "buyerId": "Q2sbXJyWEvW5d7wHM2LUhQ5Be0s2",
+      "status": "pending",
+      "subTotal": 400000,
+      "totalAmount": 400000,
+      "platformFee": 10000,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "seller_self",
+        "storageDays": 2,
+        "storageFee": 4000,
+        "processingFee": 0,
+        "shippingFee": 30000,
+        "serviceFeeTotal": 34000,
+        "warehouseStatus": "awaiting_intake"
+      },
+      "grandTotal": 400000,
+      "sellerPayout": 390000,
+      "items": [
+        {
+          "id": "BLyvYz8yBLyxEylfueYz",
+          "name": "Túi lục bình handmade",
+          "price": 400000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773307123739
+    },
+    {
+      "id": "A67OFITCHZZGOhtnO1pv",
+      "listingId": "ChTkk0o1f1eMZzGhJ2NF",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "sellerName": "Nguyễn Thị Huỳnh Như",
+      "buyerId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "subTotal": 200000,
+      "totalAmount": 200000,
+      "platformFee": 5000,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 2,
+        "storageFee": 4000,
+        "processingFee": 15000,
+        "shippingFee": 30000,
+        "serviceFeeTotal": 49000,
+        "warehouseStatus": "awaiting_intake"
+      },
+      "grandTotal": 254000,
+      "sellerPayout": 195000,
+      "items": [
+        {
+          "id": "ChTkk0o1f1eMZzGhJ2NF",
+          "name": "Vỏ sò các loại",
+          "price": 200000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773144352434,
+      "paidAt": 1773144393730,
+      "paymentMethod": "vnpay",
+      "transactionRef": "15445333",
+      "confirmedAt": 1773144393730,
+      "paymentStatus": "success",
+      "shippedAt": 1773144447383,
+      "deliveredAt": 1773144450091,
+      "completedAt": 1773144452308,
+      "status": "completed"
+    },
+    {
+      "id": "JWXZPtwBi1BXGQ4TwFjD",
+      "listingId": "ChTkk0o1f1eMZzGhJ2NF",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "sellerName": "Nguyễn Thị Huỳnh Như",
+      "buyerId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "status": "pending",
+      "paymentStatus": "pending",
+      "depositAmount": 100000,
+      "remainingAmount": 100000,
+      "remainingPaymentStatus": "pending",
+      "subTotal": 200000,
+      "totalAmount": 200000,
+      "platformFee": 40000,
+      "commissionRate": 0.2,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 10000,
+        "serviceFeeTotal": 10000,
+        "warehouseStatus": "in_stock"
+      },
+      "grandTotal": 200000,
+      "sellerPayout": 160000,
+      "items": [
+        {
+          "id": "ChTkk0o1f1eMZzGhJ2NF",
+          "name": "Vỏ sò các loại",
+          "price": 200000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773323954375
+    },
+    {
+      "id": "KfLzg5aMU97KtnQuaBAP",
+      "listingId": "IqKA19YSCPqZLEzUXwXy",
+      "sellerId": "RRt0FEKyTFZOI7xoQQz1iBTNDEv1",
+      "sellerName": "Nguyễn Văn A",
+      "buyerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "subTotal": 200000,
+      "totalAmount": 210000,
+      "platformFee": 40000,
+      "commissionRate": 0.2,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 10000,
+        "serviceFeeTotal": 10000,
+        "warehouseStatus": "in_stock"
+      },
+      "grandTotal": 210000,
+      "sellerPayout": 160000,
+      "items": [
+        {
+          "id": "IqKA19YSCPqZLEzUXwXy",
+          "name": "Hột mít",
+          "price": 200000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773320845166,
+      "payoutAmount": 160000,
+      "paymentReceivedAt": 1773321402759,
+      "payoutStatus": "pending",
+      "transactionRef": "15448352",
+      "paidAt": 1773321402759,
+      "paymentMethod": "vnpay",
+      "escrowStatus": "held",
+      "confirmedAt": 1773321402759,
+      "feeBreakdown": {
+        "commissionAmount": 40000,
+        "pickupFee": 0,
+        "processingFee": 0,
+        "storageFee": 0,
+        "shippingFee": 10000,
+        "totalPlatformFees": 50000,
+        "grandTotal": 210000
+      },
+      "paymentStatus": "success",
+      "commissionAmount": 40000,
+      "status": "confirmed"
+    },
+    {
+      "id": "W2tcN9SbenlZH90lxAZM",
+      "listingId": "fS809lMilOp4PKVXSAwv",
+      "sellerId": "ZMELjDHOfJdRihPp1tmrc3nv4tG2",
+      "sellerName": "clone1",
+      "buyerId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "subTotal": 50000,
+      "totalAmount": 50000,
+      "platformFee": 1250,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 2,
+        "storageFee": 4000,
+        "processingFee": 15000,
+        "shippingFee": 30000,
+        "serviceFeeTotal": 49000,
+        "warehouseStatus": "awaiting_intake"
+      },
+      "grandTotal": 50000,
+      "sellerPayout": 48750,
+      "items": [
+        {
+          "id": "fS809lMilOp4PKVXSAwv",
+          "name": "2kg Bã mía ",
+          "price": 50000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773303805697,
+      "paidAt": 1773303847373,
+      "paymentMethod": "vnpay",
+      "transactionRef": "15447900",
+      "confirmedAt": 1773303847373,
+      "paymentStatus": "success",
+      "status": "confirmed"
+    },
+    {
+      "id": "YfgbFuBMUY8aLw8oE37x",
+      "listingId": "fS809lMilOp4PKVXSAwv",
+      "sellerId": "ZMELjDHOfJdRihPp1tmrc3nv4tG2",
+      "sellerName": "clone1",
+      "buyerId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "subTotal": 50000,
+      "totalAmount": 50000,
+      "platformFee": 1250,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 2,
+        "storageFee": 4000,
+        "processingFee": 15000,
+        "shippingFee": 30000,
+        "serviceFeeTotal": 49000,
+        "warehouseStatus": "awaiting_intake"
+      },
+      "grandTotal": 100250,
+      "sellerPayout": 48750,
+      "items": [
+        {
+          "id": "fS809lMilOp4PKVXSAwv",
+          "name": "2kg Bã mía ",
+          "price": 50000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773123595157,
+      "paidAt": 1773123630447,
+      "paymentMethod": "vnpay",
+      "transactionRef": "15444675",
+      "confirmedAt": 1773123630447,
+      "paymentStatus": "success",
+      "shippedAt": 1773123986094,
+      "deliveredAt": 1773123987910,
+      "completedAt": 1773123989826,
+      "status": "completed"
+    },
+    {
+      "id": "hK6vdadQI1lT7ZfTqErj",
+      "listingId": "HV2GeO7AmsmLbPPo3bMA",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "sellerName": "Huỳnh Như",
+      "buyerId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "subTotal": 300000,
+      "totalAmount": 315000,
+      "platformFee": 60000,
+      "commissionRate": 0.2,
+      "grandTotal": 315000,
+      "sellerPayout": 240000,
+      "items": [
+        {
+          "id": "HV2GeO7AmsmLbPPo3bMA",
+          "name": "60kg vỏ khóm",
+          "price": 300000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773319029486,
+      "payoutAmount": 240000,
+      "paymentReceivedAt": 1773319176338,
+      "payoutStatus": "pending",
+      "transactionRef": "15448331",
+      "paidAt": 1773319176338,
+      "paymentMethod": "vnpay",
+      "escrowStatus": "held",
+      "confirmedAt": 1773319176338,
+      "feeBreakdown": {
+        "commissionAmount": 60000,
+        "pickupFee": 0,
+        "processingFee": 0,
+        "storageFee": 0,
+        "shippingFee": 15000,
+        "totalPlatformFees": 75000,
+        "grandTotal": 315000
+      },
+      "paymentStatus": "success",
+      "commissionAmount": 60000,
+      "shippedAt": 1773319276943,
+      "status": "shipping",
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 15000,
+        "serviceFeeTotal": 15000,
+        "warehouseStatus": "shipped",
+        "updatedAt": 1773319276943
+      }
+    },
+    {
+      "id": "j4AZXra8SVWXnJq06lU6",
+      "listingId": "8ol4K5YidXm2VDpfjYhE",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "sellerName": "Huỳnh Như",
+      "buyerId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "subTotal": 400000,
+      "totalAmount": 400000,
+      "platformFee": 10000,
+      "grandTotal": 400000,
+      "sellerPayout": 390000,
+      "items": [
+        {
+          "id": "8ol4K5YidXm2VDpfjYhE",
+          "name": "50kg vỏ cà phê",
+          "price": 400000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773310913490,
+      "shippedAt": 1773311293479,
+      "confirmedAt": 1773311293479,
+      "completedAt": 1773311711596,
+      "status": "completed",
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 2,
+        "storageFee": 4000,
+        "processingFee": 15000,
+        "shippingFee": 30000,
+        "serviceFeeTotal": 49000,
+        "warehouseStatus": "completed",
+        "updatedAt": 1773311711596
+      }
+    },
+    {
+      "id": "jdMF97ozmfizYDqlffGA",
+      "listingId": "8ol4K5YidXm2VDpfjYhE",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "sellerName": "Huỳnh Như",
+      "buyerId": "bBKlAPGYa4Sn97DuQKCxzvC8h1F3",
+      "subTotal": 400000,
+      "totalAmount": 400000,
+      "platformFee": 10000,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 2,
+        "storageFee": 4000,
+        "processingFee": 15000,
+        "shippingFee": 30000,
+        "serviceFeeTotal": 49000,
+        "warehouseStatus": "awaiting_intake"
+      },
+      "grandTotal": 459000,
+      "sellerPayout": 390000,
+      "items": [
+        {
+          "id": "8ol4K5YidXm2VDpfjYhE",
+          "name": "50kg vỏ cà phê",
+          "price": 400000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773125176746,
+      "paidAt": 1773125247539,
+      "paymentMethod": "vnpay",
+      "transactionRef": "15444709",
+      "confirmedAt": 1773125247539,
+      "paymentStatus": "success",
+      "shippedAt": 1773304292323,
+      "deliveredAt": 1773304295263,
+      "completedAt": 1773304296584,
+      "status": "completed"
+    },
+    {
+      "id": "l1ftXg6v8GM0XLA0XwOH",
+      "listingId": "wKpDwGr4E8VZImFJgTZ9",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "sellerName": "Huỳnh Như",
+      "buyerId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "depositAmount": 30000,
+      "remainingAmount": 29999,
+      "subTotal": 59999,
+      "totalAmount": 59999,
+      "platformFee": 12000,
+      "commissionRate": 0.2,
+      "warehouseService": {
+        "enabled": false,
+        "processingMode": "seller_self",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 0,
+        "serviceFeeTotal": 0,
+        "warehouseStatus": "in_stock"
+      },
+      "grandTotal": 59999,
+      "sellerPayout": 47999,
+      "items": [
+        {
+          "id": "wKpDwGr4E8VZImFJgTZ9",
+          "name": "200 cái ống hút tre",
+          "price": 59999,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773380808557,
+      "payoutAmount": 47999,
+      "paymentReceivedAt": 1773380899786,
+      "transactionRef": "15449109",
+      "paymentMethod": "vnpay",
+      "feeBreakdown": {
+        "commissionAmount": 12000,
+        "pickupFee": 0,
+        "processingFee": 0,
+        "storageFee": 0,
+        "shippingFee": 0,
+        "totalPlatformFees": 12000,
+        "grandTotal": 59999
+      },
+      "commissionAmount": 12000,
+      "depositPaidAt": 1773380899786,
+      "shippedAt": 1773392242220,
+      "confirmedAt": 1773392242220,
+      "deliveredAt": 1773393907620,
+      "remainingPaymentSubmittedAt": 1773393912029,
+      "remainingPaymentReceivedAt": 1773395024708,
+      "paidAt": 1773395024708,
+      "remainingPaymentReference": "15449631",
+      "remainingPaymentStatus": "received",
+      "paidAmount": 59999,
+      "paymentStatus": "success",
+      "completedAt": 1773395171276,
+      "status": "completed",
+      "payoutAt": 1773398931554,
+      "payoutStatus": "completed",
+      "escrowStatus": "released",
+      "invoiceId": "72SLCEBbSXsn7xlpXAVp"
+    },
+    {
+      "id": "m5dbrRTpz7GaMCyPcxX0",
+      "listingId": "wKpDwGr4E8VZImFJgTZ9",
+      "sellerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "sellerName": "Huỳnh Như",
+      "buyerId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "paymentStatus": "pending",
+      "subTotal": 59999,
+      "totalAmount": 59999,
+      "platformFee": 12000,
+      "commissionRate": 0.2,
+      "warehouseService": {
+        "enabled": false,
+        "processingMode": "seller_self",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 0,
+        "serviceFeeTotal": 0,
+        "warehouseStatus": "in_stock"
+      },
+      "grandTotal": 59999,
+      "sellerPayout": 47999,
+      "items": [
+        {
+          "id": "wKpDwGr4E8VZImFJgTZ9",
+          "name": "200 cái ống hút tre",
+          "price": 59999,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773318866218,
+      "cancelledAt": 1773380901921,
+      "cancelReason": "Đơn bị hủy vì có khách khác đã cọc trước",
+      "status": "cancelled"
+    },
+    {
+      "id": "mqxcyskFUep5sEjKqKUX",
+      "listingId": "ChTkk0o1f1eMZzGhJ2NF",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "sellerName": "Nguyễn Thị Huỳnh Như",
+      "buyerId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "paymentStatus": "pending",
+      "depositAmount": 100000,
+      "remainingAmount": 100000,
+      "remainingPaymentStatus": "pending",
+      "subTotal": 200000,
+      "totalAmount": 200000,
+      "platformFee": 40000,
+      "commissionRate": 0.2,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 10000,
+        "serviceFeeTotal": 10000,
+        "warehouseStatus": "in_stock"
+      },
+      "grandTotal": 200000,
+      "sellerPayout": 160000,
+      "items": [
+        {
+          "id": "ChTkk0o1f1eMZzGhJ2NF",
+          "name": "Vỏ sò các loại",
+          "price": 200000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773323475777,
+      "payoutAmount": 160000,
+      "paymentReceivedAt": 1773323783726,
+      "payoutStatus": "pending",
+      "transactionRef": "15448380",
+      "paymentMethod": "vnpay",
+      "escrowStatus": "held",
+      "paidAmount": 100000,
+      "feeBreakdown": {
+        "commissionAmount": 40000,
+        "pickupFee": 0,
+        "processingFee": 0,
+        "storageFee": 0,
+        "shippingFee": 10000,
+        "totalPlatformFees": 50000,
+        "grandTotal": 200000
+      },
+      "commissionAmount": 40000,
+      "depositPaidAt": 1773323783726,
+      "status": "deposited"
+    },
+    {
+      "id": "udpEKKkaQKx1wEBV9bm0",
+      "listingId": "ChTkk0o1f1eMZzGhJ2NF",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "sellerName": "Nguyễn Thị Huỳnh Như",
+      "buyerId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "paymentStatus": "pending",
+      "depositAmount": 100000,
+      "remainingAmount": 100000,
+      "remainingPaymentStatus": "pending",
+      "subTotal": 200000,
+      "totalAmount": 200000,
+      "platformFee": 40000,
+      "commissionRate": 0.2,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 0,
+        "storageFee": 0,
+        "processingFee": 0,
+        "shippingFee": 10000,
+        "serviceFeeTotal": 10000,
+        "warehouseStatus": "in_stock"
+      },
+      "grandTotal": 200000,
+      "sellerPayout": 160000,
+      "items": [
+        {
+          "id": "ChTkk0o1f1eMZzGhJ2NF",
+          "name": "Vỏ sò các loại",
+          "price": 200000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773323486237,
+      "cancelledAt": 1773323972794,
+      "status": "cancelled"
+    },
+    {
+      "id": "yISF0FBSVDcKdzecmUQq",
+      "listingId": "Y2Fpjvbh6G2YXbg0B6iy",
+      "sellerId": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "sellerName": "Người sử dụng số 1",
+      "buyerId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "status": "pending",
+      "subTotal": 200000,
+      "totalAmount": 200000,
+      "platformFee": 5000,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "warehouse",
+        "storageDays": 2,
+        "storageFee": 4000,
+        "processingFee": 15000,
+        "shippingFee": 30000,
+        "serviceFeeTotal": 49000,
+        "warehouseStatus": "awaiting_intake"
+      },
+      "grandTotal": 254000,
+      "sellerPayout": 195000,
+      "items": [
+        {
+          "id": "Y2Fpjvbh6G2YXbg0B6iy",
+          "name": "5kg vỏ bắp và cùi bắp ",
+          "price": 200000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773055230037
+    },
+    {
+      "id": "zJeJ9PxmcbC8Ppmv2SQM",
+      "listingId": "BLyvYz8yBLyxEylfueYz",
+      "sellerId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "sellerName": "Nguyễn Thị Huỳnh Như",
+      "buyerId": "Q2sbXJyWEvW5d7wHM2LUhQ5Be0s2",
+      "subTotal": 400000,
+      "totalAmount": 400000,
+      "platformFee": 10000,
+      "warehouseService": {
+        "enabled": true,
+        "processingMode": "seller_self",
+        "storageDays": 2,
+        "storageFee": 4000,
+        "processingFee": 0,
+        "shippingFee": 30000,
+        "serviceFeeTotal": 34000,
+        "warehouseStatus": "awaiting_intake"
+      },
+      "grandTotal": 400000,
+      "sellerPayout": 390000,
+      "items": [
+        {
+          "id": "BLyvYz8yBLyxEylfueYz",
+          "name": "Túi lục bình handmade",
+          "price": 400000,
+          "quantity": 1
+        }
+      ],
+      "createdAt": 1773307128135,
+      "paidAt": 1773307228398,
+      "paymentMethod": "vnpay",
+      "transactionRef": "15448025",
+      "confirmedAt": 1773307228398,
+      "paymentStatus": "success",
+      "status": "confirmed"
+    }
+  ],
+  "seller_verifications": [
+    {
+      "id": "test_seller_001",
+      "sellerId": "test_seller_001",
+      "businessName": "Trang Trai Xanh",
+      "businessRegistration": "",
+      "ownerName": "Nguyen Van A",
+      "ownerID": "",
+      "bankAccount": "1234567890",
+      "bankName": "Vietcombank",
+      "businessAddress": "123 Duong ABC, Quan 1, TP.HCM",
+      "phone": "0901234567",
+      "email": "test@farm2art.com",
+      "documentSubmittedAt": 1772452820766,
+      "verificationBadge": true,
+      "status": "approved",
+      "approvedAt": 1772453295139
+    }
+  ],
+  "user_profiles": [
+    {
+      "id": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "preferences": {
+        "promotionalEmails": true,
+        "language": "vi",
+        "darkMode": false,
+        "notifications": true
+      },
+      "phone": "",
+      "displayName": "khang tran",
+      "privacy": {
+        "visibility": "private",
+        "showOrderHistory": false
+      },
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJfXI5AC6UpnxorAJnyf82eWZpJlO9elfiexDsI8v82Wl_k0Q=s96-c",
+      "savedAddresses": [],
+      "userId": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "email": "khang110704@gmail.com",
+      "savedPaymentMethods": [
+        {
+          "id": "1773397957719",
+          "type": "ewallet",
+          "name": "Ví điện tử",
+          "default": false
+        }
+      ],
+      "updatedAt": "2026-03-13T10:32:39.069Z"
+    },
+    {
+      "id": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "preferences": {
+        "promotionalEmails": true,
+        "language": "vi",
+        "darkMode": false,
+        "notifications": true
+      },
+      "displayName": "Khangg",
+      "privacy": {
+        "visibility": "private",
+        "showOrderHistory": false
+      },
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJl3WtIrULNaI2BiiEV5k852qEXwwLNaAqwLjewHHFu1D9cZFT1=s96-c",
+      "userId": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "email": "sieuhoangkhang@gmail.com",
+      "phone": "12121",
+      "savedAddresses": [
+        {
+          "id": "1772531107597",
+          "type": "home",
+          "name": "1",
+          "address": "2",
+          "district": "3",
+          "city": "4",
+          "postalCode": "",
+          "default": false
+        }
+      ],
+      "savedPaymentMethods": [
+        {
+          "id": "1772531280723",
+          "type": "ewallet",
+          "name": "Ví điện tử",
+          "default": false
+        }
+      ],
+      "updatedAt": "2026-03-03T09:54:41.143Z"
+    },
+    {
+      "id": "BwW4T56MT8QVtrXKJgrOdfoqifu1",
+      "preferences": {
+        "promotionalEmails": true,
+        "language": "vi",
+        "darkMode": false,
+        "notifications": true
+      },
+      "displayName": "Như Quỳnh",
+      "privacy": {
+        "visibility": "private",
+        "showOrderHistory": false
+      },
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocKEG9ZDJte-yfTLVUsBupvTUMP49rCM5aPSY3iHETAI5BB_tE4=s96-c",
+      "userId": "BwW4T56MT8QVtrXKJgrOdfoqifu1",
+      "email": "nhuquynh1357.vnh@gmail.com",
+      "phone": "0123456789",
+      "savedPaymentMethods": [
+        {
+          "id": "1773161523266",
+          "type": "cod",
+          "name": "Thanh toán khi nhận hàng (COD)",
+          "default": false
+        }
+      ],
+      "savedAddresses": [
+        {
+          "id": "1773161532481",
+          "type": "home",
+          "name": "ấp đông lợi, xã đông bình, vĩnh long",
+          "address": "mimimi",
+          "district": "bình minh",
+          "city": "vĩnh long",
+          "postalCode": "",
+          "default": false
+        }
+      ],
+      "updatedAt": "2026-03-10T16:53:58.234Z"
+    },
+    {
+      "id": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "preferences": {
+        "promotionalEmails": true,
+        "language": "vi",
+        "darkMode": false,
+        "notifications": true
+      },
+      "displayName": "Nguyễn Thị Huỳnh Như",
+      "privacy": {
+        "visibility": "private",
+        "showOrderHistory": false
+      },
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocILGNo2XD70a3QhNulVqGhW1tesKeV0wQpYe9h3KqDpcXX1CinL=s96-c",
+      "userId": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "email": "nguyenthihuynhnhu9a8.st2018@gmail.com",
+      "phone": "0357483234",
+      "savedAddresses": [
+        {
+          "id": "1773125708124",
+          "type": "home",
+          "name": "Công ty",
+          "address": "Trần Hoàng Na",
+          "district": "Ninh Kiều",
+          "city": "Cần Thơ",
+          "postalCode": "",
+          "default": false
+        }
+      ],
+      "savedPaymentMethods": [
+        {
+          "id": "1773125741092",
+          "type": "cod",
+          "name": "Thanh toán khi nhận hàng (COD)",
+          "default": false
+        }
+      ],
+      "updatedAt": "2026-03-10T06:55:45.692Z"
+    },
+    {
+      "id": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "preferences": {
+        "promotionalEmails": true,
+        "language": "vi",
+        "darkMode": false,
+        "notifications": true
+      },
+      "displayName": "Huỳnh Như",
+      "privacy": {
+        "visibility": "private",
+        "showOrderHistory": false
+      },
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocKmHDTUaaCFBz0R_Bx20bcqN7ZFMI3fI3rnQJZ2j5ccA4boSV4=s96-c",
+      "userId": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "email": "eirian6604@gmail.com",
+      "phone": "0235964224",
+      "savedAddresses": [
+        {
+          "id": "1773051373900",
+          "type": "home",
+          "name": "Nhà",
+          "address": "Nguyễn Đệ",
+          "district": "Cái Khế",
+          "city": "Cần Thơ",
+          "postalCode": "",
+          "default": false
+        }
+      ],
+      "savedPaymentMethods": [
+        {
+          "id": "1773395223991",
+          "type": "ewallet",
+          "name": "Ví điện tử",
+          "default": false
+        }
+      ],
+      "updatedAt": "2026-03-13T09:47:15.854Z"
+    },
+    {
+      "id": "nOxN449yNETD14J0ogkDdjiBQDt2",
+      "savedPaymentMethods": [],
+      "preferences": {
+        "promotionalEmails": true,
+        "language": "vi",
+        "darkMode": false,
+        "notifications": true
+      },
+      "displayName": "Ngân Khả",
+      "privacy": {
+        "visibility": "private",
+        "showOrderHistory": false
+      },
+      "userId": "nOxN449yNETD14J0ogkDdjiBQDt2",
+      "email": "lekhangan1610@gmail.com",
+      "avatar": "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773128084/farm2art/avatars/oiofdwux2ojlgjspuejo.jpg",
+      "phone": "0660411074",
+      "savedAddresses": [
+        {
+          "id": "1773128114885",
+          "type": "home",
+          "name": "Nhà",
+          "address": "Nguyễn Văn Cừ",
+          "district": "Ninh Kiều",
+          "city": "Cần Thơ",
+          "postalCode": "",
+          "default": false
+        }
+      ],
+      "updatedAt": "2026-03-10T07:36:11.198Z"
+    },
+    {
+      "id": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "savedPaymentMethods": [],
+      "preferences": {
+        "promotionalEmails": true,
+        "language": "vi",
+        "darkMode": false,
+        "notifications": true
+      },
+      "privacy": {
+        "visibility": "private",
+        "showOrderHistory": false
+      },
+      "savedAddresses": [],
+      "userId": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "email": "user@example.com",
+      "phone": "0772825921",
+      "displayName": "Khang Test bài",
+      "updatedAt": "2026-03-04T06:50:33.294Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "uid": "5gtdl5MxlThYfePaN7UCjqC987v1",
+      "role": "user",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "createdAt": 1773045229078,
+      "displayName": "khang tran",
+      "listingCount": 1,
+      "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocJfXI5AC6UpnxorAJnyf82eWZpJlO9elfiexDsI8v82Wl_k0Q=s96-c",
+      "phone": "",
+      "sellerContractVersion": "v1-service-fees",
+      "sellerContractAcceptedAt": 1773119667549
+    },
+    {
+      "id": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "uid": "9xBPZqp3xbZTMS1gtQlNugFbvDQ2",
+      "createdAt": 1768219791535,
+      "displayName": "Người sử dụng số 1",
+      "role": "user",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "listingCount": 2
+    },
+    {
+      "id": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "uid": "AA6L4s3DAeOOlzlsopZ0WvFBtDp1",
+      "role": "user",
+      "createdAt": 1769237890238,
+      "avatarUrl": "https://res.cloudinary.com/dlg2dpmej/image/upload/v1772528639/farm2art/avatars/wwtha7mbkrijlicnqgdk.jpg",
+      "phone": "12121",
+      "displayName": "Khangg",
+      "address": "2",
+      "city": "4",
+      "district": "3",
+      "listingCount": 2,
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "sellerContractVersion": "v1-service-fees",
+      "sellerContractAcceptedAt": 1773124233033
+    },
+    {
+      "id": "BwW4T56MT8QVtrXKJgrOdfoqifu1",
+      "uid": "BwW4T56MT8QVtrXKJgrOdfoqifu1",
+      "role": "user",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "createdAt": 1773161493170,
+      "displayName": "Như Quỳnh",
+      "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocKEG9ZDJte-yfTLVUsBupvTUMP49rCM5aPSY3iHETAI5BB_tE4=s96-c",
+      "phone": "0123456789",
+      "address": "mimimi",
+      "city": "vĩnh long",
+      "district": "bình minh",
+      "listingCount": 1
+    },
+    {
+      "id": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "uid": "J8gNVoE0kHOBOIGvbqvVWmwd5g82",
+      "role": "user",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "createdAt": 1773125674806,
+      "displayName": "Nguyễn Thị Huỳnh Như",
+      "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocILGNo2XD70a3QhNulVqGhW1tesKeV0wQpYe9h3KqDpcXX1CinL=s96-c",
+      "phone": "0357483234",
+      "address": "Trần Hoàng Na",
+      "city": "Cần Thơ",
+      "district": "Ninh Kiều",
+      "listingCount": 3
+    },
+    {
+      "id": "Q2sbXJyWEvW5d7wHM2LUhQ5Be0s2",
+      "uid": "Q2sbXJyWEvW5d7wHM2LUhQ5Be0s2",
+      "createdAt": 1768035281910,
+      "displayName": "Siuu",
+      "role": "admin",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0
+    },
+    {
+      "id": "RRt0FEKyTFZOI7xoQQz1iBTNDEv1",
+      "uid": "RRt0FEKyTFZOI7xoQQz1iBTNDEv1",
+      "role": "user",
+      "createdAt": 1768041050821,
+      "phone": "123456",
+      "displayName": "Nguyễn Văn A",
+      "address": "hẻm 112",
+      "city": "cần thơ",
+      "district": "tân an",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "avatarUrl": "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773319582/farm2art/avatars/hexflepndh6jgvc2q1uq.jpg",
+      "listingCount": 3
+    },
+    {
+      "id": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "uid": "SxkY6CL5vfVvlYriwLS67sOnz6j2",
+      "role": "user",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "createdAt": 1773051353102,
+      "displayName": "Huỳnh Như",
+      "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocKmHDTUaaCFBz0R_Bx20bcqN7ZFMI3fI3rnQJZ2j5ccA4boSV4=s96-c",
+      "phone": "0235964224",
+      "address": "Nguyễn Đệ",
+      "city": "Cần Thơ",
+      "district": "Cái Khế",
+      "listingCount": 4,
+      "sellerContractVersion": "v1-service-fees",
+      "sellerContractAcceptedAt": 1773381489359,
+      "payoutAccount": {
+        "accountHolder": "Huỳnh Như",
+        "bankName": "Ví điện tử",
+        "accountNumber": "WALLET-1773395223991"
+      }
+    },
+    {
+      "id": "ZIPes0JYWrXxkq9S9S1BQtlVAbI3",
+      "uid": "ZIPes0JYWrXxkq9S9S1BQtlVAbI3",
+      "role": "user",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "createdAt": 1772872259394,
+      "listingCount": 1
+    },
+    {
+      "id": "ZMELjDHOfJdRihPp1tmrc3nv4tG2",
+      "uid": "ZMELjDHOfJdRihPp1tmrc3nv4tG2",
+      "createdAt": 1768036287403,
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "displayName": "clone1",
+      "strikeCount": 0,
+      "role": "user",
+      "listingCount": 1
+    },
+    {
+      "id": "bBKlAPGYa4Sn97DuQKCxzvC8h1F3",
+      "uid": "bBKlAPGYa4Sn97DuQKCxzvC8h1F3",
+      "role": "user",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "createdAt": 1773125144194,
+      "displayName": "Chương Đặng"
+    },
+    {
+      "id": "nOxN449yNETD14J0ogkDdjiBQDt2",
+      "uid": "nOxN449yNETD14J0ogkDdjiBQDt2",
+      "role": "user",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "createdAt": 1773127664447,
+      "displayName": "Ngân Khả",
+      "avatarUrl": "https://res.cloudinary.com/dlg2dpmej/image/upload/v1773128084/farm2art/avatars/oiofdwux2ojlgjspuejo.jpg",
+      "phone": "0660411074",
+      "address": "Nguyễn Văn Cừ",
+      "city": "Cần Thơ",
+      "district": "Ninh Kiều",
+      "listingCount": 3
+    },
+    {
+      "id": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "uid": "psgJJo6iLHNNVttbh3YfGOTPfQ03",
+      "role": "user",
+      "createdAt": 1772606697033,
+      "phone": "0772825921",
+      "displayName": "Khang Test bài",
+      "accountStatus": "active",
+      "riskLevel": "low",
+      "strikeCount": 0,
+      "listingCount": 1,
+      "sellerContractVersion": "v1-service-fees",
+      "sellerContractAcceptedAt": 1773119153509
+    },
+    {
+      "id": "test_seller_001",
+      "role": "seller",
+      "sellerVerified": true
+    }
+  ]
+}

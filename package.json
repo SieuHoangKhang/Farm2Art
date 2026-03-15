@@ -13,7 +13,16 @@
     "migrate:seller-verifications:dry": "node scripts/migrate-seller-verifications.mjs --dry-run",
     "audit:orders": "node scripts/audit-order-fees.mjs",
     "audit:orders:fix": "node scripts/audit-order-fees.mjs --fix",
-    "test:vnpay-amount": "node scripts/test-vnpay-amount-regression.mjs"
+    "test:vnpay-amount": "node scripts/test-vnpay-amount-regression.mjs",
+    "export:chat-logs": "node scripts/export-chat-logs.mjs",
+    "prepare:finetune": "node scripts/prepare-finetune.mjs",
+    "collect:corpus": "node scripts/collect-corpus.mjs",
+    "sanitize:corpus": "node scripts/sanitize-corpus.mjs",
+    "build:tfidf": "node scripts/build-tfidf-index.mjs",
+    "generate:qa": "node scripts/generate-qa.mjs",
+    "generate:qa-local": "node scripts/generate-qa-local.mjs",
+    "test:chat-comprehensive": "node scripts/test-comprehensive-chat.mjs",
+    "export:firestore": "node scripts/export-firestore-json.mjs"
   },
   "dependencies": {
     "firebase": "^12.7.0",

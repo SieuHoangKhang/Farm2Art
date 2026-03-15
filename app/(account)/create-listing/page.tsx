@@ -30,6 +30,7 @@ export default function CreateListingPage() {
   const [vnpayWalletName, setVnpayWalletName] = useState("VNPAY");
   const [hasConfiguredVnpay, setHasConfiguredVnpay] = useState(false);
 
+  // Kiểm tra VNPAY khi component mount
   useEffect(() => {
     async function loadPayoutAccount() {
       if (!user?.uid) return;
@@ -46,14 +47,14 @@ export default function CreateListingPage() {
         const savedMethods = profileSnap.data()?.savedPaymentMethods as
           | Array<{ type?: string; name?: string }>
           | undefined;
-        const vnpayMethodName = Array.isArray(savedMethods)
-          ? (savedMethods.find((m) => m?.type === "ewallet" && /vnpay/i.test(String(m?.name || "")))?.name || "")
-          : "";
+        const firstEwallet = Array.isArray(savedMethods)
+          ? savedMethods.find((m) => m?.type === "ewallet")
+          : undefined;
 
-        if (vnpayMethodName) {
-          setVnpayWalletName(vnpayMethodName);
+        if (firstEwallet) {
+          setVnpayWalletName(firstEwallet.name || "VNPAY");
           setHasConfiguredVnpay(true);
-        } else if (payout?.bankName && /vnpay/i.test(String(payout.bankName))) {
+        } else if (payout?.bankName) {
           setVnpayWalletName("VNPAY");
           setHasConfiguredVnpay(true);
         }
@@ -64,6 +65,58 @@ export default function CreateListingPage() {
 
     void loadPayoutAccount();
   }, [user?.uid]);
+
+  // Kiểm tra lại VNPAY mỗi khi trang được focus lại (user quay lại từ profile)
+  useEffect(() => {
+    const handleFocus = async () => {
+      if (!user?.uid) return;
+      try {
+        const isConfigured = await checkVnpayConfig();
+        setHasConfiguredVnpay(isConfigured);
+      } catch {
+        // Ignore error
+      }
+    };
+
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [user?.uid]);
+
+  async function checkVnpayConfig() {
+    if (!user?.uid) return false;
+    try {
+      const [userSnap, profileSnap] = await Promise.all([
+        getDoc(doc(firebaseDb, "users", user.uid)),
+        getDoc(doc(firebaseDb, "user_profiles", user.uid)),
+      ]);
+
+      const payout = userSnap.data()?.payoutAccount;
+      const savedMethods = profileSnap.data()?.savedPaymentMethods as Array<{ type?: string; name?: string }> | undefined;
+      
+      const hasEwalletMethod = Array.isArray(savedMethods) && savedMethods.some((m) => m?.type === "ewallet");
+      const hasVnpayAccount = Boolean(payout?.bankName);
+
+      // Farm2Art hiện chỉ dùng VNPAY cho kênh e-wallet, nên chỉ cần có 1 phương thức e-wallet là đủ
+      return hasEwalletMethod || hasVnpayAccount;
+    } catch {
+      return false;
+    }
+  }
+
+  async function handleRefreshVnpay() {
+    setError(null);
+    const isConfigured = await checkVnpayConfig();
+    if (isConfigured) {
+      setHasConfiguredVnpay(true);
+      setError(null);
+      // Show success message briefly
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 2000);
+    } else {
+      setHasConfiguredVnpay(false);
+      setError("Chưa tìm thấy phương thức thanh toán VNPAY. Vui lòng vào Cài đặt tài khoản để thêm.");
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -84,8 +137,11 @@ export default function CreateListingPage() {
       return;
     }
 
-    if (!hasConfiguredVnpay) {
-      setError("Vui lòng vào trang cá nhân cập nhật phương thức thanh toán VNPAY trước khi đăng bán.");
+    // ✅ RE-CHECK VNPAY CONFIG (important: do this fresh check before submitting)
+    const isVnpayConfigured = await checkVnpayConfig();
+    if (!isVnpayConfigured) {
+      setHasConfiguredVnpay(false);
+      setError("Vui lòng vào Cài đặt tài khoản để cập nhật phương thức thanh toán VNPAY trước khi đăng bán.");
       return;
     }
 
@@ -415,7 +471,17 @@ export default function CreateListingPage() {
               </div>
 
               <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 space-y-3">
-                <p className="text-sm font-semibold text-emerald-900">Phương thức nhận tiền người bán (bắt buộc)</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold text-emerald-900">Phương thức nhận tiền người bán (bắt buộc)</p>
+                  <button
+                    type="button"
+                    onClick={handleRefreshVnpay}
+                    disabled={loading}
+                    className="text-xs px-3 py-1 rounded-md bg-emerald-200 text-emerald-900 hover:bg-emerald-300 transition disabled:opacity-50"
+                  >
+                    Kiểm tra lại
+                  </button>
+                </div>
                 <p className="text-xs text-emerald-800">
                   Farm2Art chỉ hỗ trợ ví điện tử VNPAY cho luồng chi trả người bán.
                 </p>
@@ -428,10 +494,21 @@ export default function CreateListingPage() {
                   <option value="VNPAY">VNPAY</option>
                 </select>
                 {!hasConfiguredVnpay ? (
-                  <p className="text-xs text-red-600">
-                    Bạn chưa cấu hình VNPAY trong trang cá nhân. Hãy cập nhật trước khi gửi đăng bán.
-                  </p>
-                ) : null}
+                  <div className="space-y-2">
+                    <p className="text-xs text-red-600 font-medium">
+                      Chưa cấu hình VNPAY
+                    </p>
+                    <LinkButton
+                      href="/profile"
+                      className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white w-full text-center"
+                    >
+                      Đi tới Cài đặt tài khoản
+                    </LinkButton>
+                    <p className="text-xs text-emerald-700">Tại đó, hãy chuyển sang tab Thanh toán và thêm Ví điện tử VNPAY</p>
+                  </div>
+                ) : (
+                  <p className="text-xs text-emerald-700 font-medium">VNPAY đã được cấu hình</p>
+                )}
               </div>
 
               <div>

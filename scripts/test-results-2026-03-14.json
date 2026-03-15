@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-03-14T13:14:02.217Z",
+  "summary": {
+    "total": 72,
+    "passed": 72,
+    "failed": 0,
+    "errors": 0,
+    "successRate": "100.0%"
+  },
+  "byCategory": {
+    "Greeting": {
+      "total": 5,
+      "passed": 5
+    },
+    "Search": {
+      "total": 8,
+      "passed": 8
+    },
+    "Price": {
+      "total": 6,
+      "passed": 6
+    },
+    "Buy": {
+      "total": 7,
+      "passed": 7
+    },
+    "Payment": {
+      "total": 5,
+      "passed": 5
+    },
+    "Shipping": {
+      "total": 6,
+      "passed": 6
+    },
+    "Account": {
+      "total": 5,
+      "passed": 5
+    },
+    "Seller": {
+      "total": 4,
+      "passed": 4
+    },
+    "Review": {
+      "total": 3,
+      "passed": 3
+    },
+    "Problem": {
+      "total": 7,
+      "passed": 7
+    },
+    "Eco": {
+      "total": 2,
+      "passed": 2
+    },
+    "Info": {
+      "total": 2,
+      "passed": 2
+    },
+    "Complex": {
+      "total": 5,
+      "passed": 5
+    },
+    "Ambiguous": {
+      "total": 3,
+      "passed": 3
+    },
+    "Casual": {
+      "total": 4,
+      "passed": 4
+    }
+  }
+}
