@@ -5,7 +5,7 @@ import { useAuthUser } from '@/lib/auth/useAuthUser';
 
 export interface Notification {
   id: string;
-  type: 'order' | 'promo' | 'system' | 'review' | 'message';
+  type: 'order' | 'promo' | 'system' | 'message';
   title: string;
   message: string;
   read: boolean;
@@ -63,14 +63,6 @@ export default function NotificationBell() {
           message: 'Seller vừa phản hồi câu hỏi của bạn',
           read: false,
           timestamp: Date.now() - 30 * 60 * 1000,
-        },
-        {
-          id: '4',
-          type: 'review',
-          title: 'Yêu cầu đánh giá',
-          message: 'Vui lòng đánh giá sản phẩm bạn vừa mua',
-          read: true,
-          timestamp: Date.now() - 24 * 60 * 60 * 1000,
         },
       ];
 

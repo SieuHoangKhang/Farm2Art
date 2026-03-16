@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 interface EmailData {
   to: string;
   subject: string;
-  type: 'order-confirmation' | 'shipping-update' | 'review-request' | 'verification' | 'promotion';
+  type: 'order-confirmation' | 'shipping-update' | 'verification' | 'promotion';
   data?: Record<string, any>;
 }
 
@@ -32,14 +32,6 @@ export async function POST(request: NextRequest) {
           <p>Đơn hàng #${body.data?.orderId} của bạn: <strong>${body.data?.status}</strong></p>
           <p>Dự kiến giao: ${new Date(body.data?.estimatedDelivery).toLocaleDateString('vi-VN')}</p>
           <p><a href="${process.env.NEXT_PUBLIC_URL}/orders/${body.data?.orderId}">Theo dõi</a></p>
-        `;
-        break;
-
-      case 'review-request':
-        htmlContent = `
-          <h2>Bạn đã nhận hàng!</h2>
-          <p>Sản phẩm: <strong>${body.data?.productTitle}</strong></p>
-          <p><a href="${process.env.NEXT_PUBLIC_URL}/listing/${body.data?.productId}#reviews">Viết đánh giá</a></p>
         `;
         break;
 

@@ -32,7 +32,6 @@ const emailTemplates: Record<string, EmailTemplate> = {
     htmlBody: `
       <h1>Đơn hàng đã giao</h1>
       <p>Đơn hàng {{orderId}} của bạn đã được giao thành công!</p>
-      <p>Vui lòng <a href="{{reviewLink}}">đánh giá sản phẩm</a></p>
     `,
   },
   promotionalEmail: {

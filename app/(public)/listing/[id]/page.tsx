@@ -9,9 +9,6 @@ import { Button, LinkButton } from "@/components/ui/Button";
 import { useAuthUser } from "@/lib/auth/useAuthUser";
 import { firebaseDb } from "@/lib/firebase/client";
 import type { Listing } from "@/types/listing";
-import ProductRatings from "@/components/listing/ProductRatings";
-import ReviewForm from "@/components/listing/ReviewForm";
-
 export default function ListingDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -21,7 +18,6 @@ export default function ListingDetailPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [buyLoading, setBuyLoading] = useState(false);
-  const [reviewRefreshKey, setReviewRefreshKey] = useState(0);
   const [seller, setSeller] = useState<{ name: string; id: string; avatarUrl?: string | null } | null>(null);
   const [isUnapproved, setIsUnapproved] = useState(false);
 
@@ -361,15 +357,6 @@ export default function ListingDetailPage() {
         </div>
 
         {/* Reviews Section */}
-        <div className="mx-auto max-w-6xl px-4 pb-8 sm:px-6">
-          <ProductRatings productId={listingId} refreshKey={reviewRefreshKey} />
-          {user && user.uid !== listing.sellerId && (
-            <ReviewForm
-              productId={listingId}
-              onReviewSubmitted={() => setReviewRefreshKey((k) => k + 1)}
-            />
-          )}
-        </div>
       </div>
     </div>
   );

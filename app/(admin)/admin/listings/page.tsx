@@ -29,7 +29,6 @@ export default function AdminListingsPage() {
     approved: number;
     rejected: number;
   } | null>(null);
-  const [sellerReviews, setSellerReviews] = useState<any[]>([]);
   const [loadingDetails, setLoadingDetails] = useState(false);
 
   useEffect(() => { loadListings(); }, []);
@@ -139,10 +138,6 @@ export default function AdminListingsPage() {
       setSellerProfile(data.sellerProfile ?? null);
       setSellerListingStats(data.sellerListingStats ?? null);
 
-      // Sort reviews by createdAt desc
-      const reviews = Array.isArray(data.sellerReviews) ? data.sellerReviews : [];
-      reviews.sort((a: any, b: any) => (b.createdAt || 0) - (a.createdAt || 0));
-      setSellerReviews(reviews);
     } catch (err) {
       console.error("Load seller details error:", err);
     } finally {
@@ -479,35 +474,6 @@ export default function AdminListingsPage() {
                           </div>
 
                           {/* Seller Reviews */}
-                          <div className="space-y-4">
-                            <h4 className="font-bold text-stone-900 text-base">⭐ Đánh giá ({sellerReviews.length})</h4>
-                            {loadingDetails ? (
-                              <div className="text-sm text-stone-500">Đang tải...</div>
-                            ) : sellerReviews.length > 0 ? (
-                              <div className="space-y-3 max-h-96 overflow-y-auto">
-                                {sellerReviews.slice(0, 5).map((review: any) => (
-                                  <div key={review.id} className="bg-white p-3 rounded-lg border border-blue-200 space-y-2">
-                                    <div className="flex items-center justify-between">
-                                      <div className="flex gap-1">
-                                        {[...Array(5)].map((_, i) => (
-                                          <span key={i} className={i < (review.rating || 0) ? "text-yellow-400 text-lg" : "text-stone-300 text-lg"}>
-                                            ★
-                                          </span>
-                                        ))}
-                                      </div>
-                                      <p className="text-xs text-stone-400">
-                                        {review.createdAt ? new Date(review.createdAt).toLocaleDateString("vi-VN") : "—"}
-                                      </p>
-                                    </div>
-                                    <p className="text-sm text-stone-800">{review.comment || "—"}</p>
-                                    <p className="text-xs text-stone-500">Từ: {review.buyerName || review.buyerId?.slice(0, 8)}...</p>
-                                  </div>
-                                ))}
-                              </div>
-                            ) : (
-                              <div className="text-sm text-stone-500">Chưa có đánh giá</div>
-                            )}
-                          </div>
                         </div>
                         </div>
                       </td>

@@ -33,17 +33,10 @@ export async function GET(request: NextRequest, context: any) {
       rejected: listings.filter((l) => l.approvalStatus === "rejected").length,
     };
 
-    const reviewsSnap = await db
-      .collection("reviews")
-      .where("sellerId", "==", sellerId)
-      .get();
-    const sellerReviews = reviewsSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
-
     return NextResponse.json({
       sellerInfo,
       sellerProfile,
       sellerListingStats,
-      sellerReviews,
     });
   } catch (error: any) {
     console.error("Admin seller detail fetch error:", error);

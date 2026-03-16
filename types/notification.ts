@@ -1,6 +1,6 @@
 export interface Notification {
   id: string;
-  type: 'order' | 'promo' | 'system' | 'review' | 'message';
+  type: 'order' | 'promo' | 'system' | 'message';
   title: string;
   message: string;
   read: boolean;

@@ -8,8 +8,6 @@ interface RecommendedProduct {
   id: string;
   title: string;
   price: number;
-  rating: number;
-  reviews: number;
   image: string;
   seller: string;
   isHot?: boolean;
@@ -97,13 +95,7 @@ export default function ProductRecommendations({
                   {product.price.toLocaleString()}đ
                 </span>
               </div>
-              <div className="flex items-center text-xs text-stone-500">
-                <span className="text-yellow-500">★</span>
-                <span className="ml-1">
-                  {product.rating} ({product.reviews})
-                </span>
-              </div>
-              <p className="text-xs text-stone-400 mt-2 line-clamp-1">
+              <p className="text-xs text-stone-400 mt-1 line-clamp-1">
                 {product.seller}
               </p>
             </div>

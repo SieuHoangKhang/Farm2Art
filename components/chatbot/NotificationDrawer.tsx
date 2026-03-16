@@ -5,7 +5,7 @@ import { useAuthUser } from '@/lib/auth/useAuthUser';
 
 export interface Notification {
   id: string;
-  type: 'order' | 'review' | 'message' | 'promotion' | 'system';
+  type: 'order' | 'message' | 'promotion' | 'system';
   title: string;
   message: string;
   icon: string;

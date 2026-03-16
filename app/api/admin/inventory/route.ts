@@ -13,8 +13,6 @@ interface SellerStats {
   sellerId: string;
   totalSales: number;
   revenue: number;
-  avgRating: number;
-  totalReviews: number;
   responseTime: number; // in hours
   returnRate: number; // percentage
   successRate: number; // percentage
@@ -54,8 +52,6 @@ const mockSellerStats: SellerStats[] = [
     sellerId: 'seller-1',
     totalSales: 850,
     revenue: 8500000,
-    avgRating: 4.9,
-    totalReviews: 1245,
     responseTime: 2,
     returnRate: 1.2,
     successRate: 98.8,
@@ -64,8 +60,6 @@ const mockSellerStats: SellerStats[] = [
     sellerId: 'seller-2',
     totalSales: 720,
     revenue: 7200000,
-    avgRating: 4.8,
-    totalReviews: 1089,
     responseTime: 3,
     returnRate: 2.1,
     successRate: 97.9,

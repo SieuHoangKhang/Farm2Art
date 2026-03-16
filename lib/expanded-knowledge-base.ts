@@ -16,7 +16,7 @@ export const EXPANDED_KNOWLEDGE_BASE = {
   search: {
     keywords: ['tìm', 'tìm kiếm', 'search', 'khám phá', 'lọc', 'tìm sản phẩm', 'sản phẩm nào', 'có sản phẩm', 'mua', 'shopping', 'tìm mua', 'tìm xem', 'browse', 'xem xem', 'muốn tìm', 'có bán', 'bán cái gì', 'bán không', 'chỗ nào bán', 'hiện có gì', 'bạn bán gì', 'farm2art bán gì', 'bạn có cái gì', 'muốn mua', 'tìm hàng', 'tìm hàng tốt', 'xem hàng', 'có hàng gì tốt', 'suggest cho mình', 'gợi ý', 'recommend'],
     responses: [
-      '🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n• Đánh giá & số lượng bán\n\nBạn đang tìm gì cụ thể?',
+      '🔍 Bạn có thể tìm kiếm theo:\n• Loại sản phẩm\n• Khoảng giá\n• Địa điểm người bán\n\nBạn đang tìm gì cụ thể?',
       '🛍️ Farm2Art có kho sản phẩm phong phú:\n- 🥕 Nông sản tươi\n- 🧃 Nước ép & đồ uống\n- 🎨 Artwork tái chế\n- 📦 Combo & gói quà\n\nHãy cho tôi biết loại nào bạn quan tâm!'
     ]
   },
@@ -66,7 +66,7 @@ export const EXPANDED_KNOWLEDGE_BASE = {
   policy: {
     keywords: ['chính sách', 'quy định', 'điều khoản', 'règles', 'policy', 'điểm thương lượng', 'chính sách hoàn tiền', 'chính sách ship', 'quy tắc', 'luật lệ', 'điều luật', 'bảo hành', 'cam kết', 'bảo vệ khách hàng', 'quyền lợi'],
     responses: [
-      '📋 **Chính Sách Farm2Art**:\n\n💳 **Thanh toán**: VNPay, Chuyển khoản, Ví điện tử, COD (khi nhận)\n\n🚚 **Giao hàng**: 2-5 ngày, miễn phí từ 500k, toàn quốc\n\n🔄 **Hoàn/Đổi**: Lỗi sản phẩm = đổi/hoàn 100%, trong 7 ngày\n\n⭐ **Đánh giá**: Bạn có quyền đánh giá sau khi nhận hàng\n\n🌱 **Bảo vệ**: 100% sản phẩm tự nhiên, không hóa chất\n\nCác chính sách khác nào bạn muốn biết?',
+      '📋 **Chính Sách Farm2Art**:\n\n💳 **Thanh toán**: VNPay, Chuyển khoản, Ví điện tử, COD (khi nhận)\n\n🚚 **Giao hàng**: 2-5 ngày, miễn phí từ 500k, toàn quốc\n\n🔄 **Hoàn/Đổi**: Lỗi sản phẩm = đổi/hoàn 100%, trong 7 ngày\n\n🌱 **Bảo vệ**: 100% sản phẩm tự nhiên, không hóa chất\n\nCác chính sách khác nào bạn muốn biết?',
       '✅ **Chính sách chính**:\n• Hoàn tiền nếu sản phẩm hỏng\n• Miễn phí ship từ 500k\n• Hỗ trợ 24/7 qua chat\n• Tất cả sản phẩm kiểm chứng chất lượng\n• Cam kết bảo vệ môi trường\n\nBạn muốn hỏi chính sách nào cụ thể?'
     ]
   },
@@ -91,7 +91,7 @@ export const EXPANDED_KNOWLEDGE_BASE = {
   buying_process: {
     keywords: ['mua', 'đặt hàng', 'order', 'cách mua', 'bước mua', 'quy trình', 'hướng dẫn mua', 'cách thức mua', 'làm sao mua', 'mua kiểu gì', 'đặt hàng sao', 'mua thế nào', 'lần đầu mua', 'tôi muốn mua'],
     responses: [
-      '🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Xem bình luận & đánh giá\n3️⃣ Chọn số lượng\n4️⃣ Xem thông tin người bán\n5️⃣ Thêm vào giỏ\n6️⃣ Thanh toán\n7️⃣ Nhận & đánh giá\n\nBạn cần giúp bước nào?'
+      '🛒 Quy trình mua hàng Farm2Art:\n1️⃣ Tìm & xem sản phẩm\n2️⃣ Chọn số lượng\n3️⃣ Xem thông tin người bán\n4️⃣ Thêm vào giỏ\n5️⃣ Thanh toán\n6️⃣ Nhận hàng\n\nBạn cần giúp bước nào?'
     ]
   },
   payment_methods: {
@@ -127,19 +127,13 @@ export const EXPANDED_KNOWLEDGE_BASE = {
   seller_profile: {
     keywords: ['người bán', 'cửa hàng', 'shop', 'seller', 'bán hàng', 'profile', 'đánh giá', 'shop của ai', 'người bán ai', 'xem shop', 'xem người bán', 'rating người bán', 'xem thông tin người bán'],
     responses: [
-      '👨‍🌾 Hồ sơ người bán:\n⭐ Xem rating & số lượng bán\n📝 Xem bình luận từ khách\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?'
+      '👨‍🌾 Hồ sơ người bán:\n📍 Xem địa điểm & giờ hoạt động\n💬 Chat trực tiếp với người bán\n✅ Xem chứng chỉ kiểm chứng\n\nBạn muốn tìm người bán cụ thể không?'
     ]
   },
   seller_registration: {
     keywords: ['bán', 'đăng ký bán', 'trở thành người bán', 'seller', 'shop', 'cửa hàng', 'mở shop', 'kinh doanh', 'bán hàng trên farm2art', 'điều kiện bán', 'làm thế nào để bán', 'bán như nào'],
     responses: [
       '🛵 Cách trở thành người bán Farm2Art:\n1️⃣ Đáp ứng tiêu chí: 18+, nông dân hoặc artisan\n2️⃣ Gửi đơn + chứng chỉ\n3️⃣ Farm2Art kiểm duyệt (3-5 ngày)\n4️⃣ Cấp quyền bán\n5️⃣ Bắt đầu bán (2% hoa hồng)\n\nBạn muốn đăng ký? support@farm2art.vn'
-    ]
-  },
-  reviews: {
-    keywords: ['đánh giá', 'bình luận', 'review', 'sao', 'bản review', 'ý kiến', 'review sao', 'viết review', 'đánh giá sao', 'bình luận sao', 'review như nào'],
-    responses: [
-      '⭐ Đánh giá trên Farm2Art:\n1️⃣ Nhận hàng & kiểm tra\n2️⃣ Vào đơn hàng → Đánh giá\n3️⃣ Chọn sao (1-5)\n4️⃣ Viết bình luận\n5️⃣ Gửi (có thể kèm hình)\n\nBạn muốn đánh giá sản phẩm nào?'
     ]
   },
   registration: {
@@ -202,7 +196,7 @@ export const EXPANDED_KNOWLEDGE_BASE = {
   brand: {
     keywords: ['thương hiệu', 'brand', 'farm2art brand', 'shop chính hãng', 'hãng nào', 'của ai', 'shop nào', 'tên shop', 'tên hãng'],
     responses: [
-      '🏪 Farm2Art - Thương hiệu tin cậy:\n✓ Nền tảng lớn nhất VN kết nối nông dân\n✓ Review từ 100,000+ khách hàng\n✓ Được báo chí đưa tin\n✓ Hỗ trợ 24/7\n✓ Bảo vệ quyền lợi khách hàng\n\nChúng tôi là lựa chọn an toàn!'
+      '🏪 Farm2Art - Thương hiệu tin cậy:\n✓ Nền tảng lớn nhất VN kết nối nông dân\n✓ Được báo chí đưa tin\n✓ Hỗ trợ 24/7\n✓ Bảo vệ quyền lợi khách hàng\n\nChúng tôi là lựa chọn an toàn!'
     ]
   },
   discount_promo: {

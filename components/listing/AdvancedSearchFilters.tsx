@@ -6,9 +6,8 @@ export interface SearchFiltersState {
   category: string;
   priceMin: number;
   priceMax: number;
-  minRating: number;
   inStockOnly: boolean;
-  sortBy: 'newest' | 'popular' | 'priceAsc' | 'priceDesc' | 'ratingDesc';
+  sortBy: 'newest' | 'popular' | 'priceAsc' | 'priceDesc';
 }
 
 interface SearchFiltersComponentProps {
@@ -24,7 +23,6 @@ export default function AdvancedSearchFilters({
     category: '',
     priceMin: 0,
     priceMax: 1000000,
-    minRating: 0,
     inStockOnly: false,
     sortBy: 'newest',
   });
@@ -42,7 +40,6 @@ export default function AdvancedSearchFilters({
       category: '',
       priceMin: 0,
       priceMax: 1000000,
-      minRating: 0,
       inStockOnly: false,
       sortBy: 'newest',
     };
@@ -147,26 +144,6 @@ export default function AdvancedSearchFilters({
         </div>
 
         {/* Rating */}
-        <div>
-          <h4 className="font-semibold text-stone-800 mb-3">Đánh giá</h4>
-          <div className="space-y-2">
-            {[5, 4, 3, 2, 1, 0].map(stars => (
-              <label key={stars} className="flex items-center">
-                <input
-                  type="radio"
-                  name="rating"
-                  checked={filters.minRating === stars}
-                  onChange={() => setFilters({ ...filters, minRating: stars })}
-                  className="w-4 h-4"
-                />
-                <span className="ml-2 text-stone-600">
-                  {stars === 0 ? 'Tất cả' : `${stars} trở lên`}
-                </span>
-              </label>
-            ))}
-          </div>
-        </div>
-
         {/* In Stock */}
         <div>
           <label className="flex items-center">
@@ -199,7 +176,6 @@ export default function AdvancedSearchFilters({
             <option value="popular">Phổ biến</option>
             <option value="priceAsc">Giá thấp đến cao</option>
             <option value="priceDesc">Giá cao đến thấp</option>
-            <option value="ratingDesc">Đánh giá cao nhất</option>
           </select>
         </div>
       </div>

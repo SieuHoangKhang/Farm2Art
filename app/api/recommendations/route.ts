@@ -7,8 +7,6 @@ interface Listing {
   price: number;
   image: string;
   seller: string;
-  rating: number;
-  reviews: number;
 }
 
 // Mock listings database - Farm2Art byproduct & craft domain
@@ -20,8 +18,6 @@ const mockListings: Listing[] = [
     price: 450000,
     image: '/images/byproduct-1.jpg',
     seller: 'Trang trại Bắc Ninh',
-    rating: 4.8,
-    reviews: 345,
   },
   {
     id: '2',
@@ -30,8 +26,6 @@ const mockListings: Listing[] = [
     price: 320000,
     image: '/images/byproduct-2.jpg',
     seller: 'HTX Hà Nội',
-    rating: 4.9,
-    reviews: 456,
   },
   {
     id: '3',
@@ -40,8 +34,6 @@ const mockListings: Listing[] = [
     price: 280000,
     image: '/images/byproduct-3.jpg',
     seller: 'Nông trại Đắk Lắk',
-    rating: 4.7,
-    reviews: 234,
   },
   {
     id: '4',
@@ -50,8 +42,6 @@ const mockListings: Listing[] = [
     price: 350000,
     image: '/images/craft-1.jpg',
     seller: 'Xưởng Na Xá',
-    rating: 4.6,
-    reviews: 567,
   },
   {
     id: '5',
@@ -60,8 +50,6 @@ const mockListings: Listing[] = [
     price: 800000,
     image: '/images/craft-2.jpg',
     seller: 'Thương lái Nội',
-    rating: 4.8,
-    reviews: 890,
   },
   {
     id: '6',
@@ -70,8 +58,6 @@ const mockListings: Listing[] = [
     price: 280000,
     image: '/images/craft-3.jpg',
     seller: 'Làng nghề Tây Hồ',
-    rating: 4.9,
-    reviews: 1200,
   },
 ];
 
@@ -88,11 +74,6 @@ function calculateSimilarity(product: Listing, viewedProduct: Listing): number {
   const pricePercentDiff = (priceDiff / viewedProduct.price) * 100;
   if (pricePercentDiff < 50) {
     score += 2;
-  }
-
-  // High rating: +1
-  if (product.rating >= 4.7) {
-    score += 1;
   }
 
   // Same seller: +2
@@ -113,7 +94,7 @@ export async function GET(request: NextRequest) {
       // Return trending products if no specific product
       return NextResponse.json({
         recommendations: mockListings
-          .sort((a, b) => b.rating * b.reviews - a.rating * a.reviews)
+          .sort((a, b) => b.price - a.price)
           .slice(0, limit)
           .map(p => ({ ...p, isHot: true })),
       });
@@ -134,7 +115,7 @@ export async function GET(request: NextRequest) {
       .map(p => ({
         ...p,
         similarity: calculateSimilarity(p, viewedProduct),
-        isHot: p.rating * p.reviews > 2000,
+        isHot: false,
       }));
 
     // Sort by similarity and return top N
