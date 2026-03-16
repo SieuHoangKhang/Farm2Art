@@ -21,5 +21,6 @@ export type AppUser = {
     accountHolder: string;
     updatedAt?: number;
   };
+  sellerContractAcceptedAt?: number;
   createdAt: number;
 };

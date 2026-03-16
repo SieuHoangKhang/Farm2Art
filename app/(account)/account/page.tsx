@@ -85,6 +85,7 @@ export default function AccountPage() {
   const [listingIdsWithBuyerOrders, setListingIdsWithBuyerOrders] = useState<Set<string>>(new Set());
   const [dataLoading, setDataLoading] = useState(false);
   const [dataError, setDataError] = useState<string | null>(null);
+  const [hasInvoiceNotification, setHasInvoiceNotification] = useState(false);
 
   const [displayName, setDisplayName] = useState("");
   const [phone, setPhone] = useState("");
@@ -105,6 +106,10 @@ export default function AccountPage() {
       (user ? "Người dùng" : "")
     );
   }, [profile?.displayName, user]);
+
+  const showInvoiceNotification =
+    hasInvoiceNotification ||
+    (!!profile && !profile.sellerContractAcceptedAt);
 
   function resetEditFields() {
     setDisplayName(profile?.displayName ?? user?.displayName ?? "");
@@ -249,6 +254,35 @@ export default function AccountPage() {
     }
 
     void loadRelated();
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) {
+      setHasInvoiceNotification(false);
+      return;
+    }
+
+    let cancelled = false;
+
+    const q = query(
+      collection(firebaseDb, "invoices"),
+      where("sellerId", "==", user.uid),
+      where("status", "in", ["draft", "generated", "sent", "viewed"])
+    );
+
+    getCountFromServer(q)
+      .then((snap) => {
+        if (cancelled) return;
+        setHasInvoiceNotification(snap.data().count > 0);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setHasInvoiceNotification(false);
+      });
+
     return () => {
       cancelled = true;
     };
@@ -554,7 +588,10 @@ export default function AccountPage() {
                   <span></span> Đơn hàng
                 </LinkButton>
                 <LinkButton href="/invoices" variant="ghost" className="justify-start h-11 text-sm font-medium">
-                  <span></span> Hợp đồng & tiền admin chi trả
+                  <span className="flex items-center gap-2">
+                    <span>Hợp đồng & tiền admin chi trả</span>
+                    {showInvoiceNotification && <span className="h-2 w-2 rounded-full bg-red-500" />}
+                  </span>
                 </LinkButton>
               </div>
             </CardBody>
