@@ -9,6 +9,22 @@ const MAX_STORAGE_DAYS = 30;
 const STORAGE_FEE_PER_DAY = 2000;
 const SHIPPING_FEE_RATE = 0.05;
 
+function stripUndefined<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map((item) => stripUndefined(item)) as T;
+  }
+
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value as Record<string, unknown>)
+      .filter(([, entryValue]) => entryValue !== undefined)
+      .map(([key, entryValue]) => [key, stripUndefined(entryValue)]);
+
+    return Object.fromEntries(entries) as T;
+  }
+
+  return value;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -153,7 +169,7 @@ export async function POST(request: Request) {
     };
 
     const ordersRef = collection(serverDb, "orders");
-    const docRef = await addDoc(ordersRef, order);
+    const docRef = await addDoc(ordersRef, stripUndefined(order));
 
     return NextResponse.json({ orderId: docRef.id, success: true });
   } catch (e) {
