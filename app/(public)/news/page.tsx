@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Card, CardBody } from "@/components/ui/Card";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Modal } from "@/components/ui/Modal";
-import { NEWS } from "@/lib/mock/news";
-import type { NewsItem } from "@/lib/mock/news";
+import type { NewsArticle } from "@/types/news";
 
 function NewsImage({ src, alt }: { src: string; alt: string }) {
   const [error, setError] = useState(false);
@@ -23,18 +21,50 @@ function NewsImage({ src, alt }: { src: string; alt: string }) {
   }
 
   return (
-    <Image
+    <img
       src={src}
       alt={alt}
-      fill
-      className="object-cover"
+      className="h-full w-full object-cover"
       onError={() => setError(true)}
     />
   );
 }
 
 export default function NewsPage() {
-  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+  const [articles, setArticles] = useState<NewsArticle[]>([]);
+  const [selectedNews, setSelectedNews] = useState<NewsArticle | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadNews() {
+      try {
+        const res = await fetch("/api/news", { cache: "no-store" });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || "Failed to load news");
+        }
+
+        if (active) {
+          setArticles(data.articles || []);
+        }
+      } catch (error) {
+        console.error("Failed to load public news:", error);
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadNews();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <div className="animate-fadeIn">
@@ -44,10 +74,17 @@ export default function NewsPage() {
       />
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {NEWS.map((item, i) => (
+        {loading ? (
+          <div className="py-16 text-center text-stone-500">Đang tải tin tức...</div>
+        ) : articles.length === 0 ? (
+          <div className="rounded-2xl border border-stone-200 bg-white px-6 py-16 text-center text-stone-500">
+            Chưa có bài viết tin tức nào được xuất bản
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.map((item, i) => (
             <button
-              key={item.slug}
+              key={item.id}
               onClick={() => setSelectedNews(item)}
               className="text-left hover-lift focus:outline-none animate-fadeInUp"
               style={{ animationDelay: `${i * 80}ms` }}
@@ -59,7 +96,7 @@ export default function NewsPage() {
                 <CardBody>
                   <div className="mb-3">
                     <span className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-                      {new Date(item.date).toLocaleDateString("vi-VN")}
+                      {new Date(item.publishedAt || item.date || item.createdAt).toLocaleDateString("vi-VN")}
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold text-stone-800 line-clamp-2 hover:text-emerald-700 transition-colors">
@@ -75,7 +112,8 @@ export default function NewsPage() {
               </Card>
             </button>
           ))}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Modal */}
@@ -95,8 +133,13 @@ export default function NewsPage() {
             {/* Meta info */}
             <div className="flex items-center gap-4">
               <span className="inline-block rounded-full bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700">
-                 {new Date(selectedNews.date).toLocaleDateString("vi-VN")}
+                 {new Date(selectedNews.publishedAt || selectedNews.date || selectedNews.createdAt).toLocaleDateString("vi-VN")}
               </span>
+              {selectedNews.category ? (
+                <span className="inline-block rounded-full bg-stone-100 px-4 py-2 text-sm font-semibold text-stone-700">
+                  {selectedNews.category}
+                </span>
+              ) : null}
             </div>
 
             {/* Excerpt */}
@@ -105,17 +148,8 @@ export default function NewsPage() {
             </p>
 
             {/* Content sections */}
-            <div className="space-y-6">
-              {selectedNews.content.map((section, idx) => (
-                <div key={idx}>
-                  <h3 className="text-xl font-semibold text-stone-800 mb-3">
-                    {section.heading}
-                  </h3>
-                  <p className="text-stone-600 leading-relaxed">
-                    {section.body}
-                  </p>
-                </div>
-              ))}
+            <div className="space-y-4 text-stone-600 leading-relaxed whitespace-pre-line">
+              {selectedNews.content}
             </div>
 
             {/* Footer */}

@@ -1,31 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, orderBy } from "firebase/firestore";
-import { firebaseDb } from "@/lib/firebase/client";
+import { getAdminDb } from "@/lib/firebase/admin";
 import type { NewsArticle } from "@/types/news";
 
 // GET - Fetch all news articles
 export async function GET(request: NextRequest) {
   try {
+    const adminDb = getAdminDb();
     const { searchParams } = new URL(request.url);
     const status = searchParams.get("status"); // "draft", "published", "archived"
 
-    let q = query(
-      collection(firebaseDb, "news"),
-      orderBy("createdAt", "desc")
-    );
+    let q = adminDb.collection("news").orderBy("createdAt", "desc");
 
     if (status) {
-      q = query(
-        collection(firebaseDb, "news"),
-        where("status", "==", status),
-        orderBy("createdAt", "desc")
-      );
+      q = adminDb.collection("news").where("status", "==", status).orderBy("createdAt", "desc");
     }
 
-    const snapshot = await getDocs(q);
-    const articles = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
+    const snapshot = await q.get();
+    const articles = snapshot.docs.map((articleDoc) => ({
+      id: articleDoc.id,
+      ...articleDoc.data(),
     } as NewsArticle));
 
     return NextResponse.json({ articles }, { status: 200 });
@@ -41,6 +34,7 @@ export async function GET(request: NextRequest) {
 // POST - Create new news article
 export async function POST(request: NextRequest) {
   try {
+    const adminDb = getAdminDb();
     const body = await request.json();
     const { title, slug, excerpt, content, image, status, category, createdBy, date } = body;
 
@@ -65,7 +59,7 @@ export async function POST(request: NextRequest) {
       category: category || "",
     };
 
-    const docRef = await addDoc(collection(firebaseDb, "news"), newArticle);
+    const docRef = await adminDb.collection("news").add(newArticle);
 
     return NextResponse.json(
       {
@@ -77,7 +71,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("❌ Error creating news:", error);
     return NextResponse.json(
-      { error: "Failed to create news article" },
+      { error: error instanceof Error ? error.message : "Failed to create news article" },
       { status: 500 }
     );
   }
@@ -86,6 +80,7 @@ export async function POST(request: NextRequest) {
 // PUT - Update news article
 export async function PUT(request: NextRequest) {
   try {
+    const adminDb = getAdminDb();
     const body = await request.json();
     const { id, title, slug, excerpt, content, image, status, category, date } = body;
 
@@ -96,7 +91,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const articleRef = doc(firebaseDb, "news", id);
+    const articleRef = adminDb.collection("news").doc(id);
     const updates = {
       ...(title && { title }),
       ...(slug && { slug }),
@@ -109,7 +104,7 @@ export async function PUT(request: NextRequest) {
       updatedAt: Date.now(),
     };
 
-    await updateDoc(articleRef, updates);
+    await articleRef.update(updates);
 
     return NextResponse.json(
       { message: "Article updated successfully" },
@@ -127,6 +122,7 @@ export async function PUT(request: NextRequest) {
 // DELETE - Delete news article
 export async function DELETE(request: NextRequest) {
   try {
+    const adminDb = getAdminDb();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
@@ -137,7 +133,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    await deleteDoc(doc(firebaseDb, "news", id));
+    await adminDb.collection("news").doc(id).delete();
 
     return NextResponse.json(
       { message: "Article deleted successfully" },

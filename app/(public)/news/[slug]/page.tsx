@@ -4,19 +4,25 @@ import { notFound } from "next/navigation";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { getNewsBySlug, NEWS } from "@/lib/mock/news";
+import { getAdminDb } from "@/lib/firebase/admin";
+import type { NewsArticle } from "@/types/news";
 
-export function generateStaticParams() {
-  return NEWS.map((n) => ({ slug: n.slug }));
-}
-
-export default function NewsDetailPage({
+export default async function NewsDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params as unknown as { slug: string };
-  const item = getNewsBySlug(slug);
+  const { slug } = await params;
+  const snapshot = await getAdminDb()
+    .collection("news")
+    .where("status", "==", "published")
+    .where("slug", "==", slug)
+    .limit(1)
+    .get();
+
+  const item = snapshot.docs[0]
+    ? ({ id: snapshot.docs[0].id, ...snapshot.docs[0].data() } as NewsArticle)
+    : null;
 
   if (!item) notFound();
 
@@ -29,19 +35,17 @@ export default function NewsDetailPage({
           </Link>
         </div>
 
-        <PageHeader title={item.title} subtitle={new Date(item.date).toLocaleDateString("vi-VN")} />
+        <PageHeader
+          title={item.title}
+          subtitle={new Date(item.publishedAt || item.date || item.createdAt).toLocaleDateString("vi-VN")}
+        />
 
         <Card>
           <CardBody>
             <p className="text-sm text-stone-700">{item.excerpt}</p>
 
-            <div className="mt-6 space-y-6">
-              {item.content.map((section) => (
-                <section key={section.heading} className="space-y-2">
-                  <h2 className="text-base font-semibold text-stone-900">{section.heading}</h2>
-                  <p className="text-sm leading-6 text-stone-700">{section.body}</p>
-                </section>
-              ))}
+            <div className="mt-6 whitespace-pre-line text-sm leading-6 text-stone-700">
+              {item.content}
             </div>
           </CardBody>
         </Card>
