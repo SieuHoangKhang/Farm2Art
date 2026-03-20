@@ -70,6 +70,32 @@ export default function AdminUsersPage() {
     showToast(next === "suspended" ? "Đã khóa tài khoản" : "Đã mở khóa tài khoản");
   }
 
+  async function deleteUser(uid: string, displayName?: string) {
+    const confirmed = window.confirm(
+      `Bạn có chắc chắn muốn xóa người dùng ${displayName || uid}? Hành động này không thể hoàn tác.`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setSaving(uid);
+      const res = await fetch(`/api/admin/users/${uid}`, { method: "DELETE" });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        throw new Error(data?.error || "Không thể xóa người dùng");
+      }
+
+      setUsers((prev) => prev.filter((u) => u.uid !== uid));
+      showToast("Đã xóa người dùng");
+    } catch (err) {
+      console.error(err);
+      showToast(err instanceof Error ? err.message : "Lỗi: không thể xóa người dùng");
+    } finally {
+      setSaving(null);
+    }
+  }
+
   function showToast(msg: string) { setToast(msg); setTimeout(() => setToast(null), 3000); }
   const fmtDate = (ts: number) => new Date(ts).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
 
@@ -222,6 +248,13 @@ export default function AdminUsersPage() {
                             className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold ${(u.accountStatus ?? "active") === "suspended" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}
                           >
                             {(u.accountStatus ?? "active") === "suspended" ? "Mở khóa" : "Khóa"}
+                          </button>
+                          <button
+                            onClick={() => deleteUser(u.uid, u.displayName || u.email)}
+                            disabled={saving === u.uid}
+                            className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-rose-100 text-rose-700 border border-rose-200 hover:bg-rose-200 disabled:opacity-50 transition-colors duration-200"
+                          >
+                            Xóa
                           </button>
                         </>
                       )}
