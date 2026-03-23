@@ -7,7 +7,26 @@ export async function GET(request: NextRequest) {
   try {
     const adminDb = getAdminDb();
     const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
     const status = searchParams.get("status"); // "draft", "published", "archived"
+
+    if (id) {
+      const articleDoc = await adminDb.collection("news").doc(id).get();
+
+      if (!articleDoc.exists) {
+        return NextResponse.json(
+          { error: "Article not found", articles: [] },
+          { status: 404 }
+        );
+      }
+
+      const article = {
+        id: articleDoc.id,
+        ...articleDoc.data(),
+      } as NewsArticle;
+
+      return NextResponse.json({ articles: [article] }, { status: 200 });
+    }
 
     let q = adminDb.collection("news").orderBy("createdAt", "desc");
 

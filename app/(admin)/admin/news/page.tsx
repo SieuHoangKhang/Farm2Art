@@ -178,7 +178,7 @@ export default function AdminNewsPage() {
                     </td>
                     <td className="px-6 py-4 text-sm space-x-2">
                       <button
-                        onClick={() => router.push(`/admin/news/edit/${article.id}`)}
+                        onClick={() => router.push(`/admin/news/${article.id}`)}
                         className="text-emerald-600 hover:text-emerald-700 font-semibold"
                       >
                         Chỉnh sửa
